@@ -1,9 +1,5 @@
 # 🧠 Explicações Conceituais - Projeto cub3D
 
-*Um guia teóde exrico completo para compreender todos os conceitos, algoritmos e lógicas por trás do desenvolvimento de um ray-caster 3D*
-
----
-
 ## 🎯 Visão Geral do Projeto
 
 ### O que é Ray-casting e por que é revolucionário? 🔍
