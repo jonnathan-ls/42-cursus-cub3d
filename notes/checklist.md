@@ -19,17 +19,17 @@ Planejamento de checklist para norteamento durante desenvolvimento do projeto.
 - [x] Criar README.md básico com instruções
 
 ### 🔧 2. Makefile e Configurações
-- [ ] Criar Makefile com variáveis CC, CFLAGS, NAME
-- [ ] Definir CFLAGS: `-Wall -Wextra -Werror`
-- [ ] Adicionar regra `$(NAME)` para compilação principal
-- [ ] Adicionar regra `all` que chama `$(NAME)`
-- [ ] Adicionar regra `clean` para limpar objetos
-- [ ] Adicionar regra `fclean` que chama clean e remove executável
-- [ ] Adicionar regra `re` que chama fclean e all
+- [x] Criar Makefile com variáveis CC, CFLAGS, NAME
+- [x] Definir CFLAGS: `-Wall -Wextra -Werror`
+- [x] Adicionar regra `$(NAME)` para compilação principal
+- [x] Adicionar regra `all` que chama `$(NAME)`
+- [x] Adicionar regra `clean` para limpar objetos
+- [x] Adicionar regra `fclean` que chama clean e remove executável
+- [x] Adicionar regra `re` que chama fclean e all
 - [ ] Adicionar regra `bonus` para features extras
-- [ ] Configurar compilação da libft
+- [x] Configurar compilação da libft
 - [ ] Configurar linking com minilibx (-lmlx -lm -lX11 -lXext)
-- [ ] Testar compilação básica
+- [x] Testar compilação básica
 
 ### 📚 3. Headers Principais
 - [ ] Criar `include/cub3d.h` como header principal
