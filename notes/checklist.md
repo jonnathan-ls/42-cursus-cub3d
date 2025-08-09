@@ -5,18 +5,18 @@ Planejamento de checklist para norteamento durante desenvolvimento do projeto.
 ## 🚀 PREPARAÇÃO E SETUP INICIAL
 
 ### 📁 1. Estrutura do Projeto
-- [ ] Criar diretório raiz do projeto
-- [ ] Criar subdiretório `src/` para código fonte
-- [ ] Criar subdiretório `include/` para headers
-- [ ] Criar subdiretório `lib/` para bibliotecas
-- [ ] Criar subdiretório `lib/libft/` para libft
-- [ ] Criar subdiretório `lib/minilibx/` para minilibx
-- [ ] Criar subdiretório `maps/` para arquivos .cub de teste
-- [ ] Criar subdiretório `textures/` para arquivos de textura
-- [ ] Criar subdiretório `tests/` para testes unitários
-- [ ] Criar arquivo `.gitignore` com exclusões apropriadas
-- [ ] Inicializar repositório git
-- [ ] Criar README.md básico com instruções
+- [x] Criar diretório raiz do projeto
+- [x] Criar subdiretório `sources/` para código fonte
+- [x] Criar subdiretório `includes/` para headers
+- [x] Criar subdiretório `libaries/` para bibliotecas
+- [x] Criar subdiretório `libaries/libft/` para libft
+- [ ] Criar subdiretório `libaries/minilibx/` para minilibx
+- [x] Criar subdiretório `maps/` para arquivos .cub de teste
+- [x] Criar subdiretório `textures/` para arquivos de textura
+- [x] Criar subdiretório `tests/` para testes unitários
+- [x] Criar arquivo `.gitignore` com exclusões apropriadas
+- [x] Inicializar repositório git
+- [x] Criar README.md básico com instruções
 
 ### 🔧 2. Makefile e Configurações
 - [ ] Criar Makefile com variáveis CC, CFLAGS, NAME
