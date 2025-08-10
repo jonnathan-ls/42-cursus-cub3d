@@ -10,7 +10,7 @@ Planejamento de checklist para norteamento durante desenvolvimento do projeto.
 - [x] Criar subdiretório `includes/` para headers
 - [x] Criar subdiretório `libaries/` para bibliotecas
 - [x] Criar subdiretório `libaries/libft/` para libft
-- [ ] Criar subdiretório `libaries/minilibx/` para minilibx
+- [x] Criar subdiretório `libaries/mlx42/` para minilibx
 - [x] Criar subdiretório `maps/` para arquivos .cub de teste
 - [x] Criar subdiretório `textures/` para arquivos de textura
 - [x] Criar subdiretório `tests/` para testes unitários
@@ -28,19 +28,17 @@ Planejamento de checklist para norteamento durante desenvolvimento do projeto.
 - [x] Adicionar regra `re` que chama fclean e all
 - [ ] Adicionar regra `bonus` para features extras
 - [x] Configurar compilação da libft
-- [ ] Configurar linking com minilibx (-lmlx -lm -lX11 -lXext)
+- [x] Configurar linking com minilibx (-lmlx -lm -lX11 -lXext)
 - [x] Testar compilação básica
 
 ### 📚 3. Headers Principais
-- [ ] Criar `include/cub3d.h` como header principal
-- [ ] Incluir bibliotecas padrão: `<unistd.h>`, `<stdlib.h>`, `<stdio.h>`
-- [ ] Incluir `<math.h>` para funções matemáticas
-- [ ] Incluir `<fcntl.h>` para file operations
-- [ ] Incluir minilibx headers
-- [ ] Incluir libft header se utilizada
-- [ ] Definir constantes de tela: `SCREEN_WIDTH`, `SCREEN_HEIGHT`
-- [ ] Definir constantes de movimento: `MOVE_SPEED`, `ROT_SPEED`
-- [ ] Definir constantes de mapa: `WALL`, `EMPTY`, etc.
+- [x] Criar `include/cub3d.h` como header principal
+- [x] Incluir bibliotecas padrão: `<unistd.h>`, `<stdlib.h>`, `<stdio.h>`
+- [x] Incluir `<math.h>` para funções matemáticas
+- [x] Incluir `<fcntl.h>` para file operations
+- [x] Incluir minilibx headers
+- [x] Incluir libft header se utilizada
+- [x] Criar cabeçalho de constantes para uso no projeto
 
 ## 🏗️ ESTRUTURAS DE DADOS FUNDAMENTAIS
 

@@ -6,29 +6,31 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/09 19:45:57 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/08/10 18:41:36 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 NAME = cub3d
 
+MLX42_DIR = ./libraries/mlx42
 LIBFT_DIR = ./libraries/libft
 OBJS_DIR = ./objects
 INCS_DIR = ./includes
 
-MAIN_SRCS = sources/main.c
+MAIN_SRCS = sources/main.c sources/mlx42.c
 
 SOURCES = ${MAIN_SRCS}
 
 OBJS = $(SOURCES:%.c=$(OBJS_DIR)/%.o)
 
 LIBFT = $(LIBFT_DIR)/libft.a
-MATH = -lm
+MINILIBX = $(MLX42_DIR)/build/libmlx42.a
 
-LIBS = $(LIBFT) $(MATH)
-
-CFLAGS = -Wall -Wextra -Werror -g -I$(INCS_DIR) -I$(LIBFT_DIR)/includes -O2
+MINILIBX_INCLUDES = -I$(MLX42_DIR)/include
+MINILIBX_LIBS = -ldl -lglfw -pthread -lm
+INCLUDES = -I$(INCS_DIR) -I$(LIBFT_DIR)/includes $(MINILIBX_INCLUDES)
+CFLAGS = -Wall -Wextra -Werror -g -O2 $(INCLUDES)
 
 ESCAPE = \033[
 RESET = $(ESCAPE)0m
@@ -48,9 +50,12 @@ all: header $(NAME)
 $(LIBFT):
 	$(call compile_library,$(LIBFT_DIR),libft)
 
-$(NAME): $(LIBFT) $(OBJS)
+$(MINILIBX):
+	$(call compile_library,$(MLX42_DIR),minilibx)
+
+$(NAME): $(LIBFT) $(MINILIBX) $(OBJS)
 	@printf "$(BLUE)$(BOLD)🔗  Linking files ...$(RESET)\n"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MINILIBX) $(MINILIBX_LIBS)
 	@echo "$(GREEN)$(BOLD)🚀  Cub3D compiled successfully!$(RESET)"
 	@echo
 	@rm -f .header_lock
@@ -103,11 +108,20 @@ define compile_library
         if [ $(VERBOSE) -eq 1 ]; then \
             echo "$(CYAN)$(BOLD)📦  Compiling library \
 			$(RESET)$(CYAN)$(LIB_NAME)$(RESET) in $(LIB_DIR)"; \
-            make --no-print-directory -C $(LIB_DIR); \
+            if [ "$(LIB_NAME)" = "minilibx" ]; then \
+                printf "$(BLUE)$(BOLD)🏗️   Building $(LIB_NAME) $(RESET)\n"; \
+                cd $(LIB_DIR) && cmake -B build && cmake --build build -j4; \
+            else \
+                make -C $(LIB_DIR); \
+            fi; \
             printf "$(BLUE)$(BOLD)$(SUCCESS_MSG)\n"; \
         else \
             echo -n "🔄  "; \
-            make --no-print-directory -C $(LIB_DIR) > /dev/null 2>&1 & \
+            if [ "$(LIB_NAME)" = "minilibx" ]; then \
+                cd $(LIB_DIR) && cmake -B build && cmake --build build -j4 > /dev/null 2>&1 & \
+            else \
+                make --no-print-directory -C $(LIB_DIR) > /dev/null 2>&1 & \
+            fi; \
             pid=$$!; \
             i=0; \
             while kill -0 $$pid 2>/dev/null; do \
