@@ -6,12 +6,14 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/12 22:42:14 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/13 01:48:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
+
+#define FAILURE_ALLOC_MESSAGE "Error\nMemory allocation failed"
 
 /**
  * Retrieves the head of the linked list tracking allocated memory blocks.
@@ -25,12 +27,24 @@ static t_node	**get_node_head(void)
 }
 
 /**
- * Handles memory allocation failures.
+ * Handles memory allocation failures for content.
  * @return NULL.
  */
-static void	*failure_alloc(void)
+static void	*failure_alloc_content(void)
 {
-	mm_garbage_collector();
+	ft_putendl_fd(FAILURE_ALLOC_MESSAGE, STDERR_FILENO);
+	return (NULL);
+}
+
+/**
+ * Handles memory allocation failures for linked list nodes.
+ * @param content Pointer to the content to free.
+ * @return NULL.
+ */
+static	void	*failure_alloc_node(void *content)
+{
+	ft_putendl_fd(FAILURE_ALLOC_MESSAGE, STDERR_FILENO);
+	free(content);
 	return (NULL);
 }
 
@@ -48,17 +62,20 @@ void	*mm_alloc(size_t count, size_t size)
 
 	content = ft_calloc(count, size);
 	if (!content)
-		return (failure_alloc());
+		return (failure_alloc_content());
 	node_head = get_node_head();
 	if (!*node_head)
 	{
-		*node_head = ft_lstnew(content);
+		new_node = ft_lstnew(content);
+		if (!new_node)
+			return (failure_alloc_node(content));
+		*node_head = new_node;
 	}
 	else
 	{
 		new_node = ft_lstnew(content);
 		if (!new_node)
-			return (failure_alloc());
+			return (failure_alloc_node(content));
 		ft_lstadd_front(node_head, new_node);
 	}
 	return (content);
