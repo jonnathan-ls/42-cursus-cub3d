@@ -6,17 +6,17 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 20:44:31 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/10/21 21:15:39 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:55:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstadd_front(t_node **node, t_node *new)
 {
-	if (lst && new)
+	if (node && new)
 	{
-		new->next = *lst;
-		*lst = new;
+		new->next = *node;
+		*node = new;
 	}
 }

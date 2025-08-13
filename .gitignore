@@ -1,7 +1,10 @@
 cub3d
+tests/cub3d*
 objects/
 temp/
 *.o
 *.a
 *.log
 *.diff
+diff
+commits

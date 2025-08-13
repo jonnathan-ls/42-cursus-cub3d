@@ -6,23 +6,23 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 20:44:31 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/10/21 21:15:34 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:55:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_node **node, t_node *new)
 {
-	t_list	*last;
+	t_node	*last;
 
-	if (!lst || !new)
+	if (!node || !new)
 		return ;
-	if (!*lst)
+	if (!*node)
 	{
-		*lst = new;
+		*node = new;
 		return ;
 	}
-	last = ft_lstlast(*lst);
+	last = ft_lstlast(*node);
 	last->next = new;
 }

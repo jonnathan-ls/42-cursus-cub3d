@@ -6,23 +6,23 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 20:44:31 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/10/21 21:15:27 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/13 01:01:37 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_lstclear(t_node **node, void (*del)(void *))
 {
-	t_list	*next;
+	t_node	*next;
 
-	if (!lst || !del)
+	if (!node || !del)
 		return ;
-	while (*lst)
+	while (*node)
 	{
-		next = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = next;
+		next = (*node)->next;
+		ft_lstdelone(*node, del);
+		*node = next;
 	}
-	*lst = NULL;
+	*node = NULL;
 }

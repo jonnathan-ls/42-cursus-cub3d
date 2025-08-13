@@ -6,21 +6,21 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 20:44:31 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/10/21 21:15:55 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:55:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_node	*ft_lstmap(t_node *node, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*new_lst;
-	t_list	*lst_aux;
-	t_list	*new_lst_content;
+	t_node	*new_lst;
+	t_node	*lst_aux;
+	t_node	*new_lst_content;
 
-	if (!lst || !f)
+	if (!node || !f)
 		return (NULL);
-	lst_aux = lst;
+	lst_aux = node;
 	new_lst = ft_lstnew(f(lst_aux->content));
 	if (!new_lst)
 		return (NULL);
