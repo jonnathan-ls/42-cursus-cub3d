@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile copy                                      :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 20:44:31 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/07 23:17:14 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/08/12 22:04:41 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,16 @@ SOURCES = \
 	$(SRCS_DIR)/ft_substr.c \
 	$(SRCS_DIR)/ft_tolower.c \
 	$(SRCS_DIR)/ft_toupper.c \
-	$(SRCS_DIR)/get_next_line.c \
+	$(SRCS_DIR)/ft_itoa.c \
+	$(SRCS_DIR)/ft_lstnew_bonus.c \
+	$(SRCS_DIR)/ft_lstadd_front_bonus.c \
+	$(SRCS_DIR)/ft_lstsize_bonus.c \
+	$(SRCS_DIR)/ft_lstlast_bonus.c \
+	$(SRCS_DIR)/ft_lstadd_back_bonus.c \
+	$(SRCS_DIR)/ft_lstdelone_bonus.c \
+	$(SRCS_DIR)/ft_lstclear_bonus.c \
+	$(SRCS_DIR)/ft_lstiter_bonus.c \
+	$(SRCS_DIR)/ft_lstmap_bonus.c
 
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 

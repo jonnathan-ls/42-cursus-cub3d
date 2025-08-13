@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/10 18:41:36 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/08/12 22:40:14 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,10 @@ LIBFT_DIR = ./libraries/libft
 OBJS_DIR = ./objects
 INCS_DIR = ./includes
 
+SHARED_SRCS = sources/shared/memory-manager.c
 MAIN_SRCS = sources/main.c sources/mlx42.c
 
-SOURCES = ${MAIN_SRCS}
+SOURCES = ${MAIN_SRCS} ${SHARED_SRCS}
 
 OBJS = $(SOURCES:%.c=$(OBJS_DIR)/%.o)
 
@@ -89,7 +90,19 @@ re:
 	@rm -f .header_lock
 	@$(MAKE) --no-print-directory -s fclean all
 
-.PHONY: all clean fclean re header
+norminette:
+	@norminette $(SOURCES) $(INCS_DIR) $(LIBFT_DIR)
+
+valgrind: all
+	@rm	-f .header_lock
+	@valgrind --leak-check=full \
+	--show-reachable=yes \
+	--track-fds=yes \
+	--show-leak-kinds=all -s \
+	--track-origins=yes \
+	./$(NAME)
+
+.PHONY: all clean fclean re header norminette valgrind
 
 # **************************************************************************** #
 # Libraries Compilation - Generic function for any library in libraries/

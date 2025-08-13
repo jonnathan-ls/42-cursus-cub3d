@@ -6,19 +6,19 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 20:44:31 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/10/21 21:15:46 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:55:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	ft_lstiter(t_node *node, void (*f)(void *))
 {
-	t_list	*lst_aux;
+	t_node	*lst_aux;
 
-	if (!lst || !f)
+	if (!node || !f)
 		return ;
-	lst_aux = lst;
+	lst_aux = node;
 	while (lst_aux)
 	{
 		f(lst_aux->content);

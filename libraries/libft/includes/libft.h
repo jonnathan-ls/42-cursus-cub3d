@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 21:46:38 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/10/21 22:08:48 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:56:14 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,21 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
-typedef struct s_list
+
+typedef struct s_node
 {
 	void			*content;
-	struct s_list	*next;
-}	t_list;
+	struct s_node	*next;
+}	t_node;
 
-int		ft_lstsize(t_list *lst);
-t_list	*ft_lstlast(t_list *lst);
-t_list	*ft_lstnew(void *content);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstadd_front(t_list **lst, t_list *new);
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+int		ft_lstsize(t_node *node);
+t_node	*ft_lstlast(t_node *node);
+t_node	*ft_lstnew(void *content);
+void	ft_lstadd_back(t_node **node, t_node *new);
+void	ft_lstadd_front(t_node **node, t_node *new);
+void	ft_lstiter(t_node *node, void (*f)(void *));
+void	ft_lstdelone(t_node *node, void (*del)(void *));
+void	ft_lstclear(t_node **node, void (*del)(void *));
+t_node	*ft_lstmap(t_node *node, void *(*f)(void *), void (*del)(void *));
 
 #endif

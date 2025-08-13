@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/10 18:00:05 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:47:03 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@
 # include "structs.h"
 # include "constants.h"
 
-/* ----------------------------------------------------------------------------
-| UTILS: utility functions
------------------------------------------------------------------------------ */
-t_cub3d	*get_cub3d_ptr(void);
+void	*mm_alloc(size_t count, size_t size);
+void	mm_garbage_collector(void);
 
 #endif
