@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/13 01:22:36 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/14 00:09:29 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 int	main(void)
 {
-	describe("shared/memory-manager", shared_memory_manager_tests);
-	check_leaks("leak-check");
+	shared_tests_cases();
 	return (0);
 }

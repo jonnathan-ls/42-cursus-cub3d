@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/13 00:56:47 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/13 23:46:55 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	expect_int(int received,
 		result->passed = false;
 		snprintf(result->fail_reason,
 			sizeof(result->fail_reason), "%s", fail_reason);
+		snprintf(result->received, sizeof(result->received), "%d", received);
 		snprintf(result->expected, sizeof(result->expected), "%d", expected);
 	}
 }
@@ -36,6 +37,7 @@ void	expect_ptr(void *received,
 		result->passed = false;
 		snprintf(result->fail_reason,
 			sizeof(result->fail_reason), "%s", fail_reason);
+		snprintf(result->received, sizeof(result->received), "%p", received);
 		snprintf(result->expected, sizeof(result->expected), "%p", expected);
 	}
 }
@@ -50,6 +52,7 @@ void	expect_str(const char *received,
 		result->passed = false;
 		snprintf(result->fail_reason,
 			sizeof(result->fail_reason), "%s", fail_reason);
+		snprintf(result->received, sizeof(result->received), "%s", received);
 		snprintf(result->expected, sizeof(result->expected), "%s", expected);
 	}
 }

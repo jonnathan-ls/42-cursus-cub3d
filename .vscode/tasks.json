@@ -1,0 +1,31 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build Cub3d Test",
+			"type": "shell",
+			"command": "make",
+			"options": {
+				"cwd": "${workspaceFolder}/tests"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"detail": "Compila o projeto Cub3d usando o Makefile."
+		},
+		{
+			"label": "Clean Cub3d Test",
+			"type": "shell",
+			"command": "make fclean",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"problemMatcher": ["$gcc"],
+		}
+	]
+}

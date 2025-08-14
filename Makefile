@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/12 22:40:14 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/08/14 00:37:47 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,10 @@ re:
 	@$(MAKE) --no-print-directory -s fclean all
 
 norminette:
-	@norminette $(SOURCES) $(INCS_DIR) $(LIBFT_DIR)
+	@norminette $(INCS_DIR) $(LIBFT_DIR) $(SOURCES)
+
+test:
+	@$(MAKE) --no-print-directory -C tests test
 
 valgrind: all
 	@rm	-f .header_lock

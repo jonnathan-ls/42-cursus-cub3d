@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/13 00:59:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/14 00:16:01 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,25 @@
 # define BLUE    "\033[34m"
 # define CYAN    "\033[36m"
 # define BOLD    "\033[1m"
+# define LIGHT_RED "\033[91m"
 
-# define EMOJI_IT "🧪"
 # define EMOJI_PASS "✅"
 # define EMOJI_LEAK "💧"
 # define EMOJI_FAIL "❌"
-# define EMOJI_FILE "📄"
 # define EMOJI_DESCRIBE "📦"
 
 typedef struct s_test_result
 {
 	int		passed;
-	char	expected[128];
-	char	fail_reason[256];
+	char	received[256];
+	char	expected[256];
+	char	fail_reason[512];
 }	t_test_result;
 
 void	check_leaks(const char *leak_log_path);
-void	describe(const char *module, void (*function)(void));
-void	it(const char *module_name,
-			const char *case_name, void (*function)(t_test_result *));
-void	print_result(const char *module,
-			const char *case_name, t_test_result *result);
+void	describe(const char *suite, void (*function)(void));
+void	print_result(const char *test, t_test_result *result);
+void	it(const char *test, void (*function)(t_test_result *));
 
 void	expect_int(int received, int expected,
 			t_test_result *result, const char *fail_reason);

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/13 00:58:33 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/13 23:25:38 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_test_struct
 	char	*string_property;
 }	t_test_struct;
 
-void	shared_memory_manager_tests(void);
+void	shared_tests_cases(void);
+void	memory_manager_tests(void);
 
 #endif
