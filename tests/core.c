@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/14 00:09:24 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/14 01:00:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	print_result(const char *test, t_test_result *result)
 }
 
 /**
- * Proicess a test suite.
+ * Process a test suite.
  * @param suite The name of the test suite.
  * @param function The cases to run.
  */

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/13 22:47:32 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/14 01:11:29 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "structs.h"
 # include "constants.h"
 
-size_t	mm_nodes_length(void);
+size_t	mm_nodes_alloc_length(void);
 void	mm_garbage_collector(void);
 void	*mm_alloc(size_t count, size_t size);
 

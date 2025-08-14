@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/14 00:29:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/14 01:12:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,21 @@
 
 static void	log_fail_alloc(void *received, t_test_result *result)
 {
-	expect_ptr(received, (void *)1, result, "mm_alloc returned NULL");
+	expect_ptr(received, &"not-null", result, "mm_alloc returned NULL");
+}
+
+static void	test_size_correctly_allocated(t_test_result *result)
+{
+	void	*ptr1;
+	void	*ptr2;
+
+	ptr1 = mm_alloc(1, 1);
+	ptr2 = mm_alloc(1, 1);
+	(void)ptr1;
+	(void)ptr2;
+	expect_int(mm_nodes_alloc_length(), 2, result,
+		"mm_alloc did not track the correct number of allocations");
+	mm_garbage_collector();
 }
 
 static void	test_memory_manager_allocation(t_test_result *result)
@@ -51,12 +65,16 @@ static void	test_memory_manager_free_allocation(t_test_result *result)
 	if (!test_struct3)
 		return (log_fail_alloc(test_struct3, result));
 	mm_garbage_collector();
-	expect_int(mm_nodes_length(), 0, result,
+	expect_int(mm_nodes_alloc_length(), 0, result,
 		"mm_garbage_collector did not free all allocated memory");
 }
 
 void	memory_manager_tests(void)
 {
-	it("Should allocate memory correctly", test_memory_manager_allocation);
-	it("Should free all allocated memory", test_memory_manager_free_allocation);
+	it("Should allocate memory correctly",
+		test_memory_manager_allocation);
+	it("Should free all allocated memory",
+		test_memory_manager_free_allocation);
+	it("Should track the correct amount of allocations",
+		test_size_correctly_allocated);
 }

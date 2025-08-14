@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/14 00:29:20 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/08/14 01:13:23 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,13 +59,13 @@ VERBOSE ?= $(V)
 all: header $(NAME)
 
 test: all
-	@printf "$(PURPLE)$(BOLD)🧪  Runnig Tests Cases ...$(RESET)\n\n"
+	@printf "$(PURPLE)$(BOLD)🧪  Running Tests Cases ...$(RESET)\n\n"
 	@valgrind -s --leak-check=full --show-reachable=yes --track-origins=yes \
 	--track-fds=yes --show-leak-kinds=all --log-file=valgrind.log ./$(NAME)
 	@cat valgrind.log | grep LEAK > /dev/null && \
 	echo "$(RED)$(BOLD)💧  Memory leak detected!$(RESET)" \
 	&& echo "$(YELLOW)📄  Verifies 'valgrind.log' for details." \
-	|| echo "$(GREEN)$(BOLD)✅  No memory leak detected!$(RESET)"
+	|| echo "$(GREEN)$(BOLD)🧱  No memory leak detected!$(RESET)"
 	@echo
 	@rm -f .header_lock
 

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/14 00:53:48 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/14 01:11:31 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ void	*mm_alloc(size_t count, size_t size)
  * Returns the number of allocated memory blocks.
  * @return Number of allocated blocks.
  */
-size_t	mm_nodes_length(void)
+size_t	mm_nodes_alloc_length(void)
 {
 	t_node	**node_head;
-	int		length;
+	size_t	length;
 
 	node_head = get_node_head();
 	length = ft_lstsize(*node_head);
