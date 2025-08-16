@@ -6,48 +6,22 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/16 17:25:33 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/08/16 18:42:24 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
-NAME = cub3d
+include configs/variables.mk
+include configs/functions.mk
 
-MLX42_DIR = ./libraries/mlx42
-LIBFT_DIR = ./libraries/libft
-OBJS_DIR = ./objects
-INCS_DIR = ./includes
+NAME = cub3d
 
 SHARED_SRCS = sources/shared/memory-manager.c
 MAIN_SRCS = sources/main.c sources/mlx42.c
 
 SOURCES = ${MAIN_SRCS} ${SHARED_SRCS}
+TOTAL_FILES := $(words $(SOURCES)) # For progress_bar logic
 
 OBJS = $(SOURCES:%.c=$(OBJS_DIR)/%.o)
-
-LIBFT = $(LIBFT_DIR)/libft.a
-MINILIBX = $(MLX42_DIR)/build/libmlx42.a
-
-MINILIBX_INCLUDES = -I$(MLX42_DIR)/include
-MINILIBX_LIBS = -ldl -lglfw -pthread -lm
-INCLUDES = -I$(INCS_DIR) -I$(LIBFT_DIR)/includes $(MINILIBX_INCLUDES)
-CFLAGS = -Wall -Wextra -Werror -g -O2 $(INCLUDES)
-
-ESCAPE = \033[
-RESET = $(ESCAPE)0m
-BOLD = $(ESCAPE)1m
-GREEN = $(ESCAPE)32m
-YELLOW = $(ESCAPE)33m
-BLUE = $(ESCAPE)34m
-MAGENTA = $(ESCAPE)35m
-CYAN = $(ESCAPE)36m
-WHITE = $(ESCAPE)37m
-ORANGE = $(ESCAPE)38;5;208m
-
-v ?= 0
-V ?= $(v)
-VERBOSE ?= $(V)
-BAR_SIZE=20
 
 all: header $(NAME)
 
@@ -101,7 +75,7 @@ norminette:
 	@norminette $(INCS_DIR) $(LIBFT_DIR) $(SOURCES)
 
 test:
-	@$(MAKE) --no-print-directory -C tests test
+	@$(MAKE) --no-print-directory -C tests tests_cases
 
 valgrind: all
 	@rm	-f .header_lock
@@ -112,130 +86,13 @@ valgrind: all
 	--track-origins=yes \
 	./$(NAME)
 
-.PHONY: all clean fclean re header norminette valgrind mlx42 libft
-
-# **************************************************************************** #
-# Libraries Compilation - Generic function for any library in libraries/
-# **************************************************************************** #
-
-define compile_library
-	$(eval LIB_NAME=$(2))
-	$(eval LIB_DIR=$(1))
-	$(eval PROGRESS_MSG=🏗️   Building $(LIB_NAME) $(RESET))
-	$(eval SUCCESS_MSG=✅  $(LIB_NAME) $(GREEN)$(BOLD)✓ Concluído$(RESET))
-	$(eval FINAL_BAR=$(shell printf '▓%.0s' $$(seq 1 $(BAR_SIZE))))
-
-	@printf "$(BLUE)$(BOLD)$(PROGRESS_MSG)\n"
-	@if [ -d "$(LIB_DIR)" ]; then \
-		if [ $(VERBOSE) -eq 1 ]; then \
-			echo "$(CYAN)$(BOLD)📦  Compiling library \
-			$(RESET)$(CYAN)$(LIB_NAME)$(RESET) in $(LIB_DIR)"; \
-			if [ "$(LIB_NAME)" = "MLX42" ]; then \
-				printf "$(BLUE)$(BOLD)🏗️   Building $(LIB_NAME) $(RESET)\n"; \
-				cd $(LIB_DIR); cmake -B build && cmake --build build -j4; \
-			else \
-				make -C $(LIB_DIR); \
-			fi; \
-			printf "$(BLUE)$(BOLD)$(SUCCESS_MSG)\n"; \
-		else \
-			echo -n "🔄  "; \
-			if [ "$(LIB_NAME)" = "MLX42" ]; then \
-				cd $(LIB_DIR); \
-				cmake -B build> /dev/null 2>&1; \
-				cmake --build build -j4 > /dev/null 2>&1 & \
-			else \
-				make -C $(LIB_DIR) & \
-			fi; \
-			pid=$$!; \
-			i=0; \
-			while kill -0 $$pid 2>/dev/null; do \
-				printf "$(YELLOW)▓$(RESET)"; \
-				sleep 0.1; \
-				i=$$((i+1)); \
-				if [ $$i -gt $(BAR_SIZE) ]; then \
-					break; \
-				fi; \
-			done; \
-			wait $$pid; \
-			printf "\033[1A\r"; \
-			printf "$(BLUE)$(BOLD)$(SUCCESS_MSG)\n"; \
-			printf "🔄  $(YELLOW)$(FINAL_BAR)$(RESET) \n"; \
-		fi; \
-	fi
-endef
-
-define clean_library
-	@if [ -d "$(1)" ]; then \
-		make --no-print-directory -C $(1) clean > /dev/null 2>&1; \
-	fi
-endef
-
-define fclean_library
-	@if [ -d "$(1)" ]; then \
-		make --no-print-directory -C $(1) fclean > /dev/null 2>&1; \
-	fi
-endef
-
-# **************************************************************************** #
-# Header display - only once per make execution
-# **************************************************************************** #
-PROJECT_NAME = Cub3D: Relive History with the First FPS Ever Created
-AUTHORS = $(YELLOW)jonnathan-ls e peda-cos$(RESET)
 header:
 	@if [ ! -f .header_lock ]; then \
 		touch .header_lock; \
 		echo; \
 		echo "$(ORANGE)$(BOLD)🕹️   ${PROJECT_NAME}$(RESET)"; \
-		echo "$(GREEN)$(BOLD)👥  Autores:$(RESET) $(AUTHORS)"; \
+		echo "$(GREEN)$(BOLD)👥  Authors:$(RESET) $(AUTHORS)"; \
 		echo ;\
 	fi
 
-# **************************************************************************** #
-# Detect terminal width and adjust behavior
-# **************************************************************************** #
-TERM_WIDTH := $(shell tput cols 2>/dev/null || echo 80)
-SAFE_WIDTH := $(shell echo $$(($(TERM_WIDTH) - 10)))
-PROGRESS_WIDTH := $(shell echo $$(($(SAFE_WIDTH) > 50 ? 30 : $(SAFE_WIDTH) - 20)))
-
-# **************************************************************************** #
-# Define the progress bar and verbose output functions - CLEAN & SIMPLE
-# **************************************************************************** #
-TOTAL_FILES := $(words $(SOURCES))
-COMPILED_COUNT = 0
-TITLE_FLAG = 0
-PRINT_COMPLETED = $(GREEN)$(BOLD)✅  Build completed!$(RESET)
-
-define compile_project
-	if [ $(COMPILED_COUNT) -eq 0 ]; then \
-		printf "\n$(CYAN)$(BOLD)📦  Building Project $(RESET)\n"; \
-	fi; \
-	$(eval COMPILED_COUNT=$(shell echo $$(($(COMPILED_COUNT)+1))))
-	$(eval SHORT_PATH=$(shell echo $(1) | sed 's|^.*/||'))
-	$(eval BAR_SIZE=20)
-	$(eval PERCENT=$(shell if [ $(TOTAL_FILES) -gt 0 ]; then \
-	echo $$(($(COMPILED_COUNT)*100/$(TOTAL_FILES))); else echo 0; fi))
-	$(eval BARS=$(shell if [ $(TOTAL_FILES) -gt 0 ]; then \
-	echo $$(($(COMPILED_COUNT)*$(BAR_SIZE)/$(TOTAL_FILES))); else echo 0; fi))
-	$(eval REMAINING=$(shell if [ $(BARS) -ge $(BAR_SIZE) ]; then \
-	echo 0; else echo $$(($(BAR_SIZE) - $(BARS))); fi))
-	$(eval PROGRESS=$(shell printf '█%.0s' $$(seq 1 $(BARS))))
-	$(eval EMPTY=$(shell if [ $(REMAINING) -gt 0 ]; then \
-	printf '░%.0s' $$(seq 1 $(REMAINING)); fi))
-	$(eval PROGRESS_BAR=$(RESET)$(GREEN)$(PROGRESS)$(WHITE)$(EMPTY)$(RESET))
-
-	@if [ $(VERBOSE) -eq 1 ]; then \
-		printf "$(CYAN)$(BOLD)📄  Compiling $(RESET)$(CYAN)$(SHORT_PATH)$(RESET) \
-		($(COMPILED_COUNT)/$(TOTAL_FILES))\n"; \
-		if [ $(COMPILED_COUNT) -eq $(TOTAL_FILES) ]; then \
-			printf "$(GREEN)$(BOLD)✅  Files Compiled \
-			Successfully!$(RESET)\n\n"; \
-		fi \
-	else \
-		printf "\r\033[K$(YELLOW)$(BOLD)🔄  $(PROGRESS_BAR) \
-		$(PERCENT)%% $(CYAN)$(SHORT_PATH)$(RESET)"; \
-		if [ $(COMPILED_COUNT) -eq $(TOTAL_FILES) ]; then \
-			printf "\n$(GREEN)$(BOLD)✅  Files \
-			Compiled Successfully!$(RESET)\n\n"; \
-		fi \
-	fi
-endef
+.PHONY: all clean fclean re header norminette valgrind mlx42 libft test

@@ -22,7 +22,7 @@
 ### 🏷️ Labels de Status
 - 🔴 **TODO**: Não iniciado
 - 🟡 **IN PROGRESS**: Em desenvolvimento
-- 🟢 **DONE**: Concluído
+- 🟢 **DONE**: Completed
 - 🔵 **REVIEW**: Aguardando code review
 - 🟣 **BLOCKED**: Bloqueado (dependência)
 
