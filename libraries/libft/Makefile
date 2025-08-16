@@ -6,14 +6,14 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 20:44:31 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/12 22:04:41 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/08/13 22:01:22 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR)
+CFLAGS = -Wall -Wextra -Werror -g -I $(INCLUDES_DIR)
 
 SRCS_DIR = ./sources
 OBJS_DIR = ./objects

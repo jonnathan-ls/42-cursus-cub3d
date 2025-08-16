@@ -6,22 +6,28 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/16 17:25:33 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/08/14 01:13:23 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-NAME = cub3d
+NAME = cub3dTestBattery
 
-MLX42_DIR = ./libraries/mlx42
-LIBFT_DIR = ./libraries/libft
+MLX42_DIR = ../libraries/mlx42
+LIBFT_DIR = ../libraries/libft
 OBJS_DIR = ./objects
-INCS_DIR = ./includes
+INCS_DIR = ../includes
 
-SHARED_SRCS = sources/shared/memory-manager.c
-MAIN_SRCS = sources/main.c sources/mlx42.c
+SHARED_SRCS = ../sources/shared/memory-manager.c
+MODULES_SRCS = $(SHARED_SRCS)
 
-SOURCES = ${MAIN_SRCS} ${SHARED_SRCS}
+UTILS_SRCS = core.c expects.c
+
+CASES_SRCS = \
+	cases/shared/shared_tests.c \
+	cases/shared/memory_manager.c
+
+SOURCES =  main.c ${MODULES_SRCS} ${UTILS_SRCS} ${CASES_SRCS}
 
 OBJS = $(SOURCES:%.c=$(OBJS_DIR)/%.o)
 
@@ -31,9 +37,10 @@ MINILIBX = $(MLX42_DIR)/build/libmlx42.a
 MINILIBX_INCLUDES = -I$(MLX42_DIR)/include
 MINILIBX_LIBS = -ldl -lglfw -pthread -lm
 INCLUDES = -I$(INCS_DIR) -I$(LIBFT_DIR)/includes $(MINILIBX_INCLUDES)
-CFLAGS = -Wall -Wextra -Werror -g -O2 $(INCLUDES)
+CFLAGS = -Wall -Wextra -Werror -g -O2 $(INCLUDES) -I includes
 
 ESCAPE = \033[
+RED = $(ESCAPE)31m
 RESET = $(ESCAPE)0m
 BOLD = $(ESCAPE)1m
 GREEN = $(ESCAPE)32m
@@ -43,24 +50,32 @@ MAGENTA = $(ESCAPE)35m
 CYAN = $(ESCAPE)36m
 WHITE = $(ESCAPE)37m
 ORANGE = $(ESCAPE)38;5;208m
+PURPLE = $(ESCAPE)38;5;129m
 
 v ?= 0
 V ?= $(v)
 VERBOSE ?= $(V)
-BAR_SIZE=20
 
 all: header $(NAME)
 
-print_build:
-	@printf "$(BLUE)$(BOLD)🏗️   Building Cub3D $(RESET)\n"
+test: all
+	@printf "$(PURPLE)$(BOLD)🧪  Running Tests Cases ...$(RESET)\n\n"
+	@valgrind -s --leak-check=full --show-reachable=yes --track-origins=yes \
+	--track-fds=yes --show-leak-kinds=all --log-file=valgrind.log ./$(NAME)
+	@cat valgrind.log | grep LEAK > /dev/null && \
+	echo "$(RED)$(BOLD)💧  Memory leak detected!$(RESET)" \
+	&& echo "$(YELLOW)📄  Verifies 'valgrind.log' for details." \
+	|| echo "$(GREEN)$(BOLD)🧱  No memory leak detected!$(RESET)"
+	@echo
+	@rm -f .header_lock
 
-libft:
+$(LIBFT):
 	$(call compile_library,$(LIBFT_DIR),libft)
 
-mlx42:
-	$(call compile_library,$(MLX42_DIR),MLX42)
+$(MINILIBX):
+	$(call compile_library,$(MLX42_DIR),minilibx)
 
-$(NAME): libft mlx42 $(OBJS)
+$(NAME): $(LIBFT) $(MINILIBX) $(OBJS)
 	@printf "$(BLUE)$(BOLD)🔗  Linking files ...$(RESET)\n"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MINILIBX) $(MINILIBX_LIBS)
 	@echo "$(GREEN)$(BOLD)🚀  Cub3D compiled successfully!$(RESET)"
@@ -85,7 +100,6 @@ fclean: header
 	@echo "$(GREEN)$(BOLD)✓ Completed!$(RESET)"
 	@printf "$(MAGENTA)$(BOLD)🗑️   Cleaning up libraries $(RESET)"
 	@$(call fclean_library,$(LIBFT_DIR),libft)
-	@rm -rf $(MLX42_DIR)/build
 	@echo "$(GREEN)$(BOLD)✓ Completed!$(RESET)"
 	@printf "$(MAGENTA)$(BOLD)🗑️   Cleaning executable $(RESET)"
 	@rm -f $(NAME)
@@ -97,12 +111,6 @@ re:
 	@rm -f .header_lock
 	@$(MAKE) --no-print-directory -s fclean all
 
-norminette:
-	@norminette $(INCS_DIR) $(LIBFT_DIR) $(SOURCES)
-
-test:
-	@$(MAKE) --no-print-directory -C tests test
-
 valgrind: all
 	@rm	-f .header_lock
 	@valgrind --leak-check=full \
@@ -112,7 +120,7 @@ valgrind: all
 	--track-origins=yes \
 	./$(NAME)
 
-.PHONY: all clean fclean re header norminette valgrind mlx42 libft
+.PHONY: all clean fclean re header norminette valgrind
 
 # **************************************************************************** #
 # Libraries Compilation - Generic function for any library in libraries/
@@ -121,8 +129,9 @@ valgrind: all
 define compile_library
 	$(eval LIB_NAME=$(2))
 	$(eval LIB_DIR=$(1))
+	$(eval BAR_SIZE=30)
 	$(eval PROGRESS_MSG=🏗️   Building $(LIB_NAME) $(RESET))
-	$(eval SUCCESS_MSG=✅  $(LIB_NAME) $(GREEN)$(BOLD)✓ Concluído$(RESET))
+	$(eval SUCCESS_MSG=🏗️   $(LIB_NAME) $(GREEN)$(BOLD)✓ Concluído!$(RESET))
 	$(eval FINAL_BAR=$(shell printf '▓%.0s' $$(seq 1 $(BAR_SIZE))))
 
 	@printf "$(BLUE)$(BOLD)$(PROGRESS_MSG)\n"
@@ -130,21 +139,19 @@ define compile_library
 		if [ $(VERBOSE) -eq 1 ]; then \
 			echo "$(CYAN)$(BOLD)📦  Compiling library \
 			$(RESET)$(CYAN)$(LIB_NAME)$(RESET) in $(LIB_DIR)"; \
-			if [ "$(LIB_NAME)" = "MLX42" ]; then \
+			if [ "$(LIB_NAME)" = "minilibx" ]; then \
 				printf "$(BLUE)$(BOLD)🏗️   Building $(LIB_NAME) $(RESET)\n"; \
-				cd $(LIB_DIR); cmake -B build && cmake --build build -j4; \
+				cd $(LIB_DIR) && cmake -B build && cmake --build build -j4; \
 			else \
 				make -C $(LIB_DIR); \
 			fi; \
 			printf "$(BLUE)$(BOLD)$(SUCCESS_MSG)\n"; \
 		else \
 			echo -n "🔄  "; \
-			if [ "$(LIB_NAME)" = "MLX42" ]; then \
-				cd $(LIB_DIR); \
-				cmake -B build> /dev/null 2>&1; \
-				cmake --build build -j4 > /dev/null 2>&1 & \
+			if [ "$(LIB_NAME)" = "minilibx" ]; then \
+				cd $(LIB_DIR) && cmake -B build && cmake --build build -j4 > /dev/null 2>&1 & \
 			else \
-				make -C $(LIB_DIR) & \
+				make --no-print-directory -C $(LIB_DIR) > /dev/null 2>&1 & \
 			fi; \
 			pid=$$!; \
 			i=0; \
@@ -202,13 +209,8 @@ PROGRESS_WIDTH := $(shell echo $$(($(SAFE_WIDTH) > 50 ? 30 : $(SAFE_WIDTH) - 20)
 # **************************************************************************** #
 TOTAL_FILES := $(words $(SOURCES))
 COMPILED_COUNT = 0
-TITLE_FLAG = 0
-PRINT_COMPLETED = $(GREEN)$(BOLD)✅  Build completed!$(RESET)
 
 define compile_project
-	if [ $(COMPILED_COUNT) -eq 0 ]; then \
-		printf "\n$(CYAN)$(BOLD)📦  Building Project $(RESET)\n"; \
-	fi; \
 	$(eval COMPILED_COUNT=$(shell echo $$(($(COMPILED_COUNT)+1))))
 	$(eval SHORT_PATH=$(shell echo $(1) | sed 's|^.*/||'))
 	$(eval BAR_SIZE=20)
@@ -223,19 +225,17 @@ define compile_project
 	printf '░%.0s' $$(seq 1 $(REMAINING)); fi))
 	$(eval PROGRESS_BAR=$(RESET)$(GREEN)$(PROGRESS)$(WHITE)$(EMPTY)$(RESET))
 
+	@echo 
+	@printf "$(BLUE)$(BOLD)🏗️   Building Cub3D $(RESET)\n"
 	@if [ $(VERBOSE) -eq 1 ]; then \
-		printf "$(CYAN)$(BOLD)📄  Compiling $(RESET)$(CYAN)$(SHORT_PATH)$(RESET) \
-		($(COMPILED_COUNT)/$(TOTAL_FILES))\n"; \
-		if [ $(COMPILED_COUNT) -eq $(TOTAL_FILES) ]; then \
-			printf "$(GREEN)$(BOLD)✅  Files Compiled \
-			Successfully!$(RESET)\n\n"; \
-		fi \
+		echo "$(CYAN)$(BOLD)📄  Compiling $(RESET)$(CYAN)$(SHORT_PATH)$(RESET) \
+		($(COMPILED_COUNT)/$(TOTAL_FILES))"; \
+		echo "$(GREEN)$(BOLD)✅  Compilation completed!$(RESET)\n"; \
 	else \
 		printf "\r\033[K$(YELLOW)$(BOLD)🔄  $(PROGRESS_BAR) \
 		$(PERCENT)%% $(CYAN)$(SHORT_PATH)$(RESET)"; \
 		if [ $(COMPILED_COUNT) -eq $(TOTAL_FILES) ]; then \
-			printf "\n$(GREEN)$(BOLD)✅  Files \
-			Compiled Successfully!$(RESET)\n\n"; \
-		fi \
+			printf "\n$(GREEN)$(BOLD)✅  Compilation completed!$(RESET)\n\n"; \
+		fi; \
 	fi
 endef
