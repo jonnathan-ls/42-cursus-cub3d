@@ -31,41 +31,33 @@
 ## 🏗️ FASE 1: Fundações e Estrutura Base
 
 ### 📚 1.1 Setup Inicial e Estrutura do Projeto
-**Responsável**: Dev A + Dev B (Pair Programming)  
-**Branch**: `feature/project-setup`  
-**Estimativa**: 2 horas  
-**Status**: 🔴 TODO
+**Status**: 🟢 DONE
 
 #### Tarefas:
-- [ ] Criar estrutura de diretórios padrão
+- [x] Criar estrutura de diretórios padrão
   ```
-  ├── src/
-  ├── include/
-  ├── lib/libft/
-  ├── lib/minilibx/
+  ├── sources/
+  ├── includes/
+  ├── libraries/libft/
+  ├── libraries/minilibx/
   ├── maps/
   ├── textures/
   ├── tests/
+  ├── notes/
+  ├── configs/
   └── Makefile
   ```
-- [ ] Configurar Makefile com regras básicas
-- [ ] Definir headers principais (`cub3d.h`, `structs.h`, `constants.h`)
-- [ ] Setup de norminette e ferramentas de desenvolvimento
-- [ ] Criar .gitignore apropriado
-- [ ] Documentar convenções de código no README
+- [x] Configurar Makefile com regras básicas
+- [x] Definir headers principais (`cub3d.h`, `structs.h`, `constants.h`)
+- [x] Setup de norminette e ferramentas de desenvolvimento
+- [x] Criar .gitignore apropriado
 
 #### Critérios de Aceitação:
 - Projeto compila sem erros
 - Norminette passa em todos os arquivos
 - Estrutura de diretórios seguindo padrões da 42
-
 ---
-
 ### 🧮 1.2 Estruturas de Dados Core
-**Responsável**: Dev A  
-**Branch**: `feature/core-structures`  
-**Dependências**: 1.1  
-**Estimativa**: 3 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -87,10 +79,6 @@
 ---
 
 ### 🔧 1.3 Utilitários Matemáticos
-**Responsável**: Dev A  
-**Branch**: `feature/math-utils`  
-**Dependências**: 1.2  
-**Estimativa**: 4 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -118,8 +106,6 @@
 ## 🗺️ FASE 2: Parsing e Validação de Mapas
 
 ### 📄 2.1 Parser Base para Arquivos .cub
-**Responsável**: Dev A  
-**Branch**: `feature/cub-parser`  
 **Dependências**: 1.2, 1.3  
 **Estimativa**: 6 horas  
 **Status**: 🔴 TODO
@@ -145,10 +131,7 @@
 ---
 
 ### 🗺️ 2.2 Parser e Validação de Mapas
-**Responsável**: Dev A  
-**Branch**: `feature/map-validation`  
 **Dependências**: 2.1  
-**Estimativa**: 8 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -175,10 +158,7 @@
 ## 🎨 FASE 3: Sistema Gráfico Base
 
 ### 🖼️ 3.1 Inicialização e Setup do miniLibX
-**Responsável**: Dev B  
-**Branch**: `feature/mlx-setup`  
 **Dependências**: 1.2  
-**Estimativa**: 4 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -200,10 +180,7 @@
 ---
 
 ### 🎨 3.2 Sistema de Cores e Pixel Manipulation
-**Responsável**: Dev B  
-**Branch**: `feature/color-system`  
 **Dependências**: 3.1  
-**Estimativa**: 3 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -225,10 +202,7 @@
 ---
 
 ### 🖼️ 3.3 Sistema de Carregamento de Texturas
-**Responsável**: Dev B  
-**Branch**: `feature/texture-system`  
 **Dependências**: 3.2  
-**Estimativa**: 5 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -253,10 +227,7 @@
 ## 🔦 FASE 4: Ray-casting Core
 
 ### 📐 4.1 Algoritmo Básico de Ray-casting
-**Responsável**: Dev B  
-**Branch**: `feature/basic-raycasting`  
 **Dependências**: 3.1, 3.2, 1.3  
-**Estimativa**: 10 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -281,10 +252,7 @@
 ---
 
 ### ⚡ 4.2 Otimização com DDA Algorithm
-**Responsável**: Dev B  
-**Branch**: `feature/dda-optimization`  
 **Dependências**: 4.1  
-**Estimativa**: 8 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -307,10 +275,7 @@
 ---
 
 ### 🎨 4.3 Texture Mapping em Paredes
-**Responsável**: Dev B  
-**Branch**: `feature/wall-textures`  
 **Dependências**: 4.2, 3.3, 2.2  
-**Estimativa**: 6 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -335,10 +300,7 @@
 ## 🎮 FASE 5: Sistema de Input e Controles
 
 ### ⌨️ 5.1 Sistema de Eventos Base
-**Responsável**: Dev B  
-**Branch**: `feature/input-system`  
 **Dependências**: 3.1  
-**Estimativa**: 4 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -360,10 +322,7 @@
 ---
 
 ### 🚶 5.2 Sistema de Movimento do Jogador
-**Responsável**: Dev B  
-**Branch**: `feature/player-movement`  
 **Dependências**: 5.1, 4.1, 1.3  
-**Estimativa**: 6 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -387,10 +346,7 @@
 ---
 
 ### 🚧 5.3 Sistema de Detecção de Colisão
-**Responsável**: Dev B  
-**Branch**: `feature/collision-system`  
 **Dependências**: 5.2, 2.2  
-**Estimativa**: 5 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -414,10 +370,7 @@
 ## 🔄 FASE 6: Integração e Renderização Completa
 
 ### 🎨 6.1 Sistema de Renderização de Chão e Teto
-**Responsável**: Dev A  
-**Branch**: `feature/floor-ceiling`  
 **Dependências**: 4.3, 2.1  
-**Estimativa**: 4 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -437,10 +390,7 @@
 ---
 
 ### 🔄 6.2 Game Loop Principal
-**Responsável**: Dev A + Dev B (Pair Programming)  
-**Branch**: `feature/main-game-loop`  
 **Dependências**: 4.3, 5.3, 6.1  
-**Estimativa**: 3 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -460,10 +410,7 @@
 ---
 
 ### 🔗 6.3 Integração Final dos Módulos
-**Responsável**: Dev A + Dev B (Pair Programming)  
-**Branch**: `feature/final-integration`  
 **Dependências**: Todos os anteriores  
-**Estimativa**: 4 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -486,10 +433,7 @@
 ## 🎁 FASE 7: Features Bonus (Opcional)
 
 ### 🗺️ 7.1 Sistema de Minimap
-**Responsável**: Dev A  
-**Branch**: `feature/minimap`  
 **Dependências**: 6.3  
-**Estimativa**: 6 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -509,10 +453,7 @@
 ---
 
 ### 🚪 7.2 Sistema de Portas Interativas
-**Responsável**: Dev B  
-**Branch**: `feature/doors`  
 **Dependências**: 6.3  
-**Estimativa**: 8 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -532,10 +473,7 @@
 ---
 
 ### 🎭 7.3 Sistema de Sprites Animados
-**Responsável**: Dev A  
-**Branch**: `feature/animated-sprites`  
 **Dependências**: 7.2  
-**Estimativa**: 10 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -555,10 +493,7 @@
 ---
 
 ### 🖱️ 7.4 Controle por Mouse
-**Responsável**: Dev B  
-**Branch**: `feature/mouse-control`  
 **Dependências**: 7.1  
-**Estimativa**: 4 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -580,10 +515,7 @@
 ## 🧪 FASE 8: Testes e Qualidade
 
 ### 🔍 8.1 Suite de Testes Unitários
-**Responsável**: Dev A  
-**Branch**: `feature/unit-tests`  
 **Dependências**: Paralelo ao desenvolvimento  
-**Estimativa**: 8 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -603,10 +535,7 @@
 ---
 
 ### 🐛 8.2 Debugging e Ferramentas de Desenvolvimento
-**Responsável**: Dev B  
-**Branch**: `feature/debug-tools`  
 **Dependências**: Paralelo ao desenvolvimento  
-**Estimativa**: 4 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
@@ -626,10 +555,7 @@
 ---
 
 ### ✅ 8.3 Testes de Integração e Validação Final
-**Responsável**: Dev A + Dev B  
-**Branch**: `feature/integration-tests`  
 **Dependências**: 6.3  
-**Estimativa**: 6 horas  
 **Status**: 🔴 TODO
 
 #### Tarefas:
