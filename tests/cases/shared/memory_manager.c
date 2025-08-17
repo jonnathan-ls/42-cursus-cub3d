@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/14 01:12:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/16 22:49:48 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	test_size_correctly_allocated(t_test_result *result)
 static void	test_memory_manager_allocation(t_test_result *result)
 {
 	t_test_struct	*test_struct;
+	t_test_result	*temp_t_test_result;
 
 	test_struct = mm_alloc(1, sizeof(t_test_struct));
 	if (!test_struct)
@@ -44,7 +45,9 @@ static void	test_memory_manager_allocation(t_test_result *result)
 	ft_strlcpy(test_struct->string_property, "Test", 10);
 	expect_int(test_struct->number_property, 42, result,
 		"Incorrect value for 'number_property' field");
-	expect_str(test_struct->string_property, "Test", result,
+	result->next = &(t_test_result){0};
+	temp_t_test_result = result->next;
+	expect_str(test_struct->string_property, "Test", temp_t_test_result,
 		"Incorrect value for 'string_property' field");
 	mm_garbage_collector();
 }

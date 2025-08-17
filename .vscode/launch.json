@@ -5,7 +5,7 @@
 			"name": "Build Cub3d Test",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/tests/cub3dTestBattery",
+			"program": "${workspaceFolder}/tests/cub3dTestsCases",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}/tests",

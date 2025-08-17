@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/14 00:16:01 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/16 22:28:24 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define BOLD    "\033[1m"
 # define LIGHT_RED "\033[91m"
 
+# define EMOJI_IT "🧪"
 # define EMOJI_PASS "✅"
 # define EMOJI_LEAK "💧"
 # define EMOJI_FAIL "❌"
@@ -38,15 +39,14 @@
 
 typedef struct s_test_result
 {
-	int		passed;
-	char	received[256];
-	char	expected[256];
-	char	fail_reason[512];
+	int						passed;
+	char					received[256];
+	char					expected[256];
+	char					fail_reason[512];
+	struct s_test_result	*next;
 }	t_test_result;
 
-void	check_leaks(const char *leak_log_path);
 void	describe(const char *suite, void (*function)(void));
-void	print_result(const char *test, t_test_result *result);
 void	it(const char *test, void (*function)(t_test_result *));
 
 void	expect_int(int received, int expected,

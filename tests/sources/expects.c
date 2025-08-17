@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/14 01:00:09 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/16 22:01:25 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,14 @@ void	expect_str(const char *received,
 			expected = "(null)";
 		snprintf(result->expected, sizeof(result->expected), "%s", expected);
 	}
-	else if (!strcmp(received, expected))
+	else if (strcmp(received, expected))
+	{
+		result->passed = false;
+		snprintf(result->fail_reason,
+			sizeof(result->fail_reason), "%s", fail_reason);
+		snprintf(result->received, sizeof(result->received), "%s", received);
+		snprintf(result->expected, sizeof(result->expected), "%s", expected);
+	}
+	else
 		result->passed = true;
 }

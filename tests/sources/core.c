@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/14 01:00:54 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/16 22:25:03 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,11 @@
  * @param test The name of the test case.
  * @param result The result of the test case.
  */
-void	print_result(const char *test, t_test_result *result)
+static void	check_if_it_passed(t_test_result *result)
 {
-	if (result->passed)
-		printf(GREEN BOLD EMOJI_PASS "  [PASS]" RESET " %s\n", test);
-	else
+	if (!result->passed)
 	{
-		printf(RED BOLD EMOJI_FAIL "  [FAIL]" RESET " %s\n", test);
-		printf(YELLOW "    %s\n" RESET, result->fail_reason);
+		printf(BOLD YELLOW "    %s\n" RESET, result->fail_reason);
 		printf(LIGHT_RED "    Received: %s\n" RESET, result->received);
 		printf(CYAN "    Expected: %s\n" RESET, result->expected);
 	}
@@ -50,10 +47,29 @@ void	describe(const char *suite, void (*function)(void))
  */
 void	it(const char *test, void (*function)(t_test_result *))
 {
+	bool			all_passed;
 	t_test_result	result;
+	t_test_result	*curr_result;
 
+	all_passed = true;
 	result = (t_test_result){0};
 	function(&result);
-	print_result(test, &result);
+	curr_result = &result;
+	while (curr_result)
+	{
+		if (!curr_result->passed)
+			all_passed = false;
+		curr_result = curr_result->next;
+	}
+	if (all_passed)
+		printf(GREEN BOLD EMOJI_PASS "  [PASS]" RESET " %s\n", test);
+	else
+		printf(RED BOLD EMOJI_FAIL "  [FAIL]" RESET " %s\n", test);
+	curr_result = &result;
+	while (curr_result)
+	{
+		check_if_it_passed(curr_result);
+		curr_result = curr_result->next;
+	}
 }
 
