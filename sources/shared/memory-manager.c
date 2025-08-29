@@ -3,48 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   memory-manager.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/14 01:11:31 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/08/28 21:46:56 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-#define FAILURE_ALLOC_MESSAGE "Error\nMemory allocation failed"
-
-/**
- * Retrieves the head of the linked list tracking allocated memory blocks.
- * @return Pointer to the head node of the list.
- */
-static t_node	**get_node_head(void)
+static t_node	**mm_head(void)
 {
 	static t_node	*node = NULL;
 
 	return (&node);
 }
 
-/**
- * Handles memory allocation failures for content.
- * @return NULL.
- */
-static void	*failure_alloc_content(void)
+static void	*mm_fail(void *content)
 {
-	ft_putendl_fd(FAILURE_ALLOC_MESSAGE, STDERR_FILENO);
-	return (NULL);
-}
-
-/**
- * Handles memory allocation failures for linked list nodes.
- * @param content Pointer to the content to free.
- * @return NULL.
- */
-static	void	*failure_alloc_node(void *content)
-{
-	ft_putendl_fd(FAILURE_ALLOC_MESSAGE, STDERR_FILENO);
-	free(content);
+	ft_putendl_fd("Error", STDERR_FILENO);
+	ft_putendl_fd("Memory allocation failed", STDERR_FILENO);
+	if (content)
+		free(content);
 	return (NULL);
 }
 
@@ -58,26 +39,19 @@ void	*mm_alloc(size_t count, size_t size)
 {
 	void	*content;
 	t_node	*new_node;
-	t_node	**node_head;
+	t_node	**head;
 
 	content = ft_calloc(count, size);
 	if (!content)
-		return (failure_alloc_content());
-	node_head = get_node_head();
-	if (!*node_head)
-	{
-		new_node = ft_lstnew(content);
-		if (!new_node)
-			return (failure_alloc_node(content));
-		*node_head = new_node;
-	}
+		return (mm_fail(NULL));
+	head = mm_head();
+	new_node = ft_lstnew(content);
+	if (!new_node)
+		return (mm_fail(content));
+	if (!*head)
+		*head = new_node;
 	else
-	{
-		new_node = ft_lstnew(content);
-		if (!new_node)
-			return (failure_alloc_node(content));
-		ft_lstadd_front(node_head, new_node);
-	}
+		ft_lstadd_front(head, new_node);
 	return (content);
 }
 
@@ -87,12 +61,7 @@ void	*mm_alloc(size_t count, size_t size)
  */
 size_t	mm_nodes_alloc_length(void)
 {
-	t_node	**node_head;
-	size_t	length;
-
-	node_head = get_node_head();
-	length = ft_lstsize(*node_head);
-	return (length);
+	return (ft_lstsize(*mm_head()));
 }
 
 /**
@@ -100,8 +69,5 @@ size_t	mm_nodes_alloc_length(void)
  */
 void	mm_garbage_collector(void)
 {
-	t_node	**node_head;
-
-	node_head = get_node_head();
-	ft_lstclear(node_head, free);
+	ft_lstclear(mm_head(), free);
 }
