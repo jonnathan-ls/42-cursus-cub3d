@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
+#    By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 20:44:31 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/13 22:01:22 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/08/22 09:22:46 by peda-cos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,8 @@ SOURCES = \
 	$(SRCS_DIR)/ft_lstdelone_bonus.c \
 	$(SRCS_DIR)/ft_lstclear_bonus.c \
 	$(SRCS_DIR)/ft_lstiter_bonus.c \
-	$(SRCS_DIR)/ft_lstmap_bonus.c
+	$(SRCS_DIR)/ft_lstmap_bonus.c \
+	$(SRCS_DIR)/get_next_line.c
 
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
+#    By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/16 18:42:24 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/08/22 09:27:03 by peda-cos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,21 @@ NAME = cub3d
 
 SHARED_SRCS = sources/shared/memory-manager.c
 MAIN_SRCS = sources/main.c sources/mlx42.c
-
-SOURCES = ${MAIN_SRCS} ${SHARED_SRCS}
+PARSER_SRCS = \
+	sources/parser/validate_extension.c \
+	sources/parser/parser_entry.c \
+	sources/parser/parse_headers.c \
+	sources/parser/parse_headers_utils.c \
+	sources/parser/parse_textures.c \
+	sources/parser/parse_colors.c \
+	sources/parser/collect_map_lines.c \
+	sources/parser/normalize_map.c \
+	sources/parser/validate_map_chars.c \
+	sources/parser/locate_player.c \
+	sources/parser/check_closed.c \
+	sources/parser/free_config.c \
+	sources/parser/parser_errors.c
+SOURCES = ${MAIN_SRCS} ${SHARED_SRCS} ${PARSER_SRCS}
 TOTAL_FILES := $(words $(SOURCES)) # For progress_bar logic
 
 OBJS = $(SOURCES:%.c=$(OBJS_DIR)/%.o)
