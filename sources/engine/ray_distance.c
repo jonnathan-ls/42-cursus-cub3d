@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:28 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/28 21:40:21 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:06:27 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,4 @@ void	ft_calculate_distances(t_ray *ray, t_player *pl)
 			/ ray->ray_dir_y;
 	if (ray->perp_dist < DIST_EPS)
 		ray->perp_dist = DIST_EPS;
-}
-
-void	ft_apply_fish_eye_correction(t_ray *ray, t_player *pl)
-{
-	(void)pl;
-	(void)ray;
 }
