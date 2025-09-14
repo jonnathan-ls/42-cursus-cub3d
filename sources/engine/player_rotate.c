@@ -6,10 +6,11 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/28 21:40:40 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:44:50 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "constants.h"
 #include "engine.h"
 #include "player.h"
 #include <MLX42/MLX42.h>
@@ -33,4 +34,24 @@ void	ft_player_rotate(t_engine *eng, double rot)
 	if (!eng)
 		return ;
 	apply_rot(&eng->player, rot);
+}
+
+void	ft_player_mouse_rotate(t_engine *eng)
+{
+	int		mouse_x;
+	int		mouse_y;
+	double	delta_x;
+	double	rot_amount;
+
+	if (!eng || !eng->mlx)
+		return ;
+	mlx_get_mouse_pos(eng->mlx, &mouse_x, &mouse_y);
+	delta_x = mouse_x - eng->player.mouse_x;
+	eng->player.mouse_x = mouse_x;
+	eng->player.mouse_y = mouse_y;
+	if (delta_x != 0 && delta_x > -100 && delta_x < 100)
+	{
+		rot_amount = delta_x * MOUSE_SENSITIVITY;
+		apply_rot(&eng->player, rot_amount);
+	}
 }
