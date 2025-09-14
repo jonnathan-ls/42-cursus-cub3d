@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/28 21:40:06 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 18:37:38 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ int	main(int argc, char **argv)
 		return (fail("invalid extension"));
 	if (parse_cub(argv[1], &cfg) != 0)
 		return (fail("parse failure"));
-	if (normalize_map(&cfg.map) != 0 || locate_player(&cfg.map) != 0
-		|| validate_map_chars(&cfg.map) != 0 || check_map_closed(&cfg.map) != 0)
-		return (free_config(&cfg), fail("invalid map"));
 	if (ft_engine_init(&eng, &cfg) != 0)
 		return (free_config(&cfg), fail("engine init failed"));
 	ft_engine_loop(&eng);
