@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/28 21:49:17 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:44:48 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static void	init_player_colors(t_engine *eng, t_config *cfg)
 	eng->player.pos_y = cfg->map.player_y + 0.5;
 	eng->player.move_speed = MOVE_SPEED;
 	eng->player.rot_speed = ROT_SPEED;
+	eng->player.mouse_x = WIN_WIDTH / 2;
+	eng->player.mouse_y = WIN_HEIGHT / 2;
 	set_player_dir(eng, cfg->map.player_dir);
 }
 
