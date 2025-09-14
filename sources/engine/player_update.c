@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:09 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:06:23 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:44:46 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,34 @@ static int	is_wall_at(t_engine *eng, double x, double y)
 	return (eng->map[map_y][map_x] == '1');
 }
 
+static int	check_collision_with_buffer(t_engine *eng, double x, double y)
+{
+	double	buffer;
+
+	buffer = 0.15;
+	if (is_wall_at(eng, x - buffer, y) || is_wall_at(eng, x + buffer, y))
+		return (1);
+	if (is_wall_at(eng, x, y - buffer) || is_wall_at(eng, x, y + buffer))
+		return (1);
+	if (is_wall_at(eng, x - buffer, y - buffer))
+		return (1);
+	if (is_wall_at(eng, x + buffer, y + buffer))
+		return (1);
+	return (0);
+}
+
 static void	move_dir(t_engine *eng, double sx, double sy)
 {
 	double	new_x;
 	double	new_y;
+	double	move_dist;
 
-	new_x = eng->player.pos_x + sx * eng->player.move_speed;
-	new_y = eng->player.pos_y + sy * eng->player.move_speed;
-	if (!is_wall_at(eng, new_x, eng->player.pos_y))
+	move_dist = eng->player.move_speed;
+	new_x = eng->player.pos_x + sx * move_dist;
+	new_y = eng->player.pos_y + sy * move_dist;
+	if (!check_collision_with_buffer(eng, new_x, eng->player.pos_y))
 		eng->player.pos_x = new_x;
-	if (!is_wall_at(eng, eng->player.pos_x, new_y))
+	if (!check_collision_with_buffer(eng, eng->player.pos_x, new_y))
 		eng->player.pos_y = new_y;
 }
 
@@ -44,14 +62,14 @@ static void	strafe(t_engine *eng, double sign)
 {
 	double	new_x;
 	double	new_y;
+	double	move_dist;
 
-	new_x = eng->player.pos_x + sign * eng->player.plane_x
-		* eng->player.move_speed;
-	new_y = eng->player.pos_y + sign * eng->player.plane_y
-		* eng->player.move_speed;
-	if (!is_wall_at(eng, new_x, eng->player.pos_y))
+	move_dist = eng->player.move_speed;
+	new_x = eng->player.pos_x + sign * eng->player.plane_x * move_dist;
+	new_y = eng->player.pos_y + sign * eng->player.plane_y * move_dist;
+	if (!check_collision_with_buffer(eng, new_x, eng->player.pos_y))
 		eng->player.pos_x = new_x;
-	if (!is_wall_at(eng, eng->player.pos_x, new_y))
+	if (!check_collision_with_buffer(eng, eng->player.pos_x, new_y))
 		eng->player.pos_y = new_y;
 }
 
