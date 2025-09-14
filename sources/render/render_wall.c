@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:34 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/28 21:40:18 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:06:31 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ int	ft_calculate_texture_x(t_ray *ray, int wall_h, mlx_texture_t *tex,
 	(void)wall_h;
 	if (!tex)
 		return (0);
-	tex_x = (int)(wall_x * tex->width);
+	tex_x = (int)(wall_x * (double)tex->width);
+	if (tex_x < 0)
+		tex_x = 0;
+	if (tex_x >= (int)tex->width)
+		tex_x = tex->width - 1;
 	if (ray->side == 0 && ray->ray_dir_x > 0)
 		tex_x = tex->width - tex_x - 1;
 	if (ray->side == 1 && ray->ray_dir_y < 0)
