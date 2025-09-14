@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:34 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:06:31 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:19:16 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_calculate_wall_height(t_ray *ray, int win_h)
 
 mlx_texture_t	*ft_get_wall_texture(t_engine *eng, t_ray *ray)
 {
-	(void)ray;
 	if (ray->side == 0 && ray->ray_dir_x > 0)
 		return (eng->tex.west);
 	if (ray->side == 0 && ray->ray_dir_x < 0)
@@ -35,12 +34,10 @@ mlx_texture_t	*ft_get_wall_texture(t_engine *eng, t_ray *ray)
 	return (eng->tex.south);
 }
 
-int	ft_calculate_texture_x(t_ray *ray, int wall_h, mlx_texture_t *tex,
-		double wall_x)
+int	ft_calculate_texture_x(t_ray *ray, mlx_texture_t *tex, double wall_x)
 {
 	int	tex_x;
 
-	(void)wall_h;
 	if (!tex)
 		return (0);
 	tex_x = (int)(wall_x * (double)tex->width);
