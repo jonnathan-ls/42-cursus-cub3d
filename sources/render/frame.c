@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:36 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/28 21:40:02 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:06:33 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ void	ft_cast_all_rays(t_engine *eng)
 
 void	ft_render_walls(t_engine *eng)
 {
-	(void)eng;
+	if (!eng)
+		return ;
 }
 
 void	ft_update_image_buffer(t_engine *eng)
 {
-	(void)eng;
+	if (!eng)
+		return ;
 }
