@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:06:29 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:21:35 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 	int		y;
 	int		tex_y;
 
-	tex_x = ft_calculate_texture_x(ray, rng[1] - rng[0] + 1, tex,
-			calc_wall_x(eng, ray));
+	tex_x = ft_calculate_texture_x(ray, tex, calc_wall_x(eng, ray));
 	step = (double)tex->height / (double)(rng[1] - rng[0] + 1);
 	tex_pos = 0.0;
 	y = rng[0];
