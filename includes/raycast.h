@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:47 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/28 21:55:27 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:06:26 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,5 @@ void		ft_perform_dda(struct s_engine *eng, t_ray *ray);
 int			ft_detect_wall_hit(struct s_engine *eng, t_ray *ray);
 
 void		ft_calculate_distances(t_ray *ray, struct s_player *pl);
-void		ft_apply_fish_eye_correction(t_ray *ray, struct s_player *pl);
 
 #endif
