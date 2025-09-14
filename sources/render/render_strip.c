@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/28 21:48:34 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:06:29 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 	double	step;
 	double	tex_pos;
 	int		y;
+	int		tex_y;
 
 	tex_x = ft_calculate_texture_x(ray, rng[1] - rng[0] + 1, tex,
 			calc_wall_x(eng, ray));
@@ -66,9 +67,14 @@ static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 	y = rng[0];
 	while (y <= rng[1])
 	{
+		tex_y = (int)tex_pos % (int)tex->height;
+		if (tex_y < 0)
+			tex_y = 0;
+		if (tex_y >= (int)tex->height)
+			tex_y = tex->height - 1;
 		mlx_put_pixel(eng->img.frame, ray->x, y,
-			shade(((uint32_t *)tex->pixels)[((int)tex_pos % (int)tex->height)
-				* tex->width + tex_x], ray->side));
+			shade(((uint32_t *)tex->pixels)[tex_y * tex->width + tex_x],
+				ray->side));
 		tex_pos += step;
 		y++;
 	}
