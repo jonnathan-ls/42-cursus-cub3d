@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:06:25 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:44:52 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,24 @@ static void	frame_hook(void *param)
 		ft_player_rotate(eng, -eng->player.rot_speed * delta_time * 60.0);
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_RIGHT))
 		ft_player_rotate(eng, eng->player.rot_speed * delta_time * 60.0);
+	ft_player_mouse_rotate(eng);
 	ft_cast_all_rays(eng);
+}
+
+void	ft_engine_close(void *param)
+{
+	t_engine	*eng;
+
+	eng = (t_engine *)param;
+	if (eng && eng->mlx)
+		mlx_close_window(eng->mlx);
 }
 
 void	ft_engine_loop(t_engine *eng)
 {
 	if (!eng || !eng->mlx)
 		return ;
+	mlx_close_hook(eng->mlx, ft_engine_close, eng);
 	mlx_loop_hook(eng->mlx, frame_hook, eng);
 	mlx_loop(eng->mlx);
 }
