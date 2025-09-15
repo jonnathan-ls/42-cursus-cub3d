@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/28 21:57:20 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 19:44:53 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_engine
 
 int						ft_engine_init(t_engine *eng, t_config *cfg);
 void					ft_engine_destroy(t_engine *eng);
+void					ft_engine_close(void *param);
 
 void					ft_engine_loop(t_engine *eng);
 int						ft_load_textures(t_engine *eng, t_config *cfg);
