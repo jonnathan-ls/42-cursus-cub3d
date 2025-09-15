@@ -6,7 +6,7 @@
 #    By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/22 09:27:03 by peda-cos         ###   ########.fr        #
+#    Updated: 2025/08/28 21:46:59 by peda-cos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,26 @@ PARSER_SRCS = \
 	sources/parser/check_closed.c \
 	sources/parser/free_config.c \
 	sources/parser/parser_errors.c
-SOURCES = ${MAIN_SRCS} ${SHARED_SRCS} ${PARSER_SRCS}
+
+ENGINE_SRCS = \
+	sources/engine/engine_init.c \
+	sources/engine/engine_destroy.c \
+	sources/engine/engine_textures.c \
+	sources/engine/player_update.c \
+	sources/engine/player_rotate.c \
+	sources/engine/engine_loop.c
+
+RAY_SRCS = \
+	sources/engine/ray_init.c \
+	sources/engine/ray_dda.c \
+	sources/engine/ray_distance.c
+
+RENDER_SRCS = \
+	sources/render/render_wall.c \
+	sources/render/render_strip.c \
+	sources/render/frame.c
+SOURCES = ${MAIN_SRCS} ${SHARED_SRCS} ${PARSER_SRCS} \
+	${ENGINE_SRCS} ${RAY_SRCS} ${RENDER_SRCS}
 TOTAL_FILES := $(words $(SOURCES)) # For progress_bar logic
 
 OBJS = $(SOURCES:%.c=$(OBJS_DIR)/%.o)

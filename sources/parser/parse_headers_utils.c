@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:01:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/22 09:01:51 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 18:49:04 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ int	is_empty_line(const char *s)
 	return (1);
 }
 
+static int	parse_single_texture(char *rest, char **dst, const char *name)
+{
+	if (*dst)
+		return (parser_error(name));
+	return (parse_texture(rest, dst));
+}
+
 static int	handle_texture_line(char *id, t_config *cfg)
 {
 	char	*rest;
@@ -37,15 +44,19 @@ static int	handle_texture_line(char *id, t_config *cfg)
 	rest = id + 2;
 	while (*rest == ' ' || *rest == '\t')
 		rest++;
-	if (id[0] == 'N' && id[1] == 'O' && !cfg->textures.no_path)
-		return (parse_texture(rest, &cfg->textures.no_path));
-	if (id[0] == 'S' && id[1] == 'O' && !cfg->textures.so_path)
-		return (parse_texture(rest, &cfg->textures.so_path));
-	if (id[0] == 'W' && id[1] == 'E' && !cfg->textures.we_path)
-		return (parse_texture(rest, &cfg->textures.we_path));
-	if (id[0] == 'E' && id[1] == 'A' && !cfg->textures.ea_path)
-		return (parse_texture(rest, &cfg->textures.ea_path));
-	return (parser_error("duplicate texture identifier"));
+	if (id[0] == 'N' && id[1] == 'O')
+		return (parse_single_texture(rest, &cfg->textures.no_path,
+				"duplicate NO texture"));
+	if (id[0] == 'S' && id[1] == 'O')
+		return (parse_single_texture(rest, &cfg->textures.so_path,
+				"duplicate SO texture"));
+	if (id[0] == 'W' && id[1] == 'E')
+		return (parse_single_texture(rest, &cfg->textures.we_path,
+				"duplicate WE texture"));
+	if (id[0] == 'E' && id[1] == 'A')
+		return (parse_single_texture(rest, &cfg->textures.ea_path,
+				"duplicate EA texture"));
+	return (parser_error("invalid texture identifier"));
 }
 
 static int	handle_color_line(char *id, t_config *cfg)
@@ -100,5 +111,5 @@ int	parse_header_line(char *line, t_config *cfg, int *count_done)
 		(*count_done)++;
 		return (0);
 	}
-	return (parser_error("invalid texture line format"));
+	return (-2);
 }

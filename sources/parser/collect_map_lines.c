@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/22 08:39:46 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/14 18:45:33 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,22 @@ static char	**grow_lines(char **old, int old_count)
 	return (new_arr);
 }
 
+static void	strip_newline(char *line)
+{
+	int	len;
+
+	if (!line)
+		return ;
+	len = ft_strlen(line);
+	if (len > 0 && line[len - 1] == '\n')
+		line[len - 1] = '\0';
+}
+
 static int	append_line(char ***lines, int *count, char *line)
 {
 	char	**tmp;
 
+	strip_newline(line);
 	tmp = grow_lines(*lines, *count);
 	if (!tmp)
 	{
@@ -77,6 +89,7 @@ int	collect_map(int fd, char *first_map_line, t_map *map_raw)
 	lines = grow_lines(NULL, 0);
 	if (!lines)
 		return (parser_error("malloc failure"));
+	strip_newline(first_map_line);
 	lines[count++] = first_map_line;
 	if (read_more(fd, &lines, &count) < 0)
 		return (-1);
@@ -87,5 +100,6 @@ int	collect_map(int fd, char *first_map_line, t_map *map_raw)
 	}
 	map_raw->grid = lines;
 	map_raw->height = count;
+	map_raw->width = 0;
 	return (0);
 }
