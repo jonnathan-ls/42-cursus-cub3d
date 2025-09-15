@@ -1,0 +1,10 @@
+NO ./maps/textures/north.png
+SO ./maps/textures/south.png
+WE ./maps/textures/west.png
+
+F 220,100,0
+C 225,30,0
+
+11111
+10N01
+11111
