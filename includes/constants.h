@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/14 19:44:49 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/17 21:13:44 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define MOVE_SPEED 0.1
 # define ROT_SPEED 0.07
 # define MOUSE_SENSITIVITY 0.002
+# define MOUSE_BORDER_ZONE 50
+# define MOUSE_BORDER_SPEED 0.025
 
 # define DIST_EPS 0.0001
 
