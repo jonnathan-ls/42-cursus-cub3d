@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_update.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:09 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:44:46 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/19 22:22:42 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ static void	move_dir(t_engine *eng, double sx, double sy)
 	move_dist = eng->player.move_speed;
 	new_x = eng->player.pos_x + sx * move_dist;
 	new_y = eng->player.pos_y + sy * move_dist;
-	if (!check_collision_with_buffer(eng, new_x, eng->player.pos_y))
+	if (!check_collision_with_buffer(eng, new_x, new_y))
+	{
 		eng->player.pos_x = new_x;
-	if (!check_collision_with_buffer(eng, eng->player.pos_x, new_y))
 		eng->player.pos_y = new_y;
+	}
 }
 
 static void	strafe(t_engine *eng, double sign)
@@ -67,10 +68,11 @@ static void	strafe(t_engine *eng, double sign)
 	move_dist = eng->player.move_speed;
 	new_x = eng->player.pos_x + sign * eng->player.plane_x * move_dist;
 	new_y = eng->player.pos_y + sign * eng->player.plane_y * move_dist;
-	if (!check_collision_with_buffer(eng, new_x, eng->player.pos_y))
+	if (!check_collision_with_buffer(eng, new_x, new_y))
+	{
 		eng->player.pos_x = new_x;
-	if (!check_collision_with_buffer(eng, eng->player.pos_x, new_y))
 		eng->player.pos_y = new_y;
+	}
 }
 
 void	ft_player_move(t_engine *eng)
