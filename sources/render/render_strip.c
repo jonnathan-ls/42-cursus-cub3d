@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_strip.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:21:35 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/19 23:39:33 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,28 @@ static uint32_t	shade(uint32_t col, int side)
 
 static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 {
-	int		tex_x;
-	double	step;
-	double	tex_pos;
 	int		y;
+	double	step;
+	int		tex_x;
 	int		tex_y;
+	double	tex_pos;
 
 	tex_x = ft_calculate_texture_x(ray, tex, calc_wall_x(eng, ray));
-	step = (double)tex->height / (double)(rng[1] - rng[0] + 1);
-	tex_pos = 0.0;
+	tex_y = ft_calculate_wall_height(ray, eng->win_h);
+	if (tex_y <= 0)
+		tex_y = 1;
+	step = (double)tex->height / (double)tex_y;
+	tex_pos = (double)(rng[0] + tex_y / 2 - eng->win_h / 2) * step;
 	y = rng[0];
 	while (y <= rng[1])
 	{
-		tex_y = (int)tex_pos % (int)tex->height;
+		tex_y = (int)tex_pos;
 		if (tex_y < 0)
 			tex_y = 0;
 		if (tex_y >= (int)tex->height)
 			tex_y = tex->height - 1;
-		mlx_put_pixel(eng->img.frame, ray->x, y,
-			shade(((uint32_t *)tex->pixels)[tex_y * tex->width + tex_x],
-				ray->side));
+		mlx_put_pixel(eng->img.frame, ray->x, y, shade(((uint32_t *)tex->pixels)
+			[tex_y * tex->width + tex_x], ray->side));
 		tex_pos += step;
 		y++;
 	}
