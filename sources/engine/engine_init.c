@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   engine_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:44:48 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/20 16:13:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "constants.h"
 #include "engine.h"
+#include "minimap.h"
 #include <MLX42/MLX42.h>
 
 static void	set_player_dir(t_engine *eng, char dir)
@@ -67,5 +68,6 @@ int	ft_engine_init(t_engine *eng, t_config *cfg)
 	init_player_colors(eng, cfg);
 	if (ft_load_textures(eng, cfg) != 0)
 		return (-1);
+	ft_minimap_init(eng);
 	return (0);
 }

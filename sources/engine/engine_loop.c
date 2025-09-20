@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_loop.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:44:52 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/20 16:17:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "player.h"
 #include "raycast.h"
 #include "render.h"
+#include "minimap.h"
 
 static void	frame_hook(void *param)
 {
@@ -30,7 +31,15 @@ static void	frame_hook(void *param)
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_RIGHT))
 		ft_player_rotate(eng, eng->player.rot_speed * delta_time * 60.0);
 	ft_player_mouse_rotate(eng);
+	ft_minimap_toggle(eng, mlx_is_key_down(eng->mlx, MLX_KEY_M),
+		&eng->minimap_toggle_prev);
+	ft_minimap_zoom(eng,
+		mlx_is_key_down(eng->mlx, MLX_KEY_KP_ADD)
+		|| mlx_is_key_down(eng->mlx, MLX_KEY_EQUAL),
+		mlx_is_key_down(eng->mlx, MLX_KEY_KP_SUBTRACT)
+		|| mlx_is_key_down(eng->mlx, MLX_KEY_MINUS));
 	ft_cast_all_rays(eng);
+	ft_minimap_draw(eng);
 }
 
 void	ft_engine_close(void *param)

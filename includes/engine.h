@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:44:53 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/20 16:13:55 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ typedef struct s_engine
 	uint32_t			ceil_color;
 	uint32_t			floor_color;
 	t_image				img;
+	int					minimap_visible;
+	int					minimap_scale;
+	int					minimap_toggle_prev;
 }						t_engine;
 
 int						ft_engine_init(t_engine *eng, t_config *cfg);

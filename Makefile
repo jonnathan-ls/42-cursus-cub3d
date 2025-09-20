@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/28 21:46:59 by peda-cos         ###   ########.fr        #
+#    Updated: 2025/09/20 16:01:35 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ ENGINE_SRCS = \
 	sources/engine/engine_textures.c \
 	sources/engine/player_update.c \
 	sources/engine/player_rotate.c \
-	sources/engine/engine_loop.c
+	sources/engine/engine_loop.c 
 
 RAY_SRCS = \
 	sources/engine/ray_init.c \
@@ -48,7 +48,10 @@ RAY_SRCS = \
 RENDER_SRCS = \
 	sources/render/render_wall.c \
 	sources/render/render_strip.c \
-	sources/render/frame.c
+	sources/render/frame.c \
+	sources/render/minimap.c \
+	sources/render/minimap_utils.c
+
 SOURCES = ${MAIN_SRCS} ${SHARED_SRCS} ${PARSER_SRCS} \
 	${ENGINE_SRCS} ${RAY_SRCS} ${RENDER_SRCS}
 TOTAL_FILES := $(words $(SOURCES)) # For progress_bar logic
