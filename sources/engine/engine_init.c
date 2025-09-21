@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/20 16:13:47 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 15:11:42 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,7 @@ int	ft_engine_init(t_engine *eng, t_config *cfg)
 	if (ft_load_textures(eng, cfg) != 0)
 		return (-1);
 	ft_minimap_init(eng);
+	if (ft_doors_init(eng) != 0)
+		return (-1);
 	return (0);
 }

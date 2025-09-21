@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:09 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/20 00:18:39 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 11:05:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,26 @@ static int	is_wall_at(t_engine *eng, double x, double y)
 	int	map_x;
 	int	map_y;
 
+	if (!eng || !eng->map)
+		return (1);
 	map_x = (int)x;
 	map_y = (int)y;
 	if (map_x < 0 || map_x >= eng->map_w || map_y < 0 || map_y >= eng->map_h)
 		return (1);
-	return (eng->map[map_y][map_x] == '1');
+	if (!eng->map[map_y] || !eng->map[map_y][map_x])
+		return (1);
+	if (eng->map[map_y][map_x] == '1')
+		return (1);
+	if (eng->map[map_y][map_x] == 'D')
+	{
+		if (ft_door_is_open(eng, map_x, map_y))
+			return (0);
+		return (1);
+	}
+	return (0);
 }
 
-static int	check_collision_with_buffer(t_engine *eng, double x, double y)
+static int	ft_has_collision(t_engine *eng, double x, double y)
 {
 	double	buffer;
 
@@ -53,7 +65,7 @@ static void	move_dir(t_engine *eng, double sx, double sy)
 	move_dist = eng->player.move_speed;
 	new_x = eng->player.pos_x + sx * move_dist;
 	new_y = eng->player.pos_y + sy * move_dist;
-	if (!check_collision_with_buffer(eng, new_x, new_y))
+	if (!ft_has_collision(eng, new_x, new_y))
 	{
 		eng->player.pos_x = new_x;
 		eng->player.pos_y = new_y;
@@ -62,9 +74,9 @@ static void	move_dir(t_engine *eng, double sx, double sy)
 	{
 		new_x = eng->player.pos_x + sx * move_dist * WALL_SLIDE_FACTOR;
 		new_y = eng->player.pos_y + sy * move_dist * WALL_SLIDE_FACTOR;
-		if (!check_collision_with_buffer(eng, new_x, eng->player.pos_y))
+		if (!ft_has_collision(eng, new_x, eng->player.pos_y))
 			eng->player.pos_x = new_x;
-		if (!check_collision_with_buffer(eng, eng->player.pos_x, new_y))
+		if (!ft_has_collision(eng, eng->player.pos_x, new_y))
 			eng->player.pos_y = new_y;
 	}
 }
@@ -78,7 +90,7 @@ static void	strafe(t_engine *eng, double sign)
 	move_dist = eng->player.move_speed;
 	new_x = eng->player.pos_x + sign * eng->player.plane_x * move_dist;
 	new_y = eng->player.pos_y + sign * eng->player.plane_y * move_dist;
-	if (!check_collision_with_buffer(eng, new_x, new_y))
+	if (!ft_has_collision(eng, new_x, new_y))
 	{
 		eng->player.pos_x = new_x;
 		eng->player.pos_y = new_y;
@@ -89,9 +101,9 @@ static void	strafe(t_engine *eng, double sign)
 			* eng->player.plane_x * move_dist * WALL_SLIDE_FACTOR;
 		new_y = eng->player.pos_y + sign
 			* eng->player.plane_y * move_dist * WALL_SLIDE_FACTOR;
-		if (!check_collision_with_buffer(eng, new_x, eng->player.pos_y))
+		if (!ft_has_collision(eng, new_x, eng->player.pos_y))
 			eng->player.pos_x = new_x;
-		if (!check_collision_with_buffer(eng, eng->player.pos_x, new_y))
+		if (!ft_has_collision(eng, eng->player.pos_x, new_y))
 			eng->player.pos_y = new_y;
 	}
 }

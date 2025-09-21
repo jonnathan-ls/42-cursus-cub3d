@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/09/20 16:01:35 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/09/21 15:10:29 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ include configs/functions.mk
 NAME = cub3d
 
 SHARED_SRCS = sources/shared/memory-manager.c
-MAIN_SRCS = sources/main.c sources/mlx42.c
+MAIN_SRCS = sources/main.c
 PARSER_SRCS = \
 	sources/parser/validate_extension.c \
 	sources/parser/parser_entry.c \
@@ -38,7 +38,10 @@ ENGINE_SRCS = \
 	sources/engine/engine_textures.c \
 	sources/engine/player_update.c \
 	sources/engine/player_rotate.c \
-	sources/engine/engine_loop.c 
+	sources/engine/engine_loop.c \
+	sources/engine/engine_doors.c \
+	sources/engine/doors_interaction.c \
+	sources/engine/door_finder.c
 
 RAY_SRCS = \
 	sources/engine/ray_init.c \
@@ -119,7 +122,7 @@ valgrind: all
 	--track-fds=yes \
 	--show-leak-kinds=all -s \
 	--track-origins=yes \
-	./$(NAME)
+	./$(NAME) ./maps/test_valid.cub
 
 header:
 	@if [ ! -f .header_lock ]; then \

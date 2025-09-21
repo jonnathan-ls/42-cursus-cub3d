@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/20 16:13:55 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 15:10:45 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "parser.h"
 # include "player.h"
+# include "structs.h"
 # include <MLX42/MLX42.h>
 # include <stdint.h>
 
@@ -26,6 +27,7 @@ typedef struct s_textures_bundle
 	mlx_texture_t		*south;
 	mlx_texture_t		*west;
 	mlx_texture_t		*east;
+	mlx_texture_t		*door_closed;
 }						t_textures_bundle;
 
 typedef struct s_image
@@ -49,6 +51,7 @@ typedef struct s_engine
 	int					minimap_visible;
 	int					minimap_scale;
 	int					minimap_toggle_prev;
+	t_doors_manager		doors;
 }						t_engine;
 
 int						ft_engine_init(t_engine *eng, t_config *cfg);
@@ -57,5 +60,11 @@ void					ft_engine_close(void *param);
 
 void					ft_engine_loop(t_engine *eng);
 int						ft_load_textures(t_engine *eng, t_config *cfg);
+
+int						ft_doors_init(t_engine *eng);
+void					ft_handle_door_interaction(t_engine *eng);
+int						ft_door_is_open(t_engine *eng, int x, int y);
+int						ft_can_interact_with_door(t_engine *eng);
+int						ft_find_nearest_door_index(t_engine *eng);
 
 #endif

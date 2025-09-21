@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map_chars.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:04 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/22 08:39:46 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/20 20:58:35 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	is_valid_char(char c)
 	if (c == '0' || c == '1' || c == ' ')
 		return (1);
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (1);
+	if (c == 'D')
 		return (1);
 	return (0);
 }
