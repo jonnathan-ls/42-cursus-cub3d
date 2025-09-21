@@ -6,22 +6,37 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/20 22:12:18 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 10:53:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "engine.h"
 #include "player.h"
-#include <math.h>
+#include <MLX42/MLX42.h>
+
+static int	check_key_press_cooldown(void)
+{
+	static double	last_press_time = 0.0;
+	double			current_time;
+	double			cooldown;
+
+	cooldown = 0.2;
+	current_time = mlx_get_time();
+	if (current_time - last_press_time < cooldown)
+		return (0);
+	last_press_time = current_time;
+	return (1);
+}
 
 static void	toggle_door_by_index(t_engine *eng, int door_index)
 {
-	int	is_open;
+	int	is_door_open;
 
 	if (door_index >= 0 && door_index < eng->doors.count)
 	{
-		is_open = !eng->doors.doors[door_index].is_open;
-		eng->doors.doors[door_index].is_open = is_open;
+		is_door_open = !eng->doors.list[door_index].is_open;
+		eng->doors.list[door_index].is_open = is_door_open;
 	}
 }
 
@@ -33,4 +48,27 @@ void	ft_handle_door_interaction(t_engine *eng)
 		return ;
 	nearest_door_index = ft_find_nearest_door_index(eng);
 	toggle_door_by_index(eng, nearest_door_index);
+}
+
+int	ft_can_interact_with_door(t_engine *eng)
+{
+	if (!eng || !mlx_is_key_down(eng->mlx, MLX_KEY_E))
+		return (0);
+	return (check_key_press_cooldown());
+}
+
+int	ft_door_is_open(t_engine *eng, int x, int y)
+{
+	int	i;
+
+	if (!eng || !eng->doors.list || eng->doors.count == 0)
+		return (0);
+	i = 0;
+	while (i < eng->doors.count)
+	{
+		if (eng->doors.list[i].x == x && eng->doors.list[i].y == y)
+			return (eng->doors.list[i].is_open);
+		i++;
+	}
+	return (0);
 }

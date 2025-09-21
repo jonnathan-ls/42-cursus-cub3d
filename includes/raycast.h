@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:47 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/20 21:16:07 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 11:09:42 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		ft_calculate_ray_dir(t_ray *ray, struct s_player *pl);
 
 void		ft_setup_dda(t_ray *ray, struct s_player *pl);
 void		ft_perform_dda(struct s_engine *eng, t_ray *ray);
-int			ft_detect_wall_hit(struct s_engine *eng, t_ray *ray);
+int			ft_detect_collision(struct s_engine *eng, t_ray *ray);
 
 void		ft_calculate_distances(t_ray *ray, struct s_player *pl);
 

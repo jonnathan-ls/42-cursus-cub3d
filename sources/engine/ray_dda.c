@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:22 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/20 21:16:07 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 11:09:42 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,19 @@ static int	is_door_closed_at(t_engine *eng, int x, int y)
 {
 	int	i;
 
-	if (!eng || !eng->doors.doors)
+	if (!eng || !eng->doors.list)
 		return (1);
 	i = 0;
 	while (i < eng->doors.count)
 	{
-		if (eng->doors.doors[i].x == x && eng->doors.doors[i].y == y)
-			return (!eng->doors.doors[i].is_open);
+		if (eng->doors.list[i].x == x && eng->doors.list[i].y == y)
+			return (!eng->doors.list[i].is_open);
 		i++;
 	}
 	return (1);
 }
 
-int	ft_detect_wall_hit(t_engine *eng, t_ray *ray)
+int	ft_detect_collision(t_engine *eng, t_ray *ray)
 {
 	if (ray->map_x < 0 || ray->map_x >= eng->map_w)
 	{
@@ -104,7 +104,7 @@ void	ft_perform_dda(t_engine *eng, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (ft_detect_wall_hit(eng, ray))
+		if (ft_detect_collision(eng, ray))
 			ray->hit = 1;
 	}
 }

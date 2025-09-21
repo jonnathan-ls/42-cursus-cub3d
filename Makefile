@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/09/20 22:35:30 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/09/21 11:16:35 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,6 @@ ENGINE_SRCS = \
 	sources/engine/engine_loop.c \
 	sources/engine/engine_doors.c \
 	sources/engine/doors_interaction.c \
-	sources/engine/door_utils.c \
-	sources/engine/player_collision.c \
 	sources/engine/door_finder.c
 
 RAY_SRCS = \
@@ -121,7 +119,7 @@ valgrind: all
 	--track-fds=yes \
 	--show-leak-kinds=all -s \
 	--track-origins=yes \
-	./$(NAME)
+	./$(NAME) ./maps/test_valid.cub
 
 header:
 	@if [ ! -f .header_lock ]; then \

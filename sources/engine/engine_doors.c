@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/20 22:27:44 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 10:56:48 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static void	fill_doors_array(t_engine *eng)
 		{
 			if (eng->map[y][x] == 'D')
 			{
-				eng->doors.doors[index].x = x;
-				eng->doors.doors[index].y = y;
-				eng->doors.doors[index].is_open = 0;
+				eng->doors.list[index].x = x;
+				eng->doors.list[index].y = y;
+				eng->doors.list[index].is_open = 0;
 				index++;
 			}
 			x++;
@@ -64,19 +64,19 @@ static void	fill_doors_array(t_engine *eng)
 
 int	ft_doors_init(t_engine *eng)
 {
-	int	door_count;
+	int	doors_count;
 
 	if (!eng)
 		return (-1);
-	door_count = count_doors_in_map(eng);
-	eng->doors.count = door_count;
-	if (door_count == 0)
+	doors_count = count_doors_in_map(eng);
+	eng->doors.count = doors_count;
+	if (doors_count == 0)
 	{
-		eng->doors.doors = NULL;
+		eng->doors.list = NULL;
 		return (0);
 	}
-	eng->doors.doors = mm_alloc(door_count, sizeof(t_door));
-	if (!eng->doors.doors)
+	eng->doors.list = mm_alloc(doors_count, sizeof(t_door));
+	if (!eng->doors.list)
 		return (-1);
 	fill_doors_array(eng);
 	return (0);

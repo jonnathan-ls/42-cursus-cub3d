@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/20 22:27:44 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 11:06:21 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,9 @@ void					ft_engine_loop(t_engine *eng);
 int						ft_load_textures(t_engine *eng, t_config *cfg);
 
 int						ft_doors_init(t_engine *eng);
-int						ft_is_door_at(t_engine *eng, int x, int y);
 void					ft_handle_door_interaction(t_engine *eng);
-int						ft_is_door_open_at(t_engine *eng, int x, int y);
+int						ft_door_is_open(t_engine *eng, int x, int y);
 int						ft_can_interact_with_door(t_engine *eng);
-int						ft_check_collision_with_buffer(t_engine *eng,
-							double x, double y);
 int						ft_find_nearest_door_index(t_engine *eng);
 
 #endif

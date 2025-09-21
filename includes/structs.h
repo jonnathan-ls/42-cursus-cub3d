@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/20 20:58:35 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 10:36:33 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_door
 
 typedef struct s_doors_manager
 {
-	t_door	*doors;
+	t_door	*list;
 	int		count;
 }			t_doors_manager;
 
