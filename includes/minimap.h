@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/20 16:05:52 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 15:58:45 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include "engine.h"
 
-int		ft_minimap_init(t_engine *eng);
-void	ft_minimap_toggle(t_engine *eng, int pressed, int *key_prev);
-void	ft_minimap_zoom(t_engine *eng, int zoom_in, int zoom_out);
+void	ft_minimap_init(t_engine *eng);
+void	ft_handle_minimap_zoom(t_engine *eng);
+void	ft_handle_minimap_toggle(t_engine *eng);
 void	ft_minimap_draw(t_engine *eng);
 void	ft_minimap_render_cells(t_engine *eng, int final_scale);
 void	ft_minimap_draw_cell_block(

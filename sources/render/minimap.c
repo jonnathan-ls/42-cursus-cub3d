@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/20 16:15:37 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 16:01:08 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,73 @@
 #include <MLX42/MLX42.h>
 #include <stdint.h>
 
-void	ft_minimap_zoom(t_engine *eng, int zoom_in, int zoom_out)
+void	ft_handle_minimap_toggle(t_engine *eng)
+{
+	int	key_pressed;
+
+	key_pressed = mlx_is_key_down(eng->mlx, MLX_KEY_M);
+	if (!eng)
+		return ;
+	if (key_pressed && !eng->minimap_toggle_prev)
+		eng->minimap_visible = !eng->minimap_visible;
+	eng->minimap_toggle_prev = key_pressed;
+}
+
+static int	check_zoom_cooldown(void)
+{
+	static double	last_zoom_time = 0.0;
+	double			current_time;
+	double			cooldown;
+
+	cooldown = 0.15;
+	current_time = mlx_get_time();
+	if (current_time - last_zoom_time < cooldown)
+		return (0);
+	last_zoom_time = current_time;
+	return (1);
+}
+
+static void	ft_minimap_draw_player(t_engine *eng, int scale)
+{
+	int	center_x;
+	int	center_y;
+	int	size;
+	int	dx;
+	int	dy;
+
+	center_x = (int)(eng->player.pos_x * scale) + MINIMAP_OFFSET;
+	center_y = (int)(eng->player.pos_y * scale) + MINIMAP_OFFSET;
+	size = scale / 2;
+	dx = -size;
+	while (dx <= size)
+	{
+		dy = -size;
+		while (dy <= size)
+		{
+			mlx_put_pixel(eng->img.frame,
+				center_x + dx, center_y + dy,
+				MINIMAP_PLAYER_COLOR);
+			dy++;
+		}
+		dx++;
+	}
+}
+
+void	ft_handle_minimap_zoom(t_engine *eng)
 {
 	int	scale;
+	int	zoom_in;
+	int	zoom_out;
 
 	if (!eng)
+		return ;
+	zoom_in = mlx_is_key_down(eng->mlx, MLX_KEY_KP_ADD)
+		|| mlx_is_key_down(eng->mlx, MLX_KEY_EQUAL);
+	zoom_out = mlx_is_key_down(eng->mlx, MLX_KEY_KP_SUBTRACT)
+		|| mlx_is_key_down(eng->mlx, MLX_KEY_MINUS);
+	if (!zoom_in && !zoom_out)
+		return ;
+	if (!check_zoom_cooldown())
 		return ;
 	scale = eng->minimap_scale;
 	if (zoom_in && scale < MINIMAP_MAX_SCALE)
@@ -53,8 +115,6 @@ void	ft_minimap_draw(t_engine *eng)
 		&& eng->minimap_scale < final_scale)
 		final_scale = eng->minimap_scale;
 	ft_minimap_render_cells(eng, final_scale);
-	mlx_put_pixel(eng->img.frame,
-		(int)(eng->player.pos_x * final_scale) + MINIMAP_OFFSET,
-		(int)(eng->player.pos_y * final_scale) + MINIMAP_OFFSET,
-		MINIMAP_PLAYER_COLOR);
+	ft_minimap_draw_player(eng, final_scale);
 }
+

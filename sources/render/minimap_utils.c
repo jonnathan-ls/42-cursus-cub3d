@@ -6,13 +6,33 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/20 16:15:57 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 15:55:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "minimap.h"
 #include "constants.h"
+
+static int	should_draw(char cell, int *color)
+{
+	if (cell == '1')
+	{
+		*color = MINIMAP_WALL_COLOR;
+		return (1);
+	}
+	else if (cell == 'D')
+	{
+		*color = MINIMAP_DOOR_COLOR;
+		return (1);
+	}
+	else if (cell == '0')
+	{
+		*color = MINIMAP_FLOOR_COLOR;
+		return (1);
+	}
+	return (0);
+}
 
 void	ft_minimap_render_cells(t_engine *eng, int final_scale)
 {
@@ -40,10 +60,8 @@ void	ft_minimap_draw_cell_block(
 	int	color;
 
 	dx = 0;
-	if (eng->map[cell_y][cell_x] == '1')
-		color = MINIMAP_WALL_COLOR;
-	else
-		color = MINIMAP_FLOOR_COLOR;
+	if (!should_draw(eng->map[cell_y][cell_x], &color))
+		return ;
 	while (dx < scale)
 	{
 		dy = 0;
@@ -59,21 +77,11 @@ void	ft_minimap_draw_cell_block(
 	}
 }
 
-int	ft_minimap_init(t_engine *eng)
+void	ft_minimap_init(t_engine *eng)
 {
 	if (!eng)
-		return (-1);
-	eng->minimap_visible = 1;
-	eng->minimap_scale = MINIMAP_MIN_SCALE;
-	eng->minimap_toggle_prev = 0;
-	return (0);
-}
-
-void	ft_minimap_toggle(t_engine *eng, int pressed, int *key_prev)
-{
-	if (!eng || !key_prev)
 		return ;
-	if (pressed && !(*key_prev))
-		eng->minimap_visible = !eng->minimap_visible;
-	*key_prev = pressed;
+	eng->minimap_scale = 3;
+	eng->minimap_visible = 1;
+	eng->minimap_toggle_prev = 0;
 }

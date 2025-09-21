@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/21 15:10:34 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 16:01:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # define WIN_HEIGHT 1080
 
 # define WHITE 0xFFFFFFFF
+# define BLACK 0xFF000000
+# define RED 0xFFFF0000
+# define GRAY 0xFF888888
 
 # define FOV_DEG 60
 # define ROT_SPEED 0.1
@@ -32,8 +35,9 @@
 # define MINIMAP_RESERVED_DIV 4
 # define MINIMAP_MIN_SCALE 1
 # define MINIMAP_MAX_SCALE 10
-# define MINIMAP_WALL_COLOR 0xFF444444
-# define MINIMAP_FLOOR_COLOR 0xFFAAAAAA
-# define MINIMAP_PLAYER_COLOR 0xFFFF0000
+# define MINIMAP_WALL_COLOR GRAY
+# define MINIMAP_FLOOR_COLOR WHITE
+# define MINIMAP_DOOR_COLOR BLACK
+# define MINIMAP_PLAYER_COLOR RED
 
 #endif
