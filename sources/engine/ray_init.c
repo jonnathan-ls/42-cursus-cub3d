@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:17 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/28 21:40:39 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/20 21:16:07 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_init_ray(t_engine *eng, t_ray *ray, int x)
 	ray->hit = 0;
 	ray->side = 0;
 	ray->perp_dist = 0;
+	ray->hit_type = '0';
 }
 
 void	ft_calculate_ray_dir(t_ray *ray, t_player *pl)

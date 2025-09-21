@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_wall.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:34 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:19:16 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/20 21:34:24 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_calculate_wall_height(t_ray *ray, int win_h)
 
 mlx_texture_t	*ft_get_wall_texture(t_engine *eng, t_ray *ray)
 {
+	if (ray->hit_type == 'D')
+		return (eng->tex.door_closed);
 	if (ray->side == 0 && ray->ray_dir_x > 0)
 		return (eng->tex.west);
 	if (ray->side == 0 && ray->ray_dir_x < 0)

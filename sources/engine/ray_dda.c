@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_dda.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:22 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/28 21:40:37 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/20 21:16:07 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,44 @@ void	ft_setup_dda(t_ray *ray, t_player *pl)
 	}
 }
 
+static int	is_door_closed_at(t_engine *eng, int x, int y)
+{
+	int	i;
+
+	if (!eng || !eng->doors.doors)
+		return (1);
+	i = 0;
+	while (i < eng->doors.count)
+	{
+		if (eng->doors.doors[i].x == x && eng->doors.doors[i].y == y)
+			return (!eng->doors.doors[i].is_open);
+		i++;
+	}
+	return (1);
+}
+
 int	ft_detect_wall_hit(t_engine *eng, t_ray *ray)
 {
 	if (ray->map_x < 0 || ray->map_x >= eng->map_w)
+	{
+		ray->hit_type = '1';
 		return (1);
+	}
 	if (ray->map_y < 0 || ray->map_y >= eng->map_h)
+	{
+		ray->hit_type = '1';
 		return (1);
+	}
 	if (eng->map[ray->map_y][ray->map_x] == '1')
+	{
+		ray->hit_type = '1';
 		return (1);
+	}
+	if (eng->map[ray->map_y][ray->map_x] == 'D')
+	{
+		ray->hit_type = 'D';
+		return (is_door_closed_at(eng, ray->map_x, ray->map_y));
+	}
 	return (0);
 }
 

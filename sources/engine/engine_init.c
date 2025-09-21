@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:44:48 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/20 20:58:35 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	ft_engine_init(t_engine *eng, t_config *cfg)
 	init_map_dims(eng, cfg);
 	init_player_colors(eng, cfg);
 	if (ft_load_textures(eng, cfg) != 0)
+		return (-1);
+	if (ft_doors_init(eng) != 0)
 		return (-1);
 	return (0);
 }

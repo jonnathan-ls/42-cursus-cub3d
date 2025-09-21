@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:47 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:06:26 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/20 21:16:07 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_ray
 	int		step_y;
 	int		hit;
 	int		side;
+	char	hit_type;
 }			t_ray;
 
 void		ft_init_ray(struct s_engine *eng, t_ray *ray, int x);

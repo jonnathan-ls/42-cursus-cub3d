@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_destroy.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:05 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/28 21:40:28 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/20 22:27:44 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_engine_destroy(t_engine *eng)
 		mlx_delete_texture(eng->tex.west);
 	if (eng->tex.east)
 		mlx_delete_texture(eng->tex.east);
+	if (eng->tex.door_closed)
+		mlx_delete_texture(eng->tex.door_closed);
 	if (eng->img.frame)
 		mlx_delete_image(eng->mlx, eng->img.frame);
 	if (eng->mlx)
