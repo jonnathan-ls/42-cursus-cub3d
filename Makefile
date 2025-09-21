@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/09/21 15:10:29 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/09/21 16:38:37 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ PARSER_SRCS = \
 	sources/parser/parser_errors.c
 
 ENGINE_SRCS = \
+	sources/engine/engine_utils.c \
 	sources/engine/engine_init.c \
 	sources/engine/engine_destroy.c \
 	sources/engine/engine_textures.c \

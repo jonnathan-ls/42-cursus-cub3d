@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/21 16:01:08 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 16:36:22 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,6 @@
 #include "constants.h"
 #include <MLX42/MLX42.h>
 #include <stdint.h>
-
-void	ft_handle_minimap_toggle(t_engine *eng)
-{
-	int	key_pressed;
-
-	key_pressed = mlx_is_key_down(eng->mlx, MLX_KEY_M);
-	if (!eng)
-		return ;
-	if (key_pressed && !eng->minimap_toggle_prev)
-		eng->minimap_visible = !eng->minimap_visible;
-	eng->minimap_toggle_prev = key_pressed;
-}
-
-static int	check_zoom_cooldown(void)
-{
-	static double	last_zoom_time = 0.0;
-	double			current_time;
-	double			cooldown;
-
-	cooldown = 0.15;
-	current_time = mlx_get_time();
-	if (current_time - last_zoom_time < cooldown)
-		return (0);
-	last_zoom_time = current_time;
-	return (1);
-}
 
 static void	ft_minimap_draw_player(t_engine *eng, int scale)
 {
@@ -68,6 +42,18 @@ static void	ft_minimap_draw_player(t_engine *eng, int scale)
 	}
 }
 
+void	ft_handle_minimap_toggle(t_engine *eng)
+{
+	int	key_pressed;
+
+	key_pressed = mlx_is_key_down(eng->mlx, MLX_KEY_M);
+	if (!eng)
+		return ;
+	if (key_pressed && !eng->minimap_toggle)
+		eng->minimap_visible = !eng->minimap_visible;
+	eng->minimap_toggle = key_pressed;
+}
+
 void	ft_handle_minimap_zoom(t_engine *eng)
 {
 	int	scale;
@@ -82,7 +68,7 @@ void	ft_handle_minimap_zoom(t_engine *eng)
 		|| mlx_is_key_down(eng->mlx, MLX_KEY_MINUS);
 	if (!zoom_in && !zoom_out)
 		return ;
-	if (!check_zoom_cooldown())
+	if (!check_key_press_cooldown())
 		return ;
 	scale = eng->minimap_scale;
 	if (zoom_in && scale < MINIMAP_MAX_SCALE)
@@ -118,3 +104,12 @@ void	ft_minimap_draw(t_engine *eng)
 	ft_minimap_draw_player(eng, final_scale);
 }
 
+void	ft_minimap_init(t_engine *eng)
+{
+	if (!eng)
+		return ;
+	eng->minimap_scale = 3;
+	eng->minimap_visible = 1;
+	eng->minimap_toggle = 0;
+	ft_minimap_init_exploration(eng);
+}
