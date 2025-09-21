@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/19 23:54:55 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 20:37:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,6 @@ static void	apply_rot(t_player *p, double rot)
 	p->plane_y = old_plane_x * sin(rot) + p->plane_y * cos(rot);
 }
 
-static void	apply_border_rotation(t_engine *eng, int mouse_x)
-{
-	double	rot_amount;
-	double	frame_time;
-
-	frame_time = eng->mlx->delta_time * 60.0;
-	if (mouse_x < MOUSE_BORDER_ZONE)
-	{
-		rot_amount = -MOUSE_BORDER_SPEED * frame_time;
-		apply_rot(&eng->player, rot_amount);
-	}
-	else if (mouse_x > WIN_WIDTH - MOUSE_BORDER_ZONE)
-	{
-		rot_amount = MOUSE_BORDER_SPEED * frame_time;
-		apply_rot(&eng->player, rot_amount);
-	}
-}
-
 void	ft_player_rotate(t_engine *eng, double rot)
 {
 	if (!eng)
@@ -65,12 +47,11 @@ void	ft_player_mouse_rotate(t_engine *eng)
 		return ;
 	mlx_get_mouse_pos(eng->mlx, &mouse_x, &mouse_y);
 	delta_x = mouse_x - eng->player.mouse_x;
-	if (delta_x != 0 && fabs(delta_x) < 200)
+	if (delta_x != 0)
 	{
 		rot_amount = delta_x * MOUSE_SENSITIVITY;
 		apply_rot(&eng->player, rot_amount);
 	}
-	apply_border_rotation(eng, mouse_x);
 	eng->player.mouse_x = mouse_x;
 	eng->player.mouse_y = mouse_y;
 }
