@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/14 18:16:27 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/21 10:36:33 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@
 # include <MLX42/MLX42.h>
 
 typedef struct s_config	t_config;
+
+typedef struct s_door
+{
+	int		x;
+	int		y;
+	int		is_open;
+}			t_door;
+
+typedef struct s_doors_manager
+{
+	t_door	*list;
+	int		count;
+}			t_doors_manager;
 
 typedef struct s_mlx42
 {

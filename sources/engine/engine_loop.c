@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_loop.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:44:52 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/20 20:58:35 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	frame_hook(void *param)
 		ft_player_rotate(eng, -eng->player.rot_speed * delta_time * 60.0);
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_RIGHT))
 		ft_player_rotate(eng, eng->player.rot_speed * delta_time * 60.0);
+	ft_handle_door_interaction(eng);
 	ft_player_mouse_rotate(eng);
 	ft_cast_all_rays(eng);
 }
