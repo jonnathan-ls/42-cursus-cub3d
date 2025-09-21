@@ -6,12 +6,13 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/20 20:58:35 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 15:16:34 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "constants.h"
 #include "engine.h"
+#include "minimap.h"
 #include <MLX42/MLX42.h>
 
 static void	set_player_dir(t_engine *eng, char dir)
@@ -69,5 +70,6 @@ int	ft_engine_init(t_engine *eng, t_config *cfg)
 		return (-1);
 	if (ft_doors_init(eng) != 0)
 		return (-1);
+	ft_minimap_init(eng);
 	return (0);
 }

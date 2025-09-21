@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/21 11:06:21 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 16:36:18 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,17 @@ typedef struct s_engine
 	uint32_t			ceil_color;
 	uint32_t			floor_color;
 	t_image				img;
+	int					minimap_visible;
+	int					minimap_scale;
+	int					minimap_toggle;
+	int					**explored_map;
 	t_doors_manager		doors;
 }						t_engine;
 
 int						ft_engine_init(t_engine *eng, t_config *cfg);
 void					ft_engine_destroy(t_engine *eng);
 void					ft_engine_close(void *param);
+int						check_key_press_cooldown(void);
 
 void					ft_engine_loop(t_engine *eng);
 int						ft_load_textures(t_engine *eng, t_config *cfg);

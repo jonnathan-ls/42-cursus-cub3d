@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/09/21 11:16:35 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/09/21 16:38:37 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ PARSER_SRCS = \
 	sources/parser/parser_errors.c
 
 ENGINE_SRCS = \
+	sources/engine/engine_utils.c \
 	sources/engine/engine_init.c \
 	sources/engine/engine_destroy.c \
 	sources/engine/engine_textures.c \
@@ -51,7 +52,10 @@ RAY_SRCS = \
 RENDER_SRCS = \
 	sources/render/render_wall.c \
 	sources/render/render_strip.c \
-	sources/render/frame.c
+	sources/render/frame.c \
+	sources/render/minimap.c \
+	sources/render/minimap_utils.c
+
 SOURCES = ${MAIN_SRCS} ${SHARED_SRCS} ${PARSER_SRCS} \
 	${ENGINE_SRCS} ${RAY_SRCS} ${RENDER_SRCS}
 TOTAL_FILES := $(words $(SOURCES)) # For progress_bar logic
