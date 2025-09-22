@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/21 20:36:19 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 21:11:35 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static int	init_cursor_image(t_engine *eng)
 	pixels[center * 32 + center + 1] = 0xFFFFFFFF;
 	pixels[(center - 1) * 32 + center] = 0xFFFFFFFF;
 	pixels[(center + 1) * 32 + center] = 0xFFFFFFFF;
-	if (mlx_image_to_window(eng->mlx, eng->img.cursor,
-			WIN_WIDTH / 2 - 16, WIN_HEIGHT / 2 - 16) < 0)
+	if (mlx_image_to_window(eng->mlx, eng->img.cursor, WIN_WIDTH / 2 - 16,
+			WIN_HEIGHT / 2 - 16) < 0)
 		return (-1);
 	return (0);
 }
@@ -49,7 +49,7 @@ static int	init_window_image(t_engine *eng)
 		return (-1);
 	if (init_cursor_image(eng) != 0)
 		return (-1);
-	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_HIDDEN);
+	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_DISABLED);
 	return (0);
 }
 
