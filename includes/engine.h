@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/21 16:36:18 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 20:33:05 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_textures_bundle
 typedef struct s_image
 {
 	mlx_image_t			*frame;
+	mlx_image_t			*cursor;
 }						t_image;
 
 typedef struct s_engine
@@ -59,6 +60,9 @@ int						ft_engine_init(t_engine *eng, t_config *cfg);
 void					ft_engine_destroy(t_engine *eng);
 void					ft_engine_close(void *param);
 int						check_key_press_cooldown(void);
+void					set_player_dir(t_engine *eng, char dir);
+void					draw_circle(uint32_t *pixels,
+							int cx, int cy, int radius);
 
 void					ft_engine_loop(t_engine *eng);
 int						ft_load_textures(t_engine *eng, t_config *cfg);

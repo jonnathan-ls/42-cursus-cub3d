@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/21 16:34:14 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 20:28:24 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define MOUSE_BORDER_ZONE 75
 # define MOUSE_BORDER_SPEED 0.02
 # define WALL_SLIDE_FACTOR 0.375
-# define MOUSE_SENSITIVITY 0.001
+# define MOUSE_SENSITIVITY 0.003
 
 # define MINIMAP_OFFSET 10
 # define MINIMAP_RESERVED_DIV 4

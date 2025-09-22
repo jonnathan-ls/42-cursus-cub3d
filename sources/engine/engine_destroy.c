@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_destroy.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:05 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/20 22:27:44 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 21:12:20 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_engine_destroy(t_engine *eng)
 {
 	if (!eng)
 		return ;
+	if (eng->mlx)
+		mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_NORMAL);
 	if (eng->tex.north)
 		mlx_delete_texture(eng->tex.north);
 	if (eng->tex.south)

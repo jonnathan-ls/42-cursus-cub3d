@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/21 15:16:34 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/21 21:11:35 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,26 @@
 #include "minimap.h"
 #include <MLX42/MLX42.h>
 
-static void	set_player_dir(t_engine *eng, char dir)
+static int	init_cursor_image(t_engine *eng)
 {
-	eng->player.dir_x = (dir == 'E') - (dir == 'W');
-	eng->player.dir_y = (dir == 'S') - (dir == 'N');
-	eng->player.plane_x = ((dir == 'N') - (dir == 'S')) * PLANE_FACTOR;
-	eng->player.plane_y = ((dir == 'E') - (dir == 'W')) * PLANE_FACTOR;
+	uint32_t	*pixels;
+	int			center;
+
+	eng->img.cursor = mlx_new_image(eng->mlx, 32, 32);
+	if (!eng->img.cursor)
+		return (-1);
+	pixels = (uint32_t *)eng->img.cursor->pixels;
+	center = 16;
+	draw_circle(pixels, center, center, 8);
+	pixels[center * 32 + center] = 0xFFFFFFFF;
+	pixels[center * 32 + center - 1] = 0xFFFFFFFF;
+	pixels[center * 32 + center + 1] = 0xFFFFFFFF;
+	pixels[(center - 1) * 32 + center] = 0xFFFFFFFF;
+	pixels[(center + 1) * 32 + center] = 0xFFFFFFFF;
+	if (mlx_image_to_window(eng->mlx, eng->img.cursor, WIN_WIDTH / 2 - 16,
+			WIN_HEIGHT / 2 - 16) < 0)
+		return (-1);
+	return (0);
 }
 
 static int	init_window_image(t_engine *eng)
@@ -33,6 +47,9 @@ static int	init_window_image(t_engine *eng)
 		return (-1);
 	if (mlx_image_to_window(eng->mlx, eng->img.frame, 0, 0) < 0)
 		return (-1);
+	if (init_cursor_image(eng) != 0)
+		return (-1);
+	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_DISABLED);
 	return (0);
 }
 
