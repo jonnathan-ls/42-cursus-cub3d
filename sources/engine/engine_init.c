@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/23 09:14:49 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:28:56 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,6 @@ static void	init_map_dims(t_engine *eng, t_config *cfg)
 	eng->map_h = cfg->map.height;
 	eng->win_w = WIN_WIDTH;
 	eng->win_h = WIN_HEIGHT;
-}
-
-static void	zero_engine(t_engine *eng)
-{
-	eng->mlx = NULL;
-	eng->img.frame = NULL;
-	eng->img.cursor = NULL;
-	eng->tex.north = NULL;
-	eng->tex.south = NULL;
-	eng->tex.west = NULL;
-	eng->tex.east = NULL;
-	eng->tex.door_closed = NULL;
 }
 
 int	ft_engine_init(t_engine *eng, t_config *cfg)
