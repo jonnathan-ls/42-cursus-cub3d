@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/21 21:11:35 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/23 09:14:49 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,40 @@ static void	init_map_dims(t_engine *eng, t_config *cfg)
 	eng->win_h = WIN_HEIGHT;
 }
 
+static void	zero_engine(t_engine *eng)
+{
+	eng->mlx = NULL;
+	eng->img.frame = NULL;
+	eng->img.cursor = NULL;
+	eng->tex.north = NULL;
+	eng->tex.south = NULL;
+	eng->tex.west = NULL;
+	eng->tex.east = NULL;
+	eng->tex.door_closed = NULL;
+}
+
 int	ft_engine_init(t_engine *eng, t_config *cfg)
 {
 	if (!eng || !cfg)
 		return (-1);
+	zero_engine(eng);
 	if (init_window_image(eng) != 0)
+	{
+		ft_engine_destroy(eng);
 		return (-1);
+	}
 	init_map_dims(eng, cfg);
 	init_player_colors(eng, cfg);
 	if (ft_load_textures(eng, cfg) != 0)
+	{
+		ft_engine_destroy(eng);
 		return (-1);
+	}
 	if (ft_doors_init(eng) != 0)
+	{
+		ft_engine_destroy(eng);
 		return (-1);
+	}
 	ft_minimap_init(eng);
 	return (0);
 }
