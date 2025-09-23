@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * Initializes all members of the t_engine structure to NULL.
+ * This ensures safe cleanup by preventing undefined behavior from
+ * uninitialized pointers.
+ */
 void	zero_engine(t_engine *eng)
 {
 	eng->mlx = NULL;
