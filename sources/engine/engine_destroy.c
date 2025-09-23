@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:05 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/21 21:12:20 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/23 09:15:20 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_engine_destroy(t_engine *eng)
 		mlx_delete_texture(eng->tex.door_closed);
 	if (eng->img.frame)
 		mlx_delete_image(eng->mlx, eng->img.frame);
+	if (eng->img.cursor)
+		mlx_delete_image(eng->mlx, eng->img.cursor);
 	if (eng->mlx)
 		mlx_terminate(eng->mlx);
 	mm_garbage_collector();
