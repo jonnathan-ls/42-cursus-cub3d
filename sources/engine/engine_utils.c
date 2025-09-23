@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   engine_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/21 20:38:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:39:15 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <MLX42/MLX42.h>
-#include "engine.h"
 #include "constants.h"
+#include "engine.h"
+#include <MLX42/MLX42.h>
 
 int	check_key_press_cooldown(void)
 {
@@ -51,11 +51,23 @@ void	draw_circle(uint32_t *pixels, int cx, int cy, int radius)
 		{
 			dx = x;
 			dy = y;
-			if (dx * dx + dy * dy <= radius * radius
-				&& dx * dx + dy * dy >= (radius - 1) * (radius - 1))
+			if (dx * dx + dy * dy <= radius * radius && dx * dx + dy
+				* dy >= (radius - 1) * (radius - 1))
 				pixels[(cy + y) * 32 + (cx + x)] = 0xFFFFFFFF;
 			x++;
 		}
 		y++;
 	}
+}
+
+void	zero_engine(t_engine *eng)
+{
+	eng->mlx = NULL;
+	eng->img.frame = NULL;
+	eng->img.cursor = NULL;
+	eng->tex.north = NULL;
+	eng->tex.south = NULL;
+	eng->tex.west = NULL;
+	eng->tex.east = NULL;
+	eng->tex.door_closed = NULL;
 }
