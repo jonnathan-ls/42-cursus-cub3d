@@ -6,13 +6,14 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/23 22:33:53 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/24 00:57:48 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "raycast.h"
 #include "render.h"
+#include "constants.h"
 
 static double	calc_wall_x(t_engine *eng, t_ray *ray)
 {
@@ -25,13 +26,51 @@ static double	calc_wall_x(t_engine *eng, t_ray *ray)
 	return (wall_x - (int)wall_x);
 }
 
-static uint32_t	shade(uint32_t col, int side)
+static float	calculate_distance_shade(double distance)
 {
+	float	fog_factor;
+	float	smooth_factor;
+
+	if (distance <= FOG_DISTANCE_START)
+		return (1.0f);
+	if (distance >= FOG_DISTANCE_MAX)
+		return (FOG_MIN_INTENSITY);
+	fog_factor = (distance - FOG_DISTANCE_START)
+		/ (FOG_DISTANCE_MAX - FOG_DISTANCE_START);
+	smooth_factor = fog_factor * fog_factor * (3.0f - 2.0f * fog_factor);
+	return (1.0f - smooth_factor * (1.0f - FOG_MIN_INTENSITY));
+}
+
+static uint32_t	apply_shading(uint32_t color, float intensity)
+{
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+	uint8_t	a;
+
+	r = (uint8_t)((color >> 24) & 0xFF);
+	g = (uint8_t)((color >> 16) & 0xFF);
+	b = (uint8_t)((color >> 8) & 0xFF);
+	a = (uint8_t)(color & 0xFF);
+	r = (uint8_t)(r * intensity);
+	g = (uint8_t)(g * intensity);
+	b = (uint8_t)(b * intensity);
+	return ((r << 24) | (g << 16) | (b << 8) | a);
+}
+
+static uint32_t	shade_with_distance(uint32_t col, int side, double distance)
+{
+	float	distance_shade;
+	float	side_shade;
+	float	final_intensity;
+
+	distance_shade = calculate_distance_shade(distance);
 	if (side == 1)
-		return ((col & 0xFF000000) | (((col >> 16 & 0xFF) * 60
-					/ 100) << 16) | (((col >> 8 & 0xFF) * 60
-					/ 100) << 8) | ((col & 0xFF) * 60 / 100));
-	return (col);
+		side_shade = SIDE_SHADE_FACTOR;
+	else
+		side_shade = 1.0f;
+	final_intensity = distance_shade * side_shade;
+	return (apply_shading(col, final_intensity));
 }
 
 static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
@@ -56,8 +95,9 @@ static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 			tex_y = 0;
 		if (tex_y >= (int)tex->height)
 			tex_y = tex->height - 1;
-		mlx_put_pixel(eng->img.frame, ray->x, y, shade(((uint32_t *)tex->pixels)
-			[tex_y * tex->width + tex_x], ray->side));
+		mlx_put_pixel(eng->img.frame, ray->x, y,
+			shade_with_distance(
+				ft_get_texture_pixel(tex, tex_x, tex_y), ray->side, ray->perp_dist));
 		tex_pos += step;
 		y++;
 	}

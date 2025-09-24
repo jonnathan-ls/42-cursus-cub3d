@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/21 20:28:24 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/24 00:16:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,14 @@
 # define MINIMAP_DOOR_COLOR BLACK
 # define MINIMAP_PLAYER_COLOR RED
 # define MINIMAP_FOG_COLOR DARK_GRAY
+
+# define SHADE_INTENSITY 0.85f
+# define SHADE_MIN_INTENSITY 0.70f
+# define SHADE_MAX_INTENSITY 1.0f
+
+# define FOG_DISTANCE_START 2.0f
+# define FOG_DISTANCE_MAX 30.0f
+# define FOG_MIN_INTENSITY 0.1f
+# define SIDE_SHADE_FACTOR 0.85f
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:42 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/23 22:33:53 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/23 23:13:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int				ft_calculate_wall_height(struct s_ray *ray, int win_h);
 mlx_texture_t	*ft_get_wall_texture(struct s_engine *eng, struct s_ray *ray);
 int				ft_calculate_texture_x(t_ray *ray, mlx_texture_t *tex,
 					double wall_x);
+uint32_t		ft_get_texture_pixel(mlx_texture_t *tex, int tex_x, int tex_y);
 
 void			ft_render_wall_strip(struct s_engine *eng, struct s_ray *ray,
 					int start, int end);
