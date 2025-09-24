@@ -6,31 +6,13 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/19 23:39:33 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/23 22:33:53 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "raycast.h"
 #include "render.h"
-
-static void	draw_ceil_floor(t_engine *eng, int x, int start, int end)
-{
-	int	y;
-
-	y = 0;
-	while (y < start && y < eng->win_h)
-	{
-		mlx_put_pixel(eng->img.frame, x, y, eng->ceil_color);
-		y++;
-	}
-	y = end + 1;
-	while (y < eng->win_h)
-	{
-		mlx_put_pixel(eng->img.frame, x, y, eng->floor_color);
-		y++;
-	}
-}
 
 static double	calc_wall_x(t_engine *eng, t_ray *ray)
 {
@@ -90,7 +72,7 @@ void	ft_render_wall_strip(t_engine *eng, t_ray *ray, int start, int end)
 		start = 0;
 	if (end >= eng->win_h)
 		end = eng->win_h - 1;
-	draw_ceil_floor(eng, ray->x, start, end);
+	ft_render_ceiling_floor(eng, ray, start, end);
 	tex = ft_get_wall_texture(eng, ray);
 	if (!tex)
 		return ;

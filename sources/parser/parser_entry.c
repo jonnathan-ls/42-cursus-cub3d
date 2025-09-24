@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_entry.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:37 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/22 08:41:43 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/23 21:33:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	init_config(t_config *cfg)
 	cfg->textures.so_path = NULL;
 	cfg->textures.we_path = NULL;
 	cfg->textures.ea_path = NULL;
+	cfg->textures.floor_path = NULL;
+	cfg->textures.ceiling_path = NULL;
 	cfg->floor_color.rgba = -1;
 	cfg->ceiling_color.rgba = -1;
 	cfg->map.grid = NULL;

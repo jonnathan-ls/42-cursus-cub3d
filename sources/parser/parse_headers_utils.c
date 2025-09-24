@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_headers_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:01:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 18:49:04 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/23 21:33:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ static int	handle_texture_line(char *id, t_config *cfg)
 	if (id[0] == 'E' && id[1] == 'A')
 		return (parse_single_texture(rest, &cfg->textures.ea_path,
 				"duplicate EA texture"));
+	if (id[0] == 'F' && id[1] == 'T')
+		return (parse_single_texture(rest, &cfg->textures.floor_path,
+				"duplicate FT texture"));
+	if (id[0] == 'C' && id[1] == 'T')
+		return (parse_single_texture(rest, &cfg->textures.ceiling_path,
+				"duplicate CT texture"));
 	return (parser_error("invalid texture identifier"));
 }
 
@@ -97,11 +103,11 @@ int	parse_header_line(char *line, t_config *cfg, int *count_done)
 	if (*id == '\n' || *id == '\0')
 		return (0);
 	if ((id[0] == 'N' && id[1] == 'O') || (id[0] == 'S' && id[1] == 'O')
-		|| (id[0] == 'W' && id[1] == 'E') || (id[0] == 'E' && id[1] == 'A'))
+		|| (id[0] == 'W' && id[1] == 'E') || (id[0] == 'E' && id[1] == 'A')
+		|| (id[0] == 'F' && id[1] == 'T') || (id[0] == 'C' && id[1] == 'T'))
 	{
 		if (handle_texture_line(id, cfg) < 0)
 			return (-1);
-		(*count_done)++;
 		return (0);
 	}
 	if (id[0] == 'F' || id[0] == 'C')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/23 19:28:56 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/23 21:18:55 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	init_window_image(t_engine *eng)
 		return (-1);
 	if (init_cursor_image(eng) != 0)
 		return (-1);
-	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_DISABLED);
+	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_HIDDEN);
 	return (0);
 }
 

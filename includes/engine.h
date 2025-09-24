@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/23 19:28:48 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/23 21:33:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_textures_bundle
 	mlx_texture_t		*west;
 	mlx_texture_t		*east;
 	mlx_texture_t		*door_closed;
+	mlx_texture_t		*floor;
+	mlx_texture_t		*ceiling;
 }						t_textures_bundle;
 
 typedef struct s_image

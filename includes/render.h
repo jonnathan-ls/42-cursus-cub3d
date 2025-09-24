@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:42 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:19:24 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/23 22:33:53 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int				ft_calculate_texture_x(t_ray *ray, mlx_texture_t *tex,
 					double wall_x);
 
 void			ft_render_wall_strip(struct s_engine *eng, struct s_ray *ray,
+					int start, int end);
+void			ft_render_ceiling_floor(struct s_engine *eng, struct s_ray *ray,
 					int start, int end);
 
 void			ft_cast_all_rays(struct s_engine *eng);
