@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/09/21 16:38:37 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/09/23 22:35:05 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ RAY_SRCS = \
 RENDER_SRCS = \
 	sources/render/render_wall.c \
 	sources/render/render_strip.c \
+	sources/render/render_ceiling_floor.c \
 	sources/render/frame.c \
 	sources/render/minimap.c \
 	sources/render/minimap_utils.c
