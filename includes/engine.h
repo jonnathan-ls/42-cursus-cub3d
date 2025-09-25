@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/23 21:33:39 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/24 21:43:36 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,23 @@
 
 # include "parser.h"
 # include "player.h"
-# include "structs.h"
 # include <MLX42/MLX42.h>
 # include <stdint.h>
 
 typedef struct s_player	t_player;
+
+typedef struct s_door
+{
+	int		x;
+	int		y;
+	int		is_open;
+}			t_door;
+
+typedef struct s_doors_manager
+{
+	t_door	*list;
+	int		count;
+}			t_doors_manager;
 
 typedef struct s_textures_bundle
 {

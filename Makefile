@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/09/23 22:35:05 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/09/24 23:08:51 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ include configs/functions.mk
 
 NAME = cub3d
 
-SHARED_SRCS = sources/shared/memory-manager.c
+SHARED_SRCS = sources/shared/memory-manager.c sources/shared/ternary_utils.c
 MAIN_SRCS = sources/main.c
 PARSER_SRCS = \
 	sources/parser/validate_extension.c \
@@ -50,6 +50,8 @@ RAY_SRCS = \
 	sources/engine/ray_distance.c
 
 RENDER_SRCS = \
+	sources/render/render_utils.c \
+	sources/render/render_shade.c \
 	sources/render/render_wall.c \
 	sources/render/render_strip.c \
 	sources/render/render_ceiling_floor.c \
@@ -113,9 +115,6 @@ re:
 
 norminette:
 	@norminette $(INCS_DIR) $(LIBFT_DIR) $(SOURCES)
-
-test:
-	@$(MAKE) --no-print-directory -C tests tests_cases
 
 valgrind: all
 	@rm	-f .header_lock

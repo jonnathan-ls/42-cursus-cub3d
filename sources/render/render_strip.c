@@ -6,40 +6,15 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/24 00:57:48 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/24 23:12:04 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "raycast.h"
 #include "render.h"
+#include "cub3d.h"
 #include "constants.h"
-
-static double	calc_wall_x(t_engine *eng, t_ray *ray)
-{
-	double	wall_x;
-
-	if (ray->side == 0)
-		wall_x = eng->player.pos_y + ray->perp_dist * ray->ray_dir_y;
-	else
-		wall_x = eng->player.pos_x + ray->perp_dist * ray->ray_dir_x;
-	return (wall_x - (int)wall_x);
-}
-
-static float	calculate_distance_shade(double distance)
-{
-	float	fog_factor;
-	float	smooth_factor;
-
-	if (distance <= FOG_DISTANCE_START)
-		return (1.0f);
-	if (distance >= FOG_DISTANCE_MAX)
-		return (FOG_MIN_INTENSITY);
-	fog_factor = (distance - FOG_DISTANCE_START)
-		/ (FOG_DISTANCE_MAX - FOG_DISTANCE_START);
-	smooth_factor = fog_factor * fog_factor * (3.0f - 2.0f * fog_factor);
-	return (1.0f - smooth_factor * (1.0f - FOG_MIN_INTENSITY));
-}
 
 static uint32_t	apply_shading(uint32_t color, float intensity)
 {
@@ -64,7 +39,7 @@ static uint32_t	shade_with_distance(uint32_t col, int side, double distance)
 	float	side_shade;
 	float	final_intensity;
 
-	distance_shade = calculate_distance_shade(distance);
+	distance_shade = ft_calculate_distance_shade(distance);
 	if (side == 1)
 		side_shade = SIDE_SHADE_FACTOR;
 	else
@@ -81,23 +56,21 @@ static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 	int		tex_y;
 	double	tex_pos;
 
-	tex_x = ft_calculate_texture_x(ray, tex, calc_wall_x(eng, ray));
+	tex_x = ft_calculate_texture_x(ray, tex, ft_calc_wall_x(eng, ray));
 	tex_y = ft_calculate_wall_height(ray, eng->win_h);
-	if (tex_y <= 0)
-		tex_y = 1;
+	tex_y = ft_ternary_int(tex_y <= 0, 1, tex_y);
 	step = (double)tex->height / (double)tex_y;
 	tex_pos = (double)(rng[0] + tex_y / 2 - eng->win_h / 2) * step;
 	y = rng[0];
 	while (y <= rng[1])
 	{
 		tex_y = (int)tex_pos;
-		if (tex_y < 0)
-			tex_y = 0;
-		if (tex_y >= (int)tex->height)
-			tex_y = tex->height - 1;
+		tex_y = ft_ternary_int(tex_y < 0, 0, tex_y);
+		tex_y = ft_ternary_int(tex_y >= (int)tex->height,
+				(int)tex->height - 1, tex_y);
 		mlx_put_pixel(eng->img.frame, ray->x, y,
-			shade_with_distance(
-				ft_get_texture_pixel(tex, tex_x, tex_y), ray->side, ray->perp_dist));
+			shade_with_distance(ft_get_texture_pixel(
+					tex, tex_x, tex_y), ray->side, ray->perp_dist));
 		tex_pos += step;
 		y++;
 	}

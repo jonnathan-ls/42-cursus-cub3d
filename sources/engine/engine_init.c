@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/23 21:18:55 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/24 21:49:42 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	init_window_image(t_engine *eng)
 		return (-1);
 	if (init_cursor_image(eng) != 0)
 		return (-1);
-	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_HIDDEN);
+	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_DISABLED);
 	return (0);
 }
 
