@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:22 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/21 11:09:42 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/27 22:16:33 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	is_door_closed_at(t_engine *eng, int x, int y)
 	while (i < eng->doors.count)
 	{
 		if (eng->doors.list[i].x == x && eng->doors.list[i].y == y)
-			return (!eng->doors.list[i].is_open);
+			return (eng->doors.list[i].offset < 1.0);
 		i++;
 	}
 	return (1);
@@ -83,6 +83,8 @@ int	ft_detect_collision(t_engine *eng, t_ray *ray)
 	if (eng->map[ray->map_y][ray->map_x] == 'D')
 	{
 		ray->hit_type = 'D';
+		if (eng->ignore_doors)
+			return (0);
 		return (is_door_closed_at(eng, ray->map_x, ray->map_y));
 	}
 	return (0);

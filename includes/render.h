@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:42 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/24 23:12:59 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/27 23:19:00 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@
 # include "raycast.h"
 # include <MLX42/MLX42.h>
 # include <stdint.h>
+
+typedef struct s_pixel_ctx
+{
+	mlx_texture_t	*tex;
+	int				tx;
+	double			pos;
+	int				shift;
+}	t_pixel_ctx;
 
 double			ft_calc_wall_x(t_engine *eng, t_ray *ray);
 float			ft_calculate_distance_shade(double distance);
@@ -36,6 +44,9 @@ void			ft_render_wall_strip(struct s_engine *eng, struct s_ray *ray,
 					int start, int end);
 void			ft_render_ceiling_floor(struct s_engine *eng, struct s_ray *ray,
 					int start, int end);
+
+uint32_t		ft_shaded_pixel_from_pos(
+					mlx_texture_t *tex, int tx, double pos, t_ray *ray);
 
 void			ft_cast_all_rays(struct s_engine *eng);
 void			ft_render_walls(struct s_engine *eng);

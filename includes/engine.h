@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/24 21:43:36 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/27 22:43:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_door
 	int		x;
 	int		y;
 	int		is_open;
+	double	offset;
 }			t_door;
 
 typedef struct s_doors_manager
@@ -68,6 +69,7 @@ typedef struct s_engine
 	int					minimap_toggle;
 	int					**explored_map;
 	t_doors_manager		doors;
+	int					ignore_doors;
 }						t_engine;
 
 void					zero_engine(t_engine *eng);
@@ -88,5 +90,8 @@ void					ft_handle_door_interaction(t_engine *eng);
 int						ft_door_is_open(t_engine *eng, int x, int y);
 int						ft_can_interact_with_door(t_engine *eng);
 int						ft_find_nearest_door_index(t_engine *eng);
+void					ft_doors_update(t_engine *eng);
+int						ft_get_door_texture_offset(
+							t_engine *eng, int map_x, int map_y);
 
 #endif

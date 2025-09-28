@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/09/24 23:08:51 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/09/27 23:04:49 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ RENDER_SRCS = \
 	sources/render/render_shade.c \
 	sources/render/render_wall.c \
 	sources/render/render_strip.c \
+	sources/render/render_strip_aux.c \
 	sources/render/render_ceiling_floor.c \
 	sources/render/frame.c \
 	sources/render/minimap.c \
