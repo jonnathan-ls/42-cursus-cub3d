@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/24 21:49:42 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/27 20:59:36 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	init_window_image(t_engine *eng)
 		return (-1);
 	if (init_cursor_image(eng) != 0)
 		return (-1);
-	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_DISABLED);
+	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_HIDDEN);
 	return (0);
 }
 
@@ -63,6 +63,8 @@ static void	init_player_colors(t_engine *eng, t_config *cfg)
 	eng->player.rot_speed = ROT_SPEED;
 	eng->player.mouse_x = WIN_WIDTH / 2;
 	eng->player.mouse_y = WIN_HEIGHT / 2;
+	eng->player.pitch = 0.0;
+	eng->player.pitch_factor = 0.5;
 	set_player_dir(eng, cfg->map.player_dir);
 }
 

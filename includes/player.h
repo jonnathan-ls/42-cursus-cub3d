@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:52 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:40:10 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/27 20:33:24 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_player
 	double	rot_speed;
 	int		mouse_x;
 	int		mouse_y;
+	double	pitch;
+	double	pitch_factor;
 }			t_player;
 
 void		ft_player_move(struct s_engine *eng);

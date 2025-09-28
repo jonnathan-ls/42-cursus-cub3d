@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:36 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 19:06:33 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/27 21:04:31 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,13 @@ static void	cast_column(t_engine *eng, int x)
 	ft_perform_dda(eng, &ray);
 	ft_calculate_distances(&ray, &eng->player);
 	wall_h = ft_calculate_wall_height(&ray, eng->win_h);
-	start = -wall_h / 2 + eng->win_h / 2;
-	end = wall_h / 2 + eng->win_h / 2;
+	{
+		double	center;
+
+		center = (double)eng->win_h / 2.0 - eng->player.pitch * ((double)eng->win_h / 4.0);
+		start = -wall_h / 2 + (int)center;
+		end = wall_h / 2 + (int)center;
+	}
 	if (start < 0)
 		start = 0;
 	if (end >= eng->win_h)

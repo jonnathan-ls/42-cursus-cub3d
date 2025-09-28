@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/24 23:12:04 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/27 20:54:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,12 @@ static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 	tex_y = ft_calculate_wall_height(ray, eng->win_h);
 	tex_y = ft_ternary_int(tex_y <= 0, 1, tex_y);
 	step = (double)tex->height / (double)tex_y;
-	tex_pos = (double)(rng[0] + tex_y / 2 - eng->win_h / 2) * step;
+	{
+		double	centerY;
+
+		centerY = (double)eng->win_h / 2.0 - eng->player.pitch * ((double)eng->win_h / 4.0);
+		tex_pos = (double)(rng[0] + tex_y / 2 - (int)centerY) * step;
+	}
 	y = rng[0];
 	while (y <= rng[1])
 	{

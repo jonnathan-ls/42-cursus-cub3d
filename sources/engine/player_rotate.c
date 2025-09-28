@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/21 20:37:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/27 21:03:44 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	ft_player_mouse_rotate(t_engine *eng)
 	int		mouse_y;
 	double	delta_x;
 	double	rot_amount;
+	double	delta_y;
+	double	pitch_amount;
 
 	if (!eng || !eng->mlx)
 		return ;
@@ -51,6 +53,12 @@ void	ft_player_mouse_rotate(t_engine *eng)
 	{
 		rot_amount = delta_x * MOUSE_SENSITIVITY;
 		apply_rot(&eng->player, rot_amount);
+	}
+	delta_y = mouse_y - eng->player.mouse_y;
+	if (delta_y != 0)
+	{
+		pitch_amount = delta_y * MOUSE_SENSITIVITY;
+		eng->player.pitch += pitch_amount * eng->player.pitch_factor;
 	}
 	eng->player.mouse_x = mouse_x;
 	eng->player.mouse_y = mouse_y;

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/24 23:13:36 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/27 20:51:31 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,12 @@ uint32_t	ft_calc_floor_texture(t_engine *eng, int y, t_ray *ray,
 
 	if (!eng->tex.floor)
 		return (eng->floor_color);
-	row_distance = (double)eng->win_h / (2.0 * y - eng->win_h);
+	{
+		double	centerY;
+
+		centerY = (double)eng->win_h / 2.0 - eng->player.pitch * ((double)eng->win_h / 4.0);
+		row_distance = (double)eng->win_h / (2.0 * (y - centerY));
+	}
 	*distance = row_distance;
 	floor_x = eng->player.pos_x + row_distance * ray->ray_dir_x;
 	floor_y = eng->player.pos_y + row_distance * ray->ray_dir_y;
@@ -72,7 +77,12 @@ uint32_t	ft_calc_ceil_texture(t_engine *eng, int y, t_ray *ray,
 
 	if (!eng->tex.ceiling)
 		return (eng->ceil_color);
-	row_distance = (double)eng->win_h / (eng->win_h - 2.0 * y);
+	{
+		double	centerY;
+
+		centerY = (double)eng->win_h / 2.0 - eng->player.pitch * ((double)eng->win_h / 4.0);
+		row_distance = (double)eng->win_h / (2.0 * (centerY - y));
+	}
 	*distance = row_distance;
 	ceil_x = eng->player.pos_x + row_distance * ray->ray_dir_x;
 	ceil_y = eng->player.pos_y + row_distance * ray->ray_dir_y;
