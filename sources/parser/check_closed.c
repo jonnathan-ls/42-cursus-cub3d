@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_closed.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:23:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/22 08:39:46 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ static char	**alloc_visited(t_map *m)
 	char	**v;
 	int		y;
 
-	v = (char **)ft_calloc(m->height, sizeof(char *));
+	v = (char **)calloc(m->height, sizeof(char *));
 	if (!v)
 		return (NULL);
 	y = 0;
 	while (y < m->height)
 	{
-		v[y] = (char *)ft_calloc(m->width, sizeof(char));
+		v[y] = (char *)calloc(m->width, sizeof(char));
 		if (!v[y])
 		{
 			free_visited(v, y);

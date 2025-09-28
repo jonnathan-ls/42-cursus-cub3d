@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:34 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/24 23:03:40 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "render.h"
 #include <math.h>
 
-int	ft_calculate_wall_height(t_ray *ray, int win_h)
+int	calculate_wall_height(t_ray *ray, int win_h)
 {
 	int	h;
 
@@ -23,7 +23,7 @@ int	ft_calculate_wall_height(t_ray *ray, int win_h)
 	return (h);
 }
 
-mlx_texture_t	*ft_get_wall_texture(t_engine *eng, t_ray *ray)
+mlx_texture_t	*get_wall_texture(t_engine *eng, t_ray *ray)
 {
 	if (ray->hit_type == 'D')
 		return (eng->tex.door_closed);
@@ -36,7 +36,7 @@ mlx_texture_t	*ft_get_wall_texture(t_engine *eng, t_ray *ray)
 	return (eng->tex.south);
 }
 
-int	ft_calculate_texture_x(t_ray *ray, mlx_texture_t *tex, double wall_x)
+int	calculate_texture_x(t_ray *ray, mlx_texture_t *tex, double wall_x)
 {
 	int	tex_x;
 

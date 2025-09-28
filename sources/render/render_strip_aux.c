@@ -38,7 +38,7 @@ static uint32_t	shade_with_distance(uint32_t col, int side, double distance)
 	float	side_shade;
 	float	final_intensity;
 
-	distance_shade = ft_calculate_distance_shade(distance);
+	distance_shade = calculate_distance_shade(distance);
 	if (side == 1)
 		side_shade = SIDE_SHADE_FACTOR;
 	else
@@ -47,7 +47,7 @@ static uint32_t	shade_with_distance(uint32_t col, int side, double distance)
 	return (apply_shading(col, final_intensity));
 }
 
-uint32_t	ft_shaded_pixel_from_pos(
+uint32_t	shaded_pixel_from_pos(
 	mlx_texture_t *tex, int tx, double pos, t_ray *ray)
 {
 	int			ty;
@@ -55,9 +55,9 @@ uint32_t	ft_shaded_pixel_from_pos(
 	uint32_t	shaded;
 
 	ty = (int)pos;
-	ty = ft_ternary_int(ty < 0, 0, ty);
-	ty = ft_ternary_int(ty >= (int)tex->height, (int)tex->height - 1, ty);
-	col = ft_get_texture_pixel(tex, tx, ty);
+	ty = ternary_int(ty < 0, 0, ty);
+	ty = ternary_int(ty >= (int)tex->height, (int)tex->height - 1, ty);
+	col = get_texture_pixel(tex, tx, ty);
 	shaded = shade_with_distance(col, ray->side, ray->perp_dist);
 	return (shaded);
 }

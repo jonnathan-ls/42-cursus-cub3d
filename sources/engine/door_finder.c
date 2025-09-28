@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 01:48:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "player.h"
 #include <math.h>
 
-int	ft_find_nearest_door_index(t_engine *eng)
+int	find_nearest_door_index(t_engine *eng)
 {
 	int		i;
 	double	dx;

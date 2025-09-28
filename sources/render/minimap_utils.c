@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/21 16:31:28 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	should_draw(char cell, int *color)
 	return (0);
 }
 
-void	ft_minimap_render_cells(t_engine *eng, int final_scale)
+void	minimap_render_cells(t_engine *eng, int final_scale)
 {
 	int	cell_x;
 	int	cell_y;
@@ -46,14 +46,14 @@ void	ft_minimap_render_cells(t_engine *eng, int final_scale)
 		cell_y = 0;
 		while (cell_y < eng->map_h)
 		{
-			ft_minimap_draw_cell_block(eng, cell_x, cell_y, final_scale);
+			minimap_draw_cell_block(eng, cell_x, cell_y, final_scale);
 			cell_y = cell_y + 1;
 		}
 		cell_x = cell_x + 1;
 	}
 }
 
-void	ft_minimap_draw_cell_block(
+void	minimap_draw_cell_block(
 	t_engine *eng, int cell_x, int cell_y, int scale)
 {
 	int	dx;
@@ -82,7 +82,7 @@ void	ft_minimap_draw_cell_block(
 	}
 }
 
-int	ft_minimap_init_exploration(t_engine *eng)
+int	minimap_init_exploration(t_engine *eng)
 {
 	int	y;
 	int	x;
@@ -109,7 +109,7 @@ int	ft_minimap_init_exploration(t_engine *eng)
 	return (0);
 }
 
-void	ft_minimap_update_exploration(t_engine *eng)
+void	minimap_update_exploration(t_engine *eng)
 {
 	int		player_x;
 	int		player_y;

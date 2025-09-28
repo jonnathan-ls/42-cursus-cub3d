@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/27 21:45:38 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static void	apply_rot(t_player *p, double rot)
 	p->plane_y = old_plane_x * sin(rot) + p->plane_y * cos(rot);
 }
 
-void	ft_player_rotate(t_engine *eng, double rot)
+void	player_rotate(t_engine *eng, double rot)
 {
 	if (!eng)
 		return ;
 	apply_rot(&eng->player, rot);
 }
 
-static void	ft_player_mouse_pitch(t_engine *eng, double delta_y)
+static void	player_mouse_pitch(t_engine *eng, double delta_y)
 {
 	double	pitch_amount;
 
@@ -49,7 +49,7 @@ static void	ft_player_mouse_pitch(t_engine *eng, double delta_y)
 	}
 }
 
-void	ft_player_mouse_rotate(t_engine *eng)
+void	player_mouse_rotate(t_engine *eng)
 {
 	int		mouse_x;
 	int		mouse_y;
@@ -67,7 +67,7 @@ void	ft_player_mouse_rotate(t_engine *eng)
 		apply_rot(&eng->player, rot_amount);
 	}
 	delta_y = mouse_y - eng->player.mouse_y;
-	ft_player_mouse_pitch(eng, delta_y);
+	player_mouse_pitch(eng, delta_y);
 	eng->player.mouse_x = mouse_x;
 	eng->player.mouse_y = mouse_y;
 }

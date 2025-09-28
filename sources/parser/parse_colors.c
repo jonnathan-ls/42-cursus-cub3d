@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:18 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 18:50:47 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:38:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	parse_component(char *s, int *out)
 	if (i == 0)
 		return (parser_error("empty color component"));
 	s[i] = '\0';
-	val = ft_atoi(s);
+	val = atoi(s);
 	if (val < 0 || val > 255)
 		return (parser_error("color component out of range [0-255]"));
 	*out = val;

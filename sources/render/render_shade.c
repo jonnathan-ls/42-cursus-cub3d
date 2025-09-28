@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:30:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/24 23:12:37 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "raycast.h"
 #include "constants.h"
 
-float	ft_calculate_distance_shade(double distance)
+float	calculate_distance_shade(double distance)
 {
 	float	fog_factor;
 	float	smooth_factor;
@@ -30,7 +30,7 @@ float	ft_calculate_distance_shade(double distance)
 	return (1.0f - smooth_factor * (1.0f - FOG_MIN_INTENSITY));
 }
 
-uint32_t	ft_apply_distance_shading(uint32_t color, double distance)
+uint32_t	apply_distance_shading(uint32_t color, double distance)
 {
 	float	intensity;
 	uint8_t	r;
@@ -38,7 +38,7 @@ uint32_t	ft_apply_distance_shading(uint32_t color, double distance)
 	uint8_t	b;
 	uint8_t	a;
 
-	intensity = ft_calculate_distance_shade(distance);
+	intensity = calculate_distance_shade(distance);
 	r = (uint8_t)((color >> 24) & 0xFF);
 	g = (uint8_t)((color >> 16) & 0xFF);
 	b = (uint8_t)((color >> 8) & 0xFF);

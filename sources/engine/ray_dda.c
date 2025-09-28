@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:22 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/27 22:16:33 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static double	infinite(double v)
 	return (fabs(1.0 / v));
 }
 
-void	ft_setup_dda(t_ray *ray, t_player *pl)
+void	setup_dda(t_ray *ray, t_player *pl)
 {
 	ray->delta_dist_x = infinite(ray->ray_dir_x);
 	ray->delta_dist_y = infinite(ray->ray_dir_y);
@@ -63,7 +63,7 @@ static int	is_door_closed_at(t_engine *eng, int x, int y)
 	return (1);
 }
 
-int	ft_detect_collision(t_engine *eng, t_ray *ray)
+int	detect_collision(t_engine *eng, t_ray *ray)
 {
 	if (ray->map_x < 0 || ray->map_x >= eng->map_w)
 	{
@@ -90,7 +90,7 @@ int	ft_detect_collision(t_engine *eng, t_ray *ray)
 	return (0);
 }
 
-void	ft_perform_dda(t_engine *eng, t_ray *ray)
+void	perform_dda(t_engine *eng, t_ray *ray)
 {
 	while (!ray->hit)
 	{
@@ -106,7 +106,7 @@ void	ft_perform_dda(t_engine *eng, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (ft_detect_collision(eng, ray))
+		if (detect_collision(eng, ray))
 			ray->hit = 1;
 	}
 }

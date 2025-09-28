@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 19:23:08 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 19:26:38 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	init_player_colors(t_engine *eng, t_config *cfg)
 	set_player_dir(eng, cfg->map.player_dir);
 }
 
-int	ft_engine_init(t_engine *eng, t_config *cfg)
+int	engine_init(t_engine *eng, t_config *cfg)
 {
 	if (!eng || !cfg)
 		return (-1);
@@ -99,23 +99,23 @@ int	ft_engine_init(t_engine *eng, t_config *cfg)
 	mlx_set_setting(MLX_FULLSCREEN, eng->fullscreen);
 	if (init_window_image(eng) != 0)
 	{
-		ft_engine_destroy(eng);
+		engine_destroy(eng);
 		return (-1);
 	}
 	eng->map = cfg->map.grid;
 	eng->map_w = cfg->map.width;
 	eng->map_h = cfg->map.height;
 	init_player_colors(eng, cfg);
-	if (ft_load_textures(eng, cfg) != 0)
+	if (load_textures(eng, cfg) != 0)
 	{
-		ft_engine_destroy(eng);
+		engine_destroy(eng);
 		return (-1);
 	}
-	if (ft_doors_init(eng) != 0)
+	if (doors_init(eng) != 0)
 	{
-		ft_engine_destroy(eng);
+		engine_destroy(eng);
 		return (-1);
 	}
-	ft_minimap_init(eng);
+	minimap_init(eng);
 	return (0);
 }

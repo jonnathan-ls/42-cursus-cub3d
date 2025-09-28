@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/21 16:29:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,24 @@ static void	toggle_door_by_index(t_engine *eng, int door_index)
 	}
 }
 
-void	ft_handle_door_interaction(t_engine *eng)
+void	handle_door_interaction(t_engine *eng)
 {
 	int	nearest_door_index;
 
-	if (!ft_can_interact_with_door(eng))
+	if (!can_interact_with_door(eng))
 		return ;
-	nearest_door_index = ft_find_nearest_door_index(eng);
+	nearest_door_index = find_nearest_door_index(eng);
 	toggle_door_by_index(eng, nearest_door_index);
 }
 
-int	ft_can_interact_with_door(t_engine *eng)
+int	can_interact_with_door(t_engine *eng)
 {
 	if (!eng || !mlx_is_key_down(eng->mlx, MLX_KEY_E))
 		return (0);
 	return (check_key_press_cooldown());
 }
 
-int	ft_door_is_open(t_engine *eng, int x, int y)
+int	door_is_open(t_engine *eng, int x, int y)
 {
 	int	i;
 

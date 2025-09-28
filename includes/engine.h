@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 16:36:12 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:36:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,24 @@ typedef struct s_engine
 
 void					initialize_engine(t_engine *eng);
 
-int						ft_engine_init(t_engine *eng, t_config *cfg);
-void					ft_engine_destroy(t_engine *eng);
-void					ft_engine_close(void *param);
+int						engine_init(t_engine *eng, t_config *cfg);
+void					engine_destroy(t_engine *eng);
+void					engine_close(void *param);
 int						check_key_press_cooldown(void);
 void					set_player_dir(t_engine *eng, char dir);
 void					draw_circle(uint32_t *pixels, int cx, int cy,
 							int radius);
 
-void					ft_engine_loop(t_engine *eng);
-int						ft_load_textures(t_engine *eng, t_config *cfg);
+void					engine_loop(t_engine *eng);
+int						load_textures(t_engine *eng, t_config *cfg);
 
-int						ft_doors_init(t_engine *eng);
-void					ft_handle_door_interaction(t_engine *eng);
-int						ft_door_is_open(t_engine *eng, int x, int y);
-int						ft_can_interact_with_door(t_engine *eng);
-int						ft_find_nearest_door_index(t_engine *eng);
-void					ft_doors_update(t_engine *eng);
-int						ft_get_door_texture_offset(
+int						doors_init(t_engine *eng);
+void					handle_door_interaction(t_engine *eng);
+int						door_is_open(t_engine *eng, int x, int y);
+int						can_interact_with_door(t_engine *eng);
+int						find_nearest_door_index(t_engine *eng);
+void					doors_update(t_engine *eng);
+int						get_door_texture_offset(
 							t_engine *eng, int map_x, int map_y);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory-manager.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/08/28 21:46:56 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:37:41 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	*mm_alloc(size_t count, size_t size)
 	t_node	*new_node;
 	t_node	**head;
 
-	content = ft_calloc(count, size);
+	content = calloc(count, size);
 	if (!content)
 		return (mm_fail(NULL));
 	head = mm_head();

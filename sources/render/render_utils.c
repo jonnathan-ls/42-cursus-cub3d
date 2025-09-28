@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/27 21:43:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "render.h"
 #include "constants.h"
 
-static double	ft_calc_row_distance(t_engine *eng, int y, int is_floor)
+static double	calc_row_distance(t_engine *eng, int y, int is_floor)
 {
 	double	win_h;
 	double	center;
@@ -39,7 +39,7 @@ static double	ft_calc_row_distance(t_engine *eng, int y, int is_floor)
 	return (win_h / den);
 }
 
-double	ft_calc_wall_x(t_engine *eng, t_ray *ray)
+double	calc_wall_x(t_engine *eng, t_ray *ray)
 {
 	double	wall_x;
 
@@ -50,7 +50,7 @@ double	ft_calc_wall_x(t_engine *eng, t_ray *ray)
 	return (wall_x - (int)wall_x);
 }
 
-uint32_t	ft_get_texture_pixel(mlx_texture_t *tex, int tex_x, int tex_y)
+uint32_t	get_texture_pixel(mlx_texture_t *tex, int tex_x, int tex_y)
 {
 	uint32_t	color;
 	uint8_t		*pixel_ptr;
@@ -61,7 +61,7 @@ uint32_t	ft_get_texture_pixel(mlx_texture_t *tex, int tex_x, int tex_y)
 	return (color);
 }
 
-uint32_t	ft_calc_floor_texture(t_engine *eng, int y, t_ray *ray,
+uint32_t	calc_floor_texture(t_engine *eng, int y, t_ray *ray,
 	double *distance)
 {
 	double	row_distance;
@@ -72,7 +72,7 @@ uint32_t	ft_calc_floor_texture(t_engine *eng, int y, t_ray *ray,
 
 	if (!eng->tex.floor)
 		return (eng->floor_color);
-	row_distance = ft_calc_row_distance(eng, y, 1);
+	row_distance = calc_row_distance(eng, y, 1);
 	*distance = row_distance;
 	floor_x = eng->player.pos_x + row_distance * ray->ray_dir_x;
 	floor_y = eng->player.pos_y + row_distance * ray->ray_dir_y;
@@ -82,10 +82,10 @@ uint32_t	ft_calc_floor_texture(t_engine *eng, int y, t_ray *ray,
 		tex_x += eng->tex.floor->width;
 	if (tex_y < 0)
 		tex_y += eng->tex.floor->height;
-	return (ft_get_texture_pixel(eng->tex.floor, tex_x, tex_y));
+	return (get_texture_pixel(eng->tex.floor, tex_x, tex_y));
 }
 
-uint32_t	ft_calc_ceil_texture(t_engine *eng, int y, t_ray *ray,
+uint32_t	calc_ceil_texture(t_engine *eng, int y, t_ray *ray,
 	double *distance)
 {
 	double	row_distance;
@@ -96,7 +96,7 @@ uint32_t	ft_calc_ceil_texture(t_engine *eng, int y, t_ray *ray,
 
 	if (!eng->tex.ceiling)
 		return (eng->ceil_color);
-	row_distance = ft_calc_row_distance(eng, y, 0);
+	row_distance = calc_row_distance(eng, y, 0);
 	*distance = row_distance;
 	ceil_x = eng->player.pos_x + row_distance * ray->ray_dir_x;
 	ceil_y = eng->player.pos_y + row_distance * ray->ray_dir_y;
@@ -106,5 +106,5 @@ uint32_t	ft_calc_ceil_texture(t_engine *eng, int y, t_ray *ray,
 		tex_x += eng->tex.ceiling->width;
 	if (tex_y < 0)
 		tex_y += eng->tex.ceiling->height;
-	return (ft_get_texture_pixel(eng->tex.ceiling, tex_x, tex_y));
+	return (get_texture_pixel(eng->tex.ceiling, tex_x, tex_y));
 }

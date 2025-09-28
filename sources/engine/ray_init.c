@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:17 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/20 21:16:07 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "raycast.h"
 #include <math.h>
 
-void	ft_init_ray(t_engine *eng, t_ray *ray, int x)
+void	init_ray(t_engine *eng, t_ray *ray, int x)
 {
 	double	w;
 
@@ -29,7 +29,7 @@ void	ft_init_ray(t_engine *eng, t_ray *ray, int x)
 	ray->hit_type = '0';
 }
 
-void	ft_calculate_ray_dir(t_ray *ray, t_player *pl)
+void	calculate_ray_dir(t_ray *ray, t_player *pl)
 {
 	ray->ray_dir_x = pl->dir_x + pl->plane_x * ray->cam_x;
 	ray->ray_dir_y = pl->dir_y + pl->plane_y * ray->cam_x;

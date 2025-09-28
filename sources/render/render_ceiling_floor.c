@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:30:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/24 23:12:37 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	draw_ceiling_pixels(t_engine *eng, int x, int start, t_ray *ray)
 	{
 		if (eng->tex.ceiling)
 		{
-			color = ft_calc_ceil_texture(eng, y, ray, &distance);
-			color = ft_apply_distance_shading(color, distance);
+			color = calc_ceil_texture(eng, y, ray, &distance);
+			color = apply_distance_shading(color, distance);
 		}
 		else
 			color = eng->ceil_color;
@@ -47,8 +47,8 @@ static void	draw_floor_pixels(t_engine *eng, int x, int end, t_ray *ray)
 	{
 		if (eng->tex.floor)
 		{
-			color = ft_calc_floor_texture(eng, y, ray, &distance);
-			color = ft_apply_distance_shading(color, distance);
+			color = calc_floor_texture(eng, y, ray, &distance);
+			color = apply_distance_shading(color, distance);
 		}
 		else
 			color = eng->floor_color;
@@ -57,7 +57,7 @@ static void	draw_floor_pixels(t_engine *eng, int x, int end, t_ray *ray)
 	}
 }
 
-void	ft_render_ceiling_floor(t_engine *eng, t_ray *ray, int start, int end)
+void	render_ceiling_floor(t_engine *eng, t_ray *ray, int start, int end)
 {
 	draw_ceiling_pixels(eng, ray->x, start, ray);
 	draw_floor_pixels(eng, ray->x, end, ray);

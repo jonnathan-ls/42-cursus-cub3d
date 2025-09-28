@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:36 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/27 21:28:27 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static void	cast_column(t_engine *eng, int x)
 	int		end;
 	double	center_y;
 
-	ft_init_ray(eng, &ray, x);
-	ft_calculate_ray_dir(&ray, &eng->player);
-	ft_setup_dda(&ray, &eng->player);
-	ft_perform_dda(eng, &ray);
-	ft_calculate_distances(&ray, &eng->player);
-	wall_h = ft_calculate_wall_height(&ray, eng->win_h);
+	init_ray(eng, &ray, x);
+	calculate_ray_dir(&ray, &eng->player);
+	setup_dda(&ray, &eng->player);
+	perform_dda(eng, &ray);
+	calculate_distances(&ray, &eng->player);
+	wall_h = calculate_wall_height(&ray, eng->win_h);
 	center_y = (double)eng->win_h / 2.0 - eng->player.pitch
 		* ((double)eng->win_h / 4.0);
 	start = -wall_h / 2 + (int)center_y;
@@ -36,10 +36,10 @@ static void	cast_column(t_engine *eng, int x)
 		start = 0;
 	if (end >= eng->win_h)
 		end = eng->win_h - 1;
-	ft_render_wall_strip(eng, &ray, start, end);
+	render_wall_strip(eng, &ray, start, end);
 }
 
-void	ft_cast_all_rays(t_engine *eng)
+void	cast_all_rays(t_engine *eng)
 {
 	int	x;
 
@@ -51,13 +51,13 @@ void	ft_cast_all_rays(t_engine *eng)
 	}
 }
 
-void	ft_render_walls(t_engine *eng)
+void	render_walls(t_engine *eng)
 {
 	if (!eng)
 		return ;
 }
 
-void	ft_update_image_buffer(t_engine *eng)
+void	update_image_buffer(t_engine *eng)
 {
 	if (!eng)
 		return ;
