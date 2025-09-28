@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/27 20:59:36 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 19:23:08 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,28 @@ static int	init_cursor_image(t_engine *eng)
 	return (0);
 }
 
+static void	apply_window_scale(t_engine *eng)
+{
+	int32_t	monitor_width;
+	int32_t	monitor_height;
+
+	if (!eng->fullscreen)
+	{
+		eng->win_w = WIN_WIDTH;
+		eng->win_h = WIN_HEIGHT;
+		return ;
+	}
+	mlx_get_monitor_size(0, &monitor_width, &monitor_height);
+	if (monitor_width > 0 && monitor_height > 0)
+	{
+		eng->win_w = monitor_width;
+		eng->win_h = monitor_height;
+		mlx_set_window_size(eng->mlx, eng->win_w, eng->win_h);
+		if (eng->img.frame)
+			mlx_resize_image(eng->img.frame, eng->win_w, eng->win_h);
+	}
+}
+
 static int	init_window_image(t_engine *eng)
 {
 	eng->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", 1);
@@ -50,6 +72,7 @@ static int	init_window_image(t_engine *eng)
 	if (init_cursor_image(eng) != 0)
 		return (-1);
 	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_HIDDEN);
+	apply_window_scale(eng);
 	return (0);
 }
 
@@ -61,33 +84,27 @@ static void	init_player_colors(t_engine *eng, t_config *cfg)
 	eng->player.pos_y = cfg->map.player_y + 0.5;
 	eng->player.move_speed = MOVE_SPEED;
 	eng->player.rot_speed = ROT_SPEED;
-	eng->player.mouse_x = WIN_WIDTH / 2;
-	eng->player.mouse_y = WIN_HEIGHT / 2;
+	eng->player.mouse_x = eng->win_w / 2;
+	eng->player.mouse_y = eng->win_h / 2;
 	eng->player.pitch = 0.0;
 	eng->player.pitch_factor = 0.5;
 	set_player_dir(eng, cfg->map.player_dir);
-}
-
-static void	init_map_dims(t_engine *eng, t_config *cfg)
-{
-	eng->map = cfg->map.grid;
-	eng->map_w = cfg->map.width;
-	eng->map_h = cfg->map.height;
-	eng->win_w = WIN_WIDTH;
-	eng->win_h = WIN_HEIGHT;
 }
 
 int	ft_engine_init(t_engine *eng, t_config *cfg)
 {
 	if (!eng || !cfg)
 		return (-1);
-	zero_engine(eng);
+	initialize_engine(eng);
+	mlx_set_setting(MLX_FULLSCREEN, eng->fullscreen);
 	if (init_window_image(eng) != 0)
 	{
 		ft_engine_destroy(eng);
 		return (-1);
 	}
-	init_map_dims(eng, cfg);
+	eng->map = cfg->map.grid;
+	eng->map_w = cfg->map.width;
+	eng->map_h = cfg->map.height;
 	init_player_colors(eng, cfg);
 	if (ft_load_textures(eng, cfg) != 0)
 	{

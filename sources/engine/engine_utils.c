@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/23 19:39:15 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/28 19:10:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,27 @@ void	draw_circle(uint32_t *pixels, int cx, int cy, int radius)
 	}
 }
 
-void	zero_engine(t_engine *eng)
+void	initialize_engine(t_engine *eng)
 {
+	eng->map_w = 0;
+	eng->map_h = 0;
+	eng->win_w = 0;
+	eng->win_h = 0;
+	eng->ceil_color = 0;
+	eng->floor_color = 0;
+	eng->doors.count = 0;
+	eng->ignore_doors = 0;
 	eng->mlx = NULL;
-	eng->img.frame = NULL;
-	eng->img.cursor = NULL;
-	eng->tex.north = NULL;
-	eng->tex.south = NULL;
+	eng->map = NULL;
 	eng->tex.west = NULL;
 	eng->tex.east = NULL;
+	eng->tex.north = NULL;
+	eng->tex.south = NULL;
+	eng->img.frame = NULL;
+	eng->tex.floor = NULL;
+	eng->img.cursor = NULL;
+	eng->doors.list = NULL;
+	eng->tex.ceiling = NULL;
+	eng->explored_map = NULL;
 	eng->tex.door_closed = NULL;
 }

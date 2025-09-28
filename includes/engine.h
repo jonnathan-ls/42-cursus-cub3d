@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/27 22:43:39 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 16:36:12 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,10 @@ typedef struct s_engine
 	int					**explored_map;
 	t_doors_manager		doors;
 	int					ignore_doors;
+	int					fullscreen;
 }						t_engine;
 
-void					zero_engine(t_engine *eng);
+void					initialize_engine(t_engine *eng);
 
 int						ft_engine_init(t_engine *eng, t_config *cfg);
 void					ft_engine_destroy(t_engine *eng);
