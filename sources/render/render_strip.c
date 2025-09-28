@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/27 20:54:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/27 21:28:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ static uint32_t	shade_with_distance(uint32_t col, int side, double distance)
 	return (apply_shading(col, final_intensity));
 }
 
+static double	get_center_y(t_engine *eng)
+{
+	double	center_y;
+
+	center_y = (double)eng->win_h / 2.0
+		- eng->player.pitch * ((double)eng->win_h / 4.0);
+	return (center_y);
+}
+
 static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 {
 	int		y;
@@ -60,22 +69,17 @@ static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 	tex_y = ft_calculate_wall_height(ray, eng->win_h);
 	tex_y = ft_ternary_int(tex_y <= 0, 1, tex_y);
 	step = (double)tex->height / (double)tex_y;
-	{
-		double	centerY;
-
-		centerY = (double)eng->win_h / 2.0 - eng->player.pitch * ((double)eng->win_h / 4.0);
-		tex_pos = (double)(rng[0] + tex_y / 2 - (int)centerY) * step;
-	}
+	tex_pos = (double)(rng[0] + tex_y / 2 - (int)get_center_y(eng)) *step;
 	y = rng[0];
 	while (y <= rng[1])
 	{
 		tex_y = (int)tex_pos;
 		tex_y = ft_ternary_int(tex_y < 0, 0, tex_y);
-		tex_y = ft_ternary_int(tex_y >= (int)tex->height,
-				(int)tex->height - 1, tex_y);
+		tex_y = ft_ternary_int(tex_y >= (int)tex->height, (int)tex->height - 1,
+				tex_y);
 		mlx_put_pixel(eng->img.frame, ray->x, y,
-			shade_with_distance(ft_get_texture_pixel(
-					tex, tex_x, tex_y), ray->side, ray->perp_dist));
+			shade_with_distance(ft_get_texture_pixel(tex, tex_x, tex_y),
+				ray->side, ray->perp_dist));
 		tex_pos += step;
 		y++;
 	}

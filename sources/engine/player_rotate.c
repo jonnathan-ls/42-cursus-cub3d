@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/27 21:03:44 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/27 21:45:38 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,19 @@ void	ft_player_rotate(t_engine *eng, double rot)
 	apply_rot(&eng->player, rot);
 }
 
+static void	ft_player_mouse_pitch(t_engine *eng, double delta_y)
+{
+	double	pitch_amount;
+
+	if (!eng)
+		return ;
+	if (delta_y != 0)
+	{
+		pitch_amount = delta_y * MOUSE_SENSITIVITY;
+		eng->player.pitch += pitch_amount * eng->player.pitch_factor;
+	}
+}
+
 void	ft_player_mouse_rotate(t_engine *eng)
 {
 	int		mouse_x;
@@ -43,7 +56,6 @@ void	ft_player_mouse_rotate(t_engine *eng)
 	double	delta_x;
 	double	rot_amount;
 	double	delta_y;
-	double	pitch_amount;
 
 	if (!eng || !eng->mlx)
 		return ;
@@ -55,11 +67,7 @@ void	ft_player_mouse_rotate(t_engine *eng)
 		apply_rot(&eng->player, rot_amount);
 	}
 	delta_y = mouse_y - eng->player.mouse_y;
-	if (delta_y != 0)
-	{
-		pitch_amount = delta_y * MOUSE_SENSITIVITY;
-		eng->player.pitch += pitch_amount * eng->player.pitch_factor;
-	}
+	ft_player_mouse_pitch(eng, delta_y);
 	eng->player.mouse_x = mouse_x;
 	eng->player.mouse_y = mouse_y;
 }

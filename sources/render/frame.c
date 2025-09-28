@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:36 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/27 21:04:31 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/27 21:28:27 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	cast_column(t_engine *eng, int x)
 	int		wall_h;
 	int		start;
 	int		end;
+	double	center_y;
 
 	ft_init_ray(eng, &ray, x);
 	ft_calculate_ray_dir(&ray, &eng->player);
@@ -27,13 +28,10 @@ static void	cast_column(t_engine *eng, int x)
 	ft_perform_dda(eng, &ray);
 	ft_calculate_distances(&ray, &eng->player);
 	wall_h = ft_calculate_wall_height(&ray, eng->win_h);
-	{
-		double	center;
-
-		center = (double)eng->win_h / 2.0 - eng->player.pitch * ((double)eng->win_h / 4.0);
-		start = -wall_h / 2 + (int)center;
-		end = wall_h / 2 + (int)center;
-	}
+	center_y = (double)eng->win_h / 2.0 - eng->player.pitch
+		* ((double)eng->win_h / 4.0);
+	start = -wall_h / 2 + (int)center_y;
+	end = wall_h / 2 + (int)center_y;
 	if (start < 0)
 		start = 0;
 	if (end >= eng->win_h)
