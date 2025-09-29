@@ -6,14 +6,14 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:19:02 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "raycast.h"
 #include "render.h"
-#include "cub3d.h"
+#include "shared.h"
 #include "constants.h"
 
 static double	get_center_y(t_engine *eng)
@@ -50,7 +50,7 @@ static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 	if (!tex)
 		return ;
 	ctx.tex = tex;
-	ctx.tx = calculate_texture_x(ray, tex, calc_wall_x(eng, ray));
+	ctx.tx = calculate_texture_x(ray, tex, calculate_wall_x(eng, ray));
 	th = calculate_wall_height(ray, eng->win_h);
 	if (th <= 0)
 		th = 1;

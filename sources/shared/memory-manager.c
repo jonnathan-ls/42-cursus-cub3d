@@ -6,11 +6,10 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 18:37:41 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:16:22 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
 #include "libft.h"
 
 static t_node	**mm_head(void)
@@ -29,19 +28,13 @@ static void	*mm_fail(void *content)
 	return (NULL);
 }
 
-/**
- * Allocates memory for generic element and tracks the allocation.
- * @param count Number of elements to allocate.
- * @param size Size of each element.
- * @return Pointer to the allocated memory or NULL on failure.
- */
 void	*mm_alloc(size_t count, size_t size)
 {
 	void	*content;
 	t_node	*new_node;
 	t_node	**head;
 
-	content = calloc(count, size);
+	content = ft_calloc(count, size);
 	if (!content)
 		return (mm_fail(NULL));
 	head = mm_head();
@@ -55,18 +48,11 @@ void	*mm_alloc(size_t count, size_t size)
 	return (content);
 }
 
-/**
- * Returns the number of allocated memory blocks.
- * @return Number of allocated blocks.
- */
 size_t	mm_nodes_alloc_length(void)
 {
 	return (ft_lstsize(*mm_head()));
 }
 
-/**
- * Frees all allocated memory blocks.
- */
 void	mm_garbage_collector(void)
 {
 	ft_lstclear(mm_head(), free);

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:47 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:36:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:21:02 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct s_ray
 	char	hit_type;
 }			t_ray;
 
-void		init_ray(struct s_engine *eng, t_ray *ray, int x);
-void		calculate_ray_dir(t_ray *ray, struct s_player *pl);
+void		calculate_raycast_direction(t_ray *ray, struct s_player *pl);
+void		config_initialize_raycast(struct s_engine *eng, t_ray *ray, int x);
 
 void		setup_dda(t_ray *ray, struct s_player *pl);
 void		perform_dda(struct s_engine *eng, t_ray *ray);

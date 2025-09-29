@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 19:26:38 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 21:50:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	init_window_image(t_engine *eng)
 	return (0);
 }
 
-static void	init_player_colors(t_engine *eng, t_config *cfg)
+static void	config_init_player(t_engine *eng, t_config *cfg)
 {
 	eng->ceil_color = (uint32_t)cfg->ceiling_color.rgba;
 	eng->floor_color = (uint32_t)cfg->floor_color.rgba;
@@ -91,11 +91,11 @@ static void	init_player_colors(t_engine *eng, t_config *cfg)
 	set_player_dir(eng, cfg->map.player_dir);
 }
 
-int	engine_init(t_engine *eng, t_config *cfg)
+int	config_engine(t_engine *eng, t_config *cfg)
 {
 	if (!eng || !cfg)
 		return (-1);
-	initialize_engine(eng);
+	config_init_engine(eng);
 	mlx_set_setting(MLX_FULLSCREEN, eng->fullscreen);
 	if (init_window_image(eng) != 0)
 	{
@@ -105,17 +105,17 @@ int	engine_init(t_engine *eng, t_config *cfg)
 	eng->map = cfg->map.grid;
 	eng->map_w = cfg->map.width;
 	eng->map_h = cfg->map.height;
-	init_player_colors(eng, cfg);
-	if (load_textures(eng, cfg) != 0)
+	config_init_player(eng, cfg);
+	if (config_textures(eng, cfg) != 0)
 	{
 		engine_destroy(eng);
 		return (-1);
 	}
-	if (doors_init(eng) != 0)
+	if (config_doors(eng) != 0)
 	{
 		engine_destroy(eng);
 		return (-1);
 	}
-	minimap_init(eng);
+	config_minimap(eng);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:36:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:20:19 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ typedef struct s_doors_manager
 
 typedef struct s_textures_bundle
 {
-	mlx_texture_t		*north;
-	mlx_texture_t		*south;
+	mlx_texture_t		*door;
 	mlx_texture_t		*west;
 	mlx_texture_t		*east;
-	mlx_texture_t		*door_closed;
 	mlx_texture_t		*floor;
+	mlx_texture_t		*north;
+	mlx_texture_t		*south;
 	mlx_texture_t		*ceiling;
 }						t_textures_bundle;
 
@@ -73,9 +73,9 @@ typedef struct s_engine
 	int					fullscreen;
 }						t_engine;
 
-void					initialize_engine(t_engine *eng);
+void					config_init_engine(t_engine *eng);
 
-int						engine_init(t_engine *eng, t_config *cfg);
+int						config_engine(t_engine *eng, t_config *cfg);
 void					engine_destroy(t_engine *eng);
 void					engine_close(void *param);
 int						check_key_press_cooldown(void);
@@ -84,14 +84,14 @@ void					draw_circle(uint32_t *pixels, int cx, int cy,
 							int radius);
 
 void					engine_loop(t_engine *eng);
-int						load_textures(t_engine *eng, t_config *cfg);
+int						config_textures(t_engine *eng, t_config *cfg);
 
-int						doors_init(t_engine *eng);
+int						config_doors(t_engine *eng);
 void					handle_door_interaction(t_engine *eng);
 int						door_is_open(t_engine *eng, int x, int y);
 int						can_interact_with_door(t_engine *eng);
 int						find_nearest_door_index(t_engine *eng);
-void					doors_update(t_engine *eng);
+void					handle_door_updates(t_engine *eng);
 int						get_door_texture_offset(
 							t_engine *eng, int map_x, int map_y);
 

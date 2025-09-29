@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:23:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:37:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 21:29:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	parser_error(const char *msg)
 
 	if (!msg)
 		return (-1);
-	ret = write(2, "Error\n", 6);
+	ret = write(2, "Parse Error\n", 12);
 	if (ret == -1)
 		return (-1);
 	ret = write(2, msg, ft_strlen(msg));

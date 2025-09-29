@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:09 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:03:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	has_collision(t_engine *eng, double x, double y)
 	return (0);
 }
 
-static void	move_dir(t_engine *eng, double sx, double sy)
+static void	apply_movement_with_direction(t_engine *eng, double sx, double sy)
 {
 	double	new_x;
 	double	new_y;
@@ -108,7 +108,7 @@ static void	strafe(t_engine *eng, double sign)
 	}
 }
 
-void	player_move(t_engine *eng)
+void	handle_player_movement(t_engine *eng)
 {
 	double	delta_time;
 
@@ -116,11 +116,11 @@ void	player_move(t_engine *eng)
 		return ;
 	delta_time = eng->mlx->delta_time * 60.0;
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_W))
-		move_dir(eng, eng->player.dir_x * delta_time, eng->player.dir_y
-			* delta_time);
+		apply_movement_with_direction(eng,
+			eng->player.dir_x * delta_time, eng->player.dir_y * delta_time);
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_S))
-		move_dir(eng, -eng->player.dir_x * delta_time, -eng->player.dir_y
-			* delta_time);
+		apply_movement_with_direction(eng,
+			-eng->player.dir_x * delta_time, -eng->player.dir_y * delta_time);
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_A))
 		strafe(eng, -1.0 * delta_time);
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_D))

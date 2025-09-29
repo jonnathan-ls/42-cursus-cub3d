@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 21:58:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <MLX42/MLX42.h>
 #include <stdint.h>
 
-static void	minimap_draw_player(t_engine *eng, int scale)
+static void	draw_player_on_map(t_engine *eng, int scale)
 {
 	int	center_x;
 	int	center_y;
@@ -42,7 +42,7 @@ static void	minimap_draw_player(t_engine *eng, int scale)
 	}
 }
 
-void	handle_minimap_toggle(t_engine *eng)
+void	handle_minimap_view(t_engine *eng)
 {
 	int	key_pressed;
 
@@ -78,7 +78,7 @@ void	handle_minimap_zoom(t_engine *eng)
 	eng->minimap_scale = scale;
 }
 
-void	minimap_draw(t_engine *eng)
+void	draw_minimap(t_engine *eng)
 {
 	int	reserved_width;
 	int	reserved_height;
@@ -100,16 +100,16 @@ void	minimap_draw(t_engine *eng)
 	if (eng->minimap_scale >= MINIMAP_MIN_SCALE
 		&& eng->minimap_scale < final_scale)
 		final_scale = eng->minimap_scale;
-	minimap_render_cells(eng, final_scale);
-	minimap_draw_player(eng, final_scale);
+	render_minimap_cells(eng, final_scale);
+	draw_player_on_map(eng, final_scale);
 }
 
-void	minimap_init(t_engine *eng)
+void	config_minimap(t_engine *eng)
 {
 	if (!eng)
 		return ;
 	eng->minimap_scale = 3;
 	eng->minimap_visible = 1;
 	eng->minimap_toggle = 0;
-	minimap_init_exploration(eng);
+	initialize_minimap_exploration(eng);
 }

@@ -6,14 +6,14 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:19:02 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "minimap.h"
 #include "constants.h"
-#include "cub3d.h"
+#include "shared.h"
 
 static int	should_draw(char cell, int *color)
 {
@@ -35,7 +35,7 @@ static int	should_draw(char cell, int *color)
 	return (0);
 }
 
-void	minimap_render_cells(t_engine *eng, int final_scale)
+void	render_minimap_cells(t_engine *eng, int final_scale)
 {
 	int	cell_x;
 	int	cell_y;
@@ -46,14 +46,14 @@ void	minimap_render_cells(t_engine *eng, int final_scale)
 		cell_y = 0;
 		while (cell_y < eng->map_h)
 		{
-			minimap_draw_cell_block(eng, cell_x, cell_y, final_scale);
+			draw_minimap_cell_block(eng, cell_x, cell_y, final_scale);
 			cell_y = cell_y + 1;
 		}
 		cell_x = cell_x + 1;
 	}
 }
 
-void	minimap_draw_cell_block(
+void	draw_minimap_cell_block(
 	t_engine *eng, int cell_x, int cell_y, int scale)
 {
 	int	dx;
@@ -82,7 +82,7 @@ void	minimap_draw_cell_block(
 	}
 }
 
-int	minimap_init_exploration(t_engine *eng)
+int	initialize_minimap_exploration(t_engine *eng)
 {
 	int	y;
 	int	x;
@@ -109,7 +109,7 @@ int	minimap_init_exploration(t_engine *eng)
 	return (0);
 }
 
-void	minimap_update_exploration(t_engine *eng)
+void	handle_minimap_exploration(t_engine *eng)
 {
 	int		player_x;
 	int		player_y;

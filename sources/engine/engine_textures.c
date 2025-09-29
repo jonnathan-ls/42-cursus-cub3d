@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 21:46:44 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:36:59 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	cleanup_partial_textures(t_engine *eng)
 		mlx_delete_texture(eng->tex.west);
 	if (eng->tex.east)
 		mlx_delete_texture(eng->tex.east);
-	if (eng->tex.door_closed)
-		mlx_delete_texture(eng->tex.door_closed);
+	if (eng->tex.door)
+		mlx_delete_texture(eng->tex.door);
 	if (eng->tex.floor)
 		mlx_delete_texture(eng->tex.floor);
 	if (eng->tex.ceiling)
@@ -33,12 +33,12 @@ static void	cleanup_partial_textures(t_engine *eng)
 	eng->tex.south = NULL;
 	eng->tex.west = NULL;
 	eng->tex.east = NULL;
-	eng->tex.door_closed = NULL;
+	eng->tex.door = NULL;
 	eng->tex.floor = NULL;
 	eng->tex.ceiling = NULL;
 }
 
-int	load_textures(t_engine *eng, t_config *cfg)
+int	config_textures(t_engine *eng, t_config *cfg)
 {
 	eng->tex.north = mlx_load_png(cfg->textures.no_path);
 	if (!eng->tex.north)
@@ -52,8 +52,8 @@ int	load_textures(t_engine *eng, t_config *cfg)
 	eng->tex.east = mlx_load_png(cfg->textures.ea_path);
 	if (!eng->tex.east)
 		return (cleanup_partial_textures(eng), -1);
-	eng->tex.door_closed = mlx_load_png("./maps/textures/door_closed.png");
-	if (!eng->tex.door_closed)
+	eng->tex.door = mlx_load_png("./maps/textures/door.png");
+	if (!eng->tex.door)
 		return (cleanup_partial_textures(eng), -1);
 	eng->tex.floor = NULL;
 	eng->tex.ceiling = NULL;

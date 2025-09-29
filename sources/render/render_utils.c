@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:11:18 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "render.h"
 #include "constants.h"
 
-static double	calc_row_distance(t_engine *eng, int y, int is_floor)
+static double	calculate_row_distance(t_engine *eng, int y, int is_floor)
 {
 	double	win_h;
 	double	center;
@@ -39,7 +39,7 @@ static double	calc_row_distance(t_engine *eng, int y, int is_floor)
 	return (win_h / den);
 }
 
-double	calc_wall_x(t_engine *eng, t_ray *ray)
+double	calculate_wall_x(t_engine *eng, t_ray *ray)
 {
 	double	wall_x;
 
@@ -61,7 +61,7 @@ uint32_t	get_texture_pixel(mlx_texture_t *tex, int tex_x, int tex_y)
 	return (color);
 }
 
-uint32_t	calc_floor_texture(t_engine *eng, int y, t_ray *ray,
+uint32_t	calculate_floor_texture(t_engine *eng, int y, t_ray *ray,
 	double *distance)
 {
 	double	row_distance;
@@ -72,7 +72,7 @@ uint32_t	calc_floor_texture(t_engine *eng, int y, t_ray *ray,
 
 	if (!eng->tex.floor)
 		return (eng->floor_color);
-	row_distance = calc_row_distance(eng, y, 1);
+	row_distance = calculate_row_distance(eng, y, 1);
 	*distance = row_distance;
 	floor_x = eng->player.pos_x + row_distance * ray->ray_dir_x;
 	floor_y = eng->player.pos_y + row_distance * ray->ray_dir_y;
@@ -85,7 +85,7 @@ uint32_t	calc_floor_texture(t_engine *eng, int y, t_ray *ray,
 	return (get_texture_pixel(eng->tex.floor, tex_x, tex_y));
 }
 
-uint32_t	calc_ceil_texture(t_engine *eng, int y, t_ray *ray,
+uint32_t	calculate_ceiling_texture(t_engine *eng, int y, t_ray *ray,
 	double *distance)
 {
 	double	row_distance;
@@ -96,7 +96,7 @@ uint32_t	calc_ceil_texture(t_engine *eng, int y, t_ray *ray,
 
 	if (!eng->tex.ceiling)
 		return (eng->ceil_color);
-	row_distance = calc_row_distance(eng, y, 0);
+	row_distance = calculate_row_distance(eng, y, 0);
 	*distance = row_distance;
 	ceil_x = eng->player.pos_x + row_distance * ray->ray_dir_x;
 	ceil_y = eng->player.pos_y + row_distance * ray->ray_dir_y;

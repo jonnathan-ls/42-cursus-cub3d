@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 21:58:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,22 @@ static void	frame_hook(void *param)
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(eng->mlx);
 	delta_time = eng->mlx->delta_time;
-	player_move(eng);
+	handle_player_movement(eng);
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_LEFT))
-		player_rotate(eng, -eng->player.rot_speed * delta_time * 60.0);
+		handle_player_rotation(eng, -eng->player.rot_speed * delta_time * 60.0);
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_RIGHT))
-		player_rotate(eng, eng->player.rot_speed * delta_time * 60.0);
+		handle_player_rotation(eng, eng->player.rot_speed * delta_time * 60.0);
 	handle_door_interaction(eng);
-	player_mouse_rotate(eng);
-	handle_minimap_toggle(eng);
+	handle_player_rotation_by_mouse(eng);
+	handle_minimap_view(eng);
 	handle_minimap_zoom(eng);
-	doors_update(eng);
+	handle_door_updates(eng);
 	eng->ignore_doors = 1;
 	cast_all_rays(eng);
 	eng->ignore_doors = 0;
 	cast_all_rays(eng);
-	minimap_update_exploration(eng);
-	minimap_draw(eng);
+	handle_minimap_exploration(eng);
+	draw_minimap(eng);
 }
 
 void	engine_close(void *param)

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:30:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:10:52 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	draw_ceiling_pixels(t_engine *eng, int x, int start, t_ray *ray)
 	{
 		if (eng->tex.ceiling)
 		{
-			color = calc_ceil_texture(eng, y, ray, &distance);
+			color = calculate_ceiling_texture(eng, y, ray, &distance);
 			color = apply_distance_shading(color, distance);
 		}
 		else
@@ -47,7 +47,7 @@ static void	draw_floor_pixels(t_engine *eng, int x, int end, t_ray *ray)
 	{
 		if (eng->tex.floor)
 		{
-			color = calc_floor_texture(eng, y, ray, &distance);
+			color = calculate_floor_texture(eng, y, ray, &distance);
 			color = apply_distance_shading(color, distance);
 		}
 		else

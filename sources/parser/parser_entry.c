@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:37 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/23 21:33:39 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 21:38:18 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,10 @@ static void	init_config(t_config *cfg)
 	cfg->map.player_dir = 0;
 }
 
-static int	phase_open_and_headers(const char *path, t_config *cfg, int *fd,
+static int	config_metadata(const char *path, t_config *cfg, int *fd,
 		char **first_map_line)
 {
 	*first_map_line = NULL;
-	if (validate_file_extension(path) < 0)
-		return (-1);
 	*fd = open(path, O_RDONLY);
 	if (*fd < 0)
 		return (parser_error("cannot open file"));
@@ -47,7 +45,7 @@ static int	phase_open_and_headers(const char *path, t_config *cfg, int *fd,
 	return (0);
 }
 
-static int	phase_map_read(int fd, char *first_map_line, t_config *cfg)
+static int	config_map(int fd, char *first_map_line, t_config *cfg)
 {
 	if (collect_map(fd, first_map_line, &cfg->map) < 0)
 		return (-1);
@@ -56,7 +54,7 @@ static int	phase_map_read(int fd, char *first_map_line, t_config *cfg)
 	return (0);
 }
 
-static int	phase_validate(t_config *cfg)
+static int	validate_configutarions(t_config *cfg)
 {
 	if (validate_map_chars(&cfg->map) < 0)
 		return (-1);
@@ -75,15 +73,15 @@ int	parse_cub(const char *path, t_config *cfg)
 	if (!cfg)
 		return (parser_error("malloc failure"));
 	init_config(cfg);
-	if (phase_open_and_headers(path, cfg, &fd, &first_line) < 0)
+	if (config_metadata(path, cfg, &fd, &first_line) < 0)
 		return (-1);
-	if (phase_map_read(fd, first_line, cfg) < 0)
+	if (config_map(fd, first_line, cfg) < 0)
 	{
 		close(fd);
 		free_config(cfg);
 		return (-1);
 	}
-	if (phase_validate(cfg) < 0)
+	if (validate_configutarions(cfg) < 0)
 	{
 		close(fd);
 		free_config(cfg);

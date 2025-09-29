@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:34 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:19:56 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	calculate_wall_height(t_ray *ray, int win_h)
 mlx_texture_t	*get_wall_texture(t_engine *eng, t_ray *ray)
 {
 	if (ray->hit_type == 'D')
-		return (eng->tex.door_closed);
+		return (eng->tex.door);
 	if (ray->side == 0 && ray->ray_dir_x > 0)
 		return (eng->tex.west);
 	if (ray->side == 0 && ray->ray_dir_x < 0)

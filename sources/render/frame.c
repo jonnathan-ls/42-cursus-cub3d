@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:36 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:08:14 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "raycast.h"
 #include "render.h"
 
-static void	cast_column(t_engine *eng, int x)
+static void	render_wall(t_engine *eng, int x)
 {
 	t_ray	ray;
 	int		wall_h;
@@ -22,8 +22,8 @@ static void	cast_column(t_engine *eng, int x)
 	int		end;
 	double	center_y;
 
-	init_ray(eng, &ray, x);
-	calculate_ray_dir(&ray, &eng->player);
+	config_initialize_raycast(eng, &ray, x);
+	calculate_raycast_direction(&ray, &eng->player);
 	setup_dda(&ray, &eng->player);
 	perform_dda(eng, &ray);
 	calculate_distances(&ray, &eng->player);
@@ -46,19 +46,7 @@ void	cast_all_rays(t_engine *eng)
 	x = 0;
 	while (x < eng->win_w)
 	{
-		cast_column(eng, x);
+		render_wall(eng, x);
 		x++;
 	}
-}
-
-void	render_walls(t_engine *eng)
-{
-	if (!eng)
-		return ;
-}
-
-void	update_image_buffer(t_engine *eng)
-{
-	if (!eng)
-		return ;
 }

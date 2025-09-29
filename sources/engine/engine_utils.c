@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 19:10:39 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:19:56 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	draw_circle(uint32_t *pixels, int cx, int cy, int radius)
 	}
 }
 
-void	initialize_engine(t_engine *eng)
+void	config_init_engine(t_engine *eng)
 {
 	eng->map_w = 0;
 	eng->map_h = 0;
@@ -82,5 +82,5 @@ void	initialize_engine(t_engine *eng)
 	eng->doors.list = NULL;
 	eng->tex.ceiling = NULL;
 	eng->explored_map = NULL;
-	eng->tex.door_closed = NULL;
+	eng->tex.door = NULL;
 }

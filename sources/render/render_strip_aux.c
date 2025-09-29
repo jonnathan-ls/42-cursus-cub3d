@@ -13,7 +13,7 @@
 #include "engine.h"
 #include "render.h"
 #include "constants.h"
-#include "cub3d.h"
+#include "shared.h"
 
 static uint32_t	apply_shading(uint32_t color, float intensity)
 {

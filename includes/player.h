@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:52 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:36:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:20:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct s_player
 	double	pitch_factor;
 }			t_player;
 
-void		player_move(struct s_engine *eng);
-void		player_rotate(struct s_engine *eng, double rot);
-void		player_mouse_rotate(struct s_engine *eng);
+void		handle_player_movement(struct s_engine *eng);
+void		handle_player_rotation_by_mouse(struct s_engine *eng);
+void		handle_player_rotation(struct s_engine *eng, double rot);
 
 #endif

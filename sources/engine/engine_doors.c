@@ -6,12 +6,12 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:19:02 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
-#include "cub3d.h"
+#include "shared.h"
 #include <MLX42/MLX42.h>
 
 static int	count_doors_in_map(t_engine *eng)
@@ -63,7 +63,7 @@ static void	fill_doors_array(t_engine *eng)
 	}
 }
 
-int	doors_init(t_engine *eng)
+int	config_doors(t_engine *eng)
 {
 	int	doors_count;
 
@@ -83,7 +83,7 @@ int	doors_init(t_engine *eng)
 	return (0);
 }
 
-void	doors_update(t_engine *eng)
+void	handle_door_updates(t_engine *eng)
 {
 	int		i;
 	double	speed;

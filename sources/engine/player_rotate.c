@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:04:45 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <MLX42/MLX42.h>
 #include <math.h>
 
-static void	apply_rot(t_player *p, double rot)
+static void	apply_rotation(t_player *p, double rot)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -29,11 +29,11 @@ static void	apply_rot(t_player *p, double rot)
 	p->plane_y = old_plane_x * sin(rot) + p->plane_y * cos(rot);
 }
 
-void	player_rotate(t_engine *eng, double rot)
+void	handle_player_rotation(t_engine *eng, double rot)
 {
 	if (!eng)
 		return ;
-	apply_rot(&eng->player, rot);
+	apply_rotation(&eng->player, rot);
 }
 
 static void	player_mouse_pitch(t_engine *eng, double delta_y)
@@ -49,7 +49,7 @@ static void	player_mouse_pitch(t_engine *eng, double delta_y)
 	}
 }
 
-void	player_mouse_rotate(t_engine *eng)
+void	handle_player_rotation_by_mouse(t_engine *eng)
 {
 	int		mouse_x;
 	int		mouse_y;
@@ -64,7 +64,7 @@ void	player_mouse_rotate(t_engine *eng)
 	if (delta_x != 0)
 	{
 		rot_amount = delta_x * MOUSE_SENSITIVITY;
-		apply_rot(&eng->player, rot_amount);
+		apply_rotation(&eng->player, rot_amount);
 	}
 	delta_y = mouse_y - eng->player.mouse_y;
 	player_mouse_pitch(eng, delta_y);

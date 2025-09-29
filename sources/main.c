@@ -6,16 +6,17 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 19:25:35 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/28 22:54:43 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "shared.h"
 #include "engine.h"
+#include "libft.h"
 
 static int	fail(char *msg)
 {
-	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd("Error:\n", 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
 	return (1);
@@ -32,8 +33,8 @@ int	main(int argc, char **argv)
 		return (fail("invalid extension"));
 	if (parse_cub(argv[1], &cfg) < 0)
 		return (fail("parse failure"));
-	eng.fullscreen = ft_strncmp(argv[2], "-w", 2);
-	if (engine_init(&eng, &cfg) < 0)
+	eng.fullscreen = ft_strncmp(argv[2], "-w", 3);
+	if (config_engine(&eng, &cfg) < 0)
 	{
 		free_config(&cfg);
 		return (fail("engine init failed"));
