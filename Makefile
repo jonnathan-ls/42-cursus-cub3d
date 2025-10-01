@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/09/27 23:04:49 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/09/30 22:48:30 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,12 @@ include configs/functions.mk
 
 NAME = cub3d
 
-SHARED_SRCS = sources/shared/memory-manager.c sources/shared/ternary_utils.c
 MAIN_SRCS = sources/main.c
+
+SHARED_SRCS = \
+	sources/shared/memory-manager.c \
+	sources/shared/ternary_utils.c
+
 PARSER_SRCS = \
 	sources/parser/validate_extension.c \
 	sources/parser/parser_entry.c \
@@ -57,11 +61,17 @@ RENDER_SRCS = \
 	sources/render/render_strip_aux.c \
 	sources/render/render_ceiling_floor.c \
 	sources/render/frame.c \
-	sources/render/minimap.c \
-	sources/render/minimap_utils.c
+
+MINIMAP_SRCS = \
+	sources/minimap/minimap.c \
+	sources/minimap/minimap_draw.c \
+	sources/minimap/minimap_utils.c \
+	sources/minimap/minimap_player.c \
+	sources/minimap/minimap_pixels.c \
+	sources/minimap/minimap_exploration.c
 
 SOURCES = ${MAIN_SRCS} ${SHARED_SRCS} ${PARSER_SRCS} \
-	${ENGINE_SRCS} ${RAY_SRCS} ${RENDER_SRCS}
+	${ENGINE_SRCS} ${RAY_SRCS} ${RENDER_SRCS} ${MINIMAP_SRCS}
 TOTAL_FILES := $(words $(SOURCES)) # For progress_bar logic
 
 OBJS = $(SOURCES:%.c=$(OBJS_DIR)/%.o)

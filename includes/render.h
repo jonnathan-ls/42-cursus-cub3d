@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:42 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 22:22:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/03 00:14:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 # include <MLX42/MLX42.h>
 # include <stdint.h>
 
-typedef struct s_pixel_ctx
+typedef struct s_pixel
 {
 	mlx_texture_t	*tex;
 	int				tx;
 	double			pos;
 	int				shift;
-}	t_pixel_ctx;
+}	t_pixel;
 
 float			calculate_distance_shade(double distance);
 double			calculate_wall_x(t_engine *eng, t_ray *ray);
