@@ -88,7 +88,7 @@ void	draw_minimap(t_engine *eng)
 		eng->win_h - MINIMAP_OFFSET - square_size,
 		square_size);
 	compute_minimap_context(eng, &map, square_size);
-	draw_background_minimap(eng, &map);
+	draw_minimap_background(eng, &map);
 	render_minimap_pixels(eng, &map);
 	draw_minimap_player(eng, map.left, map.top,
 		map.size);

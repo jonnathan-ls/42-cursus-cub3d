@@ -16,7 +16,7 @@
 #include "shared.h"
 #include <math.h>
 
-static void	compute_block_start(t_engine *eng, t_minimap *map)
+static void	minimap_compute_block_screen_start(t_engine *eng, t_minimap *map)
 {
 	double	offset_x;
 	double	offset_y;
@@ -41,7 +41,7 @@ static void	compute_block_start(t_engine *eng, t_minimap *map)
 	map->block_start_y = start_y;
 }
 
-static void	prepare_block(t_engine *eng, t_minimap *map)
+static void	minimap_prepare_block(t_engine *eng, t_minimap *map)
 {
 	char	c;
 
@@ -61,10 +61,10 @@ static void	prepare_block(t_engine *eng, t_minimap *map)
 			[map->block_cell_x])
 			map->block_color = MINIMAP_FOG_COLOR;
 	}
-	compute_block_start(eng, map);
+	minimap_compute_block_screen_start(eng, map);
 }
 
-static void	draw_block_pixels(t_engine *eng, t_minimap *map)
+static void	minimap_draw_block_pixels(t_engine *eng, t_minimap *map)
 {
 	int	dx;
 	int	dy;
@@ -92,8 +92,8 @@ static void	draw_block_pixels(t_engine *eng, t_minimap *map)
 	}
 }
 
-static void	render_minimap_column(t_engine *eng,
-		int tile_x, int player_y, t_minimap *map)
+static void	minimap_render_column(t_engine *eng,
+	int tile_x, int player_y, t_minimap *map)
 {
 	int	tile_y;
 	int	half_tiles;
@@ -106,8 +106,8 @@ static void	render_minimap_column(t_engine *eng,
 	{
 		map->block_cell_x = tile_x;
 		map->block_cell_y = tile_y;
-		prepare_block(eng, map);
-		draw_block_pixels(eng, map);
+		minimap_prepare_block(eng, map);
+		minimap_draw_block_pixels(eng, map);
 		tile_y = tile_y + 1;
 	}
 }
@@ -127,7 +127,7 @@ void	render_minimap_cells(t_engine *eng, t_minimap *map)
 		tile_x = 0;
 	while (tile_x <= player_x + 5 && tile_x < eng->map_w)
 	{
-		render_minimap_column(eng, tile_x, player_y, map);
+		minimap_render_column(eng, tile_x, player_y, map);
 		tile_x = tile_x + 1;
 	}
 }

@@ -30,8 +30,8 @@ typedef struct s_minimap
 
 typedef struct s_minimap_projection
 {
-	int	map_x;
-	int	map_y;
+	int	tile_x;
+	int	tile_y;
 }	t_minimap_projection;
 
 typedef struct s_minimap_player_params
@@ -52,11 +52,12 @@ void		handle_minimap_exploration(t_engine *eng);
 int			initialize_minimap_exploration(t_engine *eng);
 void		render_minimap_cells(t_engine *eng, t_minimap *map);
 void		render_minimap_pixels(t_engine *eng, t_minimap *map);
-void		draw_minimap_frame(t_engine *eng, int left, int top, int size);
-void		draw_background_minimap(t_engine *eng, t_minimap *map);
+void		draw_minimap_frame(t_engine *eng, int left, int top,
+				int square_size);
+void		draw_minimap_background(t_engine *eng, t_minimap *map);
 void		draw_minimap_player(t_engine *eng,
 				int square_left, int square_top, int square_size);
-void		compute_pixel_color(t_engine *eng, t_minimap *map,
+void		minimap_compute_pixel_color(t_engine *eng, t_minimap *map,
 				int pixel_x, int pixel_y);
 
 #endif

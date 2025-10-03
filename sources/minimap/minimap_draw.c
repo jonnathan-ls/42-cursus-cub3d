@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/03 00:22:14 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/03 02:29:14 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 #include "constants.h"
 #include <MLX42/MLX42.h>
 
-void	draw_minimap_frame(t_engine *eng, int left, int top, int size)
+void	draw_minimap_frame(t_engine *eng, int left, int top, int square_size)
 {
 	int	i;
 	int	end;
 
 	if (!eng || !eng->img.frame)
 		return ;
-	end = left + size - 1;
+	end = left + square_size - 1;
 	i = 0;
-	while (i < size)
+	while (i < square_size)
 	{
 		mlx_put_pixel(eng->img.frame, left + i, top, MINIMAP_WALL_COLOR);
-		mlx_put_pixel(eng->img.frame, left + i, top + size - 1,
+		mlx_put_pixel(eng->img.frame, left + i, top + square_size - 1,
 			MINIMAP_WALL_COLOR);
 		mlx_put_pixel(eng->img.frame, left, top + i, MINIMAP_WALL_COLOR);
 		mlx_put_pixel(eng->img.frame, end, top + i, MINIMAP_WALL_COLOR);
@@ -35,7 +35,7 @@ void	draw_minimap_frame(t_engine *eng, int left, int top, int size)
 	}
 }
 
-void	draw_background_minimap(t_engine *eng, t_minimap *map)
+void	draw_minimap_background(t_engine *eng, t_minimap *map)
 {
 	int	x;
 	int	y;
