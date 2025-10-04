@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_dda.c                                          :+:      :+:    :+:   */
+/*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -101,5 +101,7 @@ void	config_minimap(t_engine *eng)
 	eng->minimap_scale = 3;
 	eng->minimap_visible = 1;
 	eng->minimap_toggle = 0;
+	eng->fullmap_visible = 0;
+	eng->fullmap_toggle = 0;
 	initialize_minimap_exploration(eng);
 }

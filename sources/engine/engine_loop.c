@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/03 00:24:03 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/03 23:09:14 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 #include "raycast.h"
 #include "render.h"
 #include "minimap.h"
+
+static void	handle_frame_updates(t_engine *eng, double delta_time)
+{
+	if (!eng)
+		return ;
+	handle_player_movement(eng);
+	if (mlx_is_key_down(eng->mlx, MLX_KEY_LEFT))
+		handle_player_rotation(eng, -eng->player.rot_speed * delta_time * 60.0);
+	if (mlx_is_key_down(eng->mlx, MLX_KEY_RIGHT))
+		handle_player_rotation(eng, eng->player.rot_speed * delta_time * 60.0);
+	handle_door_interaction(eng);
+	handle_player_rotation_by_mouse(eng);
+}
 
 static void	frame_hook(void *param)
 {
@@ -25,22 +38,20 @@ static void	frame_hook(void *param)
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(eng->mlx);
 	delta_time = eng->mlx->delta_time;
-	handle_player_movement(eng);
-	if (mlx_is_key_down(eng->mlx, MLX_KEY_LEFT))
-		handle_player_rotation(eng, -eng->player.rot_speed * delta_time * 60.0);
-	if (mlx_is_key_down(eng->mlx, MLX_KEY_RIGHT))
-		handle_player_rotation(eng, eng->player.rot_speed * delta_time * 60.0);
-	handle_door_interaction(eng);
-	handle_player_rotation_by_mouse(eng);
+	handle_frame_updates(eng, delta_time);
 	handle_minimap_view(eng);
 	handle_minimap_zoom(eng);
+	handle_fullmap_view(eng);
 	handle_door_updates(eng);
 	eng->ignore_doors = 1;
 	cast_all_rays(eng);
 	eng->ignore_doors = 0;
 	cast_all_rays(eng);
 	handle_minimap_exploration(eng);
-	draw_minimap(eng);
+	if (eng->fullmap_visible)
+		draw_full_map(eng);
+	else
+		draw_minimap(eng);
 }
 
 void	engine_close(void *param)

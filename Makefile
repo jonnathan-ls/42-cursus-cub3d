@@ -63,6 +63,7 @@ RENDER_SRCS = \
 	sources/render/frame.c \
 
 MINIMAP_SRCS = \
+	sources/minimap/fullmap.c \
 	sources/minimap/minimap.c \
 	sources/minimap/minimap_draw.c \
 	sources/minimap/minimap_utils.c \

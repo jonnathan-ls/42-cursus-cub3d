@@ -50,6 +50,8 @@ void		handle_minimap_zoom(t_engine *eng);
 void		handle_minimap_view(t_engine *eng);
 void		handle_minimap_exploration(t_engine *eng);
 int			initialize_minimap_exploration(t_engine *eng);
+void		handle_fullmap_view(t_engine *eng);
+void		draw_full_map(t_engine *eng);
 void		render_minimap_cells(t_engine *eng, t_minimap *map);
 void		render_minimap_pixels(t_engine *eng, t_minimap *map);
 void		draw_minimap_frame(t_engine *eng, int left, int top,
