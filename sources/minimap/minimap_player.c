@@ -16,23 +16,22 @@
 #include <MLX42/MLX42.h>
 #include <math.h>
 
-static void	compute_player_params(t_engine *engine,
-	int square_size, t_minimap_player_params *out)
+static void	compute_player_params(
+	int square_size, t_minimap_player_params *output)
 {
-	int	len;
+	int	computed_length;
 
-	len = square_size / 8;
-	if (len < 1)
-		len = 1;
-	out->length = len;
-	out->half_width = len / 4;
-	if (out->half_width < 1)
-		out->half_width = 1;
-	out->dx_screen = engine->player.dir_x * 1.0;
-	out->dy_screen = - (engine->player.dir_x * engine->player.dir_x
-			+ engine->player.dir_y * engine->player.dir_y);
-	out->perp_x = -out->dy_screen;
-	out->perp_y = out->dx_screen;
+	computed_length = square_size / 8;
+	if (computed_length < 1)
+		computed_length = 1;
+	output->length = computed_length;
+	output->half_width = computed_length / 4;
+	if (output->half_width < 1)
+		output->half_width = 1;
+	output->dx_screen = 0.0;
+	output->dy_screen = -1.0;
+	output->perp_x = -output->dy_screen;
+	output->perp_y = output->dx_screen;
 }
 
 static void	draw_player_strip(t_engine *engine,
@@ -42,14 +41,18 @@ static void	draw_player_strip(t_engine *engine,
 	int	inner_offset;
 	int	cx_step;
 	int	cy_step;
+	int	current_half;
 
 	step = 0;
 	while (step <= p->length)
 	{
 		cx_step = center_x + (int)(p->dx_screen * (double)step);
 		cy_step = center_y + (int)(p->dy_screen * (double)step);
-		inner_offset = -p->half_width;
-		while (inner_offset <= p->half_width)
+		current_half = p->half_width - (p->half_width * step) / (p->length + 1);
+		if (current_half < 0)
+			current_half = 0;
+		inner_offset = -current_half;
+		while (inner_offset <= current_half)
 		{
 			mlx_put_pixel(engine->img.frame,
 				cx_step + (int)(p->perp_x * (double)inner_offset),
@@ -70,6 +73,6 @@ void	draw_minimap_player(t_engine *engine,
 
 	center_x = square_left + square_size / 2;
 	center_y = square_top + square_size / 2;
-	compute_player_params(engine, square_size, &params);
+	compute_player_params(square_size, &params);
 	draw_player_strip(engine, center_x, center_y, &params);
 }
