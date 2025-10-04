@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/03 23:09:14 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 16:58:11 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,13 @@ static void	frame_hook(void *param)
 	eng->ignore_doors = 0;
 	cast_all_rays(eng);
 	handle_minimap_exploration(eng);
+	handle_menu_view(eng);
 	if (eng->fullmap_visible)
 		draw_full_map(eng);
 	else
 		draw_minimap(eng);
+	if (eng->menu_visible && eng->tex.menu && eng->img.frame)
+		draw_menu_overlay(eng);
 }
 
 void	engine_close(void *param)

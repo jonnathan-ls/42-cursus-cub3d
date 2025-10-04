@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:05 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 22:19:56 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 16:51:58 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	engine_destroy(t_engine *eng)
 		mlx_delete_texture(eng->tex.east);
 	if (eng->tex.door)
 		mlx_delete_texture(eng->tex.door);
+	if (eng->tex.menu)
+		mlx_delete_texture(eng->tex.menu);
 	if (eng->img.frame)
 		mlx_delete_image(eng->mlx, eng->img.frame);
 	if (eng->img.cursor)

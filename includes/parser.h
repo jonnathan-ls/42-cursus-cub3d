@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:19:25 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 22:20:44 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 16:16:31 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_textures
 	char		*ea_path;
 	char		*floor_path;
 	char		*ceiling_path;
+	char		*menu_path;
 }				t_textures;
 
 typedef struct s_map
@@ -63,7 +64,6 @@ int				validate_file_extension(const char *path);
 int				parse_cub(const char *path, t_config *cfg);
 
 /* Headers (textures & colors) */
-int				is_empty_line(const char *s);
 int				parse_color(char *rest, t_color *dst);
 int				parse_texture(char *rest, char **dst_path);
 int				parse_header_line(char *line, t_config *cfg, int *count_done);

@@ -44,6 +44,7 @@ ENGINE_SRCS = \
 	sources/engine/player_update.c \
 	sources/engine/player_rotate.c \
 	sources/engine/engine_loop.c \
+	sources/engine/menu.c \
 	sources/engine/engine_doors.c \
 	sources/engine/doors_interaction.c \
 	sources/engine/door_finder.c

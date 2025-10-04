@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/03 02:32:03 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 16:57:08 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_key_press_cooldown(void)
 	double			current_time;
 	double			cooldown;
 
-	cooldown = 0.2;
+	cooldown = 0.3;
 	current_time = mlx_get_time();
 	if (current_time - last_press_time < cooldown)
 		return (0);
@@ -83,4 +83,7 @@ void	config_init_engine(t_engine *eng)
 	eng->tex.ceiling = NULL;
 	eng->explored_map = NULL;
 	eng->tex.door = NULL;
+	eng->tex.menu = NULL;
+	eng->menu_visible = 0;
+	eng->menu_toggle = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_headers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:28 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 18:49:05 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/10/04 16:16:37 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,23 @@
 #include "parser.h"
 #include <stdlib.h>
 #include <unistd.h>
+
+static int	is_empty_line(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '\n')
+			return (1);
+		if (!(s[i] == ' ' || s[i] == '\t' || s[i] == '\r' || s[i] == '\v'
+				|| s[i] == '\f'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 static int	fetch_first_map_line(int fd, char **out)
 {
@@ -77,8 +94,10 @@ static int	read_header_block(int fd, t_config *cfg, char **first_map_line)
 	return (fetch_first_map_line(fd, first_map_line));
 }
 
-static int	validate_headers_complete(t_config *cfg)
+int	parse_headers(int fd, t_config *cfg, char **line_after_headers)
 {
+	if (read_header_block(fd, cfg, line_after_headers) < 0)
+		return (-1);
 	if (!cfg->textures.no_path)
 		return (parser_error("missing NO texture"));
 	if (!cfg->textures.so_path)
@@ -91,14 +110,5 @@ static int	validate_headers_complete(t_config *cfg)
 		return (parser_error("missing F color"));
 	if (cfg->ceiling_color.rgba == -1)
 		return (parser_error("missing C color"));
-	return (0);
-}
-
-int	parse_headers(int fd, t_config *cfg, char **line_after_headers)
-{
-	if (read_header_block(fd, cfg, line_after_headers) < 0)
-		return (-1);
-	if (validate_headers_complete(cfg) < 0)
-		return (-1);
 	return (0);
 }

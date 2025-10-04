@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 00:16:12 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 16:40:55 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@
 # define MINIMAP_EXTERNAL_COLOR 0xFF222222
 # define MINIMAP_EXPLORE_RADIUS 1
 
-# define SHADE_INTENSITY 0.85f
+# define SHADE_INTENSITY 0.95f
 # define SHADE_MAX_INTENSITY 1.0f
-# define SHADE_MIN_INTENSITY 0.70f
+# define SHADE_MIN_INTENSITY 0.30f
 
 # define FOG_DISTANCE_MAX 30.0f
 # define FOG_MIN_INTENSITY 0.1f

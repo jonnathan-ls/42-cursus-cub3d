@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/03 21:32:41 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 16:57:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_textures_bundle
 	mlx_texture_t		*north;
 	mlx_texture_t		*south;
 	mlx_texture_t		*ceiling;
+	mlx_texture_t		*menu;
 }						t_textures_bundle;
 
 typedef struct s_image
@@ -72,6 +73,8 @@ typedef struct s_engine
 	int					fullmap_toggle;
 	int					ignore_doors;
 	t_doors_manager		doors;
+	int					menu_visible;
+	int					menu_toggle;
 	int					fullscreen;
 }						t_engine;
 
@@ -88,6 +91,8 @@ void					draw_circle(uint32_t *pixels, int cx, int cy,
 void					engine_loop(t_engine *eng);
 int						config_textures(t_engine *eng, t_config *cfg);
 
+void					handle_menu_view(t_engine *eng);
+void					draw_menu_overlay(t_engine *eng);
 int						config_doors(t_engine *eng);
 void					handle_door_interaction(t_engine *eng);
 int						door_is_open(t_engine *eng, int x, int y);
