@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 22:19:02 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/03 00:16:14 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,42 +26,42 @@ static double	get_center_y(t_engine *eng)
 }
 
 static void	put_pixel_strip(
-	t_engine *eng, t_ray *ray, struct s_pixel_ctx *ctx, int y)
+	t_engine *eng, t_ray *ray, t_pixel *pixel, int y)
 {
 	if (ray->hit_type == 'D'
-		&& ctx->shift > 0
-		&& ray->x + ctx->shift >= 0
-		&& ray->x + ctx->shift < eng->win_w)
+		&& pixel->shift > 0
+		&& ray->x + pixel->shift >= 0
+		&& ray->x + pixel->shift < eng->win_w)
 	{
-		mlx_put_pixel(eng->img.frame, ray->x + ctx->shift, y,
-			shaded_pixel_from_pos(ctx->tex, ctx->tx, ctx->pos, ray));
+		mlx_put_pixel(eng->img.frame, ray->x + pixel->shift, y,
+			shaded_pixel_from_pos(pixel->tex, pixel->tx, pixel->pos, ray));
 	}
 	else
 		mlx_put_pixel(eng->img.frame, ray->x, y,
-			shaded_pixel_from_pos(ctx->tex, ctx->tx, ctx->pos, ray));
+			shaded_pixel_from_pos(pixel->tex, pixel->tx, pixel->pos, ray));
 }
 
 static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 {
-	int					y;
-	int					th;
-	struct s_pixel_ctx	ctx;
+	int		y;
+	int		th;
+	t_pixel	pixel;
 
 	if (!tex)
 		return ;
-	ctx.tex = tex;
-	ctx.tx = calculate_texture_x(ray, tex, calculate_wall_x(eng, ray));
+	pixel.tex = tex;
+	pixel.tx = calculate_texture_x(ray, tex, calculate_wall_x(eng, ray));
 	th = calculate_wall_height(ray, eng->win_h);
 	if (th <= 0)
 		th = 1;
-	ctx.shift = get_door_texture_offset(eng, ray->map_x, ray->map_y);
-	ctx.pos = (double)(rng[0] + th / 2 - (int)get_center_y(eng))
+	pixel.shift = get_door_texture_offset(eng, ray->map_x, ray->map_y);
+	pixel.pos = (double)(rng[0] + th / 2 - (int)get_center_y(eng))
 		*((double)tex->height / (double)th);
 	y = rng[0];
 	while (y <= rng[1])
 	{
-		put_pixel_strip(eng, ray, &ctx, y);
-		ctx.pos += (double)tex->height / (double)th;
+		put_pixel_strip(eng, ray, &pixel, y);
+		pixel.pos += (double)tex->height / (double)th;
 		y++;
 	}
 }

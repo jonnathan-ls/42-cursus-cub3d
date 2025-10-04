@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 22:20:19 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/03 21:32:41 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,10 @@ typedef struct s_engine
 	int					minimap_scale;
 	int					minimap_toggle;
 	int					**explored_map;
-	t_doors_manager		doors;
+	int					fullmap_visible;
+	int					fullmap_toggle;
 	int					ignore_doors;
+	t_doors_manager		doors;
 	int					fullscreen;
 }						t_engine;
 

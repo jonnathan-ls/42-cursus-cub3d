@@ -6,21 +6,21 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 23:18:59 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/03 23:30:10 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 
 # define RED 0xFFFF0000
 # define GRAY 0xFF888888
 # define BLACK 0xFF000000
 # define WHITE 0xFFFFFFFF
-# define DARK_GRAY 0xFF444444
+# define LIGHT_GRAY 0xFFCCCCCC
 
 # define FOV_DEG 60
 # define ROT_SPEED 0.1
@@ -39,8 +39,11 @@
 # define MINIMAP_WALL_COLOR GRAY
 # define MINIMAP_DOOR_COLOR BLACK
 # define MINIMAP_PLAYER_COLOR RED
+# define MINIMAP_DIR_COLOR 0xFF0000FF
 # define MINIMAP_FLOOR_COLOR WHITE
-# define MINIMAP_FOG_COLOR DARK_GRAY
+# define MINIMAP_FOG_COLOR LIGHT_GRAY
+# define MINIMAP_EXTERNAL_COLOR 0xFF222222
+# define MINIMAP_EXPLORE_RADIUS 1
 
 # define SHADE_INTENSITY 0.85f
 # define SHADE_MAX_INTENSITY 1.0f
