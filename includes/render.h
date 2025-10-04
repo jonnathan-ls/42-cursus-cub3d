@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:42 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/03 00:14:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 00:17:38 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "raycast.h"
 # include <MLX42/MLX42.h>
 # include <stdint.h>
+# include <math.h>
 
 typedef struct s_pixel
 {

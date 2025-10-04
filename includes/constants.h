@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/03 23:30:10 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 00:16:12 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
+
+# define PI 3.14159265358979323846
 
 # define RED 0xFFFF0000
 # define GRAY 0xFF888888

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 22:11:18 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 00:15:49 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,10 @@ uint32_t	calculate_ceiling_texture(t_engine *eng, int y, t_ray *ray,
 		return (eng->ceil_color);
 	row_distance = calculate_row_distance(eng, y, 0);
 	*distance = row_distance;
-	ceil_x = eng->player.pos_x + row_distance * ray->ray_dir_x;
-	ceil_y = eng->player.pos_y + row_distance * ray->ray_dir_y;
+	ceil_x = atan2(ray->ray_dir_y, ray->ray_dir_x);
+	ceil_x = (ceil_x + PI) / (2.0 * PI);
 	tex_x = (int)(ceil_x * eng->tex.ceiling->width) % eng->tex.ceiling->width;
+	ceil_y = (double)(eng->win_h - y) / (double)eng->win_h;
 	tex_y = (int)(ceil_y * eng->tex.ceiling->height) % eng->tex.ceiling->height;
 	if (tex_x < 0)
 		tex_x += eng->tex.ceiling->width;
