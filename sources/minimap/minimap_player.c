@@ -57,7 +57,7 @@ static void	draw_player_strip(t_engine *engine,
 			mlx_put_pixel(engine->img.frame,
 				cx_step + (int)(p->perp_x * (double)inner_offset),
 				cy_step + (int)(p->perp_y * (double)inner_offset),
-				MINIMAP_DIR_COLOR);
+				MINIMAP_DIRECTION_COLOR);
 			inner_offset = inner_offset + 1;
 		}
 		step = step + 1;

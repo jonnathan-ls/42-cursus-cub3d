@@ -94,7 +94,7 @@ void	draw_minimap(t_engine *eng)
 		map.size);
 }
 
-void	config_minimap(t_engine *eng)
+void	configure_minimap(t_engine *eng)
 {
 	if (!eng)
 		return ;

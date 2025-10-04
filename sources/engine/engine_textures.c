@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 21:46:44 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 16:51:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:17:03 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	cleanup_partial_textures(t_engine *eng)
 	eng->tex.menu = NULL;
 }
 
-int	config_textures(t_engine *eng, t_config *cfg)
+int	configure_textures(t_engine *eng, t_config *cfg)
 {
 	eng->tex.north = mlx_load_png(cfg->textures.no_path);
 	if (!eng->tex.north)

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 22:19:02 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:17:16 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	fill_doors_array(t_engine *eng)
 	}
 }
 
-int	config_doors(t_engine *eng)
+int	configure_doors(t_engine *eng)
 {
 	int	doors_count;
 

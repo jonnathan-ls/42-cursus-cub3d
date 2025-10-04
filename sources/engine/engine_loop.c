@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 16:58:11 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:16:29 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	frame_hook(void *param)
 		draw_menu_overlay(eng);
 }
 
-void	engine_close(void *param)
+void	close_engine(void *param)
 {
 	t_engine	*eng;
 
@@ -70,7 +70,7 @@ void	engine_loop(t_engine *eng)
 {
 	if (!eng || !eng->mlx)
 		return ;
-	mlx_close_hook(eng->mlx, engine_close, eng);
+	mlx_close_hook(eng->mlx, close_engine, eng);
 	mlx_loop_hook(eng->mlx, frame_hook, eng);
 	mlx_loop(eng->mlx);
 }

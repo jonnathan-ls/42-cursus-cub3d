@@ -6,14 +6,14 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:05 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 16:51:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:16:21 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
 #include "engine.h"
 
-void	engine_destroy(t_engine *eng)
+void	destroy_engine(t_engine *eng)
 {
 	if (!eng)
 		return ;

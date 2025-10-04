@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:17 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 22:05:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:23:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "raycast.h"
 #include <math.h>
 
-void	config_initialize_raycast(t_engine *eng, t_ray *ray, int x)
+void	configure_raycast_initialization(t_engine *eng, t_ray *ray, int x)
 {
 	double	w;
 

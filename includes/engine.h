@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 16:57:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:29:01 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include "player.h"
 # include <MLX42/MLX42.h>
 # include <stdint.h>
-
-typedef struct s_player	t_player;
 
 typedef struct s_door
 {
@@ -78,22 +76,22 @@ typedef struct s_engine
 	int					fullscreen;
 }						t_engine;
 
-void					config_init_engine(t_engine *eng);
+void					reset_engine_values(t_engine *eng);
 
-int						config_engine(t_engine *eng, t_config *cfg);
-void					engine_destroy(t_engine *eng);
-void					engine_close(void *param);
+int						configure_engine(t_engine *eng, t_config *cfg);
+void					destroy_engine(t_engine *eng);
+void					close_engine(void *param);
 int						check_key_press_cooldown(void);
-void					set_player_dir(t_engine *eng, char dir);
+void					set_player_direction(t_engine *eng, char dir);
 void					draw_circle(uint32_t *pixels, int cx, int cy,
 							int radius);
 
 void					engine_loop(t_engine *eng);
-int						config_textures(t_engine *eng, t_config *cfg);
+int						configure_textures(t_engine *eng, t_config *cfg);
 
 void					handle_menu_view(t_engine *eng);
 void					draw_menu_overlay(t_engine *eng);
-int						config_doors(t_engine *eng);
+int						configure_doors(t_engine *eng);
 void					handle_door_interaction(t_engine *eng);
 int						door_is_open(t_engine *eng, int x, int y);
 int						can_interact_with_door(t_engine *eng);

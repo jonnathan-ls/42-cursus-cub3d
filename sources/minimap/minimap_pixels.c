@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:10:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/03 23:05:23 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:18:49 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	render_minimap_pixels(t_engine *eng, t_minimap *map)
 		pixel_y = map->top + 1;
 		while (pixel_y < map->top + map->size - 1)
 		{
-			minimap_compute_pixel_color(eng, map, pixel_x, pixel_y);
+			compute_minimap_pixel_color(eng, map, pixel_x, pixel_y);
 			mlx_put_pixel(eng->img.frame, pixel_x, pixel_y, map->block_color);
 			pixel_y = pixel_y + 1;
 		}
@@ -71,7 +71,7 @@ static int	compute_block_color_from_map(t_engine *engine, int mx, int my)
 	return (MINIMAP_FOG_COLOR);
 }
 
-void	minimap_compute_pixel_color(t_engine *eng, t_minimap *map,
+void	compute_minimap_pixel_color(t_engine *eng, t_minimap *map,
 	int pixel_x, int pixel_y)
 {
 	t_minimap_projection	proj;

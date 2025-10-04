@@ -45,13 +45,13 @@ typedef struct s_minimap_player_params
 }	t_minimap_player_params;
 
 void		draw_minimap(t_engine *eng);
-void		config_minimap(t_engine *eng);
+void		draw_full_map(t_engine *eng);
+void		configure_minimap(t_engine *eng);
 void		handle_minimap_zoom(t_engine *eng);
 void		handle_minimap_view(t_engine *eng);
+void		handle_fullmap_view(t_engine *eng);
 void		handle_minimap_exploration(t_engine *eng);
 int			initialize_minimap_exploration(t_engine *eng);
-void		handle_fullmap_view(t_engine *eng);
-void		draw_full_map(t_engine *eng);
 void		render_minimap_cells(t_engine *eng, t_minimap *map);
 void		render_minimap_pixels(t_engine *eng, t_minimap *map);
 void		draw_minimap_frame(t_engine *eng, int left, int top,
@@ -59,7 +59,7 @@ void		draw_minimap_frame(t_engine *eng, int left, int top,
 void		draw_minimap_background(t_engine *eng, t_minimap *map);
 void		draw_minimap_player(t_engine *eng,
 				int square_left, int square_top, int square_size);
-void		minimap_compute_pixel_color(t_engine *eng, t_minimap *map,
+void		compute_minimap_pixel_color(t_engine *eng, t_minimap *map,
 				int pixel_x, int pixel_y);
 
 #endif

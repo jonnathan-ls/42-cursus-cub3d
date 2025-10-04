@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 16:57:08 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:32:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_key_press_cooldown(void)
 	return (1);
 }
 
-void	set_player_dir(t_engine *eng, char dir)
+void	set_player_direction(t_engine *eng, char dir)
 {
 	eng->player.dir_x = (dir == 'E') - (dir == 'W');
 	eng->player.dir_y = (dir == 'S') - (dir == 'N');
@@ -60,7 +60,7 @@ void	draw_circle(uint32_t *pixels, int cx, int cy, int radius)
 	}
 }
 
-void	config_init_engine(t_engine *eng)
+void	reset_engine_values(t_engine *eng)
 {
 	eng->map_w = 0;
 	eng->map_h = 0;
@@ -70,8 +70,12 @@ void	config_init_engine(t_engine *eng)
 	eng->floor_color = 0;
 	eng->doors.count = 0;
 	eng->ignore_doors = 0;
+	eng->menu_toggle = 1;
+	eng->menu_visible = 0;
 	eng->mlx = NULL;
 	eng->map = NULL;
+	eng->tex.door = NULL;
+	eng->tex.menu = NULL;
 	eng->tex.west = NULL;
 	eng->tex.east = NULL;
 	eng->tex.north = NULL;
@@ -82,8 +86,4 @@ void	config_init_engine(t_engine *eng)
 	eng->doors.list = NULL;
 	eng->tex.ceiling = NULL;
 	eng->explored_map = NULL;
-	eng->tex.door = NULL;
-	eng->tex.menu = NULL;
-	eng->menu_visible = 0;
-	eng->menu_toggle = 0;
 }

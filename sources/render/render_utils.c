@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 00:15:49 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:41:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static double	calculate_row_distance(t_engine *eng, int y, int is_floor)
 		den = 2.0 * tmp;
 	}
 	if (den == 0.0)
-		den = DIST_EPS;
+		den = EPSILON;
 	return (win_h / den);
 }
 

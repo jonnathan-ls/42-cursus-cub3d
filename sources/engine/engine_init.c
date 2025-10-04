@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 21:50:54 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:36:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,40 +82,40 @@ static void	config_init_player(t_engine *eng, t_config *cfg)
 	eng->floor_color = (uint32_t)cfg->floor_color.rgba;
 	eng->player.pos_x = cfg->map.player_x + 0.5;
 	eng->player.pos_y = cfg->map.player_y + 0.5;
-	eng->player.move_speed = MOVE_SPEED;
-	eng->player.rot_speed = ROT_SPEED;
+	eng->player.move_speed = MOVEMENT_SPEED;
+	eng->player.rot_speed = ROTATION_SPEED;
 	eng->player.mouse_x = eng->win_w / 2;
 	eng->player.mouse_y = eng->win_h / 2;
 	eng->player.pitch = 0.0;
 	eng->player.pitch_factor = 0.5;
-	set_player_dir(eng, cfg->map.player_dir);
+	set_player_direction(eng, cfg->map.player_dir);
 }
 
-int	config_engine(t_engine *eng, t_config *cfg)
+int	configure_engine(t_engine *eng, t_config *cfg)
 {
 	if (!eng || !cfg)
 		return (-1);
-	config_init_engine(eng);
+	reset_engine_values(eng);
 	mlx_set_setting(MLX_FULLSCREEN, eng->fullscreen);
 	if (init_window_image(eng) != 0)
 	{
-		engine_destroy(eng);
+		destroy_engine(eng);
 		return (-1);
 	}
 	eng->map = cfg->map.grid;
 	eng->map_w = cfg->map.width;
 	eng->map_h = cfg->map.height;
 	config_init_player(eng, cfg);
-	if (config_textures(eng, cfg) != 0)
+	if (configure_textures(eng, cfg) != 0)
 	{
-		engine_destroy(eng);
+		destroy_engine(eng);
 		return (-1);
 	}
-	if (config_doors(eng) != 0)
+	if (configure_doors(eng) != 0)
 	{
-		engine_destroy(eng);
+		destroy_engine(eng);
 		return (-1);
 	}
-	config_minimap(eng);
+	configure_minimap(eng);
 	return (0);
 }

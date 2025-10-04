@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:36 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 22:08:14 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:23:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	render_wall(t_engine *eng, int x)
 	int		end;
 	double	center_y;
 
-	config_initialize_raycast(eng, &ray, x);
+	configure_raycast_initialization(eng, &ray, x);
 	calculate_raycast_direction(&ray, &eng->player);
 	setup_dda(&ray, &eng->player);
 	perform_dda(eng, &ray);
