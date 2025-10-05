@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 20:16:29 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 00:25:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "raycast.h"
 #include "render.h"
 #include "minimap.h"
+#include "sprite.h"
 
 static void	handle_frame_updates(t_engine *eng, double delta_time)
 {
@@ -29,6 +30,16 @@ static void	handle_frame_updates(t_engine *eng, double delta_time)
 	handle_player_rotation_by_mouse(eng);
 }
 
+static void	draw_interface(t_engine *eng)
+{
+	if (eng->fullmap_visible)
+		draw_full_map(eng);
+	else
+		draw_minimap(eng);
+	if (eng->menu_visible && eng->tex.menu && eng->frame)
+		draw_menu_overlay(eng);
+}
+
 static void	frame_hook(void *param)
 {
 	t_engine	*eng;
@@ -39,6 +50,7 @@ static void	frame_hook(void *param)
 		mlx_close_window(eng->mlx);
 	delta_time = eng->mlx->delta_time;
 	handle_frame_updates(eng, delta_time);
+	update_sprites(eng, delta_time);
 	handle_minimap_view(eng);
 	handle_minimap_zoom(eng);
 	handle_fullmap_view(eng);
@@ -47,14 +59,10 @@ static void	frame_hook(void *param)
 	cast_all_rays(eng);
 	eng->ignore_doors = 0;
 	cast_all_rays(eng);
+	render_sprites(eng);
 	handle_minimap_exploration(eng);
 	handle_menu_view(eng);
-	if (eng->fullmap_visible)
-		draw_full_map(eng);
-	else
-		draw_minimap(eng);
-	if (eng->menu_visible && eng->tex.menu && eng->frame)
-		draw_menu_overlay(eng);
+	draw_interface(eng);
 }
 
 void	close_engine(void *param)

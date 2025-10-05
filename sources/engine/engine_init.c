@@ -6,13 +6,15 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:50:06 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 01:00:45 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "constants.h"
 #include "engine.h"
 #include "minimap.h"
+#include "sprite.h"
+#include "shared.h"
 #include <MLX42/MLX42.h>
 
 static int	init_cursor_image(t_engine *eng)
@@ -37,25 +39,19 @@ static int	init_cursor_image(t_engine *eng)
 	return (0);
 }
 
-static void	apply_window_scale(t_engine *eng)
+static void	config_init_player(t_engine *eng, t_config *cfg)
 {
-	int32_t	monitor_width;
-	int32_t	monitor_height;
-
-	if (!eng->fullscreen)
-	{
-		eng->window_width = WIN_WIDTH;
-		eng->window_height = WIN_HEIGHT;
-		return ;
-	}
-	mlx_get_monitor_size(0, &monitor_width, &monitor_height);
-	if (monitor_width <= 0 || monitor_height <= 0)
-		return ;
-	eng->window_width = monitor_width;
-	eng->window_height = monitor_height;
-	mlx_set_window_size(eng->mlx, eng->window_width, eng->window_height);
-	if (eng->frame)
-		mlx_resize_image(eng->frame, eng->window_width, eng->window_height);
+	eng->ceiling_color = (uint32_t)cfg->ceiling_color.rgba;
+	eng->floor_color = (uint32_t)cfg->floor_color.rgba;
+	eng->player.pos_x = cfg->map.player_x + 0.5;
+	eng->player.pos_y = cfg->map.player_y + 0.5;
+	eng->player.move_speed = MOVEMENT_SPEED;
+	eng->player.rot_speed = ROTATION_SPEED;
+	eng->player.mouse_x = eng->window_width / 2;
+	eng->player.mouse_y = eng->window_height / 2;
+	eng->player.pitch = 0.0;
+	eng->player.pitch_factor = 0.5;
+	set_player_direction(eng, cfg->map.player_dir);
 }
 
 static int	init_window_image(t_engine *eng)
@@ -72,25 +68,13 @@ static int	init_window_image(t_engine *eng)
 		return (-1);
 	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_HIDDEN);
 	apply_window_scale(eng);
+	eng->z_buffer = mm_alloc(eng->window_width, sizeof(double));
+	if (!eng->z_buffer)
+		return (-1);
 	return (0);
 }
 
-static void	config_init_player(t_engine *eng, t_config *cfg)
-{
-	eng->ceiling_color = (uint32_t)cfg->ceiling_color.rgba;
-	eng->floor_color = (uint32_t)cfg->floor_color.rgba;
-	eng->player.pos_x = cfg->map.player_x + 0.5;
-	eng->player.pos_y = cfg->map.player_y + 0.5;
-	eng->player.move_speed = MOVEMENT_SPEED;
-	eng->player.rot_speed = ROTATION_SPEED;
-	eng->player.mouse_x = eng->window_width / 2;
-	eng->player.mouse_y = eng->window_height / 2;
-	eng->player.pitch = 0.0;
-	eng->player.pitch_factor = 0.5;
-	set_player_direction(eng, cfg->map.player_dir);
-}
-
-int	configure_engine(t_engine *eng, t_config *cfg)
+static int	configure_engine_base(t_engine *eng, t_config *cfg)
 {
 	if (!eng || !cfg)
 		return (-1);
@@ -105,6 +89,13 @@ int	configure_engine(t_engine *eng, t_config *cfg)
 	eng->map_width = cfg->map.width;
 	eng->map_height = cfg->map.height;
 	config_init_player(eng, cfg);
+	return (0);
+}
+
+int	configure_engine(t_engine *eng, t_config *cfg)
+{
+	if (configure_engine_base(eng, cfg) != 0)
+		return (-1);
 	if (configure_textures(eng, cfg) != 0)
 	{
 		destroy_engine(eng);
@@ -116,5 +107,6 @@ int	configure_engine(t_engine *eng, t_config *cfg)
 		return (-1);
 	}
 	configure_minimap(eng);
+	init_sprites(eng, cfg->textures.sprite_path, cfg->textures.sprite_frames);
 	return (0);
 }

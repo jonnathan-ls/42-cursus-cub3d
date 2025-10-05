@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:30:21 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 00:30:52 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "parser.h"
 # include "player.h"
+# include "sprite.h"
 # include <MLX42/MLX42.h>
 # include <stdint.h>
 
@@ -69,8 +70,11 @@ typedef struct s_engine
 	int					menu_visible;
 	int					menu_toggle;
 	int					fullscreen;
+	t_sprite_manager	sprites;
+	double				*z_buffer;
 }						t_engine;
 
+void					apply_window_scale(t_engine *eng);
 void					reset_engine_values(t_engine *eng);
 
 int						configure_engine(t_engine *eng, t_config *cfg);
@@ -83,7 +87,6 @@ void					draw_circle(uint32_t *pixels, int cx, int cy,
 
 void					engine_loop(t_engine *eng);
 int						configure_textures(t_engine *eng, t_config *cfg);
-
 void					handle_menu_view(t_engine *eng);
 void					draw_menu_overlay(t_engine *eng);
 int						configure_doors(t_engine *eng);

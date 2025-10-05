@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 22:33:31 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 00:30:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 
 int	check_key_press_cooldown(void)
 {
-	static double	last_press_time = 0.0;
-	double			current_time;
-	double			cooldown;
+	double	last_press_time;
+	double	current_time;
+	double	cooldown;
 
 	cooldown = 0.3;
+	last_press_time = 0.0;
 	current_time = mlx_get_time();
 	if (current_time - last_press_time < cooldown)
 		return (0);
@@ -76,29 +77,23 @@ void	draw_circle(uint32_t *pixels, int cx, int cy, int radius)
 	}
 }
 
-void	reset_engine_values(t_engine *eng)
+void	apply_window_scale(t_engine *eng)
 {
-	eng->map_width = 0;
-	eng->map_height = 0;
-	eng->window_width = 0;
-	eng->window_height = 0;
-	eng->ceiling_color = 0;
-	eng->floor_color = 0;
-	eng->doors.count = 0;
-	eng->ignore_doors = 0;
-	eng->menu_toggle = 1;
-	eng->menu_visible = 0;
-	eng->mlx = NULL;
-	eng->map = NULL;
-	eng->tex.door = NULL;
-	eng->tex.menu = NULL;
-	eng->tex.west = NULL;
-	eng->tex.east = NULL;
-	eng->tex.north = NULL;
-	eng->tex.south = NULL;
-	eng->frame = NULL;
-	eng->tex.floor = NULL;
-	eng->cursor = NULL;
-	eng->doors.list = NULL;
-	eng->tex.ceiling = NULL;
+	int32_t	monitor_width;
+	int32_t	monitor_height;
+
+	if (!eng->fullscreen)
+	{
+		eng->window_width = WIN_WIDTH;
+		eng->window_height = WIN_HEIGHT;
+		return ;
+	}
+	mlx_get_monitor_size(0, &monitor_width, &monitor_height);
+	if (monitor_width <= 0 || monitor_height <= 0)
+		return ;
+	eng->window_width = monitor_width;
+	eng->window_height = monitor_height;
+	mlx_set_window_size(eng->mlx, eng->window_width, eng->window_height);
+	if (eng->frame)
+		mlx_resize_image(eng->frame, eng->window_width, eng->window_height);
 }

@@ -27,6 +27,7 @@ PARSER_SRCS = \
 	sources/parser/parse_headers.c \
 	sources/parser/parse_headers_utils.c \
 	sources/parser/parse_textures.c \
+	sources/parser/parse_sprite.c \
 	sources/parser/parse_colors.c \
 	sources/parser/collect_map_lines.c \
 	sources/parser/normalize_map.c \
@@ -47,7 +48,16 @@ ENGINE_SRCS = \
 	sources/engine/menu.c \
 	sources/engine/engine_doors.c \
 	sources/engine/doors_interaction.c \
-	sources/engine/door_finder.c
+	sources/engine/door_finder.c \
+	sources/engine/engine_reset.c
+
+SPRITE_SRCS = \
+	sources/sprite/sprite_init.c \
+	sources/sprite/sprite_update.c \
+	sources/sprite/sprite_render.c \
+	sources/sprite/sprite_collect.c \
+	sources/sprite/sprite_calc.c \
+	sources/sprite/sprite_draw.c
 
 RAY_SRCS = \
 	sources/engine/ray_init.c \
@@ -73,7 +83,7 @@ MINIMAP_SRCS = \
 	sources/minimap/minimap_exploration.c
 
 SOURCES = ${MAIN_SRCS} ${SHARED_SRCS} ${PARSER_SRCS} \
-	${ENGINE_SRCS} ${RAY_SRCS} ${RENDER_SRCS} ${MINIMAP_SRCS}
+	${ENGINE_SRCS} ${SPRITE_SRCS} ${RAY_SRCS} ${RENDER_SRCS} ${MINIMAP_SRCS}
 TOTAL_FILES := $(words $(SOURCES)) # For progress_bar logic
 
 OBJS = $(SOURCES:%.c=$(OBJS_DIR)/%.o)

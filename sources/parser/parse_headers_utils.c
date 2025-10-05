@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:01:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:27:33 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 01:40:10 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static int	handle_texture_line(char *id, t_config *cfg)
 		return (parse_single_texture(rest, &cfg->textures.ceiling_path, "CT"));
 	if (id[0] == 'M' && id[1] == 'N')
 		return (parse_single_texture(rest, &cfg->textures.menu_path, "MN"));
+	if (id[0] == 'S' && id[1] == 'P')
+		return (parse_sprite_texture(rest, cfg));
 	return (parser_error("invalid texture identifier"));
 }
 
@@ -74,9 +76,30 @@ static int	handle_color_line(char *id, t_config *cfg)
 	return (0);
 }
 
+static int	parse_texture_paths(char *id, t_config *cfg, int *count_done)
+{
+	if ((id[0] == 'N' && id[1] == 'O') || (id[0] == 'S' && id[1] == 'O')
+		|| (id[0] == 'W' && id[1] == 'E') || (id[0] == 'E' && id[1] == 'A'))
+	{
+		if (handle_texture_line(id, cfg) < 0)
+			return (-1);
+		(*count_done)++;
+		return (0);
+	}
+	if ((id[0] == 'F' && id[1] == 'T') || (id[0] == 'C' && id[1] == 'T')
+		|| (id[0] == 'M' && id[1] == 'N') || (id[0] == 'S' && id[1] == 'P'))
+	{
+		if (handle_texture_line(id, cfg) < 0)
+			return (-1);
+		return (0);
+	}
+	return (1);
+}
+
 int	parse_header_line(char *line, t_config *cfg, int *count_done)
 {
 	char	*id;
+	int		result;
 
 	if (!line || !cfg)
 		return (parser_error("incomplete header set"));
@@ -85,11 +108,9 @@ int	parse_header_line(char *line, t_config *cfg, int *count_done)
 		id++;
 	if (*id == '\n' || *id == '\0')
 		return (0);
-	if ((id[0] == 'N' && id[1] == 'O') || (id[0] == 'S' && id[1] == 'O')
-		|| (id[0] == 'W' && id[1] == 'E') || (id[0] == 'E' && id[1] == 'A')
-		|| (id[0] == 'F' && id[1] == 'T') || (id[0] == 'C' && id[1] == 'T')
-		|| (id[0] == 'M' && id[1] == 'N'))
-		return (choose_int(handle_texture_line(id, cfg) < 0, -1, 0));
+	result = parse_texture_paths(id, cfg, count_done);
+	if (result != 1)
+		return (result);
 	if (id[0] == 'F' || id[0] == 'C')
 	{
 		if (handle_color_line(id, cfg) < 0)

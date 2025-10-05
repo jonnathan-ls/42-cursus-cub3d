@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:36 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 23:46:09 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	render_wall(t_engine *eng, int x)
 	setup_dda(&ray, &eng->player);
 	perform_dda(eng, &ray);
 	calculate_distances(&ray, &eng->player);
+	if (eng->z_buffer)
+		eng->z_buffer[x] = ray.perp_dist;
 	wall_h = calculate_wall_height(&ray, eng->window_height);
 	center_y = (double)eng->window_height / 2.0 - eng->player.pitch
 		* ((double)eng->window_height / 4.0);
