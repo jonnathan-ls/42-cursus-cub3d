@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 21:54:12 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	door_is_open(t_engine *eng, int x, int y)
 	{
 		if (eng->doors.list[i].x == x && eng->doors.list[i].y == y)
 			return (eng->doors.list[i].is_open);
-		i++;
+		i = i + 1;
 	}
 	return (0);
 }

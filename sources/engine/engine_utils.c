@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 20:32:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:33:31 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,26 @@ int	check_key_press_cooldown(void)
 
 void	set_player_direction(t_engine *eng, char dir)
 {
-	eng->player.dir_x = (dir == 'E') - (dir == 'W');
-	eng->player.dir_y = (dir == 'S') - (dir == 'N');
-	eng->player.plane_x = ((dir == 'N') - (dir == 'S')) * PLANE_FACTOR;
-	eng->player.plane_y = ((dir == 'E') - (dir == 'W')) * PLANE_FACTOR;
+	eng->player.dir_x = 0;
+	eng->player.dir_y = 0;
+	eng->player.plane_x = 0;
+	eng->player.plane_y = 0;
+	if (dir == 'E')
+		eng->player.dir_x = 1;
+	if (dir == 'W')
+		eng->player.dir_x = -1;
+	if (dir == 'S')
+		eng->player.dir_y = 1;
+	if (dir == 'N')
+		eng->player.dir_y = -1;
+	if (dir == 'N')
+		eng->player.plane_x = PLANE_FACTOR;
+	if (dir == 'S')
+		eng->player.plane_x = -PLANE_FACTOR;
+	if (dir == 'E')
+		eng->player.plane_y = PLANE_FACTOR;
+	if (dir == 'W')
+		eng->player.plane_y = -PLANE_FACTOR;
 }
 
 void	draw_circle(uint32_t *pixels, int cx, int cy, int radius)
@@ -54,19 +70,19 @@ void	draw_circle(uint32_t *pixels, int cx, int cy, int radius)
 			if (dx * dx + dy * dy <= radius * radius && dx * dx + dy
 				* dy >= (radius - 1) * (radius - 1))
 				pixels[(cy + y) * 32 + (cx + x)] = 0xFFFFFFFF;
-			x++;
+			x = x + 1;
 		}
-		y++;
+		y = y + 1;
 	}
 }
 
 void	reset_engine_values(t_engine *eng)
 {
-	eng->map_w = 0;
-	eng->map_h = 0;
-	eng->win_w = 0;
-	eng->win_h = 0;
-	eng->ceil_color = 0;
+	eng->map_width = 0;
+	eng->map_height = 0;
+	eng->window_width = 0;
+	eng->window_height = 0;
+	eng->ceiling_color = 0;
 	eng->floor_color = 0;
 	eng->doors.count = 0;
 	eng->ignore_doors = 0;
@@ -80,10 +96,9 @@ void	reset_engine_values(t_engine *eng)
 	eng->tex.east = NULL;
 	eng->tex.north = NULL;
 	eng->tex.south = NULL;
-	eng->img.frame = NULL;
+	eng->frame = NULL;
 	eng->tex.floor = NULL;
-	eng->img.cursor = NULL;
+	eng->cursor = NULL;
 	eng->doors.list = NULL;
 	eng->tex.ceiling = NULL;
-	eng->explored_map = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:28 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 16:16:37 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	is_empty_line(const char *s)
 		if (!(s[i] == ' ' || s[i] == '\t' || s[i] == '\r' || s[i] == '\v'
 				|| s[i] == '\f'))
 			return (0);
-		i++;
+		i = i + 1;
 	}
 	return (1);
 }

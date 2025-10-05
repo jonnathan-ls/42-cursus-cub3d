@@ -48,19 +48,21 @@ static void	minimap_prepare_block(t_engine *eng, t_minimap *map)
 	if (!eng || !map)
 		return ;
 	map->block_color = MINIMAP_FOG_COLOR;
-	if (map->block_cell_x >= 0 && map->block_cell_y >= 0
-		&& map->block_cell_x < eng->map_w)
-		map->block_color = MINIMAP_FOG_COLOR;
-	{
-		c = eng->map[map->block_cell_y][map->block_cell_x];
-		c = eng->map[map->block_cell_y][map->block_cell_x];
+	if (map->block_cell_x < 0 || map->block_cell_y < 0)
+		return ;
+	if (map->block_cell_x >= eng->map_width
+		|| map->block_cell_y >= eng->map_height)
+		return ;
+	c = eng->map[map->block_cell_y][map->block_cell_x];
+	if (c == '1')
+		map->block_color = MINIMAP_WALL_COLOR;
+	if (c == 'D')
 		map->block_color = MINIMAP_DOOR_COLOR;
-		if (c == '0')
-			map->block_color = MINIMAP_FLOOR_COLOR;
-		if (eng->explored_map && !eng->explored_map[map->block_cell_y]
-			[map->block_cell_x])
-			map->block_color = MINIMAP_FOG_COLOR;
-	}
+	if (c == '0')
+		map->block_color = MINIMAP_FLOOR_COLOR;
+	if (eng->explored_map && !eng->explored_map[map->block_cell_y]
+		[map->block_cell_x])
+		map->block_color = MINIMAP_FOG_COLOR;
 	minimap_compute_block_screen_start(eng, map);
 }
 
@@ -84,7 +86,7 @@ static void	minimap_draw_block_pixels(t_engine *eng, t_minimap *map)
 			if (pxp >= map->left && pxp < map->left + map->size)
 			{
 				if (pyp >= map->top && pyp < map->top + map->size)
-					mlx_put_pixel(eng->img.frame, pxp, pyp, map->block_color);
+					mlx_put_pixel(eng->frame, pxp, pyp, map->block_color);
 			}
 			dy = dy + 1;
 		}
@@ -102,7 +104,7 @@ static void	minimap_render_column(t_engine *eng,
 	tile_y = player_y - half_tiles;
 	if (tile_y < 0)
 		tile_y = 0;
-	while (tile_y <= player_y + half_tiles && tile_y < eng->map_h)
+	while (tile_y <= player_y + half_tiles && tile_y < eng->map_height)
 	{
 		map->block_cell_x = tile_x;
 		map->block_cell_y = tile_y;
@@ -125,7 +127,7 @@ void	render_minimap_cells(t_engine *eng, t_minimap *map)
 	tile_x = player_x - 5;
 	if (tile_x < 0)
 		tile_x = 0;
-	while (tile_x <= player_x + 5 && tile_x < eng->map_w)
+	while (tile_x <= player_x + 5 && tile_x < eng->map_width)
 	{
 		minimap_render_column(eng, tile_x, player_y, map);
 		tile_x = tile_x + 1;

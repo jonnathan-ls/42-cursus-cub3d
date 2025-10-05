@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:30:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 22:10:52 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	draw_ceiling_pixels(t_engine *eng, int x, int start, t_ray *ray)
 	double		distance;
 
 	y = 0;
-	while (y < start && y < eng->win_h)
+	while (y < start && y < eng->window_height)
 	{
 		if (eng->tex.ceiling)
 		{
@@ -30,9 +30,9 @@ static void	draw_ceiling_pixels(t_engine *eng, int x, int start, t_ray *ray)
 			color = apply_distance_shading(color, distance);
 		}
 		else
-			color = eng->ceil_color;
-		mlx_put_pixel(eng->img.frame, x, y, color);
-		y++;
+			color = eng->ceiling_color;
+		mlx_put_pixel(eng->frame, x, y, color);
+		y = y + 1;
 	}
 }
 
@@ -43,7 +43,7 @@ static void	draw_floor_pixels(t_engine *eng, int x, int end, t_ray *ray)
 	double		distance;
 
 	y = end + 1;
-	while (y < eng->win_h)
+	while (y < eng->window_height)
 	{
 		if (eng->tex.floor)
 		{
@@ -52,8 +52,8 @@ static void	draw_floor_pixels(t_engine *eng, int x, int end, t_ray *ray)
 		}
 		else
 			color = eng->floor_color;
-		mlx_put_pixel(eng->img.frame, x, y, color);
-		y++;
+		mlx_put_pixel(eng->frame, x, y, color);
+		y = y + 1;
 	}
 }
 

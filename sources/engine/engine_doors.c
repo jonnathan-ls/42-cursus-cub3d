@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 20:17:16 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ static int	count_doors_in_map(t_engine *eng)
 
 	count = 0;
 	y = 0;
-	while (y < eng->map_h)
+	while (y < eng->map_height)
 	{
 		x = 0;
-		while (x < eng->map_w)
+		while (x < eng->map_width)
 		{
 			if (eng->map[y][x] == 'D')
-				count++;
-			x++;
+				count = count + 1;
+			x = x + 1;
 		}
-		y++;
+		y = y + 1;
 	}
 	return (count);
 }
@@ -44,10 +44,10 @@ static void	fill_doors_array(t_engine *eng)
 
 	index = 0;
 	y = 0;
-	while (y < eng->map_h)
+	while (y < eng->map_height)
 	{
 		x = 0;
-		while (x < eng->map_w)
+		while (x < eng->map_width)
 		{
 			if (eng->map[y][x] == 'D')
 			{
@@ -55,11 +55,11 @@ static void	fill_doors_array(t_engine *eng)
 				eng->doors.list[index].y = y;
 				eng->doors.list[index].is_open = 0;
 				eng->doors.list[index].offset = 0.0;
-				index++;
+				index = index + 1;
 			}
-			x++;
+			x = x + 1;
 		}
-		y++;
+		y = y + 1;
 	}
 }
 
@@ -94,21 +94,19 @@ void	handle_door_updates(t_engine *eng)
 	speed = 4.0 * eng->mlx->delta_time;
 	while (i < eng->doors.count)
 	{
-		if (eng->doors.list[i].is_open)
+		if (eng->doors.list[i].is_open && eng->doors.list[i].offset < 1.0)
 		{
-			if (eng->doors.list[i].offset < 1.0)
-				eng->doors.list[i].offset += speed;
+			eng->doors.list[i].offset = eng->doors.list[i].offset + speed;
 			if (eng->doors.list[i].offset > 1.0)
 				eng->doors.list[i].offset = 1.0;
 		}
-		else
+		if (!eng->doors.list[i].is_open && eng->doors.list[i].offset > 0.0)
 		{
-			if (eng->doors.list[i].offset > 0.0)
-				eng->doors.list[i].offset -= speed;
+			eng->doors.list[i].offset = eng->doors.list[i].offset - speed;
 			if (eng->doors.list[i].offset < 0.0)
 				eng->doors.list[i].offset = 0.0;
 		}
-		i++;
+		i = i + 1;
 	}
 }
 
@@ -124,10 +122,10 @@ int	get_door_texture_offset(t_engine *eng, int map_x, int map_y)
 	{
 		if (eng->doors.list[i].x == map_x && eng->doors.list[i].y == map_y)
 		{
-			cell_w = eng->win_w / eng->map_w;
+			cell_w = eng->window_width / eng->map_width;
 			return ((int)(eng->doors.list[i].offset * (double)cell_w));
 		}
-		i++;
+		i = i + 1;
 	}
 	return (0);
 }

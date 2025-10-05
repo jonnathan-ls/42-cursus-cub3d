@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:04 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 15:09:16 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	validate_map_chars(t_map *map)
 		{
 			if (!is_valid_char(map->grid[y][x]))
 				return (parser_error("invalid map character"));
-			x++;
+			x = x + 1;
 		}
-		y++;
+		y = y + 1;
 	}
 	return (0);
 }

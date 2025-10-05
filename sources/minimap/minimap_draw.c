@@ -20,17 +20,17 @@ void	draw_minimap_frame(t_engine *eng, int left, int top, int square_size)
 	int	i;
 	int	end;
 
-	if (!eng || !eng->img.frame)
+	if (!eng || !eng->frame)
 		return ;
 	end = left + square_size - 1;
 	i = 0;
 	while (i < square_size)
 	{
-		mlx_put_pixel(eng->img.frame, left + i, top, MINIMAP_WALL_COLOR);
-		mlx_put_pixel(eng->img.frame, left + i, top + square_size - 1,
+		mlx_put_pixel(eng->frame, left + i, top, MINIMAP_WALL_COLOR);
+		mlx_put_pixel(eng->frame, left + i, top + square_size - 1,
 			MINIMAP_WALL_COLOR);
-		mlx_put_pixel(eng->img.frame, left, top + i, MINIMAP_WALL_COLOR);
-		mlx_put_pixel(eng->img.frame, end, top + i, MINIMAP_WALL_COLOR);
+		mlx_put_pixel(eng->frame, left, top + i, MINIMAP_WALL_COLOR);
+		mlx_put_pixel(eng->frame, end, top + i, MINIMAP_WALL_COLOR);
 		i = i + 1;
 	}
 }
@@ -41,7 +41,7 @@ void	draw_minimap_background(t_engine *eng, t_minimap *map)
 	int	y;
 	int	end;
 
-	if (!eng || !map || !eng->img.frame)
+	if (!eng || !map || !eng->frame)
 		return ;
 	end = map->left + map->size - 1;
 	x = map->left + 1;
@@ -50,7 +50,7 @@ void	draw_minimap_background(t_engine *eng, t_minimap *map)
 		y = map->top + 1;
 		while (y < map->top + map->size - 1)
 		{
-			mlx_put_pixel(eng->img.frame, x, y, MINIMAP_FOG_COLOR);
+			mlx_put_pixel(eng->frame, x, y, MINIMAP_FOG_COLOR);
 			y = y + 1;
 		}
 		x = x + 1;

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:23:52 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 14:55:22 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,10 @@ static void	free_str(char **s)
 	}
 }
 
-void	free_config(t_config *cfg)
+static void	free_map_grid(t_config *cfg)
 {
 	int	i;
 
-	if (!cfg)
-		return ;
-	free_str(&cfg->textures.no_path);
-	free_str(&cfg->textures.so_path);
-	free_str(&cfg->textures.we_path);
-	free_str(&cfg->textures.ea_path);
-	free_str(&cfg->textures.floor_path);
-	free_str(&cfg->textures.ceiling_path);
-	free_str(&cfg->textures.menu_path);
 	i = 0;
 	while (cfg->map.grid && i < cfg->map.height)
 	{
@@ -46,4 +37,18 @@ void	free_config(t_config *cfg)
 		free(cfg->map.grid);
 		cfg->map.grid = NULL;
 	}
+}
+
+void	free_config(t_config *cfg)
+{
+	if (!cfg)
+		return ;
+	free_str(&cfg->textures.no_path);
+	free_str(&cfg->textures.so_path);
+	free_str(&cfg->textures.we_path);
+	free_str(&cfg->textures.ea_path);
+	free_str(&cfg->textures.floor_path);
+	free_str(&cfg->textures.ceiling_path);
+	free_str(&cfg->textures.menu_path);
+	free_map_grid(cfg);
 }

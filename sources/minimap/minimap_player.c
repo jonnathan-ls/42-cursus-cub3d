@@ -54,7 +54,7 @@ static void	draw_player_strip(t_engine *engine,
 		inner_offset = -current_half;
 		while (inner_offset <= current_half)
 		{
-			mlx_put_pixel(engine->img.frame,
+			mlx_put_pixel(engine->frame,
 				cx_step + (int)(p->perp_x * (double)inner_offset),
 				cy_step + (int)(p->perp_y * (double)inner_offset),
 				MINIMAP_DIRECTION_COLOR);

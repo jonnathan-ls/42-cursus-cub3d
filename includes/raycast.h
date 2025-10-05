@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:47 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 20:24:17 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:30:21 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "engine.h"
 # include "player.h"
 # include <stdint.h>
-# include "engine.h"
 
 typedef struct s_ray
 {

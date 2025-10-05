@@ -53,7 +53,7 @@ static void	frame_hook(void *param)
 		draw_full_map(eng);
 	else
 		draw_minimap(eng);
-	if (eng->menu_visible && eng->tex.menu && eng->img.frame)
+	if (eng->menu_visible && eng->tex.menu && eng->frame)
 		draw_menu_overlay(eng);
 }
 

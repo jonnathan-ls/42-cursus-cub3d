@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   locate_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:00 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/14 18:41:31 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	locate_player(t_map *map)
 				if (note_player(map, x, y, &found) < 0)
 					return (-1);
 			}
-			x++;
+			x = x + 1;
 		}
-		y++;
+		y = y + 1;
 	}
 	if (!found)
 		return (parser_error("missing player position"));

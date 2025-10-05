@@ -19,13 +19,13 @@ int	allocate_explored_map(t_engine *eng)
 {
 	int	y;
 
-	eng->explored_map = malloc(sizeof(int *) * eng->map_h);
+	eng->explored_map = malloc(sizeof(int *) * eng->map_height);
 	if (!eng->explored_map)
 		return (0);
 	y = 0;
-	while (y < eng->map_h)
+	while (y < eng->map_height)
 	{
-		eng->explored_map[y] = malloc(sizeof(int) * eng->map_w);
+		eng->explored_map[y] = malloc(sizeof(int) * eng->map_width);
 		if (!eng->explored_map[y])
 			return (0);
 		y = y + 1;
@@ -43,10 +43,10 @@ int	initialize_minimap_exploration(t_engine *eng)
 	if (!allocate_explored_map(eng))
 		return (0);
 	y = 0;
-	while (y < eng->map_h)
+	while (y < eng->map_height)
 	{
 		x = 0;
-		while (x < eng->map_w)
+		while (x < eng->map_width)
 		{
 			eng->explored_map[y][x] = 0;
 			x = x + 1;
@@ -73,8 +73,8 @@ void	handle_minimap_exploration(t_engine *eng)
 		dx = -MINIMAP_EXPLORE_RADIUS;
 		while (dx <= MINIMAP_EXPLORE_RADIUS)
 		{
-			if (px + dx >= 0 && px + dx < eng->map_w
-				&& py + dy >= 0 && py + dy < eng->map_h)
+			if (px + dx >= 0 && px + dx < eng->map_width
+				&& py + dy >= 0 && py + dy < eng->map_height)
 				eng->explored_map[py + dy][px + dx] = 1;
 			dx = dx + 1;
 		}

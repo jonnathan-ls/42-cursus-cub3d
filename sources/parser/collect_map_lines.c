@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:37:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	**grow_lines(char **old, int old_count)
 	while (i < old_count)
 	{
 		new_arr[i] = old[i];
-		i++;
+		i = i + 1;
 	}
 	free(old);
 	return (new_arr);

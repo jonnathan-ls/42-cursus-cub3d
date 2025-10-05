@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:22 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,19 @@ static int	is_door_closed_at(t_engine *eng, int x, int y)
 	{
 		if (eng->doors.list[i].x == x && eng->doors.list[i].y == y)
 			return (eng->doors.list[i].offset < 1.0);
-		i++;
+		i = i + 1;
 	}
 	return (1);
 }
 
 int	detect_collision(t_engine *eng, t_ray *ray)
 {
-	if (ray->map_x < 0 || ray->map_x >= eng->map_w)
+	if (ray->map_x < 0 || ray->map_x >= eng->map_width)
 	{
 		ray->hit_type = '1';
 		return (1);
 	}
-	if (ray->map_y < 0 || ray->map_y >= eng->map_h)
+	if (ray->map_y < 0 || ray->map_y >= eng->map_height)
 	{
 		ray->hit_type = '1';
 		return (1);
@@ -96,14 +96,14 @@ void	perform_dda(t_engine *eng, t_ray *ray)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
-			ray->side_dist_x += ray->delta_dist_x;
-			ray->map_x += ray->step_x;
+			ray->side_dist_x = ray->side_dist_x + ray->delta_dist_x;
+			ray->map_x = ray->map_x + ray->step_x;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->side_dist_y += ray->delta_dist_y;
-			ray->map_y += ray->step_y;
+			ray->side_dist_y = ray->side_dist_y + ray->delta_dist_y;
+			ray->map_y = ray->map_y + ray->step_y;
 			ray->side = 1;
 		}
 		if (detect_collision(eng, ray))

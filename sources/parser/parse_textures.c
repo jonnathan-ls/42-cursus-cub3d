@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:23 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:38:12 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*trim_end(char *s)
 			|| s[len - 1] == '\t'))
 	{
 		s[len - 1] = '\0';
-		len--;
+		len = len - 1;
 	}
 	return (s);
 }

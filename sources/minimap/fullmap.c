@@ -22,7 +22,8 @@ static int	get_full_map_cell_color(t_engine *eng, int map_x, int map_y)
 
 	if (!eng || !eng->map)
 		return (MINIMAP_EXTERNAL_COLOR);
-	if (map_x < 0 || map_y < 0 || map_x >= eng->map_w || map_y >= eng->map_h)
+	if (map_x < 0 || map_y < 0
+		|| map_x >= eng->map_width || map_y >= eng->map_height)
 		color = MINIMAP_EXTERNAL_COLOR;
 	else if (eng->map[map_y][map_x] == '1')
 		color = MINIMAP_WALL_COLOR;
@@ -31,7 +32,7 @@ static int	get_full_map_cell_color(t_engine *eng, int map_x, int map_y)
 	else
 		color = MINIMAP_FLOOR_COLOR;
 	if (eng->explored_map && map_x >= 0 && map_y >= 0
-		&& map_x < eng->map_w && map_y < eng->map_h
+		&& map_x < eng->map_width && map_y < eng->map_height
 		&& !eng->explored_map[map_y][map_x])
 		color = MINIMAP_FOG_COLOR;
 	return (color);
@@ -47,16 +48,16 @@ static void	draw_full_map_cell(t_engine *eng, int map_x, int map_y)
 
 	if (!eng || !eng->map)
 		return ;
-	start_x = (map_x * eng->win_w) / eng->map_w;
-	start_y = (map_y * eng->win_h) / eng->map_h;
+	start_x = (map_x * eng->window_width) / eng->map_width;
+	start_y = (map_y * eng->window_height) / eng->map_height;
 	color = get_full_map_cell_color(eng, map_x, map_y);
 	x = start_x;
-	while (x <= ((map_x + 1) * eng->win_w) / eng->map_w - 1)
+	while (x <= ((map_x + 1) * eng->window_width) / eng->map_width - 1)
 	{
 		y = start_y;
-		while (y <= ((map_y + 1) * eng->win_h) / eng->map_h - 1)
+		while (y <= ((map_y + 1) * eng->window_height) / eng->map_height - 1)
 		{
-			mlx_put_pixel(eng->img.frame, x, y, color);
+			mlx_put_pixel(eng->frame, x, y, color);
 			y = y + 1;
 		}
 		x = x + 1;
@@ -70,19 +71,21 @@ static void	draw_player_on_full_map(t_engine *eng)
 	int	ox;
 	int	oy;
 
-	if (!eng || !eng->img.frame)
+	if (!eng || !eng->frame)
 		return ;
-	center_x = (int)((eng->player.pos_x * eng->win_w) / eng->map_w);
-	center_y = (int)((eng->player.pos_y * eng->win_h) / eng->map_h);
+	center_x = (int)((eng->player.pos_x * eng->window_width)
+			/ eng->map_width);
+	center_y = (int)((eng->player.pos_y * eng->window_height)
+			/ eng->map_height);
 	ox = -5;
 	while (ox <= 5)
 	{
 		oy = -5;
 		while (oy <= 5)
 		{
-			if (center_x + ox >= 0 && center_x + ox < eng->win_w
-				&& center_y + oy >= 0 && center_y + oy < eng->win_h)
-				mlx_put_pixel(eng->img.frame, center_x + ox, center_y + oy,
+			if (center_x + ox >= 0 && center_x + ox < eng->window_width
+				&& center_y + oy >= 0 && center_y + oy < eng->window_height)
+				mlx_put_pixel(eng->frame, center_x + ox, center_y + oy,
 					MINIMAP_PLAYER_COLOR);
 			oy = oy + 1;
 		}
@@ -107,13 +110,13 @@ void	draw_full_map(t_engine *eng)
 	int	map_col;
 	int	map_row;
 
-	if (!eng || !eng->img.frame || !eng->map || !eng->fullmap_visible)
+	if (!eng || !eng->frame || !eng->map || !eng->fullmap_visible)
 		return ;
 	map_col = 0;
-	while (map_col < eng->map_w)
+	while (map_col < eng->map_width)
 	{
 		map_row = 0;
-		while (map_row < eng->map_h)
+		while (map_row < eng->map_height)
 		{
 			draw_full_map_cell(eng, map_col, map_row);
 			map_row = map_row + 1;

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:01:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 16:31:42 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:27:33 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	parse_header_line(char *line, t_config *cfg, int *count_done)
 		|| (id[0] == 'W' && id[1] == 'E') || (id[0] == 'E' && id[1] == 'A')
 		|| (id[0] == 'F' && id[1] == 'T') || (id[0] == 'C' && id[1] == 'T')
 		|| (id[0] == 'M' && id[1] == 'N'))
-		return (ternary_int(handle_texture_line(id, cfg) < 0, -1, 0));
+		return (choose_int(handle_texture_line(id, cfg) < 0, -1, 0));
 	if (id[0] == 'F' || id[0] == 'C')
 	{
 		if (handle_color_line(id, cfg) < 0)

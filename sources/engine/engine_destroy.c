@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:05 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 20:16:21 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:33:31 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	destroy_engine(t_engine *eng)
 		mlx_delete_texture(eng->tex.door);
 	if (eng->tex.menu)
 		mlx_delete_texture(eng->tex.menu);
-	if (eng->img.frame)
-		mlx_delete_image(eng->mlx, eng->img.frame);
-	if (eng->img.cursor)
-		mlx_delete_image(eng->mlx, eng->img.cursor);
+	if (eng->frame)
+		mlx_delete_image(eng->mlx, eng->frame);
+	if (eng->cursor)
+		mlx_delete_image(eng->mlx, eng->cursor);
 	if (eng->mlx)
 		mlx_terminate(eng->mlx);
 	mm_garbage_collector();

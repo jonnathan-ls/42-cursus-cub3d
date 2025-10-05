@@ -19,7 +19,7 @@ void	configure_raycast_initialization(t_engine *eng, t_ray *ray, int x)
 	double	w;
 
 	ray->x = x;
-	w = eng->win_w - 1;
+	w = eng->window_width - 1;
 	ray->cam_x = 2.0 * x / w - 1.0;
 	ray->map_x = (int)eng->player.pos_x;
 	ray->map_y = (int)eng->player.pos_y;

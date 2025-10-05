@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:07 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:38:56 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	compute_max_width(char **lines, int height)
 		len = (int)ft_strlen(lines[i]);
 		if (len > max)
 			max = len;
-		i++;
+		i = i + 1;
 	}
 	return (max);
 }
@@ -44,7 +44,7 @@ static char	*alloc_row(int width)
 	while (j < width)
 	{
 		row[j] = ' ';
-		j++;
+		j = j + 1;
 	}
 	row[width] = '\0';
 	return (row);
@@ -92,7 +92,7 @@ int	normalize_map(t_map *map)
 			return (parser_error("malloc failure"));
 		copy_line(map->grid[i], new_grid[i], map->width);
 		free(map->grid[i]);
-		i++;
+		i = i + 1;
 	}
 	free(map->grid);
 	map->grid = new_grid;

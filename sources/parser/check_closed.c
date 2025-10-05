@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:23:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static void	free_visited(char **v, int h)
 	if (!v)
 		return ;
 	while (i < h)
-		free(v[i++]);
+	{
+		free(v[i]);
+		i = i + 1;
+	}
 	free(v);
 }
 
@@ -58,7 +61,7 @@ static char	**alloc_visited(t_map *m)
 			free_visited(v, y);
 			return (NULL);
 		}
-		y++;
+		y = y + 1;
 	}
 	return (v);
 }
@@ -79,9 +82,9 @@ static int	process_cells(t_map *map, char **vis)
 				if (flood(map, y, x, vis) < 0)
 					return (-1);
 			}
-			x++;
+			x = x + 1;
 		}
-		y++;
+		y = y + 1;
 	}
 	return (0);
 }

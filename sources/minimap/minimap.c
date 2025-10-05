@@ -27,9 +27,7 @@ void	handle_minimap_zoom(t_engine *eng)
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_KP_SUBTRACT)
 		|| mlx_is_key_down(eng->mlx, MLX_KEY_MINUS))
 		delta = delta - 1;
-	if (delta == 0)
-		return ;
-	if (!check_key_press_cooldown())
+	if (delta == 0 || !check_key_press_cooldown())
 		return ;
 	if (eng->minimap_scale + delta < MINIMAP_MIN_SCALE)
 		return ;
@@ -57,7 +55,7 @@ static void	compute_minimap_context(t_engine *eng,
 	int	base_scale;
 	int	final_scale;
 
-	usable = square_size - 2 * 2;
+	usable = square_size - 4;
 	if (usable < 1)
 		usable = 1;
 	base_scale = usable / 10;
@@ -70,7 +68,7 @@ static void	compute_minimap_context(t_engine *eng,
 		final_scale = usable;
 	map->final_scale = final_scale;
 	map->left = MINIMAP_OFFSET;
-	map->top = eng->win_h - MINIMAP_OFFSET - square_size;
+	map->top = eng->window_height - MINIMAP_OFFSET - square_size;
 	map->size = square_size;
 }
 
@@ -79,13 +77,13 @@ void	draw_minimap(t_engine *eng)
 	int			square_size;
 	t_minimap	map;
 
-	if (!eng || !eng->img.frame || !eng->map || !eng->minimap_visible)
+	if (!eng || !eng->frame || !eng->map || !eng->minimap_visible)
 		return ;
-	square_size = eng->win_w / 10;
+	square_size = eng->window_width / 10;
 	if (square_size < 8)
 		square_size = 8;
 	draw_minimap_frame(eng, MINIMAP_OFFSET,
-		eng->win_h - MINIMAP_OFFSET - square_size,
+		eng->window_height - MINIMAP_OFFSET - square_size,
 		square_size);
 	compute_minimap_context(eng, &map, square_size);
 	draw_minimap_background(eng, &map);

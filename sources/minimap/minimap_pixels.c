@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 02:10:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 20:18:49 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:38:10 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	render_minimap_pixels(t_engine *eng, t_minimap *map)
 		while (pixel_y < map->top + map->size - 1)
 		{
 			compute_minimap_pixel_color(eng, map, pixel_x, pixel_y);
-			mlx_put_pixel(eng->img.frame, pixel_x, pixel_y, map->block_color);
+			mlx_put_pixel(eng->frame, pixel_x, pixel_y, map->block_color);
 			pixel_y = pixel_y + 1;
 		}
 		pixel_x = pixel_x + 1;
@@ -60,7 +60,7 @@ void	render_minimap_pixels(t_engine *eng, t_minimap *map)
 
 static int	compute_block_color_from_map(t_engine *engine, int mx, int my)
 {
-	if (mx < 0 || my < 0 || mx >= engine->map_w || my >= engine->map_h)
+	if (mx < 0 || my < 0 || mx >= engine->map_width || my >= engine->map_height)
 		return (MINIMAP_EXTERNAL_COLOR);
 	if (engine->map[my][mx] == '1')
 		return (MINIMAP_WALL_COLOR);
@@ -79,8 +79,8 @@ void	compute_minimap_pixel_color(t_engine *eng, t_minimap *map,
 	if (!eng || !map)
 		return ;
 	proj = minimap_project_pixel_to_tile(eng, map, pixel_x, pixel_y);
-	if (proj.tile_x < 0 || proj.tile_y < 0 || proj.tile_x >= eng->map_w
-		|| proj.tile_y >= eng->map_h)
+	if (proj.tile_x < 0 || proj.tile_y < 0 || proj.tile_x >= eng->map_width
+		|| proj.tile_y >= eng->map_height)
 	{
 		map->block_color = MINIMAP_EXTERNAL_COLOR;
 		return ;

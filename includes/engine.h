@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 20:29:01 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:30:21 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,20 @@ typedef struct s_textures_bundle
 	mlx_texture_t		*menu;
 }						t_textures_bundle;
 
-typedef struct s_image
-{
-	mlx_image_t			*frame;
-	mlx_image_t			*cursor;
-}						t_image;
-
 typedef struct s_engine
 {
 	mlx_t				*mlx;
+	mlx_image_t			*frame;
+	mlx_image_t			*cursor;
 	t_player			player;
 	t_textures_bundle	tex;
 	char				**map;
-	int					map_w;
-	int					map_h;
-	int					win_w;
-	int					win_h;
-	uint32_t			ceil_color;
+	int					map_width;
+	int					map_height;
+	int					window_width;
+	int					window_height;
+	uint32_t			ceiling_color;
 	uint32_t			floor_color;
-	t_image				img;
 	int					minimap_visible;
 	int					minimap_scale;
 	int					minimap_toggle;

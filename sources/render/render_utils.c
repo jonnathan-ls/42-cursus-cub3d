@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 20:41:51 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static double	calculate_row_distance(t_engine *eng, int y, int is_floor)
 	double	den;
 	double	tmp;
 
-	win_h = (double)eng->win_h;
+	win_h = (double)eng->window_height;
 	center = win_h / 2.0 - eng->player.pitch * (win_h / 4.0);
 	if (is_floor)
 	{
@@ -79,9 +79,9 @@ uint32_t	calculate_floor_texture(t_engine *eng, int y, t_ray *ray,
 	tex_x = (int)(floor_x * eng->tex.floor->width) % eng->tex.floor->width;
 	tex_y = (int)(floor_y * eng->tex.floor->height) % eng->tex.floor->height;
 	if (tex_x < 0)
-		tex_x += eng->tex.floor->width;
+		tex_x = tex_x + eng->tex.floor->width;
 	if (tex_y < 0)
-		tex_y += eng->tex.floor->height;
+		tex_y = tex_y + eng->tex.floor->height;
 	return (get_texture_pixel(eng->tex.floor, tex_x, tex_y));
 }
 
@@ -95,17 +95,17 @@ uint32_t	calculate_ceiling_texture(t_engine *eng, int y, t_ray *ray,
 	int		tex_y;
 
 	if (!eng->tex.ceiling)
-		return (eng->ceil_color);
+		return (eng->ceiling_color);
 	row_distance = calculate_row_distance(eng, y, 0);
 	*distance = row_distance;
 	ceil_x = atan2(ray->ray_dir_y, ray->ray_dir_x);
 	ceil_x = (ceil_x + PI) / (2.0 * PI);
 	tex_x = (int)(ceil_x * eng->tex.ceiling->width) % eng->tex.ceiling->width;
-	ceil_y = (double)(eng->win_h - y) / (double)eng->win_h;
+	ceil_y = (double)(eng->window_height - y) / (double)eng->window_height;
 	tex_y = (int)(ceil_y * eng->tex.ceiling->height) % eng->tex.ceiling->height;
 	if (tex_x < 0)
-		tex_x += eng->tex.ceiling->width;
+		tex_x = tex_x + eng->tex.ceiling->width;
 	if (tex_y < 0)
-		tex_y += eng->tex.ceiling->height;
+		tex_y = tex_y + eng->tex.ceiling->height;
 	return (get_texture_pixel(eng->tex.ceiling, tex_x, tex_y));
 }

@@ -55,8 +55,10 @@ uint32_t	shaded_pixel_from_pos(
 	uint32_t	shaded;
 
 	ty = (int)pos;
-	ty = ternary_int(ty < 0, 0, ty);
-	ty = ternary_int(ty >= (int)tex->height, (int)tex->height - 1, ty);
+	if (ty < 0)
+		ty = 0;
+	if (ty >= (int)tex->height)
+		ty = (int)tex->height - 1;
 	col = get_texture_pixel(tex, tx, ty);
 	shaded = shade_with_distance(col, ray->side, ray->perp_dist);
 	return (shaded);

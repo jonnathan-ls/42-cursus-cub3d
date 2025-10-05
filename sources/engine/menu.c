@@ -19,14 +19,14 @@ static void	draw_menu_row(t_engine *eng, int start_x, int start_y, int row)
 	int	texture_width;
 	int	screen_y;
 
-	if (!eng || !eng->tex.menu || !eng->img.frame)
+	if (!eng || !eng->tex.menu || !eng->frame)
 		return ;
 	texture_width = eng->tex.menu->width;
 	screen_y = start_y + row;
 	px = 0;
 	while (px < texture_width)
 	{
-		mlx_put_pixel(eng->img.frame, start_x + px, screen_y,
+		mlx_put_pixel(eng->frame, start_x + px, screen_y,
 			get_texture_pixel(eng->tex.menu, px, row));
 		px = px + 1;
 	}
@@ -52,11 +52,11 @@ void	draw_menu_overlay(t_engine *eng)
 	int	start_y;
 	int	row;
 
-	if (!eng || !eng->tex.menu || !eng->img.frame)
+	if (!eng || !eng->tex.menu || !eng->frame)
 		return ;
 	texture_width = eng->tex.menu->width;
 	texture_height = eng->tex.menu->height;
-	start_x = eng->win_w - texture_width - 10;
+	start_x = eng->window_width - texture_width - 10;
 	start_y = 10;
 	row = 0;
 	while (row < texture_height)
