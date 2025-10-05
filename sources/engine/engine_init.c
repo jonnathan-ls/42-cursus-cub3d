@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 01:00:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 12:08:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ static void	config_init_player(t_engine *eng, t_config *cfg)
 	eng->player.mouse_y = eng->window_height / 2;
 	eng->player.pitch = 0.0;
 	eng->player.pitch_factor = 0.5;
+	eng->player.health = 100;
+	eng->player.game_over = 0;
+	eng->player.damage_cooldown = 0.0;
 	set_player_direction(eng, cfg->map.player_dir);
 }
 
@@ -107,6 +110,6 @@ int	configure_engine(t_engine *eng, t_config *cfg)
 		return (-1);
 	}
 	configure_minimap(eng);
-	init_sprites(eng, cfg->textures.sprite_path, cfg->textures.sprite_frames);
+	init_sprites(eng, cfg->textures.sprites, cfg->textures.sprite_count);
 	return (0);
 }

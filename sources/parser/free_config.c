@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:23:52 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 00:34:00 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 10:52:35 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,21 @@ static void	free_map_grid(t_config *cfg)
 	}
 }
 
+static void	free_sprites(t_config *cfg)
+{
+	int	i;
+
+	if (!cfg->textures.sprites)
+		return ;
+	i = 0;
+	while (i < cfg->textures.sprite_count)
+	{
+		if (cfg->textures.sprites[i].path)
+			free(cfg->textures.sprites[i].path);
+		i = i + 1;
+	}
+}
+
 void	free_config(t_config *cfg)
 {
 	if (!cfg)
@@ -50,6 +65,6 @@ void	free_config(t_config *cfg)
 	free_str(&cfg->textures.floor_path);
 	free_str(&cfg->textures.ceiling_path);
 	free_str(&cfg->textures.menu_path);
-	free_str(&cfg->textures.sprite_path);
+	free_sprites(cfg);
 	free_map_grid(cfg);
 }

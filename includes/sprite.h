@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 23:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 01:53:04 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 13:53:17 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ typedef struct s_sprite
 	double			x;
 	double			y;
 	double			distance;
-	mlx_texture_t	*texture;
+	int				type_index;
+	int				sprite_type;
+	int				collected;
 	int				frame_count;
 	int				current_frame;
 	double			anim_timer;
@@ -32,9 +34,10 @@ typedef struct s_sprite_manager
 	int				count;
 	int				*order;
 	mlx_texture_t	**textures;
+	int				*frame_counts;
+	int				*frame_widths;
+	int				*sprite_types;
 	int				texture_count;
-	int				frame_count;
-	int				frame_width;
 }					t_sprite_manager;
 
 typedef struct s_sprite_render
@@ -53,15 +56,21 @@ typedef struct s_sprite_render
 	int				draw_end_x;
 }					t_sprite_render;
 
-void				init_sprites(void *eng, char *sprite_path, int frames);
+void				init_sprites(void *eng, t_sprite_config *sprites,
+						int count);
+void				init_sprite_values(t_engine *eng);
+void				setup_sprite_type(t_engine *eng, t_sprite_config *cfg,
+						int i);
+void				setup_sprite_loop(t_engine *eng, t_sprite_config *cfg,
+						int count);
 void				update_sprites(void *eng, double delta);
 void				render_sprites(void *eng);
 void				free_sprites(void *eng);
 void				sprite_sorting(void *eng);
 int					collect_sprites_from_map(void *eng);
 int					count_sprites_in_map(t_engine *eng);
-void				add_sprite(t_engine *eng, int *index, int pos_x,
-						int pos_y);
+void				add_sprite_to_list(t_engine *eng, int *idx, int pos[2],
+						char type);
 int					allocate_sprites(t_engine *eng);
 void				fill_sprites(t_engine *eng);
 void				calculate_transform(t_engine *eng, t_sprite *sprite,
@@ -73,5 +82,7 @@ int					validate_depth(t_engine *eng, t_sprite_render *render,
 void				put_pixel(t_engine *eng, int x, int y, uint32_t color);
 void				draw_column(t_engine *eng, t_sprite *sprite,
 						t_sprite_render *render, int x);
+void				check_sprite_interactions(void *eng);
+void				handle_coin_pickup(t_engine *eng, t_sprite *sprite);
 
 #endif

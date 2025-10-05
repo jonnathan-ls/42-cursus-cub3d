@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 00:30:52 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 10:52:35 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_engine
 	int					menu_toggle;
 	int					fullscreen;
 	t_sprite_manager	sprites;
+	char				*sprite_chars;
 	double				*z_buffer;
 }						t_engine;
 

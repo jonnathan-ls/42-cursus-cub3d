@@ -6,11 +6,18 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:04 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 23:42:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 10:52:35 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+static int	is_sprite_char(char c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	return (0);
+}
 
 static int	is_valid_char(char c)
 {
@@ -18,7 +25,9 @@ static int	is_valid_char(char c)
 		return (1);
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);
-	if (c == 'D' || c == 'P')
+	if (c == 'D')
+		return (1);
+	if (is_sprite_char(c))
 		return (1);
 	return (0);
 }

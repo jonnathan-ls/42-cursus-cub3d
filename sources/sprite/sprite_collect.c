@@ -6,13 +6,20 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 01:00:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 13:39:25 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "sprite.h"
 #include "shared.h"
+
+static int	is_sprite_char(char c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	return (0);
+}
 
 int	count_sprites_in_map(t_engine *eng)
 {
@@ -27,25 +34,13 @@ int	count_sprites_in_map(t_engine *eng)
 		pos_x = 0;
 		while (pos_x < eng->map_width)
 		{
-			if (eng->map[pos_y][pos_x] == 'P')
+			if (is_sprite_char(eng->map[pos_y][pos_x]))
 				count = count + 1;
 			pos_x = pos_x + 1;
 		}
 		pos_y = pos_y + 1;
 	}
 	return (count);
-}
-
-void	add_sprite(t_engine *eng, int *index, int pos_x, int pos_y)
-{
-	eng->sprites.list[*index].x = (double)pos_x + 0.5;
-	eng->sprites.list[*index].y = (double)pos_y + 0.5;
-	eng->sprites.list[*index].distance = 0.0;
-	eng->sprites.list[*index].texture = eng->sprites.textures[0];
-	eng->sprites.list[*index].frame_count = eng->sprites.frame_count;
-	eng->sprites.list[*index].current_frame = 0;
-	eng->sprites.list[*index].anim_timer = 0.0;
-	*index = *index + 1;
 }
 
 int	allocate_sprites(t_engine *eng)
@@ -61,22 +56,22 @@ int	allocate_sprites(t_engine *eng)
 
 void	fill_sprites(t_engine *eng)
 {
-	int	pos_y;
-	int	pos_x;
-	int	index;
+	int		pos[3];
+	char	cell;
 
-	index = 0;
-	pos_y = 0;
-	while (pos_y < eng->map_height)
+	pos[2] = 0;
+	pos[1] = 0;
+	while (pos[1] < eng->map_height)
 	{
-		pos_x = 0;
-		while (pos_x < eng->map_width)
+		pos[0] = 0;
+		while (pos[0] < eng->map_width)
 		{
-			if (eng->map[pos_y][pos_x] == 'P')
-				add_sprite(eng, &index, pos_x, pos_y);
-			pos_x = pos_x + 1;
+			cell = eng->map[pos[1]][pos[0]];
+			if (is_sprite_char(cell))
+				add_sprite_to_list(eng, &pos[2], pos, cell);
+			pos[0] = pos[0] + 1;
 		}
-		pos_y = pos_y + 1;
+		pos[1] = pos[1] + 1;
 	}
 }
 
@@ -87,6 +82,8 @@ int	collect_sprites_from_map(void *param)
 	eng = (t_engine *)param;
 	if (!eng || !eng->map)
 		return (-1);
+	if (eng->sprites.texture_count == 0)
+		return (0);
 	eng->sprites.count = count_sprites_in_map(eng);
 	if (eng->sprites.count == 0)
 		return (0);

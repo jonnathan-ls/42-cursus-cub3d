@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 01:53:04 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 11:34:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static void	render_single_sprite(t_engine *eng, t_sprite *sprite)
 	t_sprite_render	render;
 	int				x;
 
-	if (!sprite || !sprite->texture)
+	if (!sprite || sprite->collected)
+		return ;
+	if (!eng->sprites.textures[sprite->type_index])
 		return ;
 	calculate_transform(eng, sprite, &render);
 	if (render.transform_y <= 0)

@@ -28,6 +28,7 @@ PARSER_SRCS = \
 	sources/parser/parse_headers_utils.c \
 	sources/parser/parse_textures.c \
 	sources/parser/parse_sprite.c \
+	sources/parser/parse_sprite_aux.c \
 	sources/parser/parse_colors.c \
 	sources/parser/collect_map_lines.c \
 	sources/parser/normalize_map.c \
@@ -45,6 +46,7 @@ ENGINE_SRCS = \
 	sources/engine/player_update.c \
 	sources/engine/player_rotate.c \
 	sources/engine/engine_loop.c \
+	sources/engine/engine_hooks.c \
 	sources/engine/menu.c \
 	sources/engine/engine_doors.c \
 	sources/engine/doors_interaction.c \
@@ -53,12 +55,16 @@ ENGINE_SRCS = \
 
 SPRITE_SRCS = \
 	sources/sprite/sprite_init.c \
+	sources/sprite/sprite_init_aux.c \
 	sources/sprite/sprite_update.c \
 	sources/sprite/sprite_render.c \
 	sources/sprite/sprite_collect.c \
+	sources/sprite/sprite_add.c \
 	sources/sprite/sprite_calc.c \
 	sources/sprite/sprite_draw.c \
-	sources/sprite/sprite_sort.c
+	sources/sprite/sprite_sort.c \
+	sources/sprite/sprite_interact.c \
+	sources/sprite/sprite_interact_aux.c
 
 RAY_SRCS = \
 	sources/engine/ray_init.c \
@@ -72,6 +78,7 @@ RENDER_SRCS = \
 	sources/render/render_strip.c \
 	sources/render/render_strip_aux.c \
 	sources/render/render_ceiling_floor.c \
+	sources/render/render_health.c \
 	sources/render/frame.c \
 
 MINIMAP_SRCS = \

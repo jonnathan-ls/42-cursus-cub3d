@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:52 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 20:29:27 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 11:51:33 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ typedef struct s_player
 	double	rot_speed;
 	double	move_speed;
 	double	pitch_factor;
+	int		health;
+	int		game_over;
+	double	damage_cooldown;
 }			t_player;
 
 void		handle_player_movement(t_engine *eng);

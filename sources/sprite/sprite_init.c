@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 23:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 01:02:40 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 13:53:17 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,59 @@ static int	load_sprite_texture(t_engine *eng, int index, char *path)
 	return (0);
 }
 
-void	init_sprites(void *param, char *sprite_path, int frames)
+static int	allocate_arrays(t_engine *eng, int count)
+{
+	eng->sprites.textures = mm_alloc(count, sizeof(mlx_texture_t *));
+	if (!eng->sprites.textures)
+		return (-1);
+	eng->sprites.frame_counts = mm_alloc(count, sizeof(int));
+	if (!eng->sprites.frame_counts)
+		return (-1);
+	eng->sprites.frame_widths = mm_alloc(count, sizeof(int));
+	if (!eng->sprites.frame_widths)
+		return (-1);
+	eng->sprites.sprite_types = mm_alloc(count, sizeof(int));
+	if (!eng->sprites.sprite_types)
+		return (-1);
+	eng->sprite_chars = mm_alloc(count + 1, sizeof(char));
+	if (!eng->sprite_chars)
+		return (-1);
+	eng->sprite_chars[count] = '\0';
+	return (0);
+}
+
+void	setup_sprite_type(t_engine *eng, t_sprite_config *cfg, int i)
+{
+	int	width;
+
+	eng->sprite_chars[i] = cfg[i].identifier;
+	eng->sprites.frame_counts[i] = cfg[i].frames;
+	eng->sprites.sprite_types[i] = cfg[i].type;
+	load_sprite_texture(eng, i, cfg[i].path);
+	if (eng->sprites.textures[i])
+	{
+		width = eng->sprites.textures[i]->width;
+		eng->sprites.frame_widths[i] = width / cfg[i].frames;
+	}
+}
+
+void	init_sprites(void *param, t_sprite_config *configs, int count)
 {
 	t_engine	*eng;
 
 	eng = (t_engine *)param;
 	if (!eng)
 		return ;
-	eng->sprites.list = NULL;
-	eng->sprites.count = 0;
-	eng->sprites.order = NULL;
-	eng->sprites.texture_count = 1;
-	eng->sprites.frame_count = frames;
-	eng->sprites.frame_width = 0;
-	eng->sprites.textures = mm_alloc(1, sizeof(mlx_texture_t *));
-	if (!eng->sprites.textures)
+	init_sprite_values(eng);
+	if (!configs || count == 0)
 		return ;
-	if (load_sprite_texture(eng, 0, sprite_path) < 0)
+	if (allocate_arrays(eng, count) < 0)
+	{
+		eng->sprites.texture_count = 0;
 		return ;
-	if (eng->sprites.textures[0])
-		eng->sprites.frame_width = eng->sprites.textures[0]->width / frames;
+	}
+	eng->sprites.texture_count = count;
+	setup_sprite_loop(eng, configs, count);
 	collect_sprites_from_map(eng);
 }
 

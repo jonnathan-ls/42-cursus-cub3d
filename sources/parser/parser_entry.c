@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:37 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 01:00:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 10:52:35 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	init_config(t_config *cfg)
 	cfg->textures.floor_path = NULL;
 	cfg->textures.ceiling_path = NULL;
 	cfg->textures.menu_path = NULL;
-	cfg->textures.sprite_path = NULL;
-	cfg->textures.sprite_frames = 1;
+	cfg->textures.sprites = NULL;
+	cfg->textures.sprite_count = 0;
 	cfg->floor_color.rgba = -1;
 	cfg->ceiling_color.rgba = -1;
 	cfg->map.grid = NULL;
