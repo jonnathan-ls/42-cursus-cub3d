@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:07 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 23:07:43 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	copy_line(char *src, char *dst, int width)
 
 static int	alloc_new_grid(t_map *map, char ***out)
 {
-	*out = (char **)calloc(map->height + 1, sizeof(char *));
+	*out = (char **)ft_calloc(map->height + 1, sizeof(char *));
 	if (!*out)
 		return (parser_error("malloc failure"));
 	return (0);

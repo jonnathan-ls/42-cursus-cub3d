@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:18 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 23:07:43 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	parse_component(char *s, int *out)
 	if (i == 0)
 		return (parser_error("empty color component"));
 	s[i] = '\0';
-	val = atoi(s);
+	val = ft_atoi(s);
 	if (val < 0 || val > 255)
 		return (parser_error("color component out of range [0-255]"));
 	*out = val;

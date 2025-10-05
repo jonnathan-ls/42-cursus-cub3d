@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:23:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 23:07:43 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ static char	**alloc_visited(t_map *m)
 	char	**v;
 	int		y;
 
-	v = (char **)calloc(m->height, sizeof(char *));
+	v = (char **)ft_calloc(m->height, sizeof(char *));
 	if (!v)
 		return (NULL);
 	y = 0;
 	while (y < m->height)
 	{
-		v[y] = (char *)calloc(m->width, sizeof(char));
+		v[y] = (char *)ft_calloc(m->width, sizeof(char));
 		if (!v[y])
 		{
 			free_visited(v, y);

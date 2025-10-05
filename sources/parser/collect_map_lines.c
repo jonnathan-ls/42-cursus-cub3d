@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/04 23:07:43 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	**grow_lines(char **old, int old_count)
 	char	**new_arr;
 	int		i;
 
-	new_arr = (char **)calloc(old_count + 2, sizeof(char *));
+	new_arr = (char **)ft_calloc(old_count + 2, sizeof(char *));
 	if (!new_arr)
 		return (NULL);
 	i = 0;
