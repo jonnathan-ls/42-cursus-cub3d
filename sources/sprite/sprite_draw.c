@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 01:48:06 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 02:00:44 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,15 @@ static void	render_pixel_column(t_engine *eng, t_sprite *sprite,
 {
 	int			y;
 	int			texture_y;
-	int			horizon;
+	double		adjusted_horizon;
 	uint32_t	color;
 
-	horizon = eng->window_height / 2;
+	adjusted_horizon = (double)(eng->window_height / 2)
+		- eng->player.pitch * ((double)eng->window_height / 4.0);
 	y = render->draw_start_y;
 	while (y < render->draw_end_y)
 	{
-		texture_y = ((y - horizon + render->sprite_height / 2)
+		texture_y = ((y - (int)adjusted_horizon + render->sprite_height / 2)
 				* sprite->texture->height) / render->sprite_height;
 		if (texture_y >= 0 && texture_y < (int)sprite->texture->height)
 		{

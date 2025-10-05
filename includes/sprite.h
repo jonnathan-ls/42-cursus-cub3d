@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 23:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 01:00:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 01:53:04 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void				init_sprites(void *eng, char *sprite_path, int frames);
 void				update_sprites(void *eng, double delta);
 void				render_sprites(void *eng);
 void				free_sprites(void *eng);
+void				sprite_sorting(void *eng);
 int					collect_sprites_from_map(void *eng);
 int					count_sprites_in_map(t_engine *eng);
 void				add_sprite(t_engine *eng, int *index, int pos_x,

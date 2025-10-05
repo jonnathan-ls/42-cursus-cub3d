@@ -57,7 +57,8 @@ SPRITE_SRCS = \
 	sources/sprite/sprite_render.c \
 	sources/sprite/sprite_collect.c \
 	sources/sprite/sprite_calc.c \
-	sources/sprite/sprite_draw.c
+	sources/sprite/sprite_draw.c \
+	sources/sprite/sprite_sort.c
 
 RAY_SRCS = \
 	sources/engine/ray_init.c \

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 00:22:33 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 01:53:04 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,17 @@ void	render_sprites(void *param)
 {
 	t_engine	*eng;
 	int			i;
+	int			sprite_index;
 
 	eng = (t_engine *)param;
 	if (!eng || !eng->sprites.list || eng->sprites.count == 0)
 		return ;
+	sprite_sorting(eng);
 	i = 0;
 	while (i < eng->sprites.count)
 	{
-		render_single_sprite(eng, &eng->sprites.list[i]);
+		sprite_index = eng->sprites.order[i];
+		render_single_sprite(eng, &eng->sprites.list[sprite_index]);
 		i = i + 1;
 	}
 }

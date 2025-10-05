@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 01:16:56 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 02:00:44 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,19 @@ void	calculate_transform(t_engine *eng, t_sprite *sprite,
 
 void	calculate_height(t_engine *eng, t_sprite_render *render)
 {
-	int	height;
-	int	horizon;
+	int		height;
+	int		base_horizon;
+	double	adjusted_horizon;
 
 	height = (int)fabs((eng->window_height / render->transform_y));
-	horizon = eng->window_height / 2;
+	base_horizon = eng->window_height / 2;
+	adjusted_horizon = (double)base_horizon - eng->player.pitch
+		* ((double)eng->window_height / 4.0);
 	render->sprite_height = height;
-	render->draw_start_y = horizon - height / 2;
+	render->draw_start_y = (int)adjusted_horizon - height / 2;
 	if (render->draw_start_y < 0)
 		render->draw_start_y = 0;
-	render->draw_end_y = horizon + height / 2;
+	render->draw_end_y = (int)adjusted_horizon + height / 2;
 	if (render->draw_end_y >= eng->window_height)
 		render->draw_end_y = eng->window_height - 1;
 }
