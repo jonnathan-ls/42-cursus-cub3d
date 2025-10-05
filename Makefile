@@ -29,6 +29,7 @@ PARSER_SRCS = \
 	sources/parser/parse_textures.c \
 	sources/parser/parse_sprite.c \
 	sources/parser/parse_sprite_aux.c \
+	sources/parser/parse_sprite_utils.c \
 	sources/parser/parse_colors.c \
 	sources/parser/collect_map_lines.c \
 	sources/parser/normalize_map.c \
@@ -64,7 +65,19 @@ SPRITE_SRCS = \
 	sources/sprite/sprite_draw.c \
 	sources/sprite/sprite_sort.c \
 	sources/sprite/sprite_interact.c \
-	sources/sprite/sprite_interact_aux.c
+	sources/sprite/sprite_interact_aux.c \
+	sources/sprite/sprite_death.c \
+	sources/sprite/sprite_movement.c
+
+WEAPON_SRCS = \
+	sources/weapon/weapon_init.c \
+	sources/weapon/weapon_init_aux.c \
+	sources/weapon/weapon_render.c \
+	sources/weapon/weapon_shoot.c \
+	sources/weapon/projectile_update.c \
+	sources/weapon/projectile_render.c \
+	sources/weapon/projectile_draw.c \
+	sources/weapon/projectile_collision.c
 
 RAY_SRCS = \
 	sources/engine/ray_init.c \
@@ -79,6 +92,7 @@ RENDER_SRCS = \
 	sources/render/render_strip_aux.c \
 	sources/render/render_ceiling_floor.c \
 	sources/render/render_health.c \
+	sources/render/render_damage_overlay.c \
 	sources/render/frame.c \
 
 MINIMAP_SRCS = \
@@ -91,7 +105,7 @@ MINIMAP_SRCS = \
 	sources/minimap/minimap_exploration.c
 
 SOURCES = ${MAIN_SRCS} ${SHARED_SRCS} ${PARSER_SRCS} \
-	${ENGINE_SRCS} ${SPRITE_SRCS} ${RAY_SRCS} ${RENDER_SRCS} ${MINIMAP_SRCS}
+	${ENGINE_SRCS} ${SPRITE_SRCS} ${WEAPON_SRCS} ${RAY_SRCS} ${RENDER_SRCS} ${MINIMAP_SRCS}
 TOTAL_FILES := $(words $(SOURCES)) # For progress_bar logic
 
 OBJS = $(SOURCES:%.c=$(OBJS_DIR)/%.o)

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:05 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 23:42:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 14:08:25 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	destroy_engine(t_engine *eng)
 	if (eng->cursor)
 		mlx_delete_image(eng->mlx, eng->cursor);
 	free_sprites(eng);
+	free_weapon_system(eng);
 	if (eng->mlx)
 		mlx_terminate(eng->mlx);
 	mm_garbage_collector();

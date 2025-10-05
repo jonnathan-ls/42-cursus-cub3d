@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 23:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 13:53:17 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:30:18 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,26 @@ typedef struct s_sprite
 	int				frame_count;
 	int				current_frame;
 	double			anim_timer;
+	int				health;
+	int				is_dying;
+	double			death_timer;
+	double			move_dir_x;
+	double			move_dir_y;
+	double			move_timer;
+	double			move_speed;
 }					t_sprite;
 
 typedef struct s_sprite_manager
 {
-	t_sprite		*list;
-	int				count;
-	int				*order;
-	mlx_texture_t	**textures;
-	int				*frame_counts;
-	int				*frame_widths;
-	int				*sprite_types;
-	int				texture_count;
+	t_sprite			*list;
+	int					count;
+	int					*order;
+	mlx_texture_t		**textures;
+	int					*frame_counts;
+	int					*frame_widths;
+	int					*sprite_types;
+	int					texture_count;
+	t_sprite_config		*configs;
 }					t_sprite_manager;
 
 typedef struct s_sprite_render
@@ -84,5 +92,10 @@ void				draw_column(t_engine *eng, t_sprite *sprite,
 						t_sprite_render *render, int x);
 void				check_sprite_interactions(void *eng);
 void				handle_coin_pickup(t_engine *eng, t_sprite *sprite);
+void				update_enemy_movement(void *eng, double delta);
+int					get_death_texture_index(t_engine *eng);
+mlx_texture_t		*get_sprite_texture(t_engine *eng, t_sprite *sprite);
+int					get_sprite_frame_count(t_engine *eng, t_sprite *sprite);
+int					get_sprite_texture_index(t_engine *eng, t_sprite *sprite);
 
 #endif

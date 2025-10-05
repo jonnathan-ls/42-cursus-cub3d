@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 23:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 13:53:17 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 14:52:36 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ static int	allocate_arrays(t_engine *eng, int count)
 	eng->sprites.sprite_types = mm_alloc(count, sizeof(int));
 	if (!eng->sprites.sprite_types)
 		return (-1);
+	eng->sprites.configs = mm_alloc(count, sizeof(t_sprite_config));
+	if (!eng->sprites.configs)
+		return (-1);
 	eng->sprite_chars = mm_alloc(count + 1, sizeof(char));
 	if (!eng->sprite_chars)
 		return (-1);
@@ -56,6 +59,7 @@ void	setup_sprite_type(t_engine *eng, t_sprite_config *cfg, int i)
 	eng->sprite_chars[i] = cfg[i].identifier;
 	eng->sprites.frame_counts[i] = cfg[i].frames;
 	eng->sprites.sprite_types[i] = cfg[i].type;
+	eng->sprites.configs[i] = cfg[i];
 	load_sprite_texture(eng, i, cfg[i].path);
 	if (eng->sprites.textures[i])
 	{

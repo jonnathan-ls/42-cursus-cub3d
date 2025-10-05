@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 12:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 13:39:25 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:30:18 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,24 @@ static void	set_sprite_position(t_sprite *sprite, int pos_x, int pos_y)
 	sprite->collected = 0;
 	sprite->current_frame = 0;
 	sprite->anim_timer = 0.0;
+	sprite->health = 0;
+	sprite->is_dying = 0;
+	sprite->death_timer = 0.0;
+	sprite->move_dir_x = 0.0;
+	sprite->move_dir_y = 0.0;
+	sprite->move_timer = 0.0;
+	sprite->move_speed = 0.5;
 }
 
 static void	set_sprite_type_data(t_engine *eng, t_sprite *sprite, int index)
 {
 	sprite->type_index = index;
 	if (eng->sprites.sprite_types)
+	{
 		sprite->sprite_type = eng->sprites.sprite_types[index];
+		if (sprite->sprite_type == 1)
+			sprite->health = 100;
+	}
 	else
 		sprite->sprite_type = 0;
 	if (eng->sprites.frame_counts)

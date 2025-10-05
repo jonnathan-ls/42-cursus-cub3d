@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 01:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 13:52:01 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:13:01 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,47 @@
 #include "parser.h"
 #include "shared.h"
 
-static int	check_duplicate_identifier(t_config *cfg, char id)
-{
-	int	i;
-
-	i = 0;
-	while (i < cfg->textures.sprite_count)
-	{
-		if (cfg->textures.sprites[i].identifier == id)
-			return (1);
-		i = i + 1;
-	}
-	return (0);
-}
-
-static int	get_sprite_type(char *space)
-{
-	while (*space == ' ' || *space == '\t')
-		space++;
-	if (*space >= '0' && *space <= '9')
-		return (ft_atoi(space));
-	return (0);
-}
-
-static int	add_sprite_config(t_config *cfg, char id, char *path, int params[2])
+static int	add_sprite_config(t_config *cfg, char id, char *path, int p[3])
 {
 	t_sprite_config	*new_array;
+	int				count;
 	int				i;
 
 	if (check_duplicate_identifier(cfg, id))
 		return (parser_error("duplicate sprite identifier"));
-	i = cfg->textures.sprite_count;
-	new_array = mm_alloc(i + 1, sizeof(t_sprite_config));
+	count = cfg->textures.sprite_count;
+	new_array = mm_alloc(count + 1, sizeof(t_sprite_config));
 	if (!new_array)
 		return (-1);
-	while (i > 0)
+	i = 0;
+	while (i < count)
 	{
-		i = i - 1;
 		new_array[i] = cfg->textures.sprites[i];
+		i = i + 1;
 	}
-	new_array[cfg->textures.sprite_count].identifier = id;
-	new_array[cfg->textures.sprite_count].path = path;
-	new_array[cfg->textures.sprite_count].frames = params[0];
-	new_array[cfg->textures.sprite_count].type = params[1];
+	new_array[count].identifier = id;
+	new_array[count].path = path;
+	set_sprite_data(&new_array[count], p);
 	cfg->textures.sprites = new_array;
-	cfg->textures.sprite_count = cfg->textures.sprite_count + 1;
+	cfg->textures.sprite_count = count + 1;
 	return (0);
+}
+
+static void	parse_sprite_params(char *space, int params[3])
+{
+	params[0] = extract_frame_count(space);
+	while (*space && (*space == ' ' || *space == '\t'))
+		space++;
+	while (*space >= '0' && *space <= '9')
+		space++;
+	while (*space && (*space == ' ' || *space == '\t'))
+		space++;
+	params[1] = extract_number(space);
+	while (*space >= '0' && *space <= '9')
+		space++;
+	while (*space && (*space == ' ' || *space == '\t'))
+		space++;
+	params[2] = extract_number(space);
 }
 
 int	parse_sprite_texture(char *rest, t_config *cfg)
@@ -67,7 +62,7 @@ int	parse_sprite_texture(char *rest, t_config *cfg)
 	char	identifier;
 	char	*space;
 	char	*path;
-	int		params[2];
+	int		params[3];
 
 	identifier = extract_identifier(rest);
 	if (!identifier)
@@ -76,14 +71,12 @@ int	parse_sprite_texture(char *rest, t_config *cfg)
 	while (*rest == ' ' || *rest == '\t')
 		rest++;
 	space = skip_to_space(rest);
-	params[0] = 1;
-	params[1] = 0;
+	init_params(params);
 	if (*space)
 	{
 		*space = '\0';
 		space++;
-		params[0] = extract_frame_count(space);
-		params[1] = get_sprite_type(skip_to_space(space));
+		parse_sprite_params(space, params);
 	}
 	path = NULL;
 	if (parse_texture(rest, &path) < 0)

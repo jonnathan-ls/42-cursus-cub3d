@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:42 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 13:45:18 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 16:39:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void			render_ceiling_floor(struct s_engine *eng, struct s_ray *ray,
 uint32_t		shaded_pixel_from_pos(
 					mlx_texture_t *tex, int tx, double pos, t_ray *ray);
 void			draw_health_bar(t_engine *eng);
+void			render_damage_overlay(t_engine *eng);
 
 #endif

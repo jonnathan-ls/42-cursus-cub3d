@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 10:52:35 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 14:09:48 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "parser.h"
 # include "player.h"
 # include "sprite.h"
+# include "weapon.h"
 # include <MLX42/MLX42.h>
 # include <stdint.h>
 
@@ -73,6 +74,7 @@ typedef struct s_engine
 	t_sprite_manager	sprites;
 	char				*sprite_chars;
 	double				*z_buffer;
+	t_weapon_system		weapon;
 }						t_engine;
 
 void					apply_window_scale(t_engine *eng);

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 12:08:47 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 16:36:38 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void	config_init_player(t_engine *eng, t_config *cfg)
 	eng->player.health = 100;
 	eng->player.game_over = 0;
 	eng->player.damage_cooldown = 0.0;
+	eng->player.is_taking_damage = 0;
 	set_player_direction(eng, cfg->map.player_dir);
 }
 
@@ -111,5 +112,6 @@ int	configure_engine(t_engine *eng, t_config *cfg)
 	}
 	configure_minimap(eng);
 	init_sprites(eng, cfg->textures.sprites, cfg->textures.sprite_count);
+	init_weapon_system(eng);
 	return (0);
 }

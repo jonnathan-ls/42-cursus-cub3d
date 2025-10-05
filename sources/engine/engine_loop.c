@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 13:48:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:30:18 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ static void	draw_interface(t_engine *eng)
 	else
 		draw_minimap(eng);
 	draw_health_bar(eng);
+	render_weapon(eng);
 	if (eng->menu_visible && eng->tex.menu && eng->frame)
 		draw_menu_overlay(eng);
+	render_damage_overlay(eng);
 }
 
 static void	render_scene(t_engine *eng)
@@ -51,6 +53,7 @@ static void	render_scene(t_engine *eng)
 	eng->ignore_doors = 0;
 	cast_all_rays(eng);
 	render_sprites(eng);
+	render_projectiles(eng);
 }
 
 static void	frame_hook(void *param)
@@ -66,7 +69,11 @@ static void	frame_hook(void *param)
 	delta_time = eng->mlx->delta_time;
 	handle_frame_updates(eng, delta_time);
 	update_sprites(eng, delta_time);
+	update_enemy_movement(eng, delta_time);
+	update_projectiles(eng, delta_time);
+	handle_weapon_shoot(eng);
 	check_sprite_interactions(eng);
+	check_projectile_hits(eng);
 	handle_minimap_view(eng);
 	handle_minimap_zoom(eng);
 	handle_fullmap_view(eng);

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:19:25 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 13:53:17 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:13:01 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_sprite_config
 	char		*path;
 	int			frames;
 	int			type;
+	int			category;
 }				t_sprite_config;
 
 typedef struct s_textures
@@ -79,5 +80,10 @@ char			extract_identifier(char *rest);
 int				collect_map(int fd, char *first_map_line, t_map *map_raw);
 int				parse_header_line(char *line, t_config *cfg, int *count_done);
 int				parse_headers(int fd, t_config *cfg, char **line_after_headers);
+
+int				check_duplicate_identifier(t_config *cfg, char id);
+int				extract_number(char *space);
+void			set_sprite_data(t_sprite_config *sprite, int params[3]);
+void			init_params(int params[3]);
 
 #endif
