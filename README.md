@@ -58,7 +58,7 @@ A raycasting game engine inspired by the legendary **Wolfenstein 3D** (1992), th
 - **Multiple difficulty levels** through different map configurations
 - **Texture-mapped walls** for immersive environments
 
-The engine is built entirely in C using the **MLX42** graphics library, adhering to the rigorous **Norma** coding standards of 42 School.
+The engine is built entirely in C using the **MLX42** graphics library, adhering to the rigorous **Norm** coding standards of 42 School.
 
 ---
 
@@ -259,20 +259,20 @@ C 135,206,235
 
 ## 🎮 Controls
 
-| Key       | Action                            |
-| --------- | --------------------------------- |
-| `W`       | Move forward                      |
-| `S`       | Move backward                     |
-| `A`       | Strafe left                       |
-| `D`       | Strafe right                      |
-| `←`       | Rotate view left                  |
-| `→`       | Rotate view right                 |
-| `E`       | Interact (open/close doors)       |
-| `Space`   | Shoot weapon                      |
-| `M`       | Toggle minimap                    |
-| `R`       | Toggle full map                   |
-| `ESC`     | Exit game                         |
-| **Mouse** | Look around (when window focused) |
+| Key          | Action                            |
+| ------------ | --------------------------------- |
+| `W`          | Move forward                      |
+| `S`          | Move backward                     |
+| `A`          | Strafe left                       |
+| `D`          | Strafe right                      |
+| `←`          | Rotate view left                  |
+| `→`          | Rotate view right                 |
+| `E`          | Interact (open/close doors)       |
+| `Left Click` | Shoot weapon                      |
+| `M`          | Toggle minimap                    |
+| `R`          | Toggle full map                   |
+| `ESC`        | Exit game                         |
+| **Mouse**    | Look around (when window focused) |
 
 ---
 
