@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_loop.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 23:37:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 03:09:07 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,6 @@ static void	draw_interface(t_engine *eng)
  */
 static void	render_scene(t_engine *eng)
 {
-	eng->ignore_doors = 1;
-	cast_all_rays(eng);
-	eng->ignore_doors = 0;
 	cast_all_rays(eng);
 	render_sprites(eng);
 	render_projectiles(eng);
