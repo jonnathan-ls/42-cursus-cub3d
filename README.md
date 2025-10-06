@@ -169,7 +169,7 @@ brew install glfw cmake
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/cub3d.git
+   git clone https://github.com/jonnathan-ls/42-cursus-cub3d.git
    cd cub3d
    ```
 
