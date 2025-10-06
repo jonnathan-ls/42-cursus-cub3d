@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 00:31:38 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 03:09:07 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ typedef struct s_door
  */
 typedef struct s_doors_manager
 {
-	t_door	*list;	/**< Array of door entities. */
-	int		count;	/**< Total door count. */
+	t_door	*list;		/**< Array of door entities. */
+	int		count;		/**< Total door count. */
+	int		**grid;		/**< 2D grid for O(1) door lookup. */
 }			t_doors_manager;
 
 /**
