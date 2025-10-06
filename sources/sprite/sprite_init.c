@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 23:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 14:52:36 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:24:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 #include "shared.h"
 #include <MLX42/MLX42.h>
 
+/**
+ * @brief Loads a sprite texture from a PNG file.
+ *
+ * Attempts to load the texture at the specified path and stores it in
+ * the sprite textures array at the given index.
+ *
+ * @param eng Engine structure containing sprite textures array.
+ * @param index Index to store the loaded texture.
+ * @param path Path to the PNG file.
+ * @return 0 on success, -1 on failure.
+ */
 static int	load_sprite_texture(t_engine *eng, int index, char *path)
 {
 	mlx_texture_t	*texture;
@@ -28,6 +39,16 @@ static int	load_sprite_texture(t_engine *eng, int index, char *path)
 	return (0);
 }
 
+/**
+ * @brief Allocates arrays for sprite system management.
+ *
+ * Creates arrays for textures, frame counts, frame widths, sprite types,
+ * configurations, and character mappings.
+ *
+ * @param eng Engine structure to allocate arrays in.
+ * @param count Number of sprite types to allocate for.
+ * @return 0 on success, -1 on allocation failure.
+ */
 static int	allocate_arrays(t_engine *eng, int count)
 {
 	eng->sprites.textures = mm_alloc(count, sizeof(mlx_texture_t *));
@@ -52,6 +73,16 @@ static int	allocate_arrays(t_engine *eng, int count)
 	return (0);
 }
 
+/**
+ * @brief Configures a single sprite type from configuration data.
+ *
+ * Sets character mapping, frame count, sprite type, loads texture, and
+ * calculates frame width for the sprite type at the given index.
+ *
+ * @param eng Engine structure to configure.
+ * @param cfg Array of sprite configurations.
+ * @param i Index of the configuration to process.
+ */
 void	setup_sprite_type(t_engine *eng, t_sprite_config *cfg, int i)
 {
 	int	width;
@@ -68,6 +99,16 @@ void	setup_sprite_type(t_engine *eng, t_sprite_config *cfg, int i)
 	}
 }
 
+/**
+ * @brief Initializes the entire sprite system.
+ *
+ * Allocates sprite arrays, loads textures, configures sprite types, and
+ * collects sprites from the map.
+ *
+ * @param param Engine structure cast from void pointer.
+ * @param configs Array of sprite configurations.
+ * @param count Number of sprite configurations.
+ */
 void	init_sprites(void *param, t_sprite_config *configs, int count)
 {
 	t_engine	*eng;
@@ -88,6 +129,14 @@ void	init_sprites(void *param, t_sprite_config *configs, int count)
 	collect_sprites_from_map(eng);
 }
 
+/**
+ * @brief Frees all allocated sprite textures.
+ *
+ * Iterates through sprite textures and deletes each one to free
+ * graphics memory.
+ *
+ * @param param Engine structure cast from void pointer.
+ */
 void	free_sprites(void *param)
 {
 	t_engine	*eng;

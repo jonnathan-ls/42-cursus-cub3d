@@ -6,13 +6,18 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:30:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 17:58:41 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:24:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "weapon.h"
 
+/**
+ * @brief Initializes weapon system with default values.
+ *
+ * @param param Engine structure cast from void pointer.
+ */
 void	init_default_values(void *param)
 {
 	t_engine	*eng;
@@ -32,6 +37,11 @@ void	init_default_values(void *param)
 	eng->weapon.shoot_cooldown = 0.0;
 }
 
+/**
+ * @brief Calculates weapon animation frame width from texture.
+ *
+ * @param param Engine structure cast from void pointer.
+ */
 void	set_weapon_frame_width(void *param)
 {
 	t_engine	*eng;
@@ -47,6 +57,11 @@ void	set_weapon_frame_width(void *param)
 		/ weapon_frames;
 }
 
+/**
+ * @brief Calculates projectile animation frame width from texture.
+ *
+ * @param param Engine structure cast from void pointer.
+ */
 void	set_projectile_frame_width(void *param)
 {
 	t_engine	*eng;
@@ -62,6 +77,11 @@ void	set_projectile_frame_width(void *param)
 		/ projectile_frames;
 }
 
+/**
+ * @brief Calculates death animation frame width from texture.
+ *
+ * @param param Engine structure cast from void pointer.
+ */
 void	set_death_frame_width(void *param)
 {
 	t_engine	*eng;
@@ -77,6 +97,11 @@ void	set_death_frame_width(void *param)
 		= eng->weapon.death_texture->width / death_frames;
 }
 
+/**
+ * @brief Frees weapon system resources (currently no-op).
+ *
+ * @param param Engine structure cast from void pointer.
+ */
 void	free_weapon_system(void *param)
 {
 	t_engine	*eng;

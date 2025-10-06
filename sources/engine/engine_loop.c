@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 18:30:18 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:37:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 #include "minimap.h"
 #include "sprite.h"
 
+/**
+ * Processes player input and updates per frame.
+ * @param eng Pointer to engine structure.
+ * @param delta_time Time elapsed since last frame.
+ */
 static void	handle_frame_updates(t_engine *eng, double delta_time)
 {
 	double	rotation;
@@ -33,6 +38,10 @@ static void	handle_frame_updates(t_engine *eng, double delta_time)
 	handle_player_rotation_by_mouse(eng);
 }
 
+/**
+ * Renders all UI elements on top of the scene.
+ * @param eng Pointer to engine structure.
+ */
 static void	draw_interface(t_engine *eng)
 {
 	if (eng->fullmap_visible)
@@ -46,6 +55,10 @@ static void	draw_interface(t_engine *eng)
 	render_damage_overlay(eng);
 }
 
+/**
+ * Renders 3D scene with walls, sprites and projectiles.
+ * @param eng Pointer to engine structure.
+ */
 static void	render_scene(t_engine *eng)
 {
 	eng->ignore_doors = 1;
@@ -56,6 +69,10 @@ static void	render_scene(t_engine *eng)
 	render_projectiles(eng);
 }
 
+/**
+ * Main frame update hook called each frame.
+ * @param param Pointer to engine structure.
+ */
 static void	frame_hook(void *param)
 {
 	t_engine	*eng;
@@ -84,6 +101,10 @@ static void	frame_hook(void *param)
 	draw_interface(eng);
 }
 
+/**
+ * Starts main game loop with hooks configured.
+ * @param eng Pointer to engine structure.
+ */
 void	engine_loop(t_engine *eng)
 {
 	if (!eng || !eng->mlx)

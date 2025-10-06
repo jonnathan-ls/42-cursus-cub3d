@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 20:08:39 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:13:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 #include "sprite.h"
 #include "shared.h"
 
+/**
+ * @brief Checks if a character represents a valid sprite.
+ *
+ * Returns true for uppercase letters except 'D' (reserved for doors).
+ *
+ * @param c Character to check.
+ * @return 1 if character is a sprite, 0 otherwise.
+ */
 static int	is_sprite_char(char c)
 {
 	if (c == 'D')
@@ -23,6 +31,15 @@ static int	is_sprite_char(char c)
 	return (0);
 }
 
+/**
+ * @brief Counts total number of sprites in the map.
+ *
+ * Iterates through the entire map grid, counting cells that contain
+ * valid sprite characters.
+ *
+ * @param eng Engine structure containing map data.
+ * @return Total count of sprites in the map.
+ */
 int	count_sprites_in_map(t_engine *eng)
 {
 	int	count;
@@ -45,6 +62,15 @@ int	count_sprites_in_map(t_engine *eng)
 	return (count);
 }
 
+/**
+ * @brief Allocates memory for sprite list and order array.
+ *
+ * Creates arrays to store sprite data and rendering order based on
+ * the sprite count.
+ *
+ * @param eng Engine structure to allocate sprite arrays in.
+ * @return 0 on success, -1 on allocation failure.
+ */
 int	allocate_sprites(t_engine *eng)
 {
 	eng->sprites.list = mm_alloc(eng->sprites.count, sizeof(t_sprite));
@@ -56,6 +82,14 @@ int	allocate_sprites(t_engine *eng)
 	return (0);
 }
 
+/**
+ * @brief Populates sprite list from map data.
+ *
+ * Iterates through the map, adding each sprite character to the sprite
+ * list with its position and type.
+ *
+ * @param eng Engine structure containing map and sprite list.
+ */
 void	fill_sprites(t_engine *eng)
 {
 	int		pos[3];
@@ -77,6 +111,15 @@ void	fill_sprites(t_engine *eng)
 	}
 }
 
+/**
+ * @brief Collects all sprites from the map into the sprite system.
+ *
+ * Counts sprites in the map, allocates necessary arrays, and populates
+ * the sprite list with position and type data.
+ *
+ * @param param Engine structure cast from void pointer.
+ * @return 0 on success, -1 on failure.
+ */
 int	collect_sprites_from_map(void *param)
 {
 	t_engine	*eng;

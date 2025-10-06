@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 22:04:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:39:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #include <MLX42/MLX42.h>
 #include <math.h>
 
+/**
+ * Applies rotation matrix to direction and plane vectors.
+ * @param p Pointer to player structure.
+ * @param rot Rotation angle in radians.
+ */
 static void	apply_rotation(t_player *p, double rot)
 {
 	double	old_dir_x;
@@ -29,6 +34,11 @@ static void	apply_rotation(t_player *p, double rot)
 	p->plane_y = old_plane_x * sin(rot) + p->plane_y * cos(rot);
 }
 
+/**
+ * Rotates player view by specified angle.
+ * @param eng Pointer to engine structure.
+ * @param rot Rotation angle in radians.
+ */
 void	handle_player_rotation(t_engine *eng, double rot)
 {
 	if (!eng)
@@ -36,6 +46,11 @@ void	handle_player_rotation(t_engine *eng, double rot)
 	apply_rotation(&eng->player, rot);
 }
 
+/**
+ * Adjusts camera pitch based on mouse movement.
+ * @param eng Pointer to engine structure.
+ * @param delta_y Vertical mouse movement delta.
+ */
 static void	player_mouse_pitch(t_engine *eng, double delta_y)
 {
 	double	pitch_amount;
@@ -49,6 +64,10 @@ static void	player_mouse_pitch(t_engine *eng, double delta_y)
 	}
 }
 
+/**
+ * Handles camera rotation and pitch from mouse input.
+ * @param eng Pointer to engine structure.
+ */
 void	handle_player_rotation_by_mouse(t_engine *eng)
 {
 	int		mouse_x;

@@ -6,12 +6,16 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 21:53:31 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:37:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Returns static pointer to linked list head.
+ * @return Pointer to the head of memory node list.
+ */
 static t_node	**mm_head(void)
 {
 	static t_node	*node = NULL;
@@ -19,6 +23,11 @@ static t_node	**mm_head(void)
 	return (&node);
 }
 
+/**
+ * Handles memory allocation failure cleanup.
+ * @param content Pointer to free if not NULL.
+ * @return Always returns NULL.
+ */
 static void	*mm_fail(void *content)
 {
 	ft_putendl_fd("Error", STDERR_FILENO);
@@ -28,6 +37,12 @@ static void	*mm_fail(void *content)
 	return (NULL);
 }
 
+/**
+ * Allocates memory and adds to garbage collector list.
+ * @param count Number of elements.
+ * @param size Size of each element.
+ * @return Pointer to allocated memory or NULL on failure.
+ */
 void	*mm_alloc(size_t count, size_t size)
 {
 	void	*content;
@@ -48,11 +63,18 @@ void	*mm_alloc(size_t count, size_t size)
 	return (content);
 }
 
+/**
+ * Returns count of allocated memory nodes.
+ * @return Number of nodes in allocation list.
+ */
 size_t	mm_nodes_alloc_length(void)
 {
 	return (ft_lstsize(*mm_head()));
 }
 
+/**
+ * Frees all allocated memory in the list.
+ */
 void	mm_garbage_collector(void)
 {
 	ft_lstclear(mm_head(), free);

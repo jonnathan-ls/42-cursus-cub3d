@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 18:30:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 21:25:14 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:24:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,27 @@
 #include <stdlib.h>
 #include <math.h>
 
+/**
+ * @brief Checks if a map tile is walkable for enemy sprites.
+ *
+ * @param eng Engine structure containing map data.
+ * @param map_x X coordinate of tile.
+ * @param map_y Y coordinate of tile.
+ * @return 1 if walkable, 0 otherwise.
+ */
 static int	check_map_tile(t_engine *eng, int map_x, int map_y)
 {
 	return (is_walkable_tile(eng, map_x, map_y));
 }
 
+/**
+ * @brief Validates if position is walkable including collision margin.
+ *
+ * @param eng Engine structure containing map data.
+ * @param x X coordinate to validate.
+ * @param y Y coordinate to validate.
+ * @return 1 if position is valid, 0 otherwise.
+ */
 static int	is_valid_position(t_engine *eng, double x, double y)
 {
 	double	margin;
@@ -40,6 +56,11 @@ static int	is_valid_position(t_engine *eng, double x, double y)
 	return (1);
 }
 
+/**
+ * @brief Sets a random movement direction for an enemy sprite.
+ *
+ * @param sprite Sprite to set direction for.
+ */
 static void	set_random_direction(t_sprite *sprite)
 {
 	int		direction;
@@ -52,6 +73,13 @@ static void	set_random_direction(t_sprite *sprite)
 	sprite->move_timer = 2.0 + (rand() % 3);
 }
 
+/**
+ * @brief Updates enemy sprite position with collision detection.
+ *
+ * @param eng Engine structure containing map data.
+ * @param sprite Enemy sprite to update.
+ * @param dt Delta time for frame-independent movement.
+ */
 static void	update_enemy_position(t_engine *eng, t_sprite *sprite, double dt)
 {
 	double	new_x;
@@ -75,6 +103,12 @@ static void	update_enemy_position(t_engine *eng, t_sprite *sprite, double dt)
 	sprite->move_timer -= dt;
 }
 
+/**
+ * @brief Updates movement for all enemy sprites each frame.
+ *
+ * @param param Engine structure cast from void pointer.
+ * @param delta Delta time for frame-independent movement.
+ */
 void	update_enemy_movement(void *param, double delta)
 {
 	t_engine	*eng;

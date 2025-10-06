@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 15:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 18:23:54 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:24:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 void	calc_tex_coords(int pos[2], int start[2], int screen, int *tex);
 void	draw_pixel_if_valid(t_engine *eng, int pos[2], uint32_t color);
 
+/**
+ * @brief Calculates projectile screen position using camera transform.
+ *
+ * @param eng Engine structure containing camera data.
+ * @param proj Projectile to calculate position for.
+ * @param screen Output array [x_pos, size] (-9999 if behind camera).
+ */
 static void	calculate_projectile_screen_pos(t_engine *eng,
 	t_projectile *proj, int *screen)
 {
@@ -43,6 +50,15 @@ static void	calculate_projectile_screen_pos(t_engine *eng,
 	screen[1] = (int)(eng->window_height / ty);
 }
 
+/**
+ * @brief Gets pixel from projectile animation frame.
+ *
+ * @param eng Engine structure containing projectile texture.
+ * @param proj Projectile to get pixel from.
+ * @param tx Texture X coordinate within frame.
+ * @param ty Texture Y coordinate.
+ * @return Packed RGBA color value.
+ */
 static uint32_t	get_proj_pixel(t_engine *eng,
 	t_projectile *proj, int tx, int ty)
 {
@@ -67,6 +83,13 @@ static uint32_t	get_proj_pixel(t_engine *eng,
 	return (color);
 }
 
+/**
+ * @brief Draws one horizontal row of projectile sprite.
+ *
+ * @param eng Engine structure containing frame buffer.
+ * @param proj Projectile to draw.
+ * @param data Render parameters [start_x, start_y, end_x, width, size, y].
+ */
 static void	draw_proj_row(t_engine *eng, t_projectile *proj, int data[5])
 {
 	int			pos[2];
@@ -89,6 +112,13 @@ static void	draw_proj_row(t_engine *eng, t_projectile *proj, int data[5])
 	}
 }
 
+/**
+ * @brief Draws complete projectile sprite to frame buffer.
+ *
+ * @param eng Engine structure containing frame buffer.
+ * @param proj Projectile to draw.
+ * @param screen Screen position [x, size] from transform calculation.
+ */
 static void	draw_projectile_sprite(t_engine *eng,
 	t_projectile *proj, int screen[2])
 {
@@ -115,6 +145,11 @@ static void	draw_projectile_sprite(t_engine *eng,
 	}
 }
 
+/**
+ * @brief Renders all active projectiles as 3D sprites.
+ *
+ * @param param Engine structure cast from void pointer.
+ */
 void	render_projectiles(void *param)
 {
 	t_engine	*eng;

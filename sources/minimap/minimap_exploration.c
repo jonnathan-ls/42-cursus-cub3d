@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 01:40:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/03 23:25:56 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 #include "constants.h"
 #include <stdlib.h>
 
+/**
+ * @brief Allocates memory for the exploration tracking grid.
+ *
+ * Creates a 2D array matching map dimensions to track which cells have
+ * been explored by the player.
+ *
+ * @param eng Engine structure containing map dimensions.
+ * @return 1 on success, 0 on failure.
+ */
 int	allocate_explored_map(t_engine *eng)
 {
 	int	y;
@@ -33,6 +42,15 @@ int	allocate_explored_map(t_engine *eng)
 	return (1);
 }
 
+/**
+ * @brief Initializes the exploration tracking system.
+ *
+ * Allocates the explored map grid and initializes all cells to
+ * unexplored state (0).
+ *
+ * @param eng Engine structure to initialize.
+ * @return 1 on success, 0 on failure.
+ */
 int	initialize_minimap_exploration(t_engine *eng)
 {
 	int	x;
@@ -56,6 +74,14 @@ int	initialize_minimap_exploration(t_engine *eng)
 	return (1);
 }
 
+/**
+ * @brief Marks map cells around player position as explored.
+ *
+ * Updates the explored map grid by marking all cells within a defined
+ * radius around the player's current position as explored.
+ *
+ * @param eng Engine structure containing player position and explored map.
+ */
 void	handle_minimap_exploration(t_engine *eng)
 {
 	int	px;

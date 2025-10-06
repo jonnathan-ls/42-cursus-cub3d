@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 01:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 20:38:21 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 #include "parser.h"
 #include "shared.h"
 
+/**
+ * @brief Adds a new sprite configuration to the config structure.
+ *
+ * Creates a new array with increased capacity, copies existing sprite
+ * configurations, and appends the new sprite with its parameters.
+ *
+ * @param cfg Configuration structure to update.
+ * @param id Sprite identifier character.
+ * @param path Path to sprite texture.
+ * @param p Array containing frame count and animation time.
+ * @return 0 on success, -1 on failure.
+ */
 static int	add_sprite_config(t_config *cfg, char id, char *path, int p[2])
 {
 	t_sprite_config	*new_array;
@@ -40,6 +52,15 @@ static int	add_sprite_config(t_config *cfg, char id, char *path, int p[2])
 	return (0);
 }
 
+/**
+ * @brief Extracts sprite animation parameters from a string.
+ *
+ * Parses frame count and animation time from the input string, skipping
+ * whitespace and positioning correctly to extract each numeric value.
+ *
+ * @param space Pointer to string containing sprite parameters.
+ * @param params Array to store extracted frame count and animation time.
+ */
 static void	parse_sprite_params(char *space, int params[2])
 {
 	params[0] = extract_frame_count(space);
@@ -52,6 +73,16 @@ static void	parse_sprite_params(char *space, int params[2])
 	params[1] = extract_number(space);
 }
 
+/**
+ * @brief Parses a sprite texture line from the configuration file.
+ *
+ * Extracts sprite identifier, texture path, and optional animation
+ * parameters (frame count and animation time) from the input line.
+ *
+ * @param rest String containing sprite configuration data.
+ * @param cfg Configuration structure to update.
+ * @return 0 on success, -1 on failure.
+ */
 int	parse_sprite_texture(char *rest, t_config *cfg)
 {
 	char	identifier;

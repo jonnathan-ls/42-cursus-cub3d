@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 #include "constants.h"
 #include "shared.h"
 
+/**
+ * Calculates distance from player to floor or ceiling row.
+ * @param eng Pointer to engine structure.
+ * @param y Screen Y coordinate.
+ * @param is_floor 1 for floor, 0 for ceiling.
+ * @return Row distance.
+ */
 static double	calculate_row_distance(t_engine *eng, int y, int is_floor)
 {
 	double	win_h;
@@ -41,6 +48,12 @@ static double	calculate_row_distance(t_engine *eng, int y, int is_floor)
 	return (win_h / den);
 }
 
+/**
+ * Calculates fractional wall intersection point.
+ * @param eng Pointer to engine structure.
+ * @param ray Pointer to ray structure.
+ * @return Wall X coordinate (0.0-1.0).
+ */
 double	calculate_wall_x(t_engine *eng, t_ray *ray)
 {
 	double	wall_x;
@@ -52,6 +65,13 @@ double	calculate_wall_x(t_engine *eng, t_ray *ray)
 	return (wall_x - (int)wall_x);
 }
 
+/**
+ * Extracts RGBA pixel from texture at coordinates.
+ * @param tex Pointer to texture.
+ * @param tex_x Texture X coordinate.
+ * @param tex_y Texture Y coordinate.
+ * @return RGBA color value.
+ */
 uint32_t	get_texture_pixel(mlx_texture_t *tex, int tex_x, int tex_y)
 {
 	uint32_t	color;
@@ -68,6 +88,14 @@ uint32_t	get_texture_pixel(mlx_texture_t *tex, int tex_x, int tex_y)
 	return (color);
 }
 
+/**
+ * Calculates floor texture color at screen position.
+ * @param eng Pointer to engine structure.
+ * @param y Screen Y coordinate.
+ * @param ray Pointer to ray structure.
+ * @param distance Pointer to store calculated distance.
+ * @return Floor texture color or solid color.
+ */
 uint32_t	calculate_floor_texture(t_engine *eng, int y, t_ray *ray,
 	double *distance)
 {
@@ -92,6 +120,15 @@ uint32_t	calculate_floor_texture(t_engine *eng, int y, t_ray *ray,
 	return (get_texture_pixel(eng->tex.floor, tex_x, tex_y));
 }
 
+/**
+ * Calculates ceiling texture color at screen position.
+ * @param eng Pointer to engine structure.
+ * @param y Screen Y coordinate.
+ * @param ray Pointer to ray structure.
+ * @param distance Pointer to store calculated distance.
+ * @return Ceiling texture color or solid color.
+ * @note Uses skybox-style projection for ceiling.
+ */
 uint32_t	calculate_ceiling_texture(t_engine *eng, int y, t_ray *ray,
 	double *distance)
 {

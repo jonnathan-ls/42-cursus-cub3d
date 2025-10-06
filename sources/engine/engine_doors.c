@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:39:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include "constants.h"
 #include <MLX42/MLX42.h>
 
+/**
+ * Counts total number of doors in the map.
+ * @param eng Pointer to engine structure.
+ * @return Number of doors found.
+ */
 static int	count_doors_in_map(t_engine *eng)
 {
 	int	count;
@@ -37,6 +42,10 @@ static int	count_doors_in_map(t_engine *eng)
 	return (count);
 }
 
+/**
+ * Populates doors array with positions from map.
+ * @param eng Pointer to engine structure.
+ */
 static void	fill_doors_array(t_engine *eng)
 {
 	int	index;
@@ -64,6 +73,11 @@ static void	fill_doors_array(t_engine *eng)
 	}
 }
 
+/**
+ * Initializes door system from map data.
+ * @param eng Pointer to engine structure.
+ * @return 0 on success, -1 on failure.
+ */
 int	configure_doors(t_engine *eng)
 {
 	int	doors_count;
@@ -84,6 +98,10 @@ int	configure_doors(t_engine *eng)
 	return (0);
 }
 
+/**
+ * Updates door animation offsets for opening and closing.
+ * @param eng Pointer to engine structure.
+ */
 void	handle_door_updates(t_engine *eng)
 {
 	int		i;
@@ -111,6 +129,13 @@ void	handle_door_updates(t_engine *eng)
 	}
 }
 
+/**
+ * Gets texture offset for animated door at position.
+ * @param eng Pointer to engine structure.
+ * @param map_x X coordinate of door.
+ * @param map_y Y coordinate of door.
+ * @return Texture offset in pixels.
+ */
 int	get_door_texture_offset(t_engine *eng, int map_x, int map_y)
 {
 	int	i;

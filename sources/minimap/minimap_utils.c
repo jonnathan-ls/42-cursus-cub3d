@@ -16,6 +16,15 @@
 #include "shared.h"
 #include <math.h>
 
+/**
+ * @brief Computes screen position for a map block in the minimap.
+ *
+ * Transforms map cell coordinates to minimap screen coordinates using
+ * player position, direction, and minimap scale.
+ *
+ * @param eng Engine structure with player data.
+ * @param map Minimap structure to update with screen position.
+ */
 static void	minimap_compute_block_screen_start(t_engine *eng, t_minimap *map)
 {
 	double	offset_x;
@@ -41,6 +50,15 @@ static void	minimap_compute_block_screen_start(t_engine *eng, t_minimap *map)
 	map->block_start_y = start_y;
 }
 
+/**
+ * @brief Prepares rendering data for a specific map block.
+ *
+ * Determines block color based on map cell type and exploration state,
+ * then computes its screen position.
+ *
+ * @param eng Engine structure with map and exploration data.
+ * @param map Minimap structure to update with block data.
+ */
 static void	minimap_prepare_block(t_engine *eng, t_minimap *map)
 {
 	char	c;
@@ -66,6 +84,15 @@ static void	minimap_prepare_block(t_engine *eng, t_minimap *map)
 	minimap_compute_block_screen_start(eng, map);
 }
 
+/**
+ * @brief Draws all pixels for a map block on the minimap.
+ *
+ * Renders the block at its computed screen position, checking boundaries
+ * to ensure pixels stay within the minimap area.
+ *
+ * @param eng Engine structure containing frame buffer.
+ * @param map Minimap structure with block data and position.
+ */
 static void	minimap_draw_block_pixels(t_engine *eng, t_minimap *map)
 {
 	int	dx;
@@ -94,6 +121,17 @@ static void	minimap_draw_block_pixels(t_engine *eng, t_minimap *map)
 	}
 }
 
+/**
+ * @brief Renders all blocks in a vertical column of the minimap.
+ *
+ * Iterates through tiles vertically around player position, preparing
+ * and drawing each block.
+ *
+ * @param eng Engine structure with map data.
+ * @param tile_x X coordinate of the column.
+ * @param player_y Y coordinate of player for centering.
+ * @param map Minimap structure for rendering data.
+ */
 static void	minimap_render_column(t_engine *eng,
 	int tile_x, int player_y, t_minimap *map)
 {
@@ -114,6 +152,15 @@ static void	minimap_render_column(t_engine *eng,
 	}
 }
 
+/**
+ * @brief Renders all visible map cells on the minimap.
+ *
+ * Iterates through map tiles around the player position, rendering each
+ * column of blocks within the visible range.
+ *
+ * @param eng Engine structure with map and player data.
+ * @param map Minimap structure for rendering configuration.
+ */
 void	render_minimap_cells(t_engine *eng, t_minimap *map)
 {
 	int	tile_x;

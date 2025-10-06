@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:28 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 00:43:31 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+/**
+ * @brief Checks if a line contains only whitespace characters.
+ *
+ * Iterates through the string to determine if it consists entirely of
+ * spaces, tabs, or a newline character.
+ *
+ * @param s String to check.
+ * @return 1 if line is empty or whitespace-only, 0 otherwise.
+ */
 static int	is_empty_line(const char *s)
 {
 	int	i;
@@ -33,6 +42,16 @@ static int	is_empty_line(const char *s)
 	return (1);
 }
 
+/**
+ * @brief Fetches the first non-empty line that represents the map.
+ *
+ * Reads lines from the file descriptor, skipping empty lines, until a
+ * non-empty line is found, which is returned as the first map line.
+ *
+ * @param fd File descriptor to read from.
+ * @param out Pointer to store the first map line.
+ * @return 0 on success, -1 on failure.
+ */
 static int	fetch_first_map_line(int fd, char **out)
 {
 	char	*line;
@@ -52,6 +71,17 @@ static int	fetch_first_map_line(int fd, char **out)
 	return (0);
 }
 
+/**
+ * @brief Processes a single header line and updates configuration.
+ *
+ * Skips empty lines, parses header lines to extract texture paths or
+ * colors. Returns -2 if the line is the start of the map.
+ *
+ * @param line Line to process.
+ * @param cfg Configuration structure to update.
+ * @param count Pointer to header count.
+ * @return 0 on success, -1 on failure, -2 if map start detected.
+ */
 static int	process_header_line(char *line, t_config *cfg, int *count)
 {
 	int	parse_result;
@@ -66,6 +96,17 @@ static int	process_header_line(char *line, t_config *cfg, int *count)
 	return (0);
 }
 
+/**
+ * @brief Reads and processes header lines until map section begins.
+ *
+ * Continues reading lines until 6 required headers are parsed or a map
+ * line is detected. Returns the first map line for further processing.
+ *
+ * @param fd File descriptor to read from.
+ * @param cfg Configuration structure to update.
+ * @param first_map_line Pointer to store first map line.
+ * @return 0 on success, -1 on failure.
+ */
 static int	read_header_block(int fd, t_config *cfg, char **first_map_line)
 {
 	char	*line;
@@ -94,6 +135,17 @@ static int	read_header_block(int fd, t_config *cfg, char **first_map_line)
 	return (fetch_first_map_line(fd, first_map_line));
 }
 
+/**
+ * @brief Parses configuration headers and locates first map line.
+ *
+ * Reads and validates all required texture paths and color definitions
+ * from the file header section. Ensures all mandatory fields are present.
+ *
+ * @param fd File descriptor to read from.
+ * @param cfg Configuration structure to populate.
+ * @param line_after_headers Pointer to store first map line.
+ * @return 0 on success, -1 on failure.
+ */
 int	parse_headers(int fd, t_config *cfg, char **line_after_headers)
 {
 	if (read_header_block(fd, cfg, line_after_headers) < 0)

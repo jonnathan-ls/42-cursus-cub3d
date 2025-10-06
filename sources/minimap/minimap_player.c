@@ -17,6 +17,15 @@
 #include <MLX42/MLX42.h>
 #include <math.h>
 
+/**
+ * @brief Computes player arrow rendering parameters.
+ *
+ * Calculates arrow length, width, and direction vectors based on minimap
+ * size and player orientation.
+ *
+ * @param size Minimap size.
+ * @param output Parameter structure to populate.
+ */
 static void	compute_player_params(int size, t_minimap_player_params *output)
 {
 	int	computed_length;
@@ -34,6 +43,17 @@ static void	compute_player_params(int size, t_minimap_player_params *output)
 	output->perp_y = output->dx_screen;
 }
 
+/**
+ * @brief Draws a line segment of the player direction arrow.
+ *
+ * Renders a horizontal cross-section of the arrow at the specified step
+ * position with appropriate width.
+ *
+ * @param engine Engine structure containing frame buffer.
+ * @param p Player arrow parameters.
+ * @param cx_step Center X coordinate of the line.
+ * @param cy_step Center Y coordinate of the line.
+ */
 static void	draw_arrow_line(t_engine *engine, t_minimap_player_params *p,
 	int cx_step, int cy_step)
 {
@@ -52,6 +72,17 @@ static void	draw_arrow_line(t_engine *engine, t_minimap_player_params *p,
 	}
 }
 
+/**
+ * @brief Draws the complete player direction arrow.
+ *
+ * Iterates through arrow length, drawing progressively narrower lines
+ * to create a tapered arrow shape pointing forward.
+ *
+ * @param engine Engine structure containing frame buffer.
+ * @param center_x Center X coordinate of the arrow.
+ * @param center_y Center Y coordinate of the arrow.
+ * @param p Player arrow parameters.
+ */
 static void	draw_player_strip(t_engine *engine,
 	int center_x, int center_y, t_minimap_player_params *p)
 {
@@ -74,6 +105,15 @@ static void	draw_player_strip(t_engine *engine,
 	}
 }
 
+/**
+ * @brief Draws the player indicator on the minimap.
+ *
+ * Computes minimap center and renders an arrow indicating player
+ * position and facing direction.
+ *
+ * @param engine Engine structure containing frame buffer.
+ * @param info Minimap drawing information with position and size.
+ */
 void	draw_minimap_player(t_engine *engine, t_minimap_draw_info *info)
 {
 	t_minimap_player_params	params;

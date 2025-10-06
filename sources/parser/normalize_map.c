@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:07 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 23:07:43 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 #include "parser.h"
 #include <stdlib.h>
 
+/**
+ * @brief Computes the maximum width of all lines in the map.
+ *
+ * Iterates through all map lines to find the longest line length,
+ * which will be used to normalize all rows to the same width.
+ *
+ * @param lines Array of strings representing map lines.
+ * @param height Number of lines in the map.
+ * @return Maximum width found.
+ */
 static int	compute_max_width(char **lines, int height)
 {
 	int	max;
@@ -32,6 +42,15 @@ static int	compute_max_width(char **lines, int height)
 	return (max);
 }
 
+/**
+ * @brief Allocates a row filled with spaces for map normalization.
+ *
+ * Creates a new string of specified width, fills it with space
+ * characters, and null-terminates it.
+ *
+ * @param width Desired width of the row.
+ * @return Allocated string on success, NULL on failure.
+ */
 static char	*alloc_row(int width)
 {
 	char	*row;
@@ -50,6 +69,17 @@ static char	*alloc_row(int width)
 	return (row);
 }
 
+/**
+ * @brief Copies source line into destination, removing trailing newline.
+ *
+ * Strips the trailing newline character if present, then copies the
+ * source content into the destination, respecting the width limit.
+ *
+ * @param src Source line to copy.
+ * @param dst Destination buffer (already allocated with spaces).
+ * @param width Maximum width to copy.
+ * @return Always returns 0.
+ */
 static int	copy_line(char *src, char *dst, int width)
 {
 	int	len;
@@ -66,6 +96,16 @@ static int	copy_line(char *src, char *dst, int width)
 	return (0);
 }
 
+/**
+ * @brief Allocates a new grid array for the normalized map.
+ *
+ * Creates an array of string pointers with space for all map rows
+ * plus a NULL terminator.
+ *
+ * @param map Map structure containing height information.
+ * @param out Pointer to store the allocated grid.
+ * @return 0 on success, -1 on failure.
+ */
 static int	alloc_new_grid(t_map *map, char ***out)
 {
 	*out = (char **)ft_calloc(map->height + 1, sizeof(char *));
@@ -74,6 +114,16 @@ static int	alloc_new_grid(t_map *map, char ***out)
 	return (0);
 }
 
+/**
+ * @brief Normalizes all map rows to have equal width.
+ *
+ * Computes the maximum width among all rows, allocates a new grid
+ * where each row has this width (padding with spaces), copies the
+ * original content, and replaces the old grid.
+ *
+ * @param map Map structure to normalize.
+ * @return 0 on success, -1 on failure.
+ */
 int	normalize_map(t_map *map)
 {
 	char	**new_grid;

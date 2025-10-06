@@ -6,13 +6,20 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 16:55:20 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:39:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "render.h"
 
+/**
+ * Draws a single row of the menu texture.
+ * @param eng Pointer to engine structure.
+ * @param start_x Starting X position on screen.
+ * @param start_y Starting Y position on screen.
+ * @param row Row index in texture.
+ */
 static void	draw_menu_row(t_engine *eng, int start_x, int start_y, int row)
 {
 	int	px;
@@ -32,6 +39,10 @@ static void	draw_menu_row(t_engine *eng, int start_x, int start_y, int row)
 	}
 }
 
+/**
+ * Handles menu toggle when I key is pressed.
+ * @param eng Pointer to engine structure.
+ */
 void	handle_menu_view(t_engine *eng)
 {
 	int	key_pressed;
@@ -44,6 +55,10 @@ void	handle_menu_view(t_engine *eng)
 	eng->menu_toggle = key_pressed;
 }
 
+/**
+ * Renders menu overlay on screen.
+ * @param eng Pointer to engine structure.
+ */
 void	draw_menu_overlay(t_engine *eng)
 {
 	int	texture_width;

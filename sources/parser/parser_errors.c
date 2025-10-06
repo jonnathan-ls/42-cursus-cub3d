@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:23:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 21:29:39 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:48:36 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "parser.h"
 #include <unistd.h>
 
+/**
+ * Prints parser error message to stderr.
+ * @param msg Error message to display.
+ * @return Always returns -1.
+ */
 int	parser_error(const char *msg)
 {
 	ssize_t	ret;

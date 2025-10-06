@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 #include "shared.h"
 #include <MLX42/MLX42.h>
 
+/**
+ * @brief Draws the border frame around the minimap.
+ *
+ * Renders the top, bottom, left, and right edges of the minimap square
+ * using the wall color to create a visible border.
+ *
+ * @param eng Engine structure containing frame buffer.
+ * @param info Minimap drawing information with position and size.
+ */
 void	draw_minimap_frame(t_engine *eng, t_minimap_draw_info *info)
 {
 	int	i;
@@ -38,6 +47,15 @@ void	draw_minimap_frame(t_engine *eng, t_minimap_draw_info *info)
 	}
 }
 
+/**
+ * @brief Fills the minimap background with fog color.
+ *
+ * Draws the entire interior of the minimap with the fog color, which
+ * will be overwritten by actual map data during rendering.
+ *
+ * @param eng Engine structure containing frame buffer.
+ * @param map Minimap structure with position and size information.
+ */
 void	draw_minimap_background(t_engine *eng, t_minimap *map)
 {
 	int	x;

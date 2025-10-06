@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 17:04:34 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 #include "render.h"
 #include <math.h>
 
+/**
+ * Applies red tint overlay to pixel color.
+ * @param base Original pixel color.
+ * @param alpha Tint intensity (0.0-1.0).
+ * @return Tinted color.
+ */
 static uint32_t	apply_red_tint(uint32_t base, double alpha)
 {
 	uint8_t	r;
@@ -31,6 +37,11 @@ static uint32_t	apply_red_tint(uint32_t base, double alpha)
 	return ((r << 24) | (g << 16) | (b << 8) | a);
 }
 
+/**
+ * Calculates pulsing flash intensity over time.
+ * @param time Current time value.
+ * @return Flash intensity (0.0-0.3).
+ */
 static double	get_flash_intensity(double time)
 {
 	double	wave;
@@ -39,6 +50,12 @@ static double	get_flash_intensity(double time)
 	return (wave * 0.3);
 }
 
+/**
+ * Applies damage overlay tint to all pixels.
+ * @param pixels Frame pixel buffer.
+ * @param size Total number of pixels.
+ * @param alpha Tint intensity.
+ */
 static void	apply_overlay(uint32_t *pixels, int size, double alpha)
 {
 	int	i;
@@ -51,6 +68,10 @@ static void	apply_overlay(uint32_t *pixels, int size, double alpha)
 	}
 }
 
+/**
+ * Renders red damage flash when player takes damage.
+ * @param eng Pointer to engine structure.
+ */
 void	render_damage_overlay(t_engine *eng)
 {
 	uint32_t	*pixels;

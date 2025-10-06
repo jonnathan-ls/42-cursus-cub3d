@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:34 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 #include "constants.h"
 #include <math.h>
 
+/**
+ * Calculates wall height in pixels from distance.
+ * @param ray Pointer to ray structure.
+ * @param win_h Window height in pixels.
+ * @return Wall height in pixels.
+ */
 int	calculate_wall_height(t_ray *ray, int win_h)
 {
 	int	height;
@@ -24,6 +30,12 @@ int	calculate_wall_height(t_ray *ray, int win_h)
 	return (height);
 }
 
+/**
+ * Selects appropriate wall texture based on hit side.
+ * @param eng Pointer to engine structure.
+ * @param ray Pointer to ray structure.
+ * @return Pointer to texture to use.
+ */
 mlx_texture_t	*get_wall_texture(t_engine *eng, t_ray *ray)
 {
 	if (ray->hit_type == 'D')
@@ -37,6 +49,13 @@ mlx_texture_t	*get_wall_texture(t_engine *eng, t_ray *ray)
 	return (eng->tex.south);
 }
 
+/**
+ * Calculates texture X coordinate from wall intersection.
+ * @param ray Pointer to ray structure.
+ * @param tex Pointer to texture.
+ * @param wall_x Wall intersection point (0.0-1.0).
+ * @return Texture X coordinate.
+ */
 int	calculate_texture_x(t_ray *ray, mlx_texture_t *tex, double wall_x)
 {
 	int	tex_x;

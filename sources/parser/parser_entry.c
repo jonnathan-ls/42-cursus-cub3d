@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:37 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 20:46:00 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+/**
+ * @brief Initializes configuration structure with default values.
+ *
+ * Sets all texture paths to NULL, colors to -1, and map dimensions to
+ * zero, preparing the structure for parsing.
+ *
+ * @param cfg Configuration structure to initialize.
+ */
 static void	init_config(t_config *cfg)
 {
 	cfg->textures.no_path = NULL;
@@ -37,6 +45,18 @@ static void	init_config(t_config *cfg)
 	cfg->map.player_dir = 0;
 }
 
+/**
+ * @brief Opens .cub file and parses metadata headers.
+ *
+ * Opens the file at the specified path and delegates header parsing to
+ * parse_headers, which extracts texture paths and color definitions.
+ *
+ * @param path Path to .cub file.
+ * @param cfg Configuration structure to populate.
+ * @param fd Pointer to store file descriptor.
+ * @param first_map_line Pointer to store first map line.
+ * @return 0 on success, -1 on failure.
+ */
 static int	config_metadata(const char *path, t_config *cfg, int *fd,
 		char **first_map_line)
 {
@@ -49,6 +69,17 @@ static int	config_metadata(const char *path, t_config *cfg, int *fd,
 	return (0);
 }
 
+/**
+ * @brief Collects and normalizes map data from file.
+ *
+ * Reads all map lines from the file descriptor, constructs the grid,
+ * and normalizes it to ensure all rows have equal width.
+ *
+ * @param fd File descriptor.
+ * @param first_map_line First line of map.
+ * @param cfg Configuration structure to populate.
+ * @return 0 on success, -1 on failure.
+ */
 static int	config_map(int fd, char *first_map_line, t_config *cfg)
 {
 	if (collect_map(fd, first_map_line, &cfg->map) < 0)
@@ -58,6 +89,15 @@ static int	config_map(int fd, char *first_map_line, t_config *cfg)
 	return (0);
 }
 
+/**
+ * @brief Validates map characters, player position, and enclosure.
+ *
+ * Ensures all map characters are valid, locates the player, and verifies
+ * that the map is properly enclosed by walls.
+ *
+ * @param cfg Configuration structure to validate.
+ * @return 0 on success, -1 on failure.
+ */
 static int	validate_configutarions(t_config *cfg)
 {
 	if (validate_map_chars(&cfg->map) < 0)
@@ -69,6 +109,16 @@ static int	validate_configutarions(t_config *cfg)
 	return (0);
 }
 
+/**
+ * @brief Parses a .cub configuration file.
+ *
+ * Opens the file, initializes the configuration structure, parses headers
+ * and map, validates all components, and returns the populated config.
+ *
+ * @param path Path to .cub file.
+ * @param cfg Configuration structure to populate.
+ * @return 0 on success, -1 on failure.
+ */
 int	parse_cub(const char *path, t_config *cfg)
 {
 	int		fd;

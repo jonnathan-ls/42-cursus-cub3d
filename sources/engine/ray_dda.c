@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:22 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "raycast.h"
 #include <math.h>
 
+/**
+ * Returns safe reciprocal value avoiding division by zero.
+ * @param v Value to invert.
+ * @return Reciprocal or very large number if zero.
+ */
 static double	infinite(double v)
 {
 	if (v == 0)
@@ -21,6 +26,11 @@ static double	infinite(double v)
 	return (fabs(1.0 / v));
 }
 
+/**
+ * Configures DDA algorithm parameters for ray traversal.
+ * @param ray Pointer to ray structure.
+ * @param pl Pointer to player structure.
+ */
 void	setup_dda(t_ray *ray, t_player *pl)
 {
 	ray->delta_dist_x = infinite(ray->ray_dir_x);
@@ -47,6 +57,13 @@ void	setup_dda(t_ray *ray, t_player *pl)
 	}
 }
 
+/**
+ * Checks if door at position is closed or closing.
+ * @param eng Pointer to engine structure.
+ * @param x X coordinate of door.
+ * @param y Y coordinate of door.
+ * @return 1 if closed, 0 if open.
+ */
 static int	is_door_closed_at(t_engine *eng, int x, int y)
 {
 	int	i;
@@ -63,6 +80,12 @@ static int	is_door_closed_at(t_engine *eng, int x, int y)
 	return (1);
 }
 
+/**
+ * Detects if ray hit wall or closed door.
+ * @param eng Pointer to engine structure.
+ * @param ray Pointer to ray structure.
+ * @return 1 if collision detected, 0 otherwise.
+ */
 int	detect_collision(t_engine *eng, t_ray *ray)
 {
 	if (ray->map_x < 0 || ray->map_x >= eng->map_width)
@@ -90,6 +113,11 @@ int	detect_collision(t_engine *eng, t_ray *ray)
 	return (0);
 }
 
+/**
+ * Executes DDA algorithm to traverse grid until hit.
+ * @param eng Pointer to engine structure.
+ * @param ray Pointer to ray structure.
+ */
 void	perform_dda(t_engine *eng, t_ray *ray)
 {
 	while (!ray->hit)

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:30:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 #include "constants.h"
 #include "shared.h"
 
+/**
+ * Calculates fog intensity based on distance.
+ * @param distance Distance from player.
+ * @return Shade intensity (0.0-1.0).
+ * @note Uses smooth step function for fog transition.
+ */
 float	calculate_distance_shade(double distance)
 {
 	float	fog_factor;
@@ -32,6 +38,12 @@ float	calculate_distance_shade(double distance)
 	return (1.0f - smooth_factor * (1.0f - FOG_MIN_INTENSITY));
 }
 
+/**
+ * Applies distance-based fog shading to color.
+ * @param color Original RGBA color.
+ * @param distance Distance from player.
+ * @return Shaded color with fog applied.
+ */
 uint32_t	apply_distance_shading(uint32_t color, double distance)
 {
 	float	intensity;

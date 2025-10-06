@@ -6,13 +6,17 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:23:52 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 17:59:29 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:48:36 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include <stdlib.h>
 
+/**
+ * Frees string and sets pointer to NULL.
+ * @param s Pointer to string pointer.
+ */
 static void	free_str(char **s)
 {
 	if (*s)
@@ -22,6 +26,10 @@ static void	free_str(char **s)
 	}
 }
 
+/**
+ * Frees map grid 2D array.
+ * @param cfg Pointer to configuration structure.
+ */
 static void	free_map_grid(t_config *cfg)
 {
 	int	i;
@@ -39,6 +47,10 @@ static void	free_map_grid(t_config *cfg)
 	}
 }
 
+/**
+ * Frees all allocated memory in configuration.
+ * @param cfg Pointer to configuration structure.
+ */
 void	free_config(t_config *cfg)
 {
 	if (!cfg)

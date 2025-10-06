@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 19:05:28 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:31:38 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,61 +20,77 @@
 # include <MLX42/MLX42.h>
 # include <stdint.h>
 
+/**
+ * @struct s_door
+ * @brief Interactive door entity state.
+ */
 typedef struct s_door
 {
-	int		x;
-	int		y;
-	int		is_open;
-	double	offset;
+	int		x;			/**< Door map X coordinate. */
+	int		y;			/**< Door map Y coordinate. */
+	int		is_open;	/**< Door open state flag. */
+	double	offset;		/**< Opening animation offset [0, 1]. */
 }			t_door;
 
+/**
+ * @struct s_doors_manager
+ * @brief Manages all doors in the scene.
+ */
 typedef struct s_doors_manager
 {
-	t_door	*list;
-	int		count;
+	t_door	*list;	/**< Array of door entities. */
+	int		count;	/**< Total door count. */
 }			t_doors_manager;
 
+/**
+ * @struct s_textures_bundle
+ * @brief Collection of loaded game textures.
+ */
 typedef struct s_textures_bundle
 {
-	mlx_texture_t		*door;
-	mlx_texture_t		*west;
-	mlx_texture_t		*east;
-	mlx_texture_t		*floor;
-	mlx_texture_t		*north;
-	mlx_texture_t		*south;
-	mlx_texture_t		*ceiling;
-	mlx_texture_t		*menu;
+	mlx_texture_t		*door;		/**< Door texture. */
+	mlx_texture_t		*west;		/**< West wall texture. */
+	mlx_texture_t		*east;		/**< East wall texture. */
+	mlx_texture_t		*floor;		/**< Floor texture. */
+	mlx_texture_t		*north;		/**< North wall texture. */
+	mlx_texture_t		*south;		/**< South wall texture. */
+	mlx_texture_t		*ceiling;	/**< Ceiling texture. */
+	mlx_texture_t		*menu;		/**< Menu overlay texture. */
 }						t_textures_bundle;
 
+/**
+ * @struct s_engine
+ * @brief Main game engine state container.
+ */
 typedef struct s_engine
 {
-	mlx_t				*mlx;
-	mlx_image_t			*frame;
-	mlx_image_t			*cursor;
-	t_player			player;
-	t_textures_bundle	tex;
-	char				**map;
-	int					map_width;
-	int					map_height;
-	int					window_width;
-	int					window_height;
-	uint32_t			ceiling_color;
-	uint32_t			floor_color;
-	int					minimap_visible;
-	int					minimap_scale;
-	int					minimap_toggle;
-	int					**explored_map;
-	int					fullmap_visible;
-	int					fullmap_toggle;
-	int					ignore_doors;
-	t_doors_manager		doors;
-	int					menu_visible;
-	int					menu_toggle;
-	int					fullscreen;
-	t_sprite_manager	sprites;
-	char				*sprite_chars;
-	double				*z_buffer;
-	t_weapon_system		weapon;
+	mlx_t				*mlx;				/**< MLX42 instance. */
+	mlx_image_t			*frame;				/**< Frame buffer image. */
+	mlx_image_t			*cursor;			/**< Crosshair cursor image. */
+	t_player			player;				/**< Player state. */
+	t_textures_bundle	tex;				/**< Loaded textures. */
+	char				**map;				/**< Map grid array. */
+	int					map_width;			/**< Map width in tiles. */
+	int					map_height;			/**< Map height in tiles. */
+	int					window_width;		/**< Window width in pixels. */
+	int					window_height;		/**< Window height in pixels. */
+	uint32_t			ceiling_color;		/**< Ceiling RGBA color. */
+	uint32_t			floor_color;		/**< Floor RGBA color. */
+	int					minimap_visible;	/**< Minimap visible flag. */
+	int					minimap_scale;		/**< Minimap zoom level. */
+	int					minimap_toggle;		/**< Minimap toggle debounce. */
+	int					**explored_map;		/**< Fog of war grid. */
+	int					fullmap_visible;	/**< Full map visible flag. */
+	int					fullmap_toggle;		/**< Full map toggle debounce. */
+	int					ignore_doors;		/**< Door collision ignore flag. */
+	t_doors_manager		doors;				/**< Door manager. */
+	int					menu_visible;		/**< Menu overlay visible flag. */
+	int					menu_toggle;		/**< Menu toggle debounce. */
+	int					fullscreen;			/**< Fullscreen mode flag. */
+	t_sprite_manager	sprites;			/**< Sprite manager. */
+	char				*sprite_chars;		/**< Valid sprite characters. */
+	double				*z_buffer;			/**< Depth buffer for sprites. */
+	t_weapon_system		weapon;				/**< Weapon system. */
 }						t_engine;
 
 void					apply_window_scale(t_engine *eng);

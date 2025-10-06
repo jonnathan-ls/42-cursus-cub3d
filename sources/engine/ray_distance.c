@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:28 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 20:41:51 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 #include "raycast.h"
 #include <math.h>
 
+/**
+ * Calculates perpendicular wall distance for rendering.
+ * @param ray Pointer to ray structure.
+ * @param pl Pointer to player structure.
+ * @note Prevents fish-eye effect by using perpendicular distance.
+ */
 void	calculate_distances(t_ray *ray, t_player *pl)
 {
 	if (ray->side == 0)

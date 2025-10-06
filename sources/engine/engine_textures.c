@@ -6,13 +6,17 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 21:46:44 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 20:43:57 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:37:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include <MLX42/MLX42.h>
 
+/**
+ * Frees partially loaded textures on error.
+ * @param eng Pointer to engine structure.
+ */
 static void	cleanup_partial_textures(t_engine *eng)
 {
 	if (eng->tex.north)
@@ -39,6 +43,12 @@ static void	cleanup_partial_textures(t_engine *eng)
 	eng->tex.menu = NULL;
 }
 
+/**
+ * Loads all game textures from configuration.
+ * @param eng Pointer to engine structure.
+ * @param cfg Pointer to configuration structure.
+ * @return 0 on success, -1 on failure.
+ */
 int	configure_textures(t_engine *eng, t_config *cfg)
 {
 	eng->tex.north = mlx_load_png(cfg->textures.no_path);

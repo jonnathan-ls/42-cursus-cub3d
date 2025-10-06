@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 19:19:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:37:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 #include "shared.h"
 #include <MLX42/MLX42.h>
 
+/**
+ * Creates and initializes cursor image for display.
+ * @param eng Pointer to engine structure.
+ * @return 0 on success, -1 on failure.
+ */
 static int	init_cursor_image(t_engine *eng)
 {
 	uint32_t	*pixels;
@@ -39,6 +44,11 @@ static int	init_cursor_image(t_engine *eng)
 	return (0);
 }
 
+/**
+ * Initializes player position and attributes from config.
+ * @param eng Pointer to engine structure.
+ * @param cfg Pointer to configuration structure.
+ */
 static void	config_init_player(t_engine *eng, t_config *cfg)
 {
 	eng->ceiling_color = (uint32_t)cfg->ceiling_color.rgba;
@@ -58,6 +68,11 @@ static void	config_init_player(t_engine *eng, t_config *cfg)
 	set_player_direction(eng, cfg->map.player_dir);
 }
 
+/**
+ * Initializes MLX window and frame buffer.
+ * @param eng Pointer to engine structure.
+ * @return 0 on success, -1 on failure.
+ */
 static int	init_window_image(t_engine *eng)
 {
 	eng->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", 1);
@@ -78,6 +93,12 @@ static int	init_window_image(t_engine *eng)
 	return (0);
 }
 
+/**
+ * Configures basic engine settings and window.
+ * @param eng Pointer to engine structure.
+ * @param cfg Pointer to configuration structure.
+ * @return 0 on success, -1 on failure.
+ */
 static int	configure_engine_base(t_engine *eng, t_config *cfg)
 {
 	if (!eng || !cfg)
@@ -96,6 +117,12 @@ static int	configure_engine_base(t_engine *eng, t_config *cfg)
 	return (0);
 }
 
+/**
+ * Initializes complete engine with all subsystems.
+ * @param eng Pointer to engine structure.
+ * @param cfg Pointer to configuration structure.
+ * @return 0 on success, -1 on failure.
+ */
 int	configure_engine(t_engine *eng, t_config *cfg)
 {
 	if (configure_engine_base(eng, cfg) != 0)

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 19:19:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:37:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include "engine.h"
 #include <MLX42/MLX42.h>
 
+/**
+ * Adjusts window and frame size based on fullscreen mode.
+ * @param eng Pointer to engine structure.
+ */
 void	apply_window_scale(t_engine *eng)
 {
 	int32_t	monitor_width;

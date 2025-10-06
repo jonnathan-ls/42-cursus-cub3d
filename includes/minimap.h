@@ -15,40 +15,56 @@
 
 # include "engine.h"
 
+/**
+ * @struct s_minimap
+ * @brief Minimap rendering state and properties.
+ */
 typedef struct s_minimap
 {
-	int	final_scale;
-	int	left;
-	int	top;
-	int	size;
-	int	block_cell_x;
-	int	block_cell_y;
-	int	block_start_x;
-	int	block_start_y;
-	int	block_color;
+	int	final_scale;	/**< Computed scale factor for rendering. */
+	int	left;			/**< Left screen position of minimap. */
+	int	top;			/**< Top screen position of minimap. */
+	int	size;			/**< Minimap size in pixels. */
+	int	block_cell_x;	/**< Current map cell X being rendered. */
+	int	block_cell_y;	/**< Current map cell Y being rendered. */
+	int	block_start_x;	/**< Block start screen X coordinate. */
+	int	block_start_y;	/**< Block start screen Y coordinate. */
+	int	block_color;	/**< Color of current block being drawn. */
 }	t_minimap;
 
+/**
+ * @struct s_minimap_projection
+ * @brief Minimap pixel to map tile projection.
+ */
 typedef struct s_minimap_projection
 {
-	int	tile_x;
-	int	tile_y;
+	int	tile_x;	/**< Projected map tile X coordinate. */
+	int	tile_y;	/**< Projected map tile Y coordinate. */
 }	t_minimap_projection;
 
+/**
+ * @struct s_minimap_player_params
+ * @brief Player indicator rendering parameters.
+ */
 typedef struct s_minimap_player_params
 {
-	double	dx_screen;
-	double	dy_screen;
-	double	perp_x;
-	double	perp_y;
-	int		length;
-	int		half_width;
+	double	dx_screen;	/**< Player direction X in screen space. */
+	double	dy_screen;	/**< Player direction Y in screen space. */
+	double	perp_x;		/**< Perpendicular vector X for arrow width. */
+	double	perp_y;		/**< Perpendicular vector Y for arrow width. */
+	int		length;		/**< Direction arrow length in pixels. */
+	int		half_width;	/**< Half width of direction arrow. */
 }	t_minimap_player_params;
 
+/**
+ * @struct s_minimap_draw_info
+ * @brief Minimap positioning and sizing information.
+ */
 typedef struct s_minimap_draw_info
 {
-	int	left;
-	int	top;
-	int	size;
+	int	left;	/**< Left screen position. */
+	int	top;	/**< Top screen position. */
+	int	size;	/**< Minimap size in pixels. */
 }	t_minimap_draw_info;
 
 void		draw_minimap(t_engine *eng);

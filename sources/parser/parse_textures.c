@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:23 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:59:04 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+/**
+ * Removes trailing whitespace and newlines from string.
+ * @param s String to trim.
+ * @return Trimmed string.
+ */
 static char	*trim_end(char *s)
 {
 	int	len;
@@ -30,6 +35,12 @@ static char	*trim_end(char *s)
 	return (s);
 }
 
+/**
+ * Parses texture path from configuration line.
+ * @param rest Rest of line after identifier.
+ * @param dst_path Pointer to store texture path.
+ * @return 0 on success, -1 on failure.
+ */
 int	parse_texture(char *rest, char **dst_path)
 {
 	int	fd;

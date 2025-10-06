@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:01:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 20:45:55 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 #include "parser.h"
 #include "shared.h"
 
+/**
+ * @brief Parses a single texture path and stores it in the destination.
+ *
+ * Checks for duplicate texture definitions and delegates parsing to
+ * the parse_texture function.
+ *
+ * @param rest String containing texture path.
+ * @param dst Pointer to store the texture path.
+ * @param name Name of the texture for error reporting.
+ * @return 0 on success, -1 on failure.
+ */
 static int	parse_single_texture(char *rest, char **dst, char *name)
 {
 	if (*dst)
@@ -25,6 +36,16 @@ static int	parse_single_texture(char *rest, char **dst, char *name)
 	return (parse_texture(rest, dst));
 }
 
+/**
+ * @brief Handles parsing of texture lines based on identifier.
+ *
+ * Identifies the texture type from the two-character identifier and
+ * delegates to parse_single_texture or parse_sprite_texture.
+ *
+ * @param id Pointer to identifier string.
+ * @param cfg Configuration structure to update.
+ * @return 0 on success, -1 on failure.
+ */
 static int	handle_texture_line(char *id, t_config *cfg)
 {
 	char	*rest;
@@ -53,6 +74,16 @@ static int	handle_texture_line(char *id, t_config *cfg)
 	return (parser_error("invalid texture identifier"));
 }
 
+/**
+ * @brief Handles parsing of color lines (F or C).
+ *
+ * Extracts and parses RGB values for floor or ceiling colors, checking
+ * for duplicates before storing in the configuration structure.
+ *
+ * @param id Pointer to identifier string.
+ * @param cfg Configuration structure to update.
+ * @return 0 on success, -1 on failure.
+ */
 static int	handle_color_line(char *id, t_config *cfg)
 {
 	char	*rest;
@@ -79,6 +110,17 @@ static int	handle_color_line(char *id, t_config *cfg)
 	return (0);
 }
 
+/**
+ * @brief Parses texture path lines for mandatory and optional textures.
+ *
+ * Identifies whether the line represents a mandatory texture (NO, SO,
+ * WE, EA) or optional texture (FT, CT, DR, MN, SP) and processes it.
+ *
+ * @param id Pointer to identifier string.
+ * @param cfg Configuration structure to update.
+ * @param count_done Pointer to mandatory texture count.
+ * @return 0 if processed, 1 if not a texture line, -1 on failure.
+ */
 static int	parse_texture_paths(char *id, t_config *cfg, int *count_done)
 {
 	if ((id[0] == 'N' && id[1] == 'O') || (id[0] == 'S' && id[1] == 'O')
@@ -100,6 +142,18 @@ static int	parse_texture_paths(char *id, t_config *cfg, int *count_done)
 	return (1);
 }
 
+/**
+ * @brief Parses a single header line (texture or color).
+ *
+ * Identifies the line type and delegates to the appropriate parser.
+ * Returns -2 if the line does not match any known header format,
+ * indicating the start of the map section.
+ *
+ * @param line Line to parse.
+ * @param cfg Configuration structure to update.
+ * @param count_done Pointer to mandatory header count.
+ * @return 0 on success, -1 on error, -2 if map section detected.
+ */
 int	parse_header_line(char *line, t_config *cfg, int *count_done)
 {
 	char	*id;

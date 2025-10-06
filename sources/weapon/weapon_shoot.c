@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 15:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 17:17:02 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:24:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 #include "weapon.h"
 #include <MLX42/MLX42.h>
 
+/**
+ * @brief Finds first inactive projectile slot in pool.
+ *
+ * @param weapon Weapon system containing projectile array.
+ * @return Index of free projectile, or -1 if none available.
+ */
 static int	find_free_projectile(t_weapon_system *weapon)
 {
 	int	i;
@@ -28,6 +34,12 @@ static int	find_free_projectile(t_weapon_system *weapon)
 	return (-1);
 }
 
+/**
+ * @brief Creates and activates a projectile from player position.
+ *
+ * @param eng Engine structure containing player and weapon data.
+ * @param index Index in projectile array to activate.
+ */
 static void	create_projectile(t_engine *eng, int index)
 {
 	double	offset;
@@ -44,6 +56,11 @@ static void	create_projectile(t_engine *eng, int index)
 	eng->weapon.projectiles[index].anim_timer = 0.0;
 }
 
+/**
+ * @brief Handles weapon shooting on mouse click with cooldown.
+ *
+ * @param param Engine structure cast from void pointer.
+ */
 void	handle_weapon_shoot(void *param)
 {
 	t_engine	*eng;

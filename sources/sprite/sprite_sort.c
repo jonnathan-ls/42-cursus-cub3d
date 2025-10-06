@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 01:50:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 19:02:59 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:24:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "sprite.h"
 #include "shared.h"
 
+/**
+ * @brief Calculates distance from each sprite to the player.
+ *
+ * @param eng Engine structure containing sprites and player position.
+ */
 static void	calculate_distances(t_engine *eng)
 {
 	int		i;
@@ -31,6 +36,13 @@ static void	calculate_distances(t_engine *eng)
 	}
 }
 
+/**
+ * @brief Swaps two elements in the sprite order array.
+ *
+ * @param order Sprite order array.
+ * @param i First index.
+ * @param j Second index.
+ */
 static void	swap_order(int *order, int i, int j)
 {
 	int	temp;
@@ -40,6 +52,11 @@ static void	swap_order(int *order, int i, int j)
 	order[j] = temp;
 }
 
+/**
+ * @brief Sorts sprites by distance from player (far to near).
+ *
+ * @param eng Engine structure containing sprite list and order array.
+ */
 static void	sort_by_distance(t_engine *eng)
 {
 	int	i;
@@ -64,6 +81,11 @@ static void	sort_by_distance(t_engine *eng)
 	}
 }
 
+/**
+ * @brief Sorts all sprites by distance for proper depth rendering.
+ *
+ * @param param Engine structure cast from void pointer.
+ */
 void	sprite_sorting(void *param)
 {
 	t_engine	*eng;

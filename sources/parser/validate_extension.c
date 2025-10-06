@@ -6,13 +6,18 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:49 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/28 18:37:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:48:36 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parser.h"
 
+/**
+ * Validates that file has .cub extension.
+ * @param path File path to validate.
+ * @return 0 if valid, -1 otherwise.
+ */
 int	validate_file_extension(const char *path)
 {
 	int	len;

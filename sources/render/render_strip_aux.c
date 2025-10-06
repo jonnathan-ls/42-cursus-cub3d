@@ -15,6 +15,12 @@
 #include "constants.h"
 #include "shared.h"
 
+/**
+ * Applies shading intensity to RGBA color.
+ * @param color Original color value.
+ * @param intensity Shading intensity (0.0-1.0).
+ * @return Shaded color value.
+ */
 static uint32_t	apply_shading(uint32_t color, float intensity)
 {
 	uint8_t	red;
@@ -32,6 +38,13 @@ static uint32_t	apply_shading(uint32_t color, float intensity)
 	return (build_rgba_color(red, green, blue, alpha));
 }
 
+/**
+ * Combines distance and side shading on color.
+ * @param col Original color value.
+ * @param side Wall side (0 for X, 1 for Y).
+ * @param distance Distance from player to wall.
+ * @return Final shaded color.
+ */
 static uint32_t	shade_with_distance(uint32_t col, int side, double distance)
 {
 	float	distance_shade;
@@ -47,6 +60,14 @@ static uint32_t	shade_with_distance(uint32_t col, int side, double distance)
 	return (apply_shading(col, final_intensity));
 }
 
+/**
+ * Gets texture pixel with shading applied.
+ * @param tex Pointer to texture.
+ * @param tx Texture X coordinate.
+ * @param pos Texture Y position (can be fractional).
+ * @param ray Pointer to ray for shading calculation.
+ * @return Shaded pixel color.
+ */
 uint32_t	shaded_pixel_from_pos(
 	mlx_texture_t *tex, int tx, double pos, t_ray *ray)
 {

@@ -16,6 +16,15 @@
 #include "shared.h"
 #include <MLX42/MLX42.h>
 
+/**
+ * @brief Handles minimap zoom based on keyboard input.
+ *
+ * Monitors + and - keys (including numpad) to increase or decrease the
+ * minimap scale within defined limits, applying cooldown to prevent
+ * rapid changes.
+ *
+ * @param eng Engine structure containing minimap scale and input state.
+ */
 void	handle_minimap_zoom(t_engine *eng)
 {
 	int	delta;
@@ -35,6 +44,14 @@ void	handle_minimap_zoom(t_engine *eng)
 	eng->minimap_scale = eng->minimap_scale + delta;
 }
 
+/**
+ * @brief Toggles minimap visibility on M key press.
+ *
+ * Detects M key press and toggles the minimap_visible flag, using a
+ * toggle flag to prevent rapid state changes from continuous key press.
+ *
+ * @param eng Engine structure containing minimap visibility state.
+ */
 void	handle_minimap_view(t_engine *eng)
 {
 	int	key_pressed;
@@ -47,6 +64,16 @@ void	handle_minimap_view(t_engine *eng)
 	eng->minimap_toggle = key_pressed;
 }
 
+/**
+ * @brief Computes minimap display parameters based on window size.
+ *
+ * Calculates the final scale, position, and dimensions of the minimap
+ * based on the available square size, player scale, and defined limits.
+ *
+ * @param eng Engine structure containing window dimensions and scale.
+ * @param map Minimap structure to populate with computed values.
+ * @param square_size Size of the minimap square.
+ */
 static void	compute_minimap_context(t_engine *eng,
 		t_minimap *map, int square_size)
 {
@@ -71,6 +98,14 @@ static void	compute_minimap_context(t_engine *eng,
 	map->size = square_size;
 }
 
+/**
+ * @brief Draws the minimap overlay on the frame.
+ *
+ * Computes minimap size and position, draws the frame, background, map
+ * pixels, and player indicator if minimap is visible.
+ *
+ * @param eng Engine structure containing frame, map, and display state.
+ */
 void	draw_minimap(t_engine *eng)
 {
 	int					square_size;
@@ -92,6 +127,14 @@ void	draw_minimap(t_engine *eng)
 	draw_minimap_player(eng, &info);
 }
 
+/**
+ * @brief Initializes minimap configuration and state.
+ *
+ * Sets default scale, visibility, toggle flags for minimap and fullmap,
+ * and initializes the exploration tracking system.
+ *
+ * @param eng Engine structure to configure.
+ */
 void	configure_minimap(t_engine *eng)
 {
 	if (!eng)

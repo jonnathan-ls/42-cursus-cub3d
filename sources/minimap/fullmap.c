@@ -16,6 +16,17 @@
 #include "shared.h"
 #include <MLX42/MLX42.h>
 
+/**
+ * @brief Determines the color of a full map cell based on its type.
+ *
+ * Returns appropriate color for walls, doors, floors, or fog of war
+ * depending on cell position, map content, and exploration state.
+ *
+ * @param eng Engine structure containing map and exploration data.
+ * @param map_x X coordinate of the map cell.
+ * @param map_y Y coordinate of the map cell.
+ * @return Color value for the cell.
+ */
 static int	get_full_map_cell_color(t_engine *eng, int map_x, int map_y)
 {
 	int	color;
@@ -38,6 +49,16 @@ static int	get_full_map_cell_color(t_engine *eng, int map_x, int map_y)
 	return (color);
 }
 
+/**
+ * @brief Draws a single cell of the full map overlay.
+ *
+ * Computes screen coordinates for the cell, determines its color, and
+ * fills the corresponding screen area with that color.
+ *
+ * @param eng Engine structure containing map and frame buffer.
+ * @param map_x X coordinate of the map cell.
+ * @param map_y Y coordinate of the map cell.
+ */
 static void	draw_full_map_cell(t_engine *eng, int map_x, int map_y)
 {
 	int	start_x;
@@ -66,6 +87,14 @@ static void	draw_full_map_cell(t_engine *eng, int map_x, int map_y)
 	}
 }
 
+/**
+ * @brief Draws the player indicator on the full map.
+ *
+ * Computes player screen position and draws a colored square around the
+ * player's location on the full map overlay.
+ *
+ * @param eng Engine structure containing player position and frame.
+ */
 static void	draw_player_on_full_map(t_engine *eng)
 {
 	int	center_x;
@@ -95,6 +124,14 @@ static void	draw_player_on_full_map(t_engine *eng)
 	}
 }
 
+/**
+ * @brief Toggles full map view on R key press.
+ *
+ * Detects R key press and toggles the fullmap_visible flag, using a
+ * toggle flag to prevent rapid state changes from continuous key press.
+ *
+ * @param eng Engine structure containing fullmap visibility state.
+ */
 void	handle_fullmap_view(t_engine *eng)
 {
 	int	key_pressed;
@@ -107,6 +144,14 @@ void	handle_fullmap_view(t_engine *eng)
 	eng->fullmap_toggle = key_pressed;
 }
 
+/**
+ * @brief Renders the full map overlay covering the entire screen.
+ *
+ * Iterates through all map cells, draws each cell with appropriate
+ * color, and places the player indicator if fullmap is visible.
+ *
+ * @param eng Engine structure containing map, frame, and visibility.
+ */
 void	draw_full_map(t_engine *eng)
 {
 	int	map_col;

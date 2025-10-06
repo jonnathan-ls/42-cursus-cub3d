@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 23:07:43 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 #include "parser.h"
 #include <stdlib.h>
 
+/**
+ * @brief Grows the lines array to accommodate one more element.
+ *
+ * Allocates a new array with space for one additional line, copies
+ * existing pointers, and frees the old array.
+ *
+ * @param old Current lines array.
+ * @param old_count Number of lines in the current array.
+ * @return New array on success, NULL on failure.
+ */
 static char	**grow_lines(char **old, int old_count)
 {
 	char	**new_arr;
@@ -33,6 +43,14 @@ static char	**grow_lines(char **old, int old_count)
 	return (new_arr);
 }
 
+/**
+ * @brief Removes trailing newline character from a string.
+ *
+ * Checks if the last character of the string is a newline and replaces
+ * it with a null terminator.
+ *
+ * @param line String to strip.
+ */
 static void	strip_newline(char *line)
 {
 	int	len;
@@ -44,6 +62,17 @@ static void	strip_newline(char *line)
 		line[len - 1] = '\0';
 }
 
+/**
+ * @brief Appends a line to the lines array.
+ *
+ * Strips the trailing newline from the line, grows the array to
+ * accommodate the new line, and appends it to the array.
+ *
+ * @param lines Pointer to the lines array.
+ * @param count Pointer to the line count.
+ * @param line Line to append.
+ * @return 0 on success, -1 on failure.
+ */
 static int	append_line(char ***lines, int *count, char *line)
 {
 	char	**tmp;
@@ -60,6 +89,17 @@ static int	append_line(char ***lines, int *count, char *line)
 	return (0);
 }
 
+/**
+ * @brief Reads additional map lines from file until blank line.
+ *
+ * Continuously reads lines from the file descriptor, appending each
+ * non-empty line to the lines array. Stops on blank line or EOF.
+ *
+ * @param fd File descriptor to read from.
+ * @param lines Pointer to the lines array.
+ * @param count Pointer to the line count.
+ * @return 0 on success, -1 on failure.
+ */
 static int	read_more(int fd, char ***lines, int *count)
 {
 	char	*line;
@@ -80,6 +120,18 @@ static int	read_more(int fd, char ***lines, int *count)
 	return (0);
 }
 
+/**
+ * @brief Collects all map lines into a raw map structure.
+ *
+ * Initializes the lines array, appends the first map line, then reads
+ * additional lines from the file. Populates the map structure with the
+ * collected grid and dimensions.
+ *
+ * @param fd File descriptor to read from.
+ * @param first_map_line First line of the map.
+ * @param map_raw Map structure to populate.
+ * @return 0 on success, -1 on failure.
+ */
 int	collect_map(int fd, char *first_map_line, t_map *map_raw)
 {
 	char	**lines;

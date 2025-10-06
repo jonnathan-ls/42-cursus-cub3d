@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:17 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 #include "constants.h"
 #include <math.h>
 
+/**
+ * Initializes ray structure for casting at screen column.
+ * @param eng Pointer to engine structure.
+ * @param ray Pointer to ray structure.
+ * @param x Screen column index.
+ */
 void	configure_raycast_initialization(t_engine *eng, t_ray *ray, int x)
 {
 	double	width;
@@ -30,6 +36,11 @@ void	configure_raycast_initialization(t_engine *eng, t_ray *ray, int x)
 	ray->hit_type = '0';
 }
 
+/**
+ * Calculates ray direction vector from player orientation.
+ * @param ray Pointer to ray structure.
+ * @param pl Pointer to player structure.
+ */
 void	calculate_raycast_direction(t_ray *ray, t_player *pl)
 {
 	ray->ray_dir_x = pl->dir_x + pl->plane_x * ray->cam_x;

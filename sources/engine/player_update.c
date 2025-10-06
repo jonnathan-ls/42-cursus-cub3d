@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:09 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:39:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 #include <math.h>
 #include "constants.h"
 
+/**
+ * Checks if position contains a wall or closed door.
+ * @param eng Pointer to engine structure.
+ * @param x X coordinate to check.
+ * @param y Y coordinate to check.
+ * @return 1 if wall, 0 otherwise.
+ */
 static int	is_wall_at(t_engine *eng, double x, double y)
 {
 	int	map_x;
@@ -40,6 +47,13 @@ static int	is_wall_at(t_engine *eng, double x, double y)
 	return (0);
 }
 
+/**
+ * Checks collision with walls considering buffer zone.
+ * @param eng Pointer to engine structure.
+ * @param x X coordinate to check.
+ * @param y Y coordinate to check.
+ * @return 1 if collision detected, 0 otherwise.
+ */
 static int	has_collision(t_engine *eng, double x, double y)
 {
 	if (is_wall_at(eng, x - COLLISION_BUFFER, y))
@@ -57,6 +71,12 @@ static int	has_collision(t_engine *eng, double x, double y)
 	return (0);
 }
 
+/**
+ * Applies player movement with wall sliding.
+ * @param eng Pointer to engine structure.
+ * @param sx X direction component.
+ * @param sy Y direction component.
+ */
 static void	apply_movement_with_direction(t_engine *eng, double sx, double sy)
 {
 	double	new_x;
@@ -80,6 +100,11 @@ static void	apply_movement_with_direction(t_engine *eng, double sx, double sy)
 		eng->player.pos_y = new_y;
 }
 
+/**
+ * Handles player strafing movement left or right.
+ * @param eng Pointer to engine structure.
+ * @param sign Direction multiplier (-1 left, 1 right).
+ */
 static void	strafe(t_engine *eng, double sign)
 {
 	double	new_x;
@@ -105,6 +130,10 @@ static void	strafe(t_engine *eng, double sign)
 		eng->player.pos_y = new_y;
 }
 
+/**
+ * Processes WASD keys for player movement.
+ * @param eng Pointer to engine structure.
+ */
 void	handle_player_movement(t_engine *eng)
 {
 	double	delta_time;

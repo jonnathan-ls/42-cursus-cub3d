@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 12:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 21:25:14 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:13:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 #include "shared.h"
 #include "constants.h"
 
+/**
+ * @brief Finds the texture index for a given sprite type character.
+ *
+ * Searches through the sprite_chars array to locate the index matching
+ * the provided type character.
+ *
+ * @param eng Engine structure containing sprite character mappings.
+ * @param type Character representing the sprite type.
+ * @return Index of the sprite type, or 0 if not found.
+ */
 static int	find_type_index(t_engine *eng, char type)
 {
 	int	i;
@@ -31,6 +41,16 @@ static int	find_type_index(t_engine *eng, char type)
 	return (0);
 }
 
+/**
+ * @brief Initializes sprite position and default attribute values.
+ *
+ * Sets sprite world coordinates with center offset and initializes all
+ * animation, health, and movement attributes to default values.
+ *
+ * @param sprite Sprite structure to initialize.
+ * @param pos_x Grid X coordinate of the sprite.
+ * @param pos_y Grid Y coordinate of the sprite.
+ */
 static void	set_sprite_position(t_sprite *sprite, int pos_x, int pos_y)
 {
 	sprite->x = (double)pos_x + SPRITE_CENTER_OFFSET;
@@ -48,6 +68,16 @@ static void	set_sprite_position(t_sprite *sprite, int pos_x, int pos_y)
 	sprite->move_speed = SPRITE_MOVE_SPEED;
 }
 
+/**
+ * @brief Sets sprite type-specific data from configuration.
+ *
+ * Assigns sprite type, frame count, and health based on the sprite
+ * configuration at the specified index.
+ *
+ * @param eng Engine structure containing sprite configurations.
+ * @param sprite Sprite structure to configure.
+ * @param index Configuration index for this sprite type.
+ */
 static void	set_sprite_type_data(t_engine *eng, t_sprite *sprite, int index)
 {
 	sprite->type_index = index;
@@ -65,6 +95,17 @@ static void	set_sprite_type_data(t_engine *eng, t_sprite *sprite, int index)
 		sprite->frame_count = 1;
 }
 
+/**
+ * @brief Adds a sprite to the sprite list at the current index.
+ *
+ * Finds the sprite type index, initializes position and type data, then
+ * increments the index for the next sprite.
+ *
+ * @param eng Engine structure containing sprite list.
+ * @param idx Pointer to current index in sprite list.
+ * @param pos Array containing X and Y grid coordinates.
+ * @param type Character representing the sprite type.
+ */
 void	add_sprite_to_list(t_engine *eng, int *idx, int pos[2], char type)
 {
 	int	type_index;

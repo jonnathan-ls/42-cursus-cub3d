@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:18 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 23:07:43 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 #include "parser.h"
 #include <stdlib.h>
 
+/**
+ * @brief Parses and validates a single RGB color component.
+ *
+ * Extracts a numeric value from the input string, validates that it
+ * contains only digits, and ensures the value is within [0-255] range.
+ *
+ * @param s String containing the color component.
+ * @param out Pointer to store the parsed value.
+ * @return 0 on success, -1 on failure.
+ */
 static int	parse_component(char *s, int *out)
 {
 	int	val;
@@ -40,6 +50,14 @@ static int	parse_component(char *s, int *out)
 	return (0);
 }
 
+/**
+ * @brief Frees an array of strings and the array itself.
+ *
+ * Iterates through the string array, freeing each element, then frees
+ * the array pointer.
+ *
+ * @param parts Array of strings to free.
+ */
 static void	free_parts(char **parts)
 {
 	int	i;
@@ -50,6 +68,15 @@ static void	free_parts(char **parts)
 	free(parts);
 }
 
+/**
+ * @brief Validates that a color specification has exactly 3 components.
+ *
+ * Counts the number of parts in the split string and verifies that
+ * exactly 3 components (R, G, B) are present.
+ *
+ * @param parts Array of strings representing color components.
+ * @return 0 if valid, -1 otherwise.
+ */
 static int	validate_part_count(char **parts)
 {
 	int	count;
@@ -62,6 +89,16 @@ static int	validate_part_count(char **parts)
 	return (0);
 }
 
+/**
+ * @brief Parses R, G, B components and computes the RGBA value.
+ *
+ * Extracts red, green, and blue values from the parts array, validates
+ * each component, and constructs the final RGBA integer value.
+ *
+ * @param parts Array of strings containing R, G, B values.
+ * @param dst Color structure to populate.
+ * @return 0 on success, -1 on failure.
+ */
 static int	parse_components(char **parts, t_color *dst)
 {
 	if (parse_component(parts[0], &dst->r) < 0)
@@ -74,6 +111,16 @@ static int	parse_components(char **parts, t_color *dst)
 	return (0);
 }
 
+/**
+ * @brief Parses a color specification string into a color structure.
+ *
+ * Expects a comma-separated RGB format "R,G,B". Splits the input,
+ * validates component count, and extracts each color value.
+ *
+ * @param rest String containing color specification.
+ * @param dst Color structure to populate.
+ * @return 0 on success, -1 on failure.
+ */
 int	parse_color(char *rest, t_color *dst)
 {
 	char	**parts;

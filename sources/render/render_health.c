@@ -6,12 +6,17 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 12:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 13:39:25 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 
+/**
+ * Returns color based on health percentage.
+ * @param health Player health value (0-100).
+ * @return RGBA color (green, yellow, or red).
+ */
 static uint32_t	get_health_color(int health)
 {
 	if (health > 60)
@@ -22,6 +27,13 @@ static uint32_t	get_health_color(int health)
 		return (0xFFFF0000);
 }
 
+/**
+ * Fills one horizontal line of health bar.
+ * @param pixels Frame pixel buffer.
+ * @param y Y coordinate of line.
+ * @param w Window width.
+ * @param params Array with bar width, window width, health.
+ */
 static void	fill_bar_line(uint32_t *pixels, int y, int w, int params[3])
 {
 	int			x;
@@ -39,6 +51,12 @@ static void	fill_bar_line(uint32_t *pixels, int y, int w, int params[3])
 	}
 }
 
+/**
+ * Draws filled portion of health bar.
+ * @param pixels Frame pixel buffer.
+ * @param width Window width.
+ * @param health Player health value (0-100).
+ */
 static void	draw_health_bar_fill(uint32_t *pixels, int width, int health)
 {
 	int	y;
@@ -55,6 +73,11 @@ static void	draw_health_bar_fill(uint32_t *pixels, int width, int health)
 	}
 }
 
+/**
+ * Draws white border around health bar.
+ * @param pixels Frame pixel buffer.
+ * @param width Window width.
+ */
 static void	draw_health_bar_border(uint32_t *pixels, int width)
 {
 	int	x;
@@ -74,6 +97,10 @@ static void	draw_health_bar_border(uint32_t *pixels, int width)
 	}
 }
 
+/**
+ * Renders player health bar in top-left corner.
+ * @param eng Pointer to engine structure.
+ */
 void	draw_health_bar(t_engine *eng)
 {
 	uint32_t	*pixels;

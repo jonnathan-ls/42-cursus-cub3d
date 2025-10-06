@@ -6,13 +6,18 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 15:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 17:58:44 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:24:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "weapon.h"
 
+/**
+ * @brief Advances weapon animation to next frame with looping.
+ *
+ * @param eng Engine structure containing weapon animation data.
+ */
 static void	advance_weapon_frame(t_engine *eng)
 {
 	eng->weapon.current_weapon_frame++;
@@ -21,6 +26,12 @@ static void	advance_weapon_frame(t_engine *eng)
 	eng->weapon.weapon_anim_timer = 0.0;
 }
 
+/**
+ * @brief Updates weapon animation timer and advances frames.
+ *
+ * @param eng Engine structure containing weapon animation data.
+ * @param delta Delta time for frame-independent animation.
+ */
 static void	update_weapon_anim(t_engine *eng, double delta)
 {
 	eng->weapon.weapon_anim_timer += delta;
@@ -28,6 +39,12 @@ static void	update_weapon_anim(t_engine *eng, double delta)
 		advance_weapon_frame(eng);
 }
 
+/**
+ * @brief Advances projectile animation to next frame with looping.
+ *
+ * @param eng Engine structure containing projectile animation data.
+ * @param proj Projectile to advance animation for.
+ */
 static void	advance_projectile_frame(t_engine *eng, t_projectile *proj)
 {
 	proj->current_frame++;
@@ -36,6 +53,13 @@ static void	advance_projectile_frame(t_engine *eng, t_projectile *proj)
 	proj->anim_timer = 0.0;
 }
 
+/**
+ * @brief Moves projectile and deactivates on wall collision.
+ *
+ * @param eng Engine structure containing map data.
+ * @param proj Projectile to move.
+ * @param delta Delta time for frame-independent movement.
+ */
 static void	move_projectile(t_engine *eng, t_projectile *proj, double delta)
 {
 	proj->x += proj->dir_x * proj->speed * delta;
@@ -47,6 +71,12 @@ static void	move_projectile(t_engine *eng, t_projectile *proj, double delta)
 		proj->active = 0;
 }
 
+/**
+ * @brief Updates all active projectiles and weapon animation.
+ *
+ * @param param Engine structure cast from void pointer.
+ * @param delta Delta time for frame-independent updates.
+ */
 void	update_projectiles(void *param, double delta)
 {
 	t_engine	*eng;

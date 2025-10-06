@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 21:49:37 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:13:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@
 #include "shared.h"
 #include <math.h>
 
+/**
+ * @brief Calculates sprite transformation relative to player view.
+ *
+ * Computes sprite position in camera space and screen projection using
+ * inverse determinant of camera matrix.
+ *
+ * @param eng Engine structure with player position and orientation.
+ * @param sprite Sprite to transform.
+ * @param render Render structure to populate with transformation data.
+ */
 void	calculate_transform(t_engine *eng, t_sprite *sprite,
 	t_sprite_render *render)
 {
@@ -31,6 +41,15 @@ void	calculate_transform(t_engine *eng, t_sprite *sprite,
 			* (1 + render->transform_x / render->transform_y));
 }
 
+/**
+ * @brief Calculates sprite screen height and vertical draw bounds.
+ *
+ * Computes sprite height based on distance, applies pitch adjustment,
+ * and determines vertical start and end positions for rendering.
+ *
+ * @param eng Engine structure with window dimensions and player pitch.
+ * @param render Render structure to populate with height data.
+ */
 void	calculate_height(t_engine *eng, t_sprite_render *render)
 {
 	int		height;
@@ -50,6 +69,15 @@ void	calculate_height(t_engine *eng, t_sprite_render *render)
 		render->draw_end_y = eng->window_height - TEXTURE_CLAMP_ONE;
 }
 
+/**
+ * @brief Calculates sprite screen width and horizontal draw bounds.
+ *
+ * Computes sprite width based on distance and determines horizontal
+ * start and end positions for rendering with screen boundary clamping.
+ *
+ * @param eng Engine structure with window width.
+ * @param render Render structure to populate with width data.
+ */
 void	calculate_width(t_engine *eng, t_sprite_render *render)
 {
 	int	width;
@@ -64,6 +92,17 @@ void	calculate_width(t_engine *eng, t_sprite_render *render)
 		render->draw_end_x = eng->window_width - TEXTURE_CLAMP_ONE;
 }
 
+/**
+ * @brief Validates if sprite should be drawn at given screen column.
+ *
+ * Checks if the screen X coordinate is valid and if sprite depth is
+ * closer than wall depth in Z-buffer.
+ *
+ * @param eng Engine structure containing Z-buffer.
+ * @param render Render structure with depth information.
+ * @param x Screen column to validate.
+ * @return 1 if sprite should be drawn, 0 otherwise.
+ */
 int	validate_depth(t_engine *eng, t_sprite_render *render, int x)
 {
 	if (!eng->z_buffer)

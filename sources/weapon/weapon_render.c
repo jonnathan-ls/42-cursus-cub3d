@@ -6,13 +6,21 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 15:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 17:04:34 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:24:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "weapon.h"
 
+/**
+ * @brief Extracts RGBA pixel from texture at specified coordinates.
+ *
+ * @param tex Texture to extract pixel from.
+ * @param x X coordinate of pixel.
+ * @param y Y coordinate of pixel.
+ * @return Packed RGBA color value.
+ */
 static uint32_t	extract_pixel(mlx_texture_t *tex, int x, int y)
 {
 	int			idx;
@@ -28,6 +36,14 @@ static uint32_t	extract_pixel(mlx_texture_t *tex, int x, int y)
 	return (color);
 }
 
+/**
+ * @brief Gets pixel from current weapon animation frame.
+ *
+ * @param eng Engine structure containing weapon data.
+ * @param x X coordinate within frame.
+ * @param y Y coordinate within frame.
+ * @return Packed RGBA color value.
+ */
 static uint32_t	get_weapon_pixel(t_engine *eng, int x, int y)
 {
 	mlx_texture_t	*tex;
@@ -40,6 +56,14 @@ static uint32_t	get_weapon_pixel(t_engine *eng, int x, int y)
 	return (extract_pixel(tex, frame_x + x, y));
 }
 
+/**
+ * @brief Draws weapon pixel to frame buffer with transparency check.
+ *
+ * @param eng Engine structure containing frame buffer.
+ * @param x Screen X coordinate.
+ * @param y Screen Y coordinate.
+ * @param color RGBA color to draw.
+ */
 static void	put_weapon_pixel(t_engine *eng, int x, int y, uint32_t color)
 {
 	int	idx;
@@ -54,6 +78,14 @@ static void	put_weapon_pixel(t_engine *eng, int x, int y, uint32_t color)
 	((uint32_t *)eng->frame->pixels)[idx] = color;
 }
 
+/**
+ * @brief Draws one horizontal row of weapon sprite.
+ *
+ * @param eng Engine structure containing weapon data.
+ * @param screen_x Screen X coordinate to start drawing.
+ * @param screen_y Screen Y coordinate to start drawing.
+ * @param row Row index in weapon texture.
+ */
 static void	draw_weapon_row(t_engine *eng, int screen_x, int screen_y, int row)
 {
 	int			col;
@@ -68,6 +100,11 @@ static void	draw_weapon_row(t_engine *eng, int screen_x, int screen_y, int row)
 	}
 }
 
+/**
+ * @brief Renders weapon sprite at bottom center of screen.
+ *
+ * @param param Engine structure cast from void pointer.
+ */
 void	render_weapon(void *param)
 {
 	t_engine	*eng;

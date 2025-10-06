@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 21:52:12 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #include "shared.h"
 #include "constants.h"
 
+/**
+ * Calculates adjusted screen center Y accounting for pitch.
+ * @param eng Pointer to engine structure.
+ * @return Center Y coordinate.
+ */
 static double	get_center_y(t_engine *eng)
 {
 	double	center_y;
@@ -27,6 +32,13 @@ static double	get_center_y(t_engine *eng)
 	return (center_y);
 }
 
+/**
+ * Draws single pixel of wall strip with door offset.
+ * @param eng Pointer to engine structure.
+ * @param ray Pointer to ray structure.
+ * @param pixel Pointer to pixel data structure.
+ * @param y Screen Y coordinate.
+ */
 static void	put_pixel_strip(
 	t_engine *eng, t_ray *ray, t_pixel *pixel, int y)
 {
@@ -45,6 +57,13 @@ static void	put_pixel_strip(
 				pixel->texture, pixel->texture_x, pixel->position, ray));
 }
 
+/**
+ * Draws complete vertical texture strip for wall.
+ * @param eng Pointer to engine structure.
+ * @param ray Pointer to ray structure.
+ * @param rng Array with start and end Y coordinates.
+ * @param tex Pointer to texture to render.
+ */
 static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 {
 	int		y;
@@ -73,6 +92,13 @@ static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 	}
 }
 
+/**
+ * Renders wall strip with ceiling and floor.
+ * @param eng Pointer to engine structure.
+ * @param ray Pointer to ray structure.
+ * @param start Starting Y coordinate.
+ * @param end Ending Y coordinate.
+ */
 void	render_wall_strip(t_engine *eng, t_ray *ray, int start, int end)
 {
 	mlx_texture_t	*tex;

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:39:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include "shared.h"
 #include "constants.h"
 
+/**
+ * Finds nearest door within interaction radius.
+ * @param eng Pointer to engine structure.
+ * @return Door index or -1 if none found.
+ */
 int	find_nearest_door_index(t_engine *eng)
 {
 	int		i;

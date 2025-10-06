@@ -6,13 +6,19 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 11:34:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:24:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "sprite.h"
 
+/**
+ * @brief Renders a single sprite to the frame buffer.
+ *
+ * @param eng Engine structure containing rendering data.
+ * @param sprite Sprite to render.
+ */
 static void	render_single_sprite(t_engine *eng, t_sprite *sprite)
 {
 	t_sprite_render	render;
@@ -36,6 +42,11 @@ static void	render_single_sprite(t_engine *eng, t_sprite *sprite)
 	}
 }
 
+/**
+ * @brief Renders all sprites in depth-sorted order.
+ *
+ * @param param Engine structure cast from void pointer.
+ */
 void	render_sprites(void *param)
 {
 	t_engine	*eng;

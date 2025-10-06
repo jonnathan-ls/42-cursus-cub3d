@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:47 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:30:21 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:31:38 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,28 @@
 # include "player.h"
 # include <stdint.h>
 
+/**
+ * @struct s_ray
+ * @brief Ray casting calculation state for a single vertical strip.
+ */
 typedef struct s_ray
 {
-	int		x;
-	int		hit;
-	int		side;
-	double	cam_x;
-	int		map_x;
-	int		map_y;
-	int		step_x;
-	int		step_y;
-	char	hit_type;
-	double	perp_dist;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
+	int		x;				/**< Current screen column being rendered. */
+	int		hit;			/**< Wall collision detected flag. */
+	int		side;			/**< Wall side hit (0=X, 1=Y axis). */
+	double	cam_x;			/**< Camera space X coordinate [-1, 1]. */
+	int		map_x;			/**< Current map grid X coordinate. */
+	int		map_y;			/**< Current map grid Y coordinate. */
+	int		step_x;			/**< DDA step direction X (-1 or 1). */
+	int		step_y;			/**< DDA step direction Y (-1 or 1). */
+	char	hit_type;		/**< Type of object hit (wall, door, etc). */
+	double	perp_dist;		/**< Perpendicular distance to wall. */
+	double	ray_dir_x;		/**< Ray direction vector X component. */
+	double	ray_dir_y;		/**< Ray direction vector Y component. */
+	double	side_dist_x;	/**< Distance to next X grid line. */
+	double	side_dist_y;	/**< Distance to next Y grid line. */
+	double	delta_dist_x;	/**< Distance between X grid lines. */
+	double	delta_dist_y;	/**< Distance between Y grid lines. */
 }			t_ray;
 
 void		setup_dda(t_ray *ray, t_player *pl);

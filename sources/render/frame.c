@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:36 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 23:46:09 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "raycast.h"
 #include "render.h"
 
+/**
+ * Renders single vertical wall strip at screen column.
+ * @param eng Pointer to engine structure.
+ * @param x Screen column index.
+ */
 static void	render_wall(t_engine *eng, int x)
 {
 	t_ray	ray;
@@ -41,6 +46,10 @@ static void	render_wall(t_engine *eng, int x)
 	render_wall_strip(eng, &ray, start, end);
 }
 
+/**
+ * Casts rays for all screen columns to render frame.
+ * @param eng Pointer to engine structure.
+ */
 void	cast_all_rays(t_engine *eng)
 {
 	int	x;

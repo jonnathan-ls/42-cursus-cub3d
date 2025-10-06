@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:39:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include "player.h"
 #include <MLX42/MLX42.h>
 
+/**
+ * Toggles door state between open and closed.
+ * @param eng Pointer to engine structure.
+ * @param door_index Index of door in doors list.
+ */
 static void	toggle_door_by_index(t_engine *eng, int door_index)
 {
 	int	is_door_open;
@@ -26,6 +31,10 @@ static void	toggle_door_by_index(t_engine *eng, int door_index)
 	}
 }
 
+/**
+ * Handles player door interaction when E key is pressed.
+ * @param eng Pointer to engine structure.
+ */
 void	handle_door_interaction(t_engine *eng)
 {
 	int	nearest_door_index;
@@ -36,6 +45,11 @@ void	handle_door_interaction(t_engine *eng)
 	toggle_door_by_index(eng, nearest_door_index);
 }
 
+/**
+ * Checks if player can interact with a door.
+ * @param eng Pointer to engine structure.
+ * @return 1 if can interact, 0 otherwise.
+ */
 int	can_interact_with_door(t_engine *eng)
 {
 	if (!eng || !mlx_is_key_down(eng->mlx, MLX_KEY_E))
@@ -43,6 +57,13 @@ int	can_interact_with_door(t_engine *eng)
 	return (check_key_press_cooldown());
 }
 
+/**
+ * Checks if door at position is currently open.
+ * @param eng Pointer to engine structure.
+ * @param x X coordinate of door.
+ * @param y Y coordinate of door.
+ * @return 1 if open, 0 otherwise.
+ */
 int	door_is_open(t_engine *eng, int x, int y)
 {
 	int	i;

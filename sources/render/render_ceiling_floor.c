@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:30:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include "raycast.h"
 #include "constants.h"
 
+/**
+ * Draws ceiling pixels above wall.
+ * @param eng Pointer to engine structure.
+ * @param x Screen column index.
+ * @param start Y coordinate where wall starts.
+ * @param ray Pointer to ray structure.
+ */
 static void	draw_ceiling_pixels(t_engine *eng, int x, int start, t_ray *ray)
 {
 	int			y;
@@ -36,6 +43,13 @@ static void	draw_ceiling_pixels(t_engine *eng, int x, int start, t_ray *ray)
 	}
 }
 
+/**
+ * Draws floor pixels below wall.
+ * @param eng Pointer to engine structure.
+ * @param x Screen column index.
+ * @param end Y coordinate where wall ends.
+ * @param ray Pointer to ray structure.
+ */
 static void	draw_floor_pixels(t_engine *eng, int x, int end, t_ray *ray)
 {
 	int			y;
@@ -57,6 +71,13 @@ static void	draw_floor_pixels(t_engine *eng, int x, int end, t_ray *ray)
 	}
 }
 
+/**
+ * Renders ceiling and floor for wall strip.
+ * @param eng Pointer to engine structure.
+ * @param ray Pointer to ray structure.
+ * @param start Y coordinate where wall starts.
+ * @param end Y coordinate where wall ends.
+ */
 void	render_ceiling_floor(t_engine *eng, t_ray *ray, int start, int end)
 {
 	draw_ceiling_pixels(eng, ray->x, start, ray);

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 15:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 21:25:14 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:24:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 #include "constants.h"
 #include <MLX42/MLX42.h>
 
+/**
+ * @brief Finds sprite configuration by category type.
+ *
+ * @param eng Engine structure containing sprite configurations.
+ * @param cat Category type to search for.
+ * @return Pointer to configuration, or NULL if not found.
+ */
 static t_sprite_config	*find_sprite_by_category(t_engine *eng, int cat)
 {
 	int	i;
@@ -30,6 +37,11 @@ static t_sprite_config	*find_sprite_by_category(t_engine *eng, int cat)
 	return (NULL);
 }
 
+/**
+ * @brief Initializes projectile pool to inactive state.
+ *
+ * @param weapon Weapon system containing projectile array.
+ */
 static void	init_projectiles(t_weapon_system *weapon)
 {
 	int	i;
@@ -50,6 +62,11 @@ static void	init_projectiles(t_weapon_system *weapon)
 	}
 }
 
+/**
+ * @brief Loads weapon, projectile and death textures from sprite configs.
+ *
+ * @param eng Engine structure containing sprite data.
+ */
 static void	load_textures(t_engine *eng)
 {
 	t_sprite_config	*weapon_cfg;
@@ -75,6 +92,11 @@ static void	load_textures(t_engine *eng)
 	}
 }
 
+/**
+ * @brief Sets frame counts for weapon, projectile and death animations.
+ *
+ * @param eng Engine structure to configure frame counts.
+ */
 static void	set_frame_counts(t_engine *eng)
 {
 	t_sprite_config	*cfg;
@@ -93,6 +115,11 @@ static void	set_frame_counts(t_engine *eng)
 		eng->weapon.death_frames = cfg->frames;
 }
 
+/**
+ * @brief Initializes complete weapon system with textures and projectiles.
+ *
+ * @param param Engine structure cast from void pointer.
+ */
 void	init_weapon_system(void *param)
 {
 	t_engine	*eng;
