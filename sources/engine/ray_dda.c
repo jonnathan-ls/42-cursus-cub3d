@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_dda.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:22 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 03:09:07 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,16 @@ void	setup_dda(t_ray *ray, t_player *pl)
  */
 static int	is_door_closed_at(t_engine *eng, int x, int y)
 {
-	int	i;
+	int	door_idx;
 
-	if (!eng || !eng->doors.list)
+	if (!eng || !eng->doors.list || !eng->doors.grid)
 		return (1);
-	i = 0;
-	while (i < eng->doors.count)
-	{
-		if (eng->doors.list[i].x == x && eng->doors.list[i].y == y)
-			return (eng->doors.list[i].offset < 1.0);
-		i = i + 1;
-	}
-	return (1);
+	if (y < 0 || y >= eng->map_height || x < 0 || x >= eng->map_width)
+		return (1);
+	door_idx = eng->doors.grid[y][x];
+	if (door_idx < 0 || door_idx >= eng->doors.count)
+		return (1);
+	return (eng->doors.list[door_idx].offset < 1.0);
 }
 
 /**
