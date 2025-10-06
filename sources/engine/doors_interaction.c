@@ -6,13 +6,14 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 03:09:07 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/10/06 04:14:59 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "engine.h"
 #include "player.h"
+#include "constants.h"
 #include <MLX42/MLX42.h>
 
 /**
@@ -58,22 +59,42 @@ int	can_interact_with_door(t_engine *eng)
 }
 
 /**
- * Checks if door at position is currently open.
- * @param eng Pointer to engine structure.
- * @param x X coordinate of door.
- * @param y Y coordinate of door.
- * @return 1 if open, 0 otherwise.
+ * Updates single door animation offset.
+ * @param door Pointer to door structure.
+ * @param speed Animation speed for this frame.
  */
-int	door_is_open(t_engine *eng, int x, int y)
+static void	update_door_animation(t_door *door, double speed)
 {
-	int	door_idx;
+	if (door->is_open && door->offset < 1.0)
+	{
+		door->offset = door->offset + speed;
+		if (door->offset > 1.0)
+			door->offset = 1.0;
+	}
+	if (!door->is_open && door->offset > 0.0)
+	{
+		door->offset = door->offset - speed;
+		if (door->offset < 0.0)
+			door->offset = 0.0;
+	}
+}
 
-	if (!eng || !eng->doors.list || !eng->doors.grid)
-		return (0);
-	if (y < 0 || y >= eng->map_height || x < 0 || x >= eng->map_width)
-		return (0);
-	door_idx = eng->doors.grid[y][x];
-	if (door_idx < 0 || door_idx >= eng->doors.count)
-		return (0);
-	return (eng->doors.list[door_idx].is_open);
+/**
+ * Updates door animation offsets for opening and closing.
+ * @param eng Pointer to engine structure.
+ */
+void	handle_door_updates(t_engine *eng)
+{
+	int		i;
+	double	speed;
+
+	if (!eng || !eng->doors.list)
+		return ;
+	i = 0;
+	speed = DOOR_ANIM_SPEED * eng->mlx->delta_time;
+	while (i < eng->doors.count)
+	{
+		update_door_animation(&eng->doors.list[i], speed);
+		i = i + 1;
+	}
 }
