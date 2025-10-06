@@ -18,9 +18,10 @@ NAME = cub3d
 MAIN_SRCS = sources/main.c
 
 SHARED_SRCS = \
-	sources/shared/memory-manager.c \
+	sources/shared/memory_manager.c \
 	sources/shared/math_utils.c \
-	sources/shared/map_utils.c
+	sources/shared/map_utils.c \
+	sources/shared/color_utils.c
 
 PARSER_SRCS = \
 	sources/parser/validate_extension.c \

@@ -17,19 +17,19 @@
 
 static uint32_t	apply_shading(uint32_t color, float intensity)
 {
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-	uint8_t	a;
+	uint8_t	red;
+	uint8_t	green;
+	uint8_t	blue;
+	uint8_t	alpha;
 
-	r = (uint8_t)((color >> 24) & 0xFF);
-	g = (uint8_t)((color >> 16) & 0xFF);
-	b = (uint8_t)((color >> 8) & 0xFF);
-	a = (uint8_t)(color & 0xFF);
-	r = (uint8_t)(r * intensity);
-	g = (uint8_t)(g * intensity);
-	b = (uint8_t)(b * intensity);
-	return ((r << 24) | (g << 16) | (b << 8) | a);
+	red = extract_color_channel(color, COLOR_SHIFT_RED);
+	green = extract_color_channel(color, COLOR_SHIFT_GREEN);
+	blue = extract_color_channel(color, COLOR_SHIFT_BLUE);
+	alpha = extract_color_channel(color, 0);
+	red = (uint8_t)(red * intensity);
+	green = (uint8_t)(green * intensity);
+	blue = (uint8_t)(blue * intensity);
+	return (build_rgba_color(red, green, blue, alpha));
 }
 
 static uint32_t	shade_with_distance(uint32_t col, int side, double distance)
@@ -55,10 +55,10 @@ uint32_t	shaded_pixel_from_pos(
 	uint32_t	shaded;
 
 	ty = (int)pos;
-	if (ty < 0)
-		ty = 0;
+	if (ty < TEXTURE_CLAMP_MIN)
+		ty = TEXTURE_CLAMP_MIN;
 	if (ty >= (int)tex->height)
-		ty = (int)tex->height - 1;
+		ty = (int)tex->height - TEXTURE_CLAMP_ONE;
 	col = get_texture_pixel(tex, tx, ty);
 	shaded = shade_with_distance(col, ray->side, ray->perp_dist);
 	return (shaded);

@@ -6,31 +6,34 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/03 02:29:14 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "minimap.h"
 #include "constants.h"
+#include "shared.h"
 #include <MLX42/MLX42.h>
 
-void	draw_minimap_frame(t_engine *eng, int left, int top, int square_size)
+void	draw_minimap_frame(t_engine *eng, t_minimap_draw_info *info)
 {
 	int	i;
 	int	end;
 
-	if (!eng || !eng->frame)
+	if (!eng || !eng->frame || !info)
 		return ;
-	end = left + square_size - 1;
+	end = info->left + info->size - TEXTURE_CLAMP_ONE;
 	i = 0;
-	while (i < square_size)
+	while (i < info->size)
 	{
-		mlx_put_pixel(eng->frame, left + i, top, MINIMAP_WALL_COLOR);
-		mlx_put_pixel(eng->frame, left + i, top + square_size - 1,
+		mlx_put_pixel(eng->frame, info->left + i, info->top,
 			MINIMAP_WALL_COLOR);
-		mlx_put_pixel(eng->frame, left, top + i, MINIMAP_WALL_COLOR);
-		mlx_put_pixel(eng->frame, end, top + i, MINIMAP_WALL_COLOR);
+		mlx_put_pixel(eng->frame, info->left + i, info->top + info->size
+			- TEXTURE_CLAMP_ONE, MINIMAP_WALL_COLOR);
+		mlx_put_pixel(eng->frame, info->left, info->top + i,
+			MINIMAP_WALL_COLOR);
+		mlx_put_pixel(eng->frame, end, info->top + i, MINIMAP_WALL_COLOR);
 		i = i + 1;
 	}
 }
@@ -43,12 +46,12 @@ void	draw_minimap_background(t_engine *eng, t_minimap *map)
 
 	if (!eng || !map || !eng->frame)
 		return ;
-	end = map->left + map->size - 1;
-	x = map->left + 1;
+	end = map->left + map->size - TEXTURE_CLAMP_ONE;
+	x = map->left + TEXTURE_CLAMP_ONE;
 	while (x < end)
 	{
-		y = map->top + 1;
-		while (y < map->top + map->size - 1)
+		y = map->top + TEXTURE_CLAMP_ONE;
+		while (y < map->top + map->size - TEXTURE_CLAMP_ONE)
 		{
 			mlx_put_pixel(eng->frame, x, y, MINIMAP_FOG_COLOR);
 			y = y + 1;

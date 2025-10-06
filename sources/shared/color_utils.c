@@ -1,51 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math_utils.c                                       :+:      :+:    :+:   */
+/*   color_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/05 19:00:00 by jlacerda          #+#    #+#             */
+/*   Created: 2025/10/05 22:00:00 by jlacerda          #+#    #+#             */
 /*   Updated: 2025/10/05 21:51:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shared.h"
 #include "constants.h"
-#include <math.h>
 
-double	calc_euclidean_dist(double x1, double y1, double x2, double y2)
+uint8_t	extract_color_channel(uint32_t color, int shift)
 {
-	double	dx;
-	double	dy;
-
-	dx = x2 - x1;
-	dy = y2 - y1;
-	return (sqrt(dx * dx + dy * dy));
+	return ((uint8_t)((color >> shift) & COLOR_MASK));
 }
 
-int	is_in_radius(double x1, double y1, double x2, double y2)
+uint32_t	build_rgba_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
-	double	dist;
-
-	dist = calc_euclidean_dist(x1, y1, x2, y2);
-	return (dist <= DOOR_RADIUS);
-}
-
-double	clamp_double(double value, double min, double max)
-{
-	if (value < min)
-		return (min);
-	if (value > max)
-		return (max);
-	return (value);
-}
-
-int	is_within_bounds(int value, int min, int max)
-{
-	if (value < min)
-		return (0);
-	if (value >= max)
-		return (0);
-	return (1);
+	return ((r << COLOR_SHIFT_RED) | (g << COLOR_SHIFT_GREEN)
+		| (b << COLOR_SHIFT_BLUE) | a);
 }

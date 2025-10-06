@@ -6,12 +6,13 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "shared.h"
+#include "constants.h"
 #include <MLX42/MLX42.h>
 
 static int	count_doors_in_map(t_engine *eng)
@@ -91,7 +92,7 @@ void	handle_door_updates(t_engine *eng)
 	if (!eng || !eng->doors.list)
 		return ;
 	i = 0;
-	speed = 4.0 * eng->mlx->delta_time;
+	speed = DOOR_ANIM_SPEED * eng->mlx->delta_time;
 	while (i < eng->doors.count)
 	{
 		if (eng->doors.list[i].is_open && eng->doors.list[i].offset < 1.0)

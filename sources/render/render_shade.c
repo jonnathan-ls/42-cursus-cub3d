@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:30:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/28 18:34:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "render.h"
 #include "raycast.h"
 #include "constants.h"
+#include "shared.h"
 
 float	calculate_distance_shade(double distance)
 {
@@ -26,25 +27,26 @@ float	calculate_distance_shade(double distance)
 		return (FOG_MIN_INTENSITY);
 	fog_factor = (distance - FOG_DISTANCE_START)
 		/ (FOG_DISTANCE_MAX - FOG_DISTANCE_START);
-	smooth_factor = fog_factor * fog_factor * (3.0f - 2.0f * fog_factor);
+	smooth_factor = fog_factor * fog_factor
+		* (SMOOTH_FACTOR_A - SMOOTH_FACTOR_B * fog_factor);
 	return (1.0f - smooth_factor * (1.0f - FOG_MIN_INTENSITY));
 }
 
 uint32_t	apply_distance_shading(uint32_t color, double distance)
 {
 	float	intensity;
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-	uint8_t	a;
+	uint8_t	red;
+	uint8_t	green;
+	uint8_t	blue;
+	uint8_t	alpha;
 
 	intensity = calculate_distance_shade(distance);
-	r = (uint8_t)((color >> 24) & 0xFF);
-	g = (uint8_t)((color >> 16) & 0xFF);
-	b = (uint8_t)((color >> 8) & 0xFF);
-	a = (uint8_t)(color & 0xFF);
-	r = (uint8_t)(r * intensity);
-	g = (uint8_t)(g * intensity);
-	b = (uint8_t)(b * intensity);
-	return ((r << 24) | (g << 16) | (b << 8) | a);
+	red = extract_color_channel(color, COLOR_SHIFT_RED);
+	green = extract_color_channel(color, COLOR_SHIFT_GREEN);
+	blue = extract_color_channel(color, COLOR_SHIFT_BLUE);
+	alpha = extract_color_channel(color, 0);
+	red = (uint8_t)(red * intensity);
+	green = (uint8_t)(green * intensity);
+	blue = (uint8_t)(blue * intensity);
+	return (build_rgba_color(red, green, blue, alpha));
 }

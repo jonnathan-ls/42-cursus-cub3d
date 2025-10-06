@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:44:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:52:12 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@
 static double	get_center_y(t_engine *eng)
 {
 	double	center_y;
+	double	win_height;
 
-	center_y = (double)eng->window_height / 2.0 - eng->player.pitch
-		* ((double)eng->window_height / 4.0);
+	win_height = (double)eng->window_height;
+	center_y = win_height / CENTER_DIVISOR - eng->player.pitch
+		* (win_height / PITCH_FACTOR);
 	return (center_y);
 }
 
@@ -46,24 +48,27 @@ static void	put_pixel_strip(
 static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 {
 	int		y;
-	int		th;
+	int		texture_height;
 	t_pixel	pixel;
 
 	if (!tex)
 		return ;
 	pixel.texture = tex;
-	pixel.texture_x = calculate_texture_x(ray, tex, calculate_wall_x(eng, ray));
-	th = calculate_wall_height(ray, eng->window_height);
-	if (th <= 0)
-		th = 1;
+	pixel.texture_x = calculate_texture_x(ray, tex,
+			calculate_wall_x(eng, ray));
+	texture_height = calculate_wall_height(ray, eng->window_height);
+	if (texture_height <= TEXTURE_CLAMP_MIN)
+		texture_height = TEXTURE_CLAMP_ONE;
 	pixel.shift = get_door_texture_offset(eng, ray->map_x, ray->map_y);
-	pixel.position = (double)(rng[0] + th / 2 - (int)get_center_y(eng))
-		*((double)tex->height / (double)th);
+	pixel.position = (double)(rng[0] + texture_height / CENTER_FACTOR
+			- (int)get_center_y(eng)) *((double)tex->height
+			/ (double)texture_height);
 	y = rng[0];
 	while (y <= rng[1])
 	{
 		put_pixel_strip(eng, ray, &pixel, y);
-		pixel.position = pixel.position + (double)tex->height / (double)th;
+		pixel.position = pixel.position + (double)tex->height
+			/ (double)texture_height;
 		y = y + 1;
 	}
 }
@@ -73,10 +78,10 @@ void	render_wall_strip(t_engine *eng, t_ray *ray, int start, int end)
 	mlx_texture_t	*tex;
 	int				rng[2];
 
-	if (start < 0)
-		start = 0;
+	if (start < TEXTURE_CLAMP_MIN)
+		start = TEXTURE_CLAMP_MIN;
 	if (end >= eng->window_height)
-		end = eng->window_height - 1;
+		end = eng->window_height - TEXTURE_CLAMP_ONE;
 	render_ceiling_floor(eng, ray, start, end);
 	tex = get_wall_texture(eng, ray);
 	if (!tex)

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 19:16:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ int	check_key_press_cooldown(void)
 {
 	static double	last_press;
 	double			current;
-	double			cooldown;
 
-	cooldown = 0.3;
 	current = mlx_get_time();
-	if (current - last_press < cooldown)
+	if (current - last_press < KEY_COOLDOWN)
 		return (0);
 	last_press = current;
 	return (1);
@@ -77,9 +75,10 @@ void	draw_circle(uint32_t *pixels, int cx, int cy, int radius)
 		{
 			dx = x;
 			dy = y;
-			if (dx * dx + dy * dy <= radius * radius && dx * dx + dy
-				* dy >= (radius - 1) * (radius - 1))
-				pixels[(cy + y) * 32 + (cx + x)] = 0xFFFFFFFF;
+			if (dx * dx + dy * dy <= radius * radius
+				&& dx * dx + dy * dy >= (radius - TEXTURE_CLAMP_ONE)
+				* (radius - TEXTURE_CLAMP_ONE))
+				pixels[(cy + y) * CURSOR_SIZE + (cx + x)] = WHITE;
 			x = x + 1;
 		}
 		y = y + 1;

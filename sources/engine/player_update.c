@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:09 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 22:44:16 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:43:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ static int	is_wall_at(t_engine *eng, double x, double y)
 		return (1);
 	map_x = (int)x;
 	map_y = (int)y;
-	if (map_x < 0 || map_x >= eng->map_width
-		|| map_y < 0 || map_y >= eng->map_height)
+	if (!is_valid_map_coords(eng, map_x, map_y))
 		return (1);
 	if (!eng->map[map_y] || !eng->map[map_y][map_x])
 		return (1);
@@ -43,16 +42,17 @@ static int	is_wall_at(t_engine *eng, double x, double y)
 
 static int	has_collision(t_engine *eng, double x, double y)
 {
-	double	buffer;
-
-	buffer = 0.15;
-	if (is_wall_at(eng, x - buffer, y) || is_wall_at(eng, x + buffer, y))
+	if (is_wall_at(eng, x - COLLISION_BUFFER, y))
 		return (1);
-	if (is_wall_at(eng, x, y - buffer) || is_wall_at(eng, x, y + buffer))
+	if (is_wall_at(eng, x + COLLISION_BUFFER, y))
 		return (1);
-	if (is_wall_at(eng, x - buffer, y - buffer))
+	if (is_wall_at(eng, x, y - COLLISION_BUFFER))
 		return (1);
-	if (is_wall_at(eng, x + buffer, y + buffer))
+	if (is_wall_at(eng, x, y + COLLISION_BUFFER))
+		return (1);
+	if (is_wall_at(eng, x - COLLISION_BUFFER, y - COLLISION_BUFFER))
+		return (1);
+	if (is_wall_at(eng, x + COLLISION_BUFFER, y + COLLISION_BUFFER))
 		return (1);
 	return (0);
 }
@@ -111,7 +111,7 @@ void	handle_player_movement(t_engine *eng)
 
 	if (!eng || !eng->mlx)
 		return ;
-	delta_time = eng->mlx->delta_time * 60.0;
+	delta_time = eng->mlx->delta_time * DELTA_TIME_FACTOR;
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_W))
 		apply_movement_with_direction(eng,
 			eng->player.dir_x * delta_time, eng->player.dir_y * delta_time);

@@ -13,8 +13,8 @@
 #include "engine.h"
 #include "minimap.h"
 #include "constants.h"
+#include "shared.h"
 #include <MLX42/MLX42.h>
-#include <stdint.h>
 
 static int	get_full_map_cell_color(t_engine *eng, int map_x, int map_y)
 {
@@ -52,10 +52,12 @@ static void	draw_full_map_cell(t_engine *eng, int map_x, int map_y)
 	start_y = (map_y * eng->window_height) / eng->map_height;
 	color = get_full_map_cell_color(eng, map_x, map_y);
 	x = start_x;
-	while (x <= ((map_x + 1) * eng->window_width) / eng->map_width - 1)
+	while (x <= ((map_x + TEXTURE_CLAMP_ONE) * eng->window_width)
+		/ eng->map_width - TEXTURE_CLAMP_ONE)
 	{
 		y = start_y;
-		while (y <= ((map_y + 1) * eng->window_height) / eng->map_height - 1)
+		while (y <= ((map_y + TEXTURE_CLAMP_ONE) * eng->window_height)
+			/ eng->map_height - TEXTURE_CLAMP_ONE)
 		{
 			mlx_put_pixel(eng->frame, x, y, color);
 			y = y + 1;
@@ -77,14 +79,14 @@ static void	draw_player_on_full_map(t_engine *eng)
 			/ eng->map_width);
 	center_y = (int)((eng->player.pos_y * eng->window_height)
 			/ eng->map_height);
-	ox = -5;
-	while (ox <= 5)
+	ox = -FULLMAP_PLAYER_SIZE;
+	while (ox <= FULLMAP_PLAYER_SIZE)
 	{
-		oy = -5;
-		while (oy <= 5)
+		oy = -FULLMAP_PLAYER_SIZE;
+		while (oy <= FULLMAP_PLAYER_SIZE)
 		{
-			if (center_x + ox >= 0 && center_x + ox < eng->window_width
-				&& center_y + oy >= 0 && center_y + oy < eng->window_height)
+			if (is_within_bounds(center_x + ox, 0, eng->window_width)
+				&& is_within_bounds(center_y + oy, 0, eng->window_height))
 				mlx_put_pixel(eng->frame, center_x + ox, center_y + oy,
 					MINIMAP_PLAYER_COLOR);
 			oy = oy + 1;
