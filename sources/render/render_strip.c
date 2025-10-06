@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_strip.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 03:09:07 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 	int		y;
 	int		texture_height;
 	t_pixel	pixel;
+	double	step;
 
 	if (!tex)
 		return ;
@@ -79,15 +80,14 @@ static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 	if (texture_height <= TEXTURE_CLAMP_MIN)
 		texture_height = TEXTURE_CLAMP_ONE;
 	pixel.shift = get_door_texture_offset(eng, ray->map_x, ray->map_y);
+	step = (double)tex->height / (double)texture_height;
 	pixel.position = (double)(rng[0] + texture_height / CENTER_FACTOR
-			- (int)get_center_y(eng)) *((double)tex->height
-			/ (double)texture_height);
+			- (int)get_center_y(eng)) * step;
 	y = rng[0];
 	while (y <= rng[1])
 	{
 		put_pixel_strip(eng, ray, &pixel, y);
-		pixel.position = pixel.position + (double)tex->height
-			/ (double)texture_height;
+		pixel.position = pixel.position + step;
 		y = y + 1;
 	}
 }
