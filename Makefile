@@ -19,7 +19,8 @@ MAIN_SRCS = sources/main.c
 
 SHARED_SRCS = \
 	sources/shared/memory-manager.c \
-	sources/shared/ternary_utils.c
+	sources/shared/math_utils.c \
+	sources/shared/map_utils.c
 
 PARSER_SRCS = \
 	sources/parser/validate_extension.c \
@@ -42,6 +43,7 @@ PARSER_SRCS = \
 ENGINE_SRCS = \
 	sources/engine/engine_utils.c \
 	sources/engine/engine_init.c \
+	sources/engine/engine_window.c \
 	sources/engine/engine_destroy.c \
 	sources/engine/engine_textures.c \
 	sources/engine/player_update.c \

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 13:39:25 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:08:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 static int	is_sprite_char(char c)
 {
+	if (c == 'D')
+		return (0);
 	if (c >= 'A' && c <= 'Z')
 		return (1);
 	return (0);

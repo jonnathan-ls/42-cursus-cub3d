@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 21:46:44 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/04 20:17:03 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:43:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,8 @@ int	configure_textures(t_engine *eng, t_config *cfg)
 	eng->tex.east = mlx_load_png(cfg->textures.ea_path);
 	if (!eng->tex.east)
 		return (cleanup_partial_textures(eng), -1);
-	eng->tex.door = mlx_load_png("./maps/textures/door.png");
 	if (!eng->tex.door)
-		return (cleanup_partial_textures(eng), -1);
-	eng->tex.floor = NULL;
-	eng->tex.ceiling = NULL;
+		eng->tex.door = mlx_load_png(cfg->textures.door_path);
 	if (cfg->textures.floor_path)
 		eng->tex.floor = mlx_load_png(cfg->textures.floor_path);
 	if (cfg->textures.ceiling_path)

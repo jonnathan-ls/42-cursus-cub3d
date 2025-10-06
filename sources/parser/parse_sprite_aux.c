@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 14:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 13:48:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:34:53 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	extract_identifier(char *rest)
 {
 	while (*rest == ' ' || *rest == '\t')
 		rest++;
-	if (*rest >= 'A' && *rest <= 'Z')
+	if ((*rest >= 'A' && *rest <= 'Z') || (*rest >= 'a' && *rest <= 'z'))
 		return (*rest);
 	return (0);
 }

@@ -6,13 +6,14 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 12:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 18:30:18 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:25:14 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "sprite.h"
 #include "shared.h"
+#include "constants.h"
 
 static int	find_type_index(t_engine *eng, char type)
 {
@@ -32,8 +33,8 @@ static int	find_type_index(t_engine *eng, char type)
 
 static void	set_sprite_position(t_sprite *sprite, int pos_x, int pos_y)
 {
-	sprite->x = (double)pos_x + 0.5;
-	sprite->y = (double)pos_y + 0.5;
+	sprite->x = (double)pos_x + SPRITE_CENTER_OFFSET;
+	sprite->y = (double)pos_y + SPRITE_CENTER_OFFSET;
 	sprite->distance = 0.0;
 	sprite->collected = 0;
 	sprite->current_frame = 0;
@@ -44,7 +45,7 @@ static void	set_sprite_position(t_sprite *sprite, int pos_x, int pos_y)
 	sprite->move_dir_x = 0.0;
 	sprite->move_dir_y = 0.0;
 	sprite->move_timer = 0.0;
-	sprite->move_speed = 0.5;
+	sprite->move_speed = SPRITE_MOVE_SPEED;
 }
 
 static void	set_sprite_type_data(t_engine *eng, t_sprite *sprite, int index)
@@ -53,8 +54,8 @@ static void	set_sprite_type_data(t_engine *eng, t_sprite *sprite, int index)
 	if (eng->sprites.sprite_types)
 	{
 		sprite->sprite_type = eng->sprites.sprite_types[index];
-		if (sprite->sprite_type == 1)
-			sprite->health = 100;
+		if (sprite->sprite_type == SPRITE_TYPE_ENEMY)
+			sprite->health = ENEMY_HEALTH;
 	}
 	else
 		sprite->sprite_type = 0;

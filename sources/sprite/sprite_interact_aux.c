@@ -6,22 +6,18 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 14:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 18:01:48 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 19:25:59 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "sprite.h"
-#include <math.h>
+#include "shared.h"
 
 double	calc_distance(t_engine *eng, t_sprite *sprite)
 {
-	double	dx;
-	double	dy;
-
-	dx = sprite->x - eng->player.pos_x;
-	dy = sprite->y - eng->player.pos_y;
-	return (sqrt(dx * dx + dy * dy));
+	return (calc_euclidean_dist(sprite->x, sprite->y,
+			eng->player.pos_x, eng->player.pos_y));
 }
 
 int	is_enemy_nearby(t_sprite *sprite, t_engine *eng)
@@ -30,7 +26,7 @@ int	is_enemy_nearby(t_sprite *sprite, t_engine *eng)
 		return (0);
 	if (sprite->collected || sprite->is_dying)
 		return (0);
-	return (calc_distance(eng, sprite) < 0.8);
+	return (calc_distance(eng, sprite) < 1.5);
 }
 
 int	has_nearby_enemy(t_engine *eng)

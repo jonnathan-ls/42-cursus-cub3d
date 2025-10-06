@@ -6,30 +6,29 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 22:23:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 19:16:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "player.h"
-#include <math.h>
+#include "shared.h"
 
 int	find_nearest_door_index(t_engine *eng)
 {
 	int		i;
-	double	dx;
-	double	dy;
-	double	dist;
+	double	door_x;
+	double	door_y;
 
 	if (!eng || !eng->doors.list)
 		return (-1);
 	i = 0;
 	while (i < eng->doors.count)
 	{
-		dx = eng->player.pos_x - (double)eng->doors.list[i].x - 0.5;
-		dy = eng->player.pos_y - (double)eng->doors.list[i].y - 0.5;
-		dist = sqrt(dx * dx + dy * dy);
-		if (dist <= 1.75)
+		door_x = (double)eng->doors.list[i].x + 0.5;
+		door_y = (double)eng->doors.list[i].y + 0.5;
+		if (is_in_radius(eng->player.pos_x, eng->player.pos_y,
+				door_x, door_y))
 			return (i);
 		i = i + 1;
 	}

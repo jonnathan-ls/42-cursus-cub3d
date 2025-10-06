@@ -6,12 +6,13 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 16:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 17:04:34 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:25:14 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "sprite.h"
+#include "constants.h"
 
 int	get_death_texture_index(t_engine *eng)
 {
@@ -20,7 +21,7 @@ int	get_death_texture_index(t_engine *eng)
 	i = 0;
 	while (i < eng->sprites.texture_count)
 	{
-		if (eng->sprites.configs[i].category == 6)
+		if (eng->sprites.configs[i].type == SPRITE_TYPE_ENEMY_DEAD)
 			return (i);
 		i++;
 	}

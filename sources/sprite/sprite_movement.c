@@ -6,26 +6,20 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 18:30:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 18:33:54 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:25:14 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "sprite.h"
+#include "shared.h"
+#include "constants.h"
 #include <stdlib.h>
 #include <math.h>
 
 static int	check_map_tile(t_engine *eng, int map_x, int map_y)
 {
-	if (map_x < 0 || map_y < 0)
-		return (0);
-	if (map_y >= eng->map_height || map_x >= eng->map_width)
-		return (0);
-	if (eng->map[map_y][map_x] == '1')
-		return (0);
-	if (eng->map[map_y][map_x] == 'D')
-		return (0);
-	return (1);
+	return (is_walkable_tile(eng, map_x, map_y));
 }
 
 static int	is_valid_position(t_engine *eng, double x, double y)
@@ -94,7 +88,7 @@ void	update_enemy_movement(void *param, double delta)
 	while (i < eng->sprites.count)
 	{
 		sprite = &eng->sprites.list[i];
-		if (sprite->sprite_type == 1)
+		if (sprite->sprite_type == SPRITE_TYPE_ENEMY)
 		{
 			if (!sprite->collected && !sprite->is_dying)
 				update_enemy_position(eng, sprite, delta);

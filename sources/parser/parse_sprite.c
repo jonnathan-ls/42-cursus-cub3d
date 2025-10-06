@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 01:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 18:13:01 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:38:21 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parser.h"
 #include "shared.h"
 
-static int	add_sprite_config(t_config *cfg, char id, char *path, int p[3])
+static int	add_sprite_config(t_config *cfg, char id, char *path, int p[2])
 {
 	t_sprite_config	*new_array;
 	int				count;
@@ -40,7 +40,7 @@ static int	add_sprite_config(t_config *cfg, char id, char *path, int p[3])
 	return (0);
 }
 
-static void	parse_sprite_params(char *space, int params[3])
+static void	parse_sprite_params(char *space, int params[2])
 {
 	params[0] = extract_frame_count(space);
 	while (*space && (*space == ' ' || *space == '\t'))
@@ -50,11 +50,6 @@ static void	parse_sprite_params(char *space, int params[3])
 	while (*space && (*space == ' ' || *space == '\t'))
 		space++;
 	params[1] = extract_number(space);
-	while (*space >= '0' && *space <= '9')
-		space++;
-	while (*space && (*space == ' ' || *space == '\t'))
-		space++;
-	params[2] = extract_number(space);
 }
 
 int	parse_sprite_texture(char *rest, t_config *cfg)
@@ -62,7 +57,7 @@ int	parse_sprite_texture(char *rest, t_config *cfg)
 	char	identifier;
 	char	*space;
 	char	*path;
-	int		params[3];
+	int		params[2];
 
 	identifier = extract_identifier(rest);
 	if (!identifier)

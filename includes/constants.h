@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/04 20:42:48 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:26:09 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@
 # define MINIMAP_MIN_SCALE 1
 # define MINIMAP_MAX_SCALE 10
 # define MINIMAP_RESERVED_DIV 4
+# define MINIMAP_SCALE_DIVISOR 10
+# define MINIMAP_SIZE_DIVISOR 10
+# define MINIMAP_MIN_SIZE 8
+# define MINIMAP_BORDER_OFFSET 4
 # define MINIMAP_WALL_COLOR GRAY
 # define MINIMAP_DOOR_COLOR BLACK
 # define MINIMAP_PLAYER_COLOR RED
@@ -52,5 +56,24 @@
 # define SIDE_SHADE_FACTOR 0.85f
 # define SHADE_MAX_INTENSITY 1.0f
 # define SHADE_MIN_INTENSITY 0.30f
+
+# define SPRITE_TYPE_ENEMY 1
+# define SPRITE_TYPE_ENEMY_DEAD 2
+# define SPRITE_TYPE_HEALTH 3
+# define SPRITE_TYPE_COIN 4
+# define SPRITE_TYPE_WEAPON 5
+# define SPRITE_TYPE_PROJECTILE 6
+
+# define MAX_HEALTH 100
+# define ENEMY_DAMAGE 10
+# define HEALTH_RESTORE 25
+# define ENEMY_HEALTH 100
+# define PROJECTILE_DAMAGE 25
+# define PROJECTILE_SPEED 10.0
+
+# define DAMAGE_COOLDOWN 1.0
+# define SPRITE_INTERACT_DISTANCE 0.8
+# define SPRITE_CENTER_OFFSET 0.5
+# define SPRITE_MOVE_SPEED 0.5
 
 #endif

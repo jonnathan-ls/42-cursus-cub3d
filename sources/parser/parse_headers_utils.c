@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:01:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 01:40:10 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:45:55 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	parse_single_texture(char *rest, char **dst, char *name)
 	if (*dst)
 	{
 		ft_putstr_fd(name, 2);
+		ft_putstr_fd(" ", 1);
 		return (parser_error("Duplicate texture"));
 	}
 	return (parse_texture(rest, dst));
@@ -43,6 +44,8 @@ static int	handle_texture_line(char *id, t_config *cfg)
 		return (parse_single_texture(rest, &cfg->textures.floor_path, "FT"));
 	if (id[0] == 'C' && id[1] == 'T')
 		return (parse_single_texture(rest, &cfg->textures.ceiling_path, "CT"));
+	if (id[0] == 'D' && id[1] == 'R')
+		return (parse_single_texture(rest, &cfg->textures.door_path, "DR"));
 	if (id[0] == 'M' && id[1] == 'N')
 		return (parse_single_texture(rest, &cfg->textures.menu_path, "MN"));
 	if (id[0] == 'S' && id[1] == 'P')
@@ -87,7 +90,8 @@ static int	parse_texture_paths(char *id, t_config *cfg, int *count_done)
 		return (0);
 	}
 	if ((id[0] == 'F' && id[1] == 'T') || (id[0] == 'C' && id[1] == 'T')
-		|| (id[0] == 'M' && id[1] == 'N') || (id[0] == 'S' && id[1] == 'P'))
+		|| (id[0] == 'D' && id[1] == 'R') || (id[0] == 'M' && id[1] == 'N')
+		|| (id[0] == 'S' && id[1] == 'P'))
 	{
 		if (handle_texture_line(id, cfg) < 0)
 			return (-1);

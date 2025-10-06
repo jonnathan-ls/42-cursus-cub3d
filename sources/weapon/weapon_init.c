@@ -6,13 +6,14 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 15:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 17:55:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 21:25:14 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "weapon.h"
 #include "parser.h"
+#include "constants.h"
 #include <MLX42/MLX42.h>
 
 static t_sprite_config	*find_sprite_by_category(t_engine *eng, int cat)
@@ -22,7 +23,7 @@ static t_sprite_config	*find_sprite_by_category(t_engine *eng, int cat)
 	i = 0;
 	while (i < eng->sprites.texture_count)
 	{
-		if (eng->sprites.configs[i].category == cat)
+		if (eng->sprites.configs[i].type == cat)
 			return (&eng->sprites.configs[i]);
 		i = i + 1;
 	}
@@ -41,8 +42,8 @@ static void	init_projectiles(t_weapon_system *weapon)
 		weapon->projectiles[i].y = 0.0;
 		weapon->projectiles[i].dir_x = 0.0;
 		weapon->projectiles[i].dir_y = 0.0;
-		weapon->projectiles[i].speed = 10.0;
-		weapon->projectiles[i].damage = 25;
+		weapon->projectiles[i].speed = PROJECTILE_SPEED;
+		weapon->projectiles[i].damage = PROJECTILE_DAMAGE;
 		weapon->projectiles[i].current_frame = 0;
 		weapon->projectiles[i].anim_timer = 0.0;
 		i = i + 1;
@@ -56,17 +57,19 @@ static void	load_textures(t_engine *eng)
 	t_sprite_config	*death_cfg;
 	int				i;
 
-	weapon_cfg = find_sprite_by_category(eng, 4);
-	projectile_cfg = find_sprite_by_category(eng, 5);
-	death_cfg = find_sprite_by_category(eng, 6);
+	weapon_cfg = find_sprite_by_category(eng, SPRITE_TYPE_WEAPON);
+	projectile_cfg = find_sprite_by_category(eng, SPRITE_TYPE_PROJECTILE);
+	death_cfg = find_sprite_by_category(eng, SPRITE_TYPE_ENEMY_DEAD);
 	i = 0;
 	while (i < eng->sprites.texture_count)
 	{
-		if (weapon_cfg && eng->sprites.configs[i].category == 4)
+		if (weapon_cfg && eng->sprites.configs[i].type == SPRITE_TYPE_WEAPON)
 			eng->weapon.weapon_texture = eng->sprites.textures[i];
-		if (projectile_cfg && eng->sprites.configs[i].category == 5)
+		if (projectile_cfg && eng->sprites.configs[i].type
+			== SPRITE_TYPE_PROJECTILE)
 			eng->weapon.projectile_texture = eng->sprites.textures[i];
-		if (death_cfg && eng->sprites.configs[i].category == 6)
+		if (death_cfg && eng->sprites.configs[i].type
+			== SPRITE_TYPE_ENEMY_DEAD)
 			eng->weapon.death_texture = eng->sprites.textures[i];
 		i = i + 1;
 	}
@@ -76,15 +79,15 @@ static void	set_frame_counts(t_engine *eng)
 {
 	t_sprite_config	*cfg;
 
-	cfg = find_sprite_by_category(eng, 4);
+	cfg = find_sprite_by_category(eng, SPRITE_TYPE_WEAPON);
 	eng->weapon.weapon_frames = 1;
 	if (cfg)
 		eng->weapon.weapon_frames = cfg->frames;
-	cfg = find_sprite_by_category(eng, 5);
+	cfg = find_sprite_by_category(eng, SPRITE_TYPE_PROJECTILE);
 	eng->weapon.projectile_frames = 1;
 	if (cfg)
 		eng->weapon.projectile_frames = cfg->frames;
-	cfg = find_sprite_by_category(eng, 6);
+	cfg = find_sprite_by_category(eng, SPRITE_TYPE_ENEMY_DEAD);
 	eng->weapon.death_frames = 1;
 	if (cfg)
 		eng->weapon.death_frames = cfg->frames;

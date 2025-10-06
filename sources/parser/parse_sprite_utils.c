@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 18:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 18:13:01 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:38:21 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,14 @@ int	extract_number(char *space)
 	return (0);
 }
 
-void	set_sprite_data(t_sprite_config *sprite, int params[3])
+void	set_sprite_data(t_sprite_config *sprite, int params[2])
 {
 	sprite->frames = params[0];
 	sprite->type = params[1];
-	sprite->category = params[2];
 }
 
-void	init_params(int params[3])
+void	init_params(int params[2])
 {
 	params[0] = 1;
 	params[1] = 0;
-	params[2] = 0;
 }

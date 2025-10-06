@@ -55,10 +55,10 @@ static void	compute_minimap_context(t_engine *eng,
 	int	base_scale;
 	int	final_scale;
 
-	usable = square_size - 4;
+	usable = square_size - MINIMAP_BORDER_OFFSET;
 	if (usable < 1)
 		usable = 1;
-	base_scale = usable / 10;
+	base_scale = usable / MINIMAP_SCALE_DIVISOR;
 	if (base_scale < MINIMAP_MIN_SCALE)
 		base_scale = MINIMAP_MIN_SCALE;
 	final_scale = base_scale * eng->minimap_scale;
@@ -79,9 +79,9 @@ void	draw_minimap(t_engine *eng)
 
 	if (!eng || !eng->frame || !eng->map || !eng->minimap_visible)
 		return ;
-	square_size = eng->window_width / 10;
-	if (square_size < 8)
-		square_size = 8;
+	square_size = eng->window_width / MINIMAP_SIZE_DIVISOR;
+	if (square_size < MINIMAP_MIN_SIZE)
+		square_size = MINIMAP_MIN_SIZE;
 	draw_minimap_frame(eng, MINIMAP_OFFSET,
 		eng->window_height - MINIMAP_OFFSET - square_size,
 		square_size);

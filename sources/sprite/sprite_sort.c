@@ -6,26 +6,26 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 01:50:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 01:53:53 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 19:02:59 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "sprite.h"
-#include <math.h>
+#include "shared.h"
 
 static void	calculate_distances(t_engine *eng)
 {
 	int		i;
-	double	dx;
-	double	dy;
+	double	dist;
 
 	i = 0;
 	while (i < eng->sprites.count)
 	{
-		dx = eng->sprites.list[i].x - eng->player.pos_x;
-		dy = eng->sprites.list[i].y - eng->player.pos_y;
-		eng->sprites.list[i].distance = dx * dx + dy * dy;
+		dist = calc_euclidean_dist(eng->sprites.list[i].x,
+				eng->sprites.list[i].y,
+				eng->player.pos_x, eng->player.pos_y);
+		eng->sprites.list[i].distance = dist * dist;
 		eng->sprites.order[i] = i;
 		i = i + 1;
 	}

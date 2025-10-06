@@ -1,28 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shared.h                                           :+:      :+:    :+:   */
+/*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
+/*   Created: 2025/10/05 19:00:00 by jlacerda          #+#    #+#             */
 /*   Updated: 2025/10/05 19:16:30 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHARED_H
-# define SHARED_H
+#include "shared.h"
+#include <math.h>
 
-# include <unistd.h>
+double	calc_euclidean_dist(double x1, double y1, double x2, double y2)
+{
+	double	dx;
+	double	dy;
 
-typedef struct s_engine	t_engine;
+	dx = x2 - x1;
+	dy = y2 - y1;
+	return (sqrt(dx * dx + dy * dy));
+}
 
-void	mm_garbage_collector(void);
-size_t	mm_nodes_alloc_length(void);
-void	*mm_alloc(size_t count, size_t size);
+int	is_in_radius(double x1, double y1, double x2, double y2)
+{
+	double	dist;
+	double	radius;
 
-double	calc_euclidean_dist(double x1, double y1, double x2, double y2);
-int		is_in_radius(double x1, double y1, double x2, double y2);
-double	clamp_double(double value, double min, double max);
+	radius = 1.75;
+	dist = calc_euclidean_dist(x1, y1, x2, y2);
+	return (dist <= radius);
+}
 
-#endif
+double	clamp_double(double value, double min, double max)
+{
+	if (value < min)
+		return (min);
+	if (value > max)
+		return (max);
+	return (value);
+}

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 14:09:48 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/05 19:05:28 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,9 @@ int						find_nearest_door_index(t_engine *eng);
 void					handle_door_updates(t_engine *eng);
 int						get_door_texture_offset(
 							t_engine *eng, int map_x, int map_y);
+
+int						is_valid_map_coords(t_engine *eng, int mx, int my);
+int						is_walkable_tile(t_engine *eng, int mx, int my);
+char					get_map_tile(t_engine *eng, int map_x, int map_y);
 
 #endif
