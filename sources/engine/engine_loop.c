@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_loop.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:57:43 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 01:31:13 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 03:09:07 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,56 @@
 #include "minimap.h"
 
 /**
- * @brief Main frame update hook called each frame.
- *
- * Handles game state transitions, escape key, and delegates to appropriate
- * rendering functions based on current state (start, playing, win, lose).
- *
+ * Processes player input and updates per frame.
+ * @param eng Pointer to engine structure.
+ * @param delta_time Time elapsed since last frame.
+ */
+static void	handle_frame_updates(t_engine *eng, double delta_time)
+{
+	double	rotation;
+
+	if (!eng)
+		return ;
+	handle_player_movement(eng);
+	rotation = eng->player.rot_speed * delta_time * 60.0;
+	if (mlx_is_key_down(eng->mlx, MLX_KEY_LEFT))
+		handle_player_rotation(eng, -rotation);
+	if (mlx_is_key_down(eng->mlx, MLX_KEY_RIGHT))
+		handle_player_rotation(eng, rotation);
+	handle_door_interaction(eng);
+	handle_player_rotation_by_mouse(eng);
+}
+
+/**
+ * Renders all UI elements on top of the scene.
+ * @param eng Pointer to engine structure.
+ */
+static void	draw_interface(t_engine *eng)
+{
+	if (eng->fullmap_visible)
+		draw_full_map(eng);
+	else
+		draw_minimap(eng);
+	draw_health_bar(eng);
+	render_weapon(eng);
+	if (eng->menu_visible && eng->tex.menu && eng->frame)
+		draw_menu_overlay(eng);
+	render_damage_overlay(eng);
+}
+
+/**
+ * Renders 3D scene with walls, sprites and projectiles.
+ * @param eng Pointer to engine structure.
+ */
+static void	render_scene(t_engine *eng)
+{
+	cast_all_rays(eng);
+	render_sprites(eng);
+	render_projectiles(eng);
+}
+
+/**
+ * Main frame update hook called each frame.
  * @param param Pointer to engine structure.
  */
 static void	frame_hook(void *param)

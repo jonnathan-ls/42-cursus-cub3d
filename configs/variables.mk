@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    variables.mk                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
+#    By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#              #
-#    Updated: 2025/08/16 18:43:32 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/10/06 03:12:27 by peda-cos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ MINILIBX = $(MLX42_DIR)/build/libmlx42.a
 MINILIBX_INCLUDES = -I$(MLX42_DIR)/include
 MINILIBX_LIBS = -ldl -lglfw -pthread -lm
 INCLUDES = -I$(INCS_DIR) -I$(LIBFT_DIR)/includes $(MINILIBX_INCLUDES)
-CFLAGS = -Wall -Wextra -Werror -g -O2 $(INCLUDES)
+CFLAGS = -Wall -Wextra -Werror -O2 $(INCLUDES)
 
 ESCAPE = \033[
 RED = $(ESCAPE)31m

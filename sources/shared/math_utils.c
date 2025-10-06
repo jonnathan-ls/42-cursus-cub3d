@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 23:37:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 03:09:07 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,14 @@ double	calc_euclidean_dist(double x1, double y1, double x2, double y2)
  */
 int	is_in_radius(double x1, double y1, double x2, double y2)
 {
-	double	dist;
+	double	dx;
+	double	dy;
+	double	dist_squared;
 
-	dist = calc_euclidean_dist(x1, y1, x2, y2);
-	return (dist <= DOOR_RADIUS);
+	dx = x2 - x1;
+	dy = y2 - y1;
+	dist_squared = dx * dx + dy * dy;
+	return (dist_squared <= DOOR_RADIUS * DOOR_RADIUS);
 }
 
 /**

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 23:37:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 03:15:04 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	init_window_image(t_engine *eng)
 		return (-1);
 	if (init_cursor_image(eng) != 0)
 		return (-1);
-	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_HIDDEN);
+	mlx_set_cursor_mode(eng->mlx, MLX_MOUSE_DISABLED);
 	apply_window_scale(eng);
 	eng->z_buffer = mm_alloc(eng->window_width, sizeof(double));
 	if (!eng->z_buffer)
