@@ -28,6 +28,7 @@ PARSER_SRCS = \
 	sources/parser/parser_entry.c \
 	sources/parser/parse_headers.c \
 	sources/parser/parse_headers_utils.c \
+	sources/parser/parse_optional_textures.c \
 	sources/parser/parse_textures.c \
 	sources/parser/parse_sprite.c \
 	sources/parser/parse_sprite_aux.c \
@@ -50,12 +51,14 @@ ENGINE_SRCS = \
 	sources/engine/player_update.c \
 	sources/engine/player_rotate.c \
 	sources/engine/engine_loop.c \
+	sources/engine/engine_gameplay.c \
 	sources/engine/engine_hooks.c \
 	sources/engine/menu.c \
 	sources/engine/engine_doors.c \
 	sources/engine/doors_interaction.c \
 	sources/engine/door_finder.c \
-	sources/engine/engine_reset.c
+	sources/engine/engine_reset.c \
+	sources/engine/game_screens.c
 
 SPRITE_SRCS = \
 	sources/sprite/sprite_init.c \

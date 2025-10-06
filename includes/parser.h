@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 05:19:25 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 00:31:38 by jlacerda         ###   ########.fr       */
+/*   Created: 2025/10/06 01:00:00 by jlacerda          #+#    #+#             */
+/*   Updated: 2025/10/06 01:29:28 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ typedef struct s_textures
 	char				*floor_path;	/**< Floor texture path. */
 	char				*ceiling_path;	/**< Ceiling texture path. */
 	char				*door_path;		/**< Door texture path. */
+	char				*start_path;	/**< Start screen texture path. */
+	char				*win_path;		/**< Win screen texture path. */
+	char				*lose_path;		/**< Lose screen texture path. */
 	t_sprite_config		*sprites;		/**< Array of sprite configs. */
 	int					sprite_count;	/**< Number of sprite configs. */
 }				t_textures;
@@ -100,10 +103,10 @@ char			extract_identifier(char *rest);
 int				collect_map(int fd, char *first_map_line, t_map *map_raw);
 int				parse_header_line(char *line, t_config *cfg, int *count_done);
 int				parse_headers(int fd, t_config *cfg, char **line_after_headers);
-
+int				handle_optional_texture(char *id, t_config *cfg, char *rest);
 int				check_duplicate_identifier(t_config *cfg, char id);
 int				extract_number(char *space);
 void			set_sprite_data(t_sprite_config *sprite, int params[2]);
 void			init_params(int params[2]);
-
+int				parse_single_texture(char *rest, char **dst, char *name);
 #endif

@@ -11,11 +11,7 @@
 /* ************************************************************************** */
 
 #include "engine.h"
-#include "player.h"
-#include "raycast.h"
-#include "render.h"
 #include "minimap.h"
-#include "sprite.h"
 
 /**
  * Processes player input and updates per frame.
@@ -78,20 +74,18 @@ static void	frame_hook(void *param)
 	eng = (t_engine *)param;
 	if (mlx_is_key_down(eng->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(eng->mlx);
-	if (eng->player.game_over)
+	if (!eng->game_started && eng->tex.start)
+	{
+		draw_screen_overlay(eng, eng->tex.start);
+		handle_start_screen(eng);
 		return ;
+	}
+	if (eng->player.game_over == 1 && eng->tex.lose)
+		return (draw_screen_overlay(eng, eng->tex.lose));
+	if (eng->player.game_over == 2 && eng->tex.win)
+		return (draw_screen_overlay(eng, eng->tex.win));
 	delta_time = eng->mlx->delta_time;
-	handle_frame_updates(eng, delta_time);
-	update_sprites(eng, delta_time);
-	update_enemy_movement(eng, delta_time);
-	update_projectiles(eng, delta_time);
-	handle_weapon_shoot(eng);
-	check_sprite_interactions(eng);
-	check_projectile_hits(eng);
-	handle_minimap_view(eng);
-	handle_minimap_zoom(eng);
-	handle_fullmap_view(eng);
-	handle_door_updates(eng);
+	handle_gameplay_updates(eng, delta_time);
 	render_scene(eng);
 	handle_minimap_exploration(eng);
 	handle_menu_view(eng);
@@ -99,7 +93,11 @@ static void	frame_hook(void *param)
 }
 
 /**
- * Starts main game loop with hooks configured.
+ * @brief Starts main game loop with hooks configured.
+ *
+ * Configures close and loop hooks for the MLX42 window and enters the
+ * main event loop.
+ *
  * @param eng Pointer to engine structure.
  */
 void	engine_loop(t_engine *eng)

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 00:31:38 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 01:42:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,6 @@
 /** @brief Full map player indicator size. */
 # define FULLMAP_PLAYER_SIZE 5
 /** @brief Default minimap zoom scale. */
-# define DEFAULT_MINIMAP_SCALE 3
+# define DEFAULT_MINIMAP_SCALE 1
 
 #endif
