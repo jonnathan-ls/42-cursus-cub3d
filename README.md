@@ -57,11 +57,16 @@ Create a "realistic" 3D graphical representation of the inside of a maze from a 
 ```
 cub3D/
 ├── Makefile
-├── src/
-├── include/
-├── textures/
-├── maps/
-└── libft/
+├── sources/
+├── includes/
+├── assets/
+│   ├── textures/      # Wall, floor, ceiling, door textures
+│   ├── sprites/       # Enemy, item, weapon sprites
+│   └── maps/          # Map configuration files (.cub)
+├── libraries/
+│   ├── libft/
+│   └── mlx42/
+└── objects/
 ```
 
 ### 🗺️ Map Format (.cub)
@@ -85,10 +90,10 @@ C 225,30,0                    # Ceiling color (RGB)
 
 #### Example Map
 ```
-NO ./textures/north.xpm
-SO ./textures/south.xpm
-WE ./textures/west.xpm
-EA ./textures/east.xpm
+NO ./assets/textures/north.png
+SO ./assets/textures/south.png
+WE ./assets/textures/west.png
+EA ./assets/textures/east.png
 F 220,100,0
 C 225,30,0
 
@@ -129,7 +134,7 @@ make
 
 3. **Run the game**
 ```bash
-./cub3D maps/example.cub
+./cub3D assets/maps/level_easy.cub
 ```
 
 ### 🔧 Makefile Rules
