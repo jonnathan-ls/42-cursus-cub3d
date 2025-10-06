@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_calc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 00:13:47 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 03:09:07 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ void	calculate_height(t_engine *eng, t_sprite_render *render)
 	int		base_horizon;
 	double	adjusted_horizon;
 
-	height = (int)fabs((eng->window_height / render->transform_y));
+	if (render->transform_y > 0)
+		height = (int)(eng->window_height / render->transform_y);
+	else
+		height = eng->window_height;
 	base_horizon = eng->window_height / CENTER_FACTOR;
 	adjusted_horizon = (double)base_horizon - eng->player.pitch
 		* ((double)eng->window_height / PITCH_FACTOR);
@@ -82,7 +85,10 @@ void	calculate_width(t_engine *eng, t_sprite_render *render)
 {
 	int	width;
 
-	width = (int)fabs((eng->window_height / render->transform_y));
+	if (render->transform_y > 0)
+		width = (int)(eng->window_height / render->transform_y);
+	else
+		width = eng->window_height;
 	render->sprite_width = width;
 	render->draw_start_x = -width / CENTER_FACTOR + render->screen_x;
 	if (render->draw_start_x < TEXTURE_CLAMP_MIN)
