@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_doors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 23:39:54 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 03:09:07 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,14 @@ static void	fill_doors_array(t_engine *eng)
 		x = 0;
 		while (x < eng->map_width)
 		{
+			eng->doors.grid[y][x] = -1;
 			if (eng->map[y][x] == 'D')
 			{
 				eng->doors.list[index].x = x;
 				eng->doors.list[index].y = y;
 				eng->doors.list[index].is_open = 0;
 				eng->doors.list[index].offset = 0.0;
+				eng->doors.grid[y][x] = index;
 				index = index + 1;
 			}
 			x = x + 1;
@@ -81,11 +83,23 @@ static void	fill_doors_array(t_engine *eng)
 int	configure_doors(t_engine *eng)
 {
 	int	doors_count;
+	int	y;
 
 	if (!eng)
 		return (-1);
 	doors_count = count_doors_in_map(eng);
 	eng->doors.count = doors_count;
+	eng->doors.grid = mm_alloc(eng->map_height, sizeof(int *));
+	if (!eng->doors.grid)
+		return (-1);
+	y = 0;
+	while (y < eng->map_height)
+	{
+		eng->doors.grid[y] = mm_alloc(eng->map_width, sizeof(int));
+		if (!eng->doors.grid[y])
+			return (-1);
+		y = y + 1;
+	}
 	if (doors_count == 0)
 	{
 		eng->doors.list = NULL;
@@ -138,20 +152,18 @@ void	handle_door_updates(t_engine *eng)
  */
 int	get_door_texture_offset(t_engine *eng, int map_x, int map_y)
 {
-	int	i;
+	int	door_idx;
 	int	cell_w;
 
-	if (!eng || !eng->doors.list)
+	if (!eng || !eng->doors.list || !eng->doors.grid)
 		return (0);
-	i = 0;
-	while (i < eng->doors.count)
-	{
-		if (eng->doors.list[i].x == map_x && eng->doors.list[i].y == map_y)
-		{
-			cell_w = eng->window_width / eng->map_width;
-			return ((int)(eng->doors.list[i].offset * (double)cell_w));
-		}
-		i = i + 1;
-	}
-	return (0);
+	if (map_y < 0 || map_y >= eng->map_height)
+		return (0);
+	if (map_x < 0 || map_x >= eng->map_width)
+		return (0);
+	door_idx = eng->doors.grid[map_y][map_x];
+	if (door_idx < 0 || door_idx >= eng->doors.count)
+		return (0);
+	cell_w = eng->window_width / eng->map_width;
+	return ((int)(eng->doors.list[door_idx].offset * (double)cell_w));
 }
