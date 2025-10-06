@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/28 20:47:56 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 00:31:38 by jlacerda         ###   ########.fr       */
+/*   Created: 2025/10/05 00:21:00 by jlacerda          #+#    #+#             */
+/*   Updated: 2025/10/06 01:25:28 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ typedef struct s_textures_bundle
 	mlx_texture_t		*south;		/**< South wall texture. */
 	mlx_texture_t		*ceiling;	/**< Ceiling texture. */
 	mlx_texture_t		*menu;		/**< Menu overlay texture. */
+	mlx_texture_t		*start;		/**< Start screen texture. */
+	mlx_texture_t		*win;		/**< Win screen texture. */
+	mlx_texture_t		*lose;		/**< Lose screen texture. */
 }						t_textures_bundle;
 
 /**
@@ -87,6 +90,8 @@ typedef struct s_engine
 	int					menu_visible;		/**< Menu overlay visible flag. */
 	int					menu_toggle;		/**< Menu toggle debounce. */
 	int					fullscreen;			/**< Fullscreen mode flag. */
+	int					game_started;		/**< Game started flag. */
+	int					start_toggle;		/**< Start toggle debounce. */
 	t_sprite_manager	sprites;			/**< Sprite manager. */
 	char				*sprite_chars;		/**< Valid sprite characters. */
 	double				*z_buffer;			/**< Depth buffer for sprites. */
@@ -108,6 +113,16 @@ void					engine_loop(t_engine *eng);
 int						configure_textures(t_engine *eng, t_config *cfg);
 void					handle_menu_view(t_engine *eng);
 void					draw_menu_overlay(t_engine *eng);
+void					draw_screen_overlay(t_engine *eng, mlx_texture_t *tex);
+void					handle_start_screen(t_engine *eng);
+void					handle_win_screen(t_engine *eng);
+void					handle_lose_screen(t_engine *eng);
+void					handle_gameplay_updates(t_engine *eng,
+							double delta_time);
+void					handle_frame_updates(t_engine *eng,
+							double delta_time);
+void					draw_interface(t_engine *eng);
+void					render_scene(t_engine *eng);
 int						configure_doors(t_engine *eng);
 void					handle_door_interaction(t_engine *eng);
 int						door_is_open(t_engine *eng, int x, int y);

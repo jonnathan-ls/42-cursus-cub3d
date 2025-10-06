@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:23:52 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 23:48:36 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 01:13:18 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,8 @@ void	free_config(t_config *cfg)
 	free_str(&cfg->textures.floor_path);
 	free_str(&cfg->textures.ceiling_path);
 	free_str(&cfg->textures.menu_path);
+	free_str(&cfg->textures.start_path);
+	free_str(&cfg->textures.win_path);
+	free_str(&cfg->textures.lose_path);
 	free_map_grid(cfg);
 }

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:21:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 23:37:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 01:43:13 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ static void	reset_engine_dimensions(t_engine *eng)
 	eng->doors.count = 0;
 	eng->ignore_doors = 0;
 	eng->menu_toggle = 1;
-	eng->menu_visible = 0;
+	eng->menu_visible = 1;
+	eng->game_started = 0;
+	eng->start_toggle = 0;
 }
 
 /**
@@ -58,6 +60,9 @@ static void	reset_engine_textures(t_engine *eng)
 	eng->tex.south = NULL;
 	eng->tex.floor = NULL;
 	eng->tex.ceiling = NULL;
+	eng->tex.start = NULL;
+	eng->tex.win = NULL;
+	eng->tex.lose = NULL;
 }
 
 /**

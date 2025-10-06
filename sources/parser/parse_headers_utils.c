@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:01:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 01:27:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  * @param name Name of the texture for error reporting.
  * @return 0 on success, -1 on failure.
  */
-static int	parse_single_texture(char *rest, char **dst, char *name)
+int	parse_single_texture(char *rest, char **dst, char *name)
 {
 	if (*dst)
 	{
@@ -61,17 +61,9 @@ static int	handle_texture_line(char *id, t_config *cfg)
 		return (parse_single_texture(rest, &cfg->textures.we_path, "WE"));
 	if (id[0] == 'E' && id[1] == 'A')
 		return (parse_single_texture(rest, &cfg->textures.ea_path, "EA"));
-	if (id[0] == 'F' && id[1] == 'T')
-		return (parse_single_texture(rest, &cfg->textures.floor_path, "FT"));
-	if (id[0] == 'C' && id[1] == 'T')
-		return (parse_single_texture(rest, &cfg->textures.ceiling_path, "CT"));
-	if (id[0] == 'D' && id[1] == 'R')
-		return (parse_single_texture(rest, &cfg->textures.door_path, "DR"));
-	if (id[0] == 'M' && id[1] == 'N')
-		return (parse_single_texture(rest, &cfg->textures.menu_path, "MN"));
 	if (id[0] == 'S' && id[1] == 'P')
 		return (parse_sprite_texture(rest, cfg));
-	return (parser_error("invalid texture identifier"));
+	return (handle_optional_texture(id, cfg, rest));
 }
 
 /**
@@ -133,7 +125,8 @@ static int	parse_texture_paths(char *id, t_config *cfg, int *count_done)
 	}
 	if ((id[0] == 'F' && id[1] == 'T') || (id[0] == 'C' && id[1] == 'T')
 		|| (id[0] == 'D' && id[1] == 'R') || (id[0] == 'M' && id[1] == 'N')
-		|| (id[0] == 'S' && id[1] == 'P'))
+		|| (id[0] == 'S' && id[1] == 'T') || (id[0] == 'W' && id[1] == 'N')
+		|| (id[0] == 'L' && id[1] == 'S') || (id[0] == 'S' && id[1] == 'P'))
 	{
 		if (handle_texture_line(id, cfg) < 0)
 			return (-1);

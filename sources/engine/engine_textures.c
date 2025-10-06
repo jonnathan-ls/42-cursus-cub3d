@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 21:46:44 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 23:37:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/06 01:21:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,33 @@ static void	cleanup_partial_textures(t_engine *eng)
 		mlx_delete_texture(eng->tex.floor);
 	if (eng->tex.ceiling)
 		mlx_delete_texture(eng->tex.ceiling);
-	eng->tex.north = NULL;
-	eng->tex.south = NULL;
-	eng->tex.west = NULL;
-	eng->tex.east = NULL;
-	eng->tex.door = NULL;
-	eng->tex.floor = NULL;
-	eng->tex.ceiling = NULL;
-	eng->tex.menu = NULL;
+	if (eng->tex.menu)
+		mlx_delete_texture(eng->tex.menu);
+	if (eng->tex.start)
+		mlx_delete_texture(eng->tex.start);
+	if (eng->tex.win)
+		mlx_delete_texture(eng->tex.win);
+	if (eng->tex.lose)
+		mlx_delete_texture(eng->tex.lose);
 }
 
-/**
- * Loads all game textures from configuration.
- * @param eng Pointer to engine structure.
- * @param cfg Pointer to configuration structure.
- * @return 0 on success, -1 on failure.
- */
+static int	load_optional_textures(t_engine *eng, t_config *cfg)
+{
+	if (cfg->textures.floor_path)
+		eng->tex.floor = mlx_load_png(cfg->textures.floor_path);
+	if (cfg->textures.ceiling_path)
+		eng->tex.ceiling = mlx_load_png(cfg->textures.ceiling_path);
+	if (cfg->textures.menu_path)
+		eng->tex.menu = mlx_load_png(cfg->textures.menu_path);
+	if (cfg->textures.start_path)
+		eng->tex.start = mlx_load_png(cfg->textures.start_path);
+	if (cfg->textures.win_path)
+		eng->tex.win = mlx_load_png(cfg->textures.win_path);
+	if (cfg->textures.lose_path)
+		eng->tex.lose = mlx_load_png(cfg->textures.lose_path);
+	return (0);
+}
+
 int	configure_textures(t_engine *eng, t_config *cfg)
 {
 	eng->tex.north = mlx_load_png(cfg->textures.no_path);
@@ -63,13 +74,7 @@ int	configure_textures(t_engine *eng, t_config *cfg)
 	eng->tex.east = mlx_load_png(cfg->textures.ea_path);
 	if (!eng->tex.east)
 		return (cleanup_partial_textures(eng), -1);
-	if (!eng->tex.door)
+	if (cfg->textures.door_path)
 		eng->tex.door = mlx_load_png(cfg->textures.door_path);
-	if (cfg->textures.floor_path)
-		eng->tex.floor = mlx_load_png(cfg->textures.floor_path);
-	if (cfg->textures.ceiling_path)
-		eng->tex.ceiling = mlx_load_png(cfg->textures.ceiling_path);
-	if (cfg->textures.menu_path)
-		eng->tex.menu = mlx_load_png(cfg->textures.menu_path);
-	return (0);
+	return (load_optional_textures(eng, cfg));
 }
