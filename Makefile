@@ -20,8 +20,7 @@ MAIN_SRCS = sources/main.c
 SHARED_SRCS = \
 	sources/shared/memory_manager.c \
 	sources/shared/math_utils.c \
-	sources/shared/map_utils.c \
-	sources/shared/color_utils.c
+	sources/shared/map_utils.c
 
 PARSER_SRCS = \
 	sources/parser/validate_extension.c \
@@ -177,6 +176,47 @@ valgrind: all
 	--track-origins=yes \
 	./$(NAME) ./maps/test_valid.cub
 
+profile: CFLAGS += -pg -O2
+profile: fclean libft mlx42 $(OBJS)
+	@printf "$(BLUE)$(BOLD)🔬  Building with profiling enabled...$(RESET)\n"
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MINILIBX) $(MINILIBX_LIBS)
+	@echo "$(GREEN)$(BOLD)✅  Profile build complete!$(RESET)"
+	@echo "$(YELLOW)$(BOLD)📊  Run the program, then analyze with: make analyze$(RESET)"
+	@echo
+
+analyze:
+	@if [ ! -f gmon.out ]; then \
+		echo "$(RED)$(BOLD)❌  gmon.out not found!$(RESET)"; \
+		echo "$(YELLOW)Run the program first: ./$(NAME) assets/maps/level_easy.cub -w$(RESET)"; \
+		exit 1; \
+	fi
+	@echo "$(BLUE)$(BOLD)📊  Generating profiling report...$(RESET)\n"
+	@gprof $(NAME) gmon.out > profile_report.txt
+	@echo "$(GREEN)$(BOLD)✅  Report saved to profile_report.txt$(RESET)\n"
+	@echo "$(CYAN)$(BOLD)📈  Top 20 functions by time:$(RESET)"
+	@echo "$(CYAN)━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$(RESET)"
+	@gprof $(NAME) gmon.out | grep -A 25 "^  %   cumulative"
+	@echo
+	@echo "$(YELLOW)$(BOLD)💡  Full report: profile_report.txt$(RESET)"
+	@echo "$(YELLOW)$(BOLD)💡  Call graph: gprof $(NAME) gmon.out | less$(RESET)"
+	@echo
+
+benchmark: all
+	@echo "$(BLUE)$(BOLD)⚡  Running performance benchmark...$(RESET)\n"
+	@echo "$(CYAN)Test 1: 5 seconds gameplay$(RESET)"
+	@time timeout 5s ./$(NAME) assets/maps/level_easy.cub -w 2>&1 | tail -1
+	@echo
+	@echo "$(CYAN)Test 2: 10 seconds gameplay$(RESET)"
+	@time timeout 10s ./$(NAME) assets/maps/level_medium.cub -w 2>&1 | tail -1
+	@echo
+	@echo "$(CYAN)Test 3: High load (hard map)$(RESET)"
+	@time timeout 5s ./$(NAME) assets/maps/level_hard.cub -w 2>&1 | tail -1
+	@echo "$(GREEN)$(BOLD)✅  Benchmark complete!$(RESET)\n"
+
+clean-profile:
+	@rm -f gmon.out profile_report.txt
+	@echo "$(GREEN)$(BOLD)✅  Profiling files cleaned!$(RESET)"
+
 header:
 	@if [ ! -f .header_lock ]; then \
 		touch .header_lock; \
@@ -186,4 +226,4 @@ header:
 		echo ;\
 	fi
 
-.PHONY: all clean fclean re header norminette valgrind mlx42 libft test
+.PHONY: all clean fclean re header norminette valgrind mlx42 libft profile analyze benchmark clean-profile
