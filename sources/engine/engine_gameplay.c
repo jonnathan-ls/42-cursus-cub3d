@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 01:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 01:43:59 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/07 22:17:38 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,6 @@ void	draw_interface(t_engine *eng)
  */
 void	render_scene(t_engine *eng)
 {
-	eng->ignore_doors = 1;
-	cast_all_rays(eng);
-	eng->ignore_doors = 0;
 	cast_all_rays(eng);
 	render_sprites(eng);
 	render_projectiles(eng);
