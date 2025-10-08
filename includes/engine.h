@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:21:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 03:09:07 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/10/08 00:29:40 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_engine
 	char				*sprite_chars;		/**< Valid sprite characters. */
 	double				*z_buffer;			/**< Depth buffer for sprites. */
 	t_weapon_system		weapon;				/**< Weapon system. */
+	double				horizon_y;		/**< Cached center Y for frame. */
 }						t_engine;
 
 void					apply_window_scale(t_engine *eng);

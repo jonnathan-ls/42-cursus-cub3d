@@ -124,7 +124,6 @@ void	draw_player_on_map(t_engine *engine, t_map_draw_info *info,
 	t_minimap_player_params	params;
 	int						center_x;
 	int						center_y;
-	double					angle;
 
 	if (!engine || !info)
 		return ;
@@ -133,9 +132,8 @@ void	draw_player_on_map(t_engine *engine, t_map_draw_info *info,
 	compute_player_params(info->size, &params);
 	if (dir_x != 0.0 || dir_y != 0.0)
 	{
-		angle = atan2(dir_y, dir_x);
-		params.dx_screen = cos(angle);
-		params.dy_screen = sin(angle);
+		params.dx_screen = dir_x;
+		params.dy_screen = dir_y;
 		params.perp_x = -params.dy_screen;
 		params.perp_y = params.dx_screen;
 	}

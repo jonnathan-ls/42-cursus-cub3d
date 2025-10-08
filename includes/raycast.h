@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:47 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 00:31:38 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/08 00:04:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_ray
 	double	side_dist_y;	/**< Distance to next Y grid line. */
 	double	delta_dist_x;	/**< Distance between X grid lines. */
 	double	delta_dist_y;	/**< Distance between Y grid lines. */
+	double	angle_cache;	/**< Cached atan2 for ceiling texture. */
 }			t_ray;
 
 void		setup_dda(t_ray *ray, t_player *pl);

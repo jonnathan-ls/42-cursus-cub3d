@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 00:24:47 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/08 00:32:16 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,11 @@ static void	draw_column_pixels(t_engine *eng, mlx_texture_t *tex,
 {
 	int		y;
 	int		tex_y;
-	double	horizon;
 
-	horizon = (double)(eng->window_height / 2);
-	horizon -= eng->player.pitch * ((double)eng->window_height / 4.0);
 	y = r->draw_start_y;
 	while (y < r->draw_end_y)
 	{
-		tex_y = (y - (int)horizon + r->sprite_height / 2);
+		tex_y = (y - (int)eng->horizon_y + r->sprite_height / 2);
 		tex_y = (tex_y * tex->height) / r->sprite_height;
 		if (tex_y >= 0 && tex_y < (int)tex->height)
 			put_pixel(eng, params[0], y,

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:36 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/08 00:29:40 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static void	render_wall(t_engine *eng, int x)
 
 	configure_raycast_initialization(eng, &ray, x);
 	calculate_raycast_direction(&ray, &eng->player);
+	ray.angle_cache = atan2(ray.ray_dir_y, ray.ray_dir_x);
 	setup_dda(&ray, &eng->player);
 	perform_dda(eng, &ray);
 	calculate_distances(&ray, &eng->player);
 	if (eng->z_buffer)
 		eng->z_buffer[x] = ray.perp_dist;
 	wall_h = calculate_wall_height(&ray, eng->window_height);
-	center_y = (double)eng->window_height / 2.0 - eng->player.pitch
-		* ((double)eng->window_height / 4.0);
+	center_y = eng->horizon_y;
 	start = -wall_h / 2 + (int)center_y;
 	end = wall_h / 2 + (int)center_y;
 	if (start < 0)
@@ -52,8 +52,11 @@ static void	render_wall(t_engine *eng, int x)
  */
 void	cast_all_rays(t_engine *eng)
 {
-	int	x;
+	int		x;
+	double	win_h;
 
+	win_h = (double)eng->window_height;
+	eng->horizon_y = win_h / 2.0 - eng->player.pitch * (win_h / 4.0);
 	x = 0;
 	while (x < eng->window_width)
 	{

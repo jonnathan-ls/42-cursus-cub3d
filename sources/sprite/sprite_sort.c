@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 01:50:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/07 22:46:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/08 00:11:14 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@
 static void	calculate_distances(t_engine *eng)
 {
 	int		i;
-	double	dist;
+	double	dx;
+	double	dy;
 
 	i = 0;
 	while (i < eng->sprites.count)
 	{
-		dist = calc_euclidean_dist(eng->sprites.list[i].x,
-				eng->sprites.list[i].y,
-				eng->player.pos_x, eng->player.pos_y);
-		eng->sprites.list[i].distance = dist * dist;
+		dx = eng->sprites.list[i].x - eng->player.pos_x;
+		dy = eng->sprites.list[i].y - eng->player.pos_y;
+		eng->sprites.list[i].distance = dx * dx + dy * dy;
 		eng->sprites.order[i] = i;
 		i = i + 1;
 	}

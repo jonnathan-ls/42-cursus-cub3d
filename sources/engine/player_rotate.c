@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 23:39:54 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/08 00:12:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,17 @@ static void	apply_rotation(t_player *p, double rot)
 {
 	double	old_dir_x;
 	double	old_plane_x;
+	double	cos_rot;
+	double	sin_rot;
 
 	old_dir_x = p->dir_x;
 	old_plane_x = p->plane_x;
-	p->dir_x = p->dir_x * cos(rot) - p->dir_y * sin(rot);
-	p->dir_y = old_dir_x * sin(rot) + p->dir_y * cos(rot);
-	p->plane_x = p->plane_x * cos(rot) - p->plane_y * sin(rot);
-	p->plane_y = old_plane_x * sin(rot) + p->plane_y * cos(rot);
+	cos_rot = cos(rot);
+	sin_rot = sin(rot);
+	p->dir_x = p->dir_x * cos_rot - p->dir_y * sin_rot;
+	p->dir_y = old_dir_x * sin_rot + p->dir_y * cos_rot;
+	p->plane_x = p->plane_x * cos_rot - p->plane_y * sin_rot;
+	p->plane_y = old_plane_x * sin_rot + p->plane_y * cos_rot;
 }
 
 /**

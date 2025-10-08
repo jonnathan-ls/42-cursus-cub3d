@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_calc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 03:09:07 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/10/08 00:29:40 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,16 @@ void	calculate_transform(t_engine *eng, t_sprite *sprite,
 void	calculate_height(t_engine *eng, t_sprite_render *render)
 {
 	int		height;
-	int		base_horizon;
-	double	adjusted_horizon;
 
 	if (render->transform_y > 0)
 		height = (int)(eng->window_height / render->transform_y);
 	else
 		height = eng->window_height;
-	base_horizon = eng->window_height / CENTER_FACTOR;
-	adjusted_horizon = (double)base_horizon - eng->player.pitch
-		* ((double)eng->window_height / PITCH_FACTOR);
 	render->sprite_height = height;
-	render->draw_start_y = (int)adjusted_horizon - height / CENTER_FACTOR;
+	render->draw_start_y = (int)eng->horizon_y - height / CENTER_FACTOR;
 	if (render->draw_start_y < TEXTURE_CLAMP_MIN)
 		render->draw_start_y = TEXTURE_CLAMP_MIN;
-	render->draw_end_y = (int)adjusted_horizon + height / CENTER_FACTOR;
+	render->draw_end_y = (int)eng->horizon_y + height / CENTER_FACTOR;
 	if (render->draw_end_y >= eng->window_height)
 		render->draw_end_y = eng->window_height - TEXTURE_CLAMP_ONE;
 }

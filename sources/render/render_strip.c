@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/07 22:46:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/08 00:29:40 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,6 @@
 #include "render.h"
 #include "shared.h"
 #include "constants.h"
-
-/**
- * Calculates adjusted screen center Y accounting for pitch.
- * @param eng Pointer to engine structure.
- * @return Center Y coordinate.
- */
-static double	get_center_y(t_engine *eng)
-{
-	double	center_y;
-	double	win_height;
-
-	win_height = (double)eng->window_height;
-	center_y = win_height / CENTER_DIVISOR - eng->player.pitch
-		* (win_height / PITCH_FACTOR);
-	return (center_y);
-}
 
 /**
  * Draws single pixel of wall strip with door offset.
@@ -82,7 +66,7 @@ static void	draw_strip(t_engine *eng, t_ray *ray, int *rng, mlx_texture_t *tex)
 	pixel.shift = get_door_texture_offset(eng, ray->map_x, ray->map_y);
 	step = (double)tex->height / (double)texture_height;
 	pixel.position = ((double)(rng[0] + texture_height / CENTER_FACTOR)
-			- get_center_y(eng)) * step;
+			- eng->horizon_y) * step;
 	y = rng[0];
 	while (y <= rng[1])
 	{

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/08 00:29:40 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static double	calculate_row_distance(t_engine *eng, int y, int is_floor)
 	double	tmp;
 
 	win_h = (double)eng->window_height;
-	center = win_h / CENTER_DIVISOR - eng->player.pitch
-		* (win_h / PITCH_FACTOR);
+	center = eng->horizon_y;
 	if (is_floor)
 	{
 		tmp = (double)y - center;
@@ -142,8 +141,7 @@ uint32_t	calculate_ceiling_texture(t_engine *eng, int y, t_ray *ray,
 		return (eng->ceiling_color);
 	row_distance = calculate_row_distance(eng, y, 0);
 	*distance = row_distance;
-	ceil_x = atan2(ray->ray_dir_y, ray->ray_dir_x);
-	ceil_x = (ceil_x + PI) / (CENTER_DIVISOR * PI);
+	ceil_x = (ray->angle_cache + PI) / (CENTER_DIVISOR * PI);
 	tex_x = (int)(ceil_x * eng->tex.ceiling->width) % eng->tex.ceiling->width;
 	ceil_y = (double)(eng->window_height - y) / (double)eng->window_height;
 	tex_y = (int)(ceil_y * eng->tex.ceiling->height)
