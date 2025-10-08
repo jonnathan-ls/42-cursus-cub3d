@@ -62,10 +62,10 @@ typedef struct s_minimap_player_params
  */
 typedef struct s_minimap_draw_info
 {
-	int	left;	/**< Left screen position. */
-	int	top;	/**< Top screen position. */
-	int	size;	/**< Minimap size in pixels. */
-}	t_minimap_draw_info;
+	int		left;	/**< Left screen position. */
+	int		top;	/**< Top screen position. */
+	int		size;	/**< Minimap size in pixels. */
+}	t_map_draw_info;
 
 void		draw_minimap(t_engine *eng);
 void		draw_full_map(t_engine *eng);
@@ -77,10 +77,13 @@ void		handle_minimap_exploration(t_engine *eng);
 int			initialize_minimap_exploration(t_engine *eng);
 void		render_minimap_cells(t_engine *eng, t_minimap *map);
 void		render_minimap_pixels(t_engine *eng, t_minimap *map);
-void		draw_minimap_frame(t_engine *eng, t_minimap_draw_info *info);
+void		draw_minimap_frame(t_engine *eng, t_map_draw_info *info);
 void		draw_minimap_background(t_engine *eng, t_minimap *map);
-void		draw_minimap_player(t_engine *eng, t_minimap_draw_info *info);
+void		draw_player_on_map(t_engine *eng, t_map_draw_info *info,
+				double dir_x, double dir_y);
 void		compute_minimap_pixel_color(t_engine *eng, t_minimap *map,
 				int pixel_x, int pixel_y);
+void		minimap_prepare_block(t_engine *eng, t_minimap *map);
+void		minimap_draw_block_pixels(t_engine *eng, t_minimap *map);
 
 #endif

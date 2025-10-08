@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/07 23:54:06 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  * @param eng Engine structure containing frame buffer.
  * @param info Minimap drawing information with position and size.
  */
-void	draw_minimap_frame(t_engine *eng, t_minimap_draw_info *info)
+void	draw_minimap_frame(t_engine *eng, t_map_draw_info *info)
 {
 	int	i;
 	int	end;

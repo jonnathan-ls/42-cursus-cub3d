@@ -6,13 +6,18 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 01:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 01:43:59 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/07 22:46:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include <MLX42/MLX42.h>
 
+/**
+ * Draws a fullscreen overlay from a texture.
+ * @param eng Pointer to engine structure.
+ * @param tex Texture to draw as overlay.
+ */
 void	draw_screen_overlay(t_engine *eng, mlx_texture_t *tex)
 {
 	int			x;
@@ -26,16 +31,16 @@ void	draw_screen_overlay(t_engine *eng, mlx_texture_t *tex)
 	y = 0;
 	while (y < eng->window_height)
 	{
-		x = 0;
 		tex_y = (y * tex->height) / eng->window_height;
+		x = 0;
 		while (x < eng->window_width)
 		{
 			tex_x = (x * tex->width) / eng->window_width;
 			color = ((uint32_t *)tex->pixels)[tex_y * tex->width + tex_x];
 			mlx_put_pixel(eng->frame, x, y, color);
-			x++;
+			x = x + 1;
 		}
-		y++;
+		y = y + 1;
 	}
 }
 

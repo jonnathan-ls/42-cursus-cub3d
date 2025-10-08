@@ -106,6 +106,7 @@ MINIMAP_SRCS = \
 	sources/minimap/minimap.c \
 	sources/minimap/minimap_draw.c \
 	sources/minimap/minimap_utils.c \
+	sources/minimap/minimap_blocks.c \
 	sources/minimap/minimap_player.c \
 	sources/minimap/minimap_pixels.c \
 	sources/minimap/minimap_exploration.c

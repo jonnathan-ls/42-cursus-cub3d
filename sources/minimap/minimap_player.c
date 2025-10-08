@@ -106,24 +106,38 @@ static void	draw_player_strip(t_engine *engine,
 }
 
 /**
- * @brief Draws the player indicator on the minimap.
+ * @brief Draws the player direction indicator.
  *
- * Computes minimap center and renders an arrow indicating player
- * position and facing direction.
+ * Computes center position and renders an arrow indicating player
+ * position and facing direction. Can be used for both minimap and fullmap.
+ * If dir_x and dir_y are both zero, uses default upward direction (minimap).
+ * Otherwise, calculates angle from direction vectors (fullmap).
  *
  * @param engine Engine structure containing frame buffer.
- * @param info Minimap drawing information with position and size.
+ * @param info Drawing information with position and size.
+ * @param dir_x Player direction X (0 for minimap default).
+ * @param dir_y Player direction Y (0 for minimap default).
  */
-void	draw_minimap_player(t_engine *engine, t_minimap_draw_info *info)
+void	draw_player_on_map(t_engine *engine, t_map_draw_info *info,
+	double dir_x, double dir_y)
 {
 	t_minimap_player_params	params;
 	int						center_x;
 	int						center_y;
+	double					angle;
 
 	if (!engine || !info)
 		return ;
 	center_x = info->left + info->size / CENTER_FACTOR;
 	center_y = info->top + info->size / CENTER_FACTOR;
 	compute_player_params(info->size, &params);
+	if (dir_x != 0.0 || dir_y != 0.0)
+	{
+		angle = atan2(dir_y, dir_x);
+		params.dx_screen = cos(angle);
+		params.dy_screen = sin(angle);
+		params.perp_x = -params.dy_screen;
+		params.perp_y = params.dx_screen;
+	}
 	draw_player_strip(engine, center_x, center_y, &params);
 }

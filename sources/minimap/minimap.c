@@ -108,9 +108,9 @@ static void	compute_minimap_context(t_engine *eng,
  */
 void	draw_minimap(t_engine *eng)
 {
-	int					square_size;
-	t_minimap			map;
-	t_minimap_draw_info	info;
+	int				square_size;
+	t_minimap		map;
+	t_map_draw_info	info;
 
 	if (!eng || !eng->frame || !eng->map || !eng->minimap_visible)
 		return ;
@@ -124,7 +124,7 @@ void	draw_minimap(t_engine *eng)
 	compute_minimap_context(eng, &map, square_size);
 	draw_minimap_background(eng, &map);
 	render_minimap_pixels(eng, &map);
-	draw_minimap_player(eng, &info);
+	draw_player_on_map(eng, &info, 0.0, 0.0);
 }
 
 /**

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_strip.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:39 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 04:14:59 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/10/07 22:46:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ static double	get_center_y(t_engine *eng)
 static void	put_pixel_strip(
 	t_engine *eng, t_ray *ray, t_pixel *pixel, int y)
 {
-	if (ray->hit_type == 'D'
-		&& pixel->shift > 0
-		&& ray->x + pixel->shift >= 0
-		&& ray->x + pixel->shift < eng->window_width)
+	int			target_x;
+	uint32_t	color;
+
+	target_x = ray->x;
+	if (ray->hit_type == 'D' && pixel->shift > 0)
 	{
-		mlx_put_pixel(eng->frame, ray->x + pixel->shift, y,
-			shaded_pixel_from_pos(
-				pixel->texture, pixel->texture_x, pixel->position, ray));
+		if (ray->x + pixel->shift >= 0
+			&& ray->x + pixel->shift < eng->window_width)
+			target_x = ray->x + pixel->shift;
 	}
-	else
-		mlx_put_pixel(eng->frame, ray->x, y,
-			shaded_pixel_from_pos(
-				pixel->texture, pixel->texture_x, pixel->position, ray));
+	color = shaded_pixel_from_pos(pixel->texture,
+			pixel->texture_x, pixel->position, ray);
+	mlx_put_pixel(eng->frame, target_x, y, color);
 }
 
 /**

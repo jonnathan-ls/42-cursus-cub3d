@@ -61,66 +61,30 @@ static int	get_full_map_cell_color(t_engine *eng, int map_x, int map_y)
  */
 static void	draw_full_map_cell(t_engine *eng, int map_x, int map_y)
 {
-	int	start_x;
-	int	start_y;
+	int	coords[4];
+	int	color;
 	int	x;
 	int	y;
-	int	color;
 
 	if (!eng || !eng->map)
 		return ;
-	start_x = (map_x * eng->window_width) / eng->map_width;
-	start_y = (map_y * eng->window_height) / eng->map_height;
+	coords[0] = (map_x * eng->window_width) / eng->map_width;
+	coords[1] = (map_y * eng->window_height) / eng->map_height;
+	coords[2] = ((map_x + TEXTURE_CLAMP_ONE) * eng->window_width)
+		/ eng->map_width - TEXTURE_CLAMP_ONE;
+	coords[3] = ((map_y + TEXTURE_CLAMP_ONE) * eng->window_height)
+		/ eng->map_height - TEXTURE_CLAMP_ONE;
 	color = get_full_map_cell_color(eng, map_x, map_y);
-	x = start_x;
-	while (x <= ((map_x + TEXTURE_CLAMP_ONE) * eng->window_width)
-		/ eng->map_width - TEXTURE_CLAMP_ONE)
+	x = coords[0];
+	while (x <= coords[2])
 	{
-		y = start_y;
-		while (y <= ((map_y + TEXTURE_CLAMP_ONE) * eng->window_height)
-			/ eng->map_height - TEXTURE_CLAMP_ONE)
+		y = coords[1];
+		while (y <= coords[3])
 		{
 			mlx_put_pixel(eng->frame, x, y, color);
 			y = y + 1;
 		}
 		x = x + 1;
-	}
-}
-
-/**
- * @brief Draws the player indicator on the full map.
- *
- * Computes player screen position and draws a colored square around the
- * player's location on the full map overlay.
- *
- * @param eng Engine structure containing player position and frame.
- */
-static void	draw_player_on_full_map(t_engine *eng)
-{
-	int	center_x;
-	int	center_y;
-	int	ox;
-	int	oy;
-
-	if (!eng || !eng->frame)
-		return ;
-	center_x = (int)((eng->player.pos_x * eng->window_width)
-			/ eng->map_width);
-	center_y = (int)((eng->player.pos_y * eng->window_height)
-			/ eng->map_height);
-	ox = -FULLMAP_PLAYER_SIZE;
-	while (ox <= FULLMAP_PLAYER_SIZE)
-	{
-		oy = -FULLMAP_PLAYER_SIZE;
-		while (oy <= FULLMAP_PLAYER_SIZE)
-		{
-			if (is_within_bounds(center_x + ox, 0, eng->window_width)
-				&& is_within_bounds(center_y + oy, 0, eng->window_height))
-				mlx_put_pixel(eng->frame, center_x + ox, center_y + oy,
-					MINIMAP_PLAYER_COLOR);
-			oy = oy + 1;
-		}
-		ox = ox + 1;
 	}
 }
 
@@ -145,6 +109,27 @@ void	handle_fullmap_view(t_engine *eng)
 }
 
 /**
+ * @brief Computes player indicator info for fullmap.
+ *
+ * Calculates arrow size and position for player indicator on fullmap.
+ *
+ * @param eng Engine structure with player position and window dimensions.
+ * @param player_info Structure to populate with indicator data.
+ */
+static void	compute_fullmap_player_info(t_engine *eng,
+	t_map_draw_info *player_info)
+{
+	int	arrow_size;
+
+	arrow_size = eng->window_width / 15;
+	player_info->left = (int)(eng->player.pos_x * eng->window_width
+			/ eng->map_width) - arrow_size / 2;
+	player_info->top = (int)(eng->player.pos_y * eng->window_height
+			/ eng->map_height) - arrow_size / 2;
+	player_info->size = arrow_size;
+}
+
+/**
  * @brief Renders the full map overlay covering the entire screen.
  *
  * Iterates through all map cells, draws each cell with appropriate
@@ -154,8 +139,9 @@ void	handle_fullmap_view(t_engine *eng)
  */
 void	draw_full_map(t_engine *eng)
 {
-	int	map_col;
-	int	map_row;
+	int				map_col;
+	int				map_row;
+	t_map_draw_info	player_info;
 
 	if (!eng || !eng->frame || !eng->map || !eng->fullmap_visible)
 		return ;
@@ -170,5 +156,7 @@ void	draw_full_map(t_engine *eng)
 		}
 		map_col = map_col + 1;
 	}
-	draw_player_on_full_map(eng);
+	compute_fullmap_player_info(eng, &player_info);
+	draw_player_on_map(eng, &player_info,
+		eng->player.dir_x, eng->player.dir_y);
 }
