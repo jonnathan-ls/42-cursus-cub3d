@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:01:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 01:27:47 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/09 23:16:46 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ static int	handle_texture_line(char *id, t_config *cfg)
 		return (parse_single_texture(rest, &cfg->textures.we_path, "WE"));
 	if (id[0] == 'E' && id[1] == 'A')
 		return (parse_single_texture(rest, &cfg->textures.ea_path, "EA"));
-	if (id[0] == 'S' && id[1] == 'P')
-		return (parse_sprite_texture(rest, cfg));
 	return (handle_optional_texture(id, cfg, rest));
 }
 

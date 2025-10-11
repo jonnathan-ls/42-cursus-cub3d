@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:30:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 23:46:54 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/11 18:05:21 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ static void	draw_ceiling_pixels(t_engine *eng, int x, int start, t_ray *ray)
 	while (y < start && y < eng->window_height)
 	{
 		if (eng->tex.ceiling)
-		{
 			color = calculate_ceiling_texture(eng, y, ray, &distance);
-			color = apply_distance_shading(color, distance);
-		}
 		else
 			color = eng->ceiling_color;
 		mlx_put_pixel(eng->frame, x, y, color);

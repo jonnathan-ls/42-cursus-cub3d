@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:23:52 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 01:13:18 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/11 17:20:38 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,11 @@ static void	free_str(char **s)
 }
 
 /**
- * Frees map grid 2D array.
- * @param cfg Pointer to configuration structure.
- */
-static void	free_map_grid(t_config *cfg)
-{
-	int	i;
-
-	i = 0;
-	while (cfg->map.grid && i < cfg->map.height)
-	{
-		free(cfg->map.grid[i]);
-		i++;
-	}
-	if (cfg->map.grid)
-	{
-		free(cfg->map.grid);
-		cfg->map.grid = NULL;
-	}
-}
-
-/**
  * Frees all allocated memory in configuration.
+ * NOTE: 
+ * - map.grid is managed by garbage collector after normalize_map()
+ * - sprites array is managed by garbage collector (mm_alloc)
+ * - Only textures paths need manual free (from ft_strdup)
  * @param cfg Pointer to configuration structure.
  */
 void	free_config(t_config *cfg)
@@ -65,5 +48,5 @@ void	free_config(t_config *cfg)
 	free_str(&cfg->textures.start_path);
 	free_str(&cfg->textures.win_path);
 	free_str(&cfg->textures.lose_path);
-	free_map_grid(cfg);
+	free_str(&cfg->textures.door_path);
 }

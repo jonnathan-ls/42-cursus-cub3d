@@ -170,12 +170,21 @@ norminette:
 
 valgrind: all
 	@rm	-f .header_lock
+	@echo "$(BLUE)$(BOLD)🔍  Running Valgrind ...$(RESET)"
 	@valgrind --leak-check=full \
 	--show-reachable=yes \
 	--track-fds=yes \
 	--show-leak-kinds=all -s \
 	--track-origins=yes \
-	./$(NAME) ./maps/test_valid.cub
+	--log-file=valgrind_system.log \
+	./$(NAME) ./assets/maps/level_easy.cub -w
+	@echo "$(GREEN)$(BOLD)✅  Log saved to valgrind_system.log$(RESET)"
+	@echo "$(YELLOW)$(BOLD)📄  View with: less valgrind_system.log$(RESET)"
+
+debug: CFLAGS := -Wall -Wextra -Werror -g3 -O0 $(INCLUDES)
+debug: fclean mlx42 libft
+	@$(MAKE) $(NAME) CFLAGS="-Wall -Wextra -Werror -g3 -O0 $(INCLUDES)"
+	@echo "$(GREEN)$(BOLD)✅  Debug build completed!$(RESET)"
 
 header:
 	@if [ ! -f .header_lock ]; then \
@@ -186,4 +195,4 @@ header:
 		echo ;\
 	fi
 
-.PHONY: all clean fclean re header norminette valgrind mlx42 libft test
+.PHONY: all clean fclean re header norminette valgrind debug libft mlx42 print_build

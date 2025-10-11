@@ -6,13 +6,13 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:07 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/11 17:03:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parser.h"
-#include <stdlib.h>
+#include "shared.h"
 
 /**
  * @brief Computes the maximum width of all lines in the map.
@@ -45,8 +45,8 @@ static int	compute_max_width(char **lines, int height)
 /**
  * @brief Allocates a row filled with spaces for map normalization.
  *
- * Creates a new string of specified width, fills it with space
- * characters, and null-terminates it.
+ * Creates a new string of specified width using mm_alloc (garbage collector),
+ * fills it with space characters, and null-terminates it.
  *
  * @param width Desired width of the row.
  * @return Allocated string on success, NULL on failure.
@@ -56,7 +56,7 @@ static char	*alloc_row(int width)
 	char	*row;
 	int		j;
 
-	row = (char *)malloc(width + 1);
+	row = (char *)mm_alloc(width + 1, sizeof(char));
 	if (!row)
 		return (NULL);
 	j = 0;

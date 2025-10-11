@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/05 23:37:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/11 17:01:01 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int argc, char **argv)
 	eng.fullscreen = ft_strncmp(argv[2], "-w", 3);
 	if (configure_engine(&eng, &cfg) < 0)
 	{
+		destroy_engine(&eng);
 		free_config(&cfg);
 		return (fail("engine init failed"));
 	}

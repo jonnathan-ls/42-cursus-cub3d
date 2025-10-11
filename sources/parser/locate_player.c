@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:00 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 23:59:04 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/09 22:51:33 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	is_player(char c)
  * @param found Pointer to found flag.
  * @return 0 on success, -1 if duplicate player.
  */
-static int	note_player(t_map *map, int x, int y, int *found)
+static int	set_player_in_map(t_map *map, int x, int y, int *found)
 {
 	if (*found)
 		return (parser_error("multiple player positions"));
@@ -64,7 +64,7 @@ int	locate_player(t_map *map)
 		{
 			if (is_player(map->grid[y][x]))
 			{
-				if (note_player(map, x, y, &found) < 0)
+				if (set_player_in_map(map, x, y, &found) < 0)
 					return (-1);
 			}
 			x = x + 1;

@@ -6,37 +6,40 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 01:40:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/11 17:03:51 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "minimap.h"
 #include "constants.h"
-#include <stdlib.h>
+#include "shared.h"
 
 /**
  * @brief Allocates memory for the exploration tracking grid.
  *
  * Creates a 2D array matching map dimensions to track which cells have
- * been explored by the player.
+ * been explored by the player. Uses mm_alloc for automatic garbage collection.
  *
  * @param eng Engine structure containing map dimensions.
  * @return 1 on success, 0 on failure.
  */
-int	allocate_explored_map(t_engine *eng)
+static int	allocate_explored_map(t_engine *eng)
 {
 	int	y;
 
-	eng->explored_map = malloc(sizeof(int *) * eng->map_height);
+	eng->explored_map = mm_alloc(eng->map_height, sizeof(int *));
 	if (!eng->explored_map)
 		return (0);
 	y = 0;
 	while (y < eng->map_height)
 	{
-		eng->explored_map[y] = malloc(sizeof(int) * eng->map_width);
+		eng->explored_map[y] = mm_alloc(eng->map_width, sizeof(int));
 		if (!eng->explored_map[y])
+		{
+			eng->explored_map = NULL;
 			return (0);
+		}
 		y = y + 1;
 	}
 	return (1);

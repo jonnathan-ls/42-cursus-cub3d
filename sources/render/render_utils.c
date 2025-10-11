@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/08 00:29:40 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/11 19:53:35 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,29 +126,32 @@ uint32_t	calculate_floor_texture(t_engine *eng, int y, t_ray *ray,
  * @param ray Pointer to ray structure.
  * @param distance Pointer to store calculated distance.
  * @return Ceiling texture color or solid color.
- * @note Uses skybox-style projection for ceiling.
  */
 uint32_t	calculate_ceiling_texture(t_engine *eng, int y, t_ray *ray,
 	double *distance)
 {
-	double	row_distance;
-	double	ceil_x;
-	double	ceil_y;
+	double	horizontal_pos;
+	double	vertical_pos;
+	double	pitch_offset;
 	int		tex_x;
 	int		tex_y;
 
 	if (!eng->tex.ceiling)
 		return (eng->ceiling_color);
-	row_distance = calculate_row_distance(eng, y, 0);
-	*distance = row_distance;
-	ceil_x = (ray->angle_cache + PI) / (CENTER_DIVISOR * PI);
-	tex_x = (int)(ceil_x * eng->tex.ceiling->width) % eng->tex.ceiling->width;
-	ceil_y = (double)(eng->window_height - y) / (double)eng->window_height;
-	tex_y = (int)(ceil_y * eng->tex.ceiling->height)
-		% eng->tex.ceiling->height;
+	*distance = FOG_DISTANCE_MAX;
+	horizontal_pos = (ray->angle_cache + PI) / (CENTER_DIVISOR * PI);
+	pitch_offset = eng->player.pitch
+		* ((double)eng->window_height / PITCH_FACTOR);
+	vertical_pos = ((double)y + pitch_offset)
+		/ ((double)eng->window_height);
+	tex_x = (int)(horizontal_pos * eng->tex.ceiling->width)
+		% eng->tex.ceiling->width;
+	tex_y = (int)(vertical_pos * eng->tex.ceiling->height * 1.5);
 	if (tex_x < TEXTURE_CLAMP_MIN)
 		tex_x = tex_x + eng->tex.ceiling->width;
 	if (tex_y < TEXTURE_CLAMP_MIN)
-		tex_y = tex_y + eng->tex.ceiling->height;
+		tex_y = TEXTURE_CLAMP_MIN;
+	if (tex_y >= (int)eng->tex.ceiling->height)
+		tex_y = eng->tex.ceiling->height - 1;
 	return (get_texture_pixel(eng->tex.ceiling, tex_x, tex_y));
 }

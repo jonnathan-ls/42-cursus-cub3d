@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 01:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 01:25:28 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/09 23:16:44 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ int	handle_optional_texture(char *id, t_config *cfg, char *rest)
 		return (parse_single_texture(rest, &cfg->textures.win_path, "WN"));
 	if (id[0] == 'L' && id[1] == 'S')
 		return (parse_single_texture(rest, &cfg->textures.lose_path, "LS"));
+	if (id[0] == 'S' && id[1] == 'P')
+		return (parse_sprite_texture(rest, cfg));
 	return (parser_error("invalid texture identifier"));
 }
