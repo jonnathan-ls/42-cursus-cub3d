@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 23:20:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 00:31:38 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/23 21:14:37 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@
  */
 typedef struct s_sprite
 {
-	double			x;				/**< Sprite X position in world. */
-	double			y;				/**< Sprite Y position in world. */
-	double			distance;		/**< Distance from player (for sorting). */
-	int				type_index;		/**< Index into sprite type array. */
-	int				sprite_type;	/**< Sprite behavior type ID. */
-	int				collected;		/**< Collected/removed flag. */
-	int				frame_count;	/**< Total animation frames. */
-	int				current_frame;	/**< Current animation frame. */
-	double			anim_timer;		/**< Animation frame timer. */
-	int				health;			/**< Current health points. */
-	int				is_dying;		/**< Death animation active flag. */
-	double			death_timer;	/**< Death animation timer. */
-	double			move_dir_x;		/**< Movement direction X. */
-	double			move_dir_y;		/**< Movement direction Y. */
-	double			move_timer;		/**< Movement update timer. */
-	double			move_speed;		/**< Movement speed multiplier. */
+	double			x;
+	double			y;
+	double			distance;
+	int				type_index;
+	int				sprite_type;
+	int				collected;
+	int				frame_count;
+	int				current_frame;
+	double			anim_timer;
+	int				health;
+	int				is_dying;
+	double			death_timer;
+	double			move_dir_x;
+	double			move_dir_y;
+	double			move_timer;
+	double			move_speed;
 }					t_sprite;
 
 /**
@@ -45,15 +45,15 @@ typedef struct s_sprite
  */
 typedef struct s_sprite_manager
 {
-	t_sprite			*list;			/**< Array of sprite entities. */
-	int					count;			/**< Total sprite count. */
-	int					*order;			/**< Depth-sorted render order. */
-	mlx_texture_t		**textures;		/**< Sprite texture array. */
-	int					*frame_counts;	/**< Frames per texture. */
-	int					*frame_widths;	/**< Width per frame. */
-	int					*sprite_types;	/**< Type ID per texture. */
-	int					texture_count;	/**< Total loaded textures. */
-	t_sprite_config		*configs;		/**< Sprite configurations. */
+	t_sprite			*list;
+	int					count;
+	int					*order;
+	mlx_texture_t		**textures;
+	int					*frame_counts;
+	int					*frame_widths;
+	int					*sprite_types;
+	int					texture_count;
+	t_sprite_config		*configs;
 }					t_sprite_manager;
 
 /**
@@ -62,18 +62,18 @@ typedef struct s_sprite_manager
  */
 typedef struct s_sprite_render
 {
-	double			sprite_x;		/**< Sprite X relative to player. */
-	double			sprite_y;		/**< Sprite Y relative to player. */
-	double			inv_det;		/**< Inverse determinant for transform. */
-	double			transform_x;	/**< Transformed X in camera space. */
-	double			transform_y;	/**< Transformed Y (depth). */
-	int				screen_x;		/**< Screen X position of sprite. */
-	int				sprite_height;	/**< Screen height of sprite. */
-	int				sprite_width;	/**< Screen width of sprite. */
-	int				draw_start_y;	/**< Top pixel to draw. */
-	int				draw_end_y;		/**< Bottom pixel to draw. */
-	int				draw_start_x;	/**< Left pixel to draw. */
-	int				draw_end_x;		/**< Right pixel to draw. */
+	double			sprite_x;
+	double			sprite_y;
+	double			inv_det;
+	double			transform_x;
+	double			transform_y;
+	int				screen_x;
+	int				sprite_height;
+	int				sprite_width;
+	int				draw_start_y;
+	int				draw_end_y;
+	int				draw_start_x;
+	int				draw_end_x;
 }					t_sprite_render;
 
 void				init_sprites(void *eng, t_sprite_config *sprites,

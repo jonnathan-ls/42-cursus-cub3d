@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:48:42 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 00:31:38 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/23 21:14:07 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
  */
 typedef struct s_pixel
 {
-	int				texture_x;	/**< X coordinate in texture. */
-	double			position;	/**< Y position in texture [0, height]. */
-	mlx_texture_t	*texture;	/**< Texture being sampled. */
-	int				shift;		/**< Camera pitch vertical shift. */
+	int				texture_x;
+	double			position;
+	mlx_texture_t	*texture;
+	int				shift;
 }	t_pixel;
 
 void			cast_all_rays(struct s_engine *eng);

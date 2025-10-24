@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 01:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 01:29:28 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/23 21:13:28 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
  */
 typedef struct s_color
 {
-	int			r;		/**< Red channel [0-255]. */
-	int			g;		/**< Green channel [0-255]. */
-	int			b;		/**< Blue channel [0-255]. */
-	int			rgba;	/**< Packed RGBA color value. */
+	int			r;
+	int			g;
+	int			b;
+	int			rgba;
 }				t_color;
 
 /**
@@ -33,10 +33,10 @@ typedef struct s_color
  */
 typedef struct s_sprite_config
 {
-	char		identifier;	/**< Single character identifier. */
-	char		*path;		/**< Path to texture file. */
-	int			frames;		/**< Number of animation frames. */
-	int			type;		/**< Sprite behavior type ID. */
+	char		identifier;
+	char		*path;
+	int			frames;
+	int			type;
 }				t_sprite_config;
 
 /**
@@ -45,19 +45,19 @@ typedef struct s_sprite_config
  */
 typedef struct s_textures
 {
-	char				*no_path;		/**< North wall texture path. */
-	char				*so_path;		/**< South wall texture path. */
-	char				*we_path;		/**< West wall texture path. */
-	char				*ea_path;		/**< East wall texture path. */
-	char				*menu_path;		/**< Menu overlay texture path. */
-	char				*floor_path;	/**< Floor texture path. */
-	char				*ceiling_path;	/**< Ceiling texture path. */
-	char				*door_path;		/**< Door texture path. */
-	char				*start_path;	/**< Start screen texture path. */
-	char				*win_path;		/**< Win screen texture path. */
-	char				*lose_path;		/**< Lose screen texture path. */
-	t_sprite_config		*sprites;		/**< Array of sprite configs. */
-	int					sprite_count;	/**< Number of sprite configs. */
+	char				*no_path;
+	char				*so_path;
+	char				*we_path;
+	char				*ea_path;
+	char				*menu_path;
+	char				*floor_path;
+	char				*ceiling_path;
+	char				*door_path;
+	char				*start_path;
+	char				*win_path;
+	char				*lose_path;
+	t_sprite_config		*sprites;
+	int					sprite_count;
 }				t_textures;
 
 /**
@@ -66,12 +66,12 @@ typedef struct s_textures
  */
 typedef struct s_map
 {
-	int			width;		/**< Map width in tiles. */
-	int			height;		/**< Map height in tiles. */
-	char		**grid;		/**< 2D character array of map. */
-	int			player_x;	/**< Player spawn X coordinate. */
-	int			player_y;	/**< Player spawn Y coordinate. */
-	char		player_dir;	/**< Player spawn direction (N/S/E/W). */
+	int			width;
+	int			height;
+	char		**grid;
+	int			player_x;
+	int			player_y;
+	char		player_dir;
 }				t_map;
 
 /**
@@ -80,10 +80,10 @@ typedef struct s_map
  */
 typedef struct s_config
 {
-	t_map		map;			/**< Map layout and spawn data. */
-	t_textures	textures;		/**< Texture file paths. */
-	t_color		floor_color;	/**< Floor RGB color. */
-	t_color		ceiling_color;	/**< Ceiling RGB color. */
+	t_map		map;
+	t_textures	textures;
+	t_color		floor_color;
+	t_color		ceiling_color;
 }				t_config;
 
 int				normalize_map(t_map *map);
