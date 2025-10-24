@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:23:52 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/11 17:20:38 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/23 22:17:29 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,26 @@ static void	free_str(char **s)
 		free(*s);
 		*s = NULL;
 	}
+}
+
+/**
+ * Frees all sprite texture paths in configuration.
+ * @param cfg Pointer to configuration structure.
+ */
+static void	free_sprite_textures(t_config *cfg)
+{
+	int	i;
+
+	i = 0;
+	if (!cfg || !cfg->textures.sprites)
+		return ;
+	while (i < cfg->textures.sprite_count)
+	{
+		free_str(&cfg->textures.sprites[i].path);
+		i++;
+	}
+	cfg->textures.sprites = NULL;
+	cfg->textures.sprite_count = 0;
 }
 
 /**
@@ -49,4 +69,5 @@ void	free_config(t_config *cfg)
 	free_str(&cfg->textures.win_path);
 	free_str(&cfg->textures.lose_path);
 	free_str(&cfg->textures.door_path);
+	free_sprite_textures(cfg);
 }

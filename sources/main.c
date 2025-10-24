@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/11 17:01:01 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/23 22:19:00 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ static int	fail(char *msg)
 	return (1);
 }
 
+static void	free_game_resources(t_engine *eng, t_config *cfg)
+{
+	free_config(cfg);
+	destroy_engine(eng);
+	mm_garbage_collector();
+}
+
 /**
  * Entry point of the program.
  * @param argc Argument count.
@@ -43,16 +50,18 @@ int	main(int argc, char **argv)
 	if (validate_file_extension(argv[1]) < 0)
 		return (fail("invalid extension"));
 	if (parse_cub(argv[1], &cfg) < 0)
+	{
+		free_config(&cfg);
+		mm_garbage_collector();
 		return (fail("parse failure"));
+	}
 	eng.fullscreen = ft_strncmp(argv[2], "-w", 3);
 	if (configure_engine(&eng, &cfg) < 0)
 	{
-		destroy_engine(&eng);
-		free_config(&cfg);
+		free_game_resources(&eng, &cfg);
 		return (fail("engine init failed"));
 	}
 	engine_loop(&eng);
-	destroy_engine(&eng);
-	free_config(&cfg);
+	free_game_resources(&eng, &cfg);
 	return (0);
 }

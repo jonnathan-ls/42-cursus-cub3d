@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:01:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/09 23:16:46 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/23 22:09:42 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	parse_single_texture(char *rest, char **dst, char *name)
  * @brief Handles parsing of texture lines based on identifier.
  *
  * Identifies the texture type from the two-character identifier and
- * delegates to parse_single_texture or parse_sprite_texture.
+ * delegates to parse_single_texture or handle_optional_texture.
  *
  * @param id Pointer to identifier string.
  * @param cfg Configuration structure to update.
