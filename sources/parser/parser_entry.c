@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_entry.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:37 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 01:19:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/30 08:46:23 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,14 +136,17 @@ int	parse_cub(const char *path, t_config *cfg)
 	{
 		close(fd);
 		free_config(cfg);
+		gnl_cleanup();
 		return (-1);
 	}
 	if (validate_configutarions(cfg) < 0)
 	{
 		close(fd);
 		free_config(cfg);
+		gnl_cleanup();
 		return (-1);
 	}
 	close(fd);
+	gnl_cleanup();
 	return (0);
 }
