@@ -3,39 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 19:43:57 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/10/16 20:22:18 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/30 08:37:21 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
-	size_t	s1_size;
-	size_t	s2_size;
-	char	*joined_str;
+	size_t	j;
+	char	*str;
 
-	i = 0;
-	s1_size = ft_strlen(s1);
-	s2_size = ft_strlen(s2);
-	joined_str = (char *)malloc(s1_size + s2_size + 1);
-	if (joined_str)
+	if (!s1)
 	{
-		while (i < s1_size)
-		{
-			joined_str[i] = s1[i];
-			i++;
-		}
-		while (i - s1_size < s2_size)
-		{
-			joined_str[i] = s2[i - s1_size];
-			i++;
-		}
-		joined_str[i] = '\0';
+		s1 = (char *)malloc(1 * sizeof(char));
+		s1[0] = '\0';
 	}
-	return (joined_str);
+	if (!s1 || !s2)
+		return (NULL);
+	str = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
+	if (str == NULL)
+		return (NULL);
+	i = -1;
+	j = 0;
+	if (s1)
+		while (s1[++i] != '\0')
+			str[i] = s1[i];
+	while (s2[j] != '\0')
+		str[i++] = s2[j++];
+	str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	free(s1);
+	return (str);
 }
