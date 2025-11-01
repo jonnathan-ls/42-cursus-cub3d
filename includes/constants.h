@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/01 15:19:00 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/01 19:25:22 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@
 /** @brief Maximum player health points. */
 # define MAX_HEALTH 100
 /** @brief Damage dealt by enemy on contact. */
-# define ENEMY_DAMAGE 10
+# define ENEMY_DAMAGE 15
 /** @brief Health restored by health pickup. */
 # define HEALTH_RESTORE 25
 /** @brief Maximum enemy health points. */
@@ -118,7 +118,7 @@
 /** @brief Damage dealt by projectile. */
 # define PROJECTILE_DAMAGE 25
 /** @brief Projectile movement speed. */
-# define PROJECTILE_SPEED 10.0
+# define PROJECTILE_SPEED 12.5
 
 /** @brief Cooldown between damage events in seconds. */
 # define DAMAGE_COOLDOWN 1.0
@@ -134,7 +134,7 @@
 /** @brief Door center offset for interaction. */
 # define DOOR_CENTER_OFFSET 0.5
 /** @brief Door opening animation speed. */
-# define DOOR_ANIM_SPEED 4.0
+# define DOOR_ANIM_SPEED 3.0
 /** @brief Delta time to 60 FPS conversion factor. */
 # define DELTA_TIME_FACTOR 60.0
 /** @brief Door interaction detection radius. */

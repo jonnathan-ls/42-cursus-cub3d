@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:21:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 01:43:13 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:01:00 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	reset_engine_textures(t_engine *eng)
  * Initializes all engine values to default state.
  * @param eng Pointer to engine structure.
  */
-void	reset_engine_values(t_engine *eng)
+void	init_engine_values(t_engine *eng)
 {
 	reset_engine_dimensions(eng);
 	reset_engine_pointers(eng);

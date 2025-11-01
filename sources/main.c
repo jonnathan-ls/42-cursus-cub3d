@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/01 15:50:09 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/01 19:10:13 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ static int	fail(char *msg)
 	return (1);
 }
 
+/**
+ * Frees all allocated resources for config and engine.
+ * @param eng Pointer to engine structure.
+ * @param cfg Pointer to configuration structure.
+ */
 static void	free_game_resources(t_engine *eng, t_config *cfg)
 {
 	free_config(cfg);
@@ -45,6 +50,8 @@ int	main(int argc, char **argv)
 	t_config	cfg;
 	t_engine	eng;
 
+	init_config_values(&cfg);
+	init_engine_values(&eng);
 	if (argc < 2 || argc > 3)
 		return (fail("usage: ./cub3d <map.cub> [-w]"));
 	if (validate_file_extension(argv[1]) < 0)

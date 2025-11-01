@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:52:59 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/11 20:05:32 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/01 19:10:59 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,6 @@ static int	init_window_image(t_engine *eng)
  */
 static int	configure_engine_base(t_engine *eng, t_config *cfg)
 {
-	if (!eng || !cfg)
-		return (-1);
-	reset_engine_values(eng);
 	mlx_set_setting(MLX_FULLSCREEN, eng->fullscreen);
 	if (init_window_image(eng) != 0)
 		return (-1);

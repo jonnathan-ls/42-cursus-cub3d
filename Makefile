@@ -172,12 +172,10 @@ norminette:
 valgrind: all
 	@rm	-f .header_lock
 	@echo "$(BLUE)$(BOLD)🔍  Running Valgrind ...$(RESET)"
-	@valgrind --leak-check=full \
-	--show-reachable=yes \
-	--track-fds=yes \
-	--show-leak-kinds=all -s \
-	--track-origins=yes \
-	--log-file=valgrind_system.log \
+	@valgrind \
+	--track-origins=yes --track-fds=yes \
+	--leak-check=full --show-reachable=yes --show-leak-kinds=all -s \
+	--log-file=valgrind_system.log --suppressions=valgrind-suppress.supp \
 	./$(NAME) ./assets/maps/level_easy.cub -w
 	@echo "$(GREEN)$(BOLD)✅  Log saved to valgrind_system.log$(RESET)"
 	@echo "$(YELLOW)$(BOLD)📄  View with: less valgrind_system.log$(RESET)"

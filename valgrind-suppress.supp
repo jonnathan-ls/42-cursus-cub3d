@@ -1,0 +1,1170 @@
+# ============================================================================
+# Supressões Valgrind para Bibliotecas Externas do Sistema
+# Projeto: cub3d
+# Ignora problemas de bibliotecas gráficas (OpenGL, X11, GLFW, WSL, etc)
+# ============================================================================
+
+# ============================================================================
+# Mismatched Free/Delete (bibliotecas externas)
+# ============================================================================
+{
+   Intel_GMM_Mismatched_Delete
+   Memcheck:Free
+   fun:_ZdlPv
+   fun:_ZN6GmmLib16GmmClientContext11DestroyPoolEPv
+   ...
+}
+
+{
+   WSL_Drivers_Mismatched_Free
+   Memcheck:Free
+   ...
+   obj:*/libigdgmm_w.so*
+   ...
+   obj:*/libigd12um64xel.so
+}
+
+# ============================================================================
+# WSL / DirectX Core
+# ============================================================================
+{
+   WSL_DXCore_Conditional_Jump
+   Memcheck:Cond
+   ...
+   obj:*/libdxcore.so
+}
+
+{
+   WSL_DXCore_Value
+   Memcheck:Value8
+   ...
+   obj:*/libdxcore.so
+}
+
+{
+   WSL_DXCore_IOCTL_Uninit
+   Memcheck:Param
+   ioctl(generic)
+   fun:ioctl
+   fun:D3DKMTLock2
+   ...
+}
+
+{
+   WSL_DXCore_IOCTL_Query_Uninit
+   Memcheck:Param
+   ioctl(generic)
+   fun:ioctl
+   fun:D3DKMTQueryAdapterInfo
+   ...
+}
+
+{
+   WSL_DXCore_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libdxcore.so
+}
+
+{
+   WSL_D3D12_All_Issues
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libd3d12*.so*
+}
+
+{
+   WSL_ICD_All_Issues
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libigd12um64xel.so
+}
+
+{
+   WSL_Invalid_Write
+   Memcheck:Addr4
+   ...
+   obj:*/libigd12um64xel.so
+}
+
+{
+   Intel_Driver_Invalid_Read
+   Memcheck:Addr1
+   ...
+   obj:*/libigd12um64xel.so
+}
+
+{
+   Intel_Driver_Invalid_Read_2
+   Memcheck:Addr2
+   ...
+   obj:*/libigd12um64xel.so
+}
+
+{
+   Intel_Driver_Invalid_Read_4
+   Memcheck:Addr4
+   ...
+   obj:*/libigd12um64xel.so
+}
+
+{
+   Intel_Driver_Invalid_Read_8
+   Memcheck:Addr8
+   ...
+   obj:*/libigd12um64xel.so
+}
+
+{
+   Intel_Driver_Invalid_Read_16
+   Memcheck:Addr16
+   ...
+   obj:*/libigd12um64xel.so
+}
+
+{
+   Intel_Driver_Invalid_Read_32
+   Memcheck:Addr32
+   ...
+   obj:*/libigd12um64xel.so
+}
+
+{
+   Intel_Driver_Conditional
+   Memcheck:Cond
+   ...
+   obj:*/libigd12um64xel.so
+}
+
+{
+   Intel_Driver_Value
+   Memcheck:Value8
+   ...
+   obj:*/libigd12um64xel.so
+}
+
+{
+   Intel_GMM_Mismatched_Free
+   Memcheck:Free
+   fun:_ZdlPv
+   ...
+   obj:*/libigdgmm_w.so*
+}
+
+{
+   Intel_GMM_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libigdgmm_w.so*
+}
+
+{
+   Intel_Graphics_Compiler_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libigc.so
+}
+
+{
+   Intel_Graphics_Compiler_Conditional
+   Memcheck:Cond
+   ...
+   obj:*/libigc.so
+}
+
+{
+   Intel_Graphics_Compiler_Value
+   Memcheck:Value8
+   ...
+   obj:*/libigc.so
+}
+
+{
+   Intel_Graphics_Compiler_Addr
+   Memcheck:Addr1
+   ...
+   obj:*/libigc.so
+}
+
+{
+   Intel_Graphics_Compiler_Addr2
+   Memcheck:Addr2
+   ...
+   obj:*/libigc.so
+}
+
+{
+   Intel_Graphics_Compiler_Addr4
+   Memcheck:Addr4
+   ...
+   obj:*/libigc.so
+}
+
+{
+   Intel_Graphics_Compiler_Addr8
+   Memcheck:Addr8
+   ...
+   obj:*/libigc.so
+}
+
+{
+   D3D12Core_Invalid_Access
+   Memcheck:Addr1
+   ...
+   obj:*/libd3d12core.so
+}
+
+{
+   D3D12Core_Invalid_Access_2
+   Memcheck:Addr2
+   ...
+   obj:*/libd3d12core.so
+}
+
+{
+   D3D12Core_Invalid_Access_4
+   Memcheck:Addr4
+   ...
+   obj:*/libd3d12core.so
+}
+
+{
+   D3D12Core_Invalid_Access_8
+   Memcheck:Addr8
+   ...
+   obj:*/libd3d12core.so
+}
+
+{
+   D3D12Core_Conditional
+   Memcheck:Cond
+   ...
+   obj:*/libd3d12core.so
+}
+
+{
+   D3D12Core_Value
+   Memcheck:Value8
+   ...
+   obj:*/libd3d12core.so
+}
+
+{
+   D3D12_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libd3d12.so
+}
+
+{
+   LLVM_Conditional
+   Memcheck:Cond
+   ...
+   obj:*/libLLVM*.so
+}
+
+{
+   LLVM_Value
+   Memcheck:Value8
+   ...
+   obj:*/libLLVM*.so
+}
+
+{
+   LLVM_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libLLVM*.so
+}
+
+{
+   Mesa_DRI_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/dri/swrast_dri.so
+}
+
+{
+   Mesa_DRI_Leaks_From_MLX
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/dri/swrast_dri.so
+   ...
+   fun:mlx_init_render
+}
+
+{
+   Mesa_DRI_Conditional
+   Memcheck:Cond
+   ...
+   obj:*/dri/swrast_dri.so
+}
+
+{
+   Mesa_DRI_Invalid_Read
+   Memcheck:Addr8
+   ...
+   obj:*/dri/swrast_dri.so
+}
+
+{
+   Mesa_DRI_Invalid_Read_1
+   Memcheck:Addr1
+   ...
+   obj:*/dri/swrast_dri.so
+}
+
+{
+   Mesa_DRI_Invalid_Read_2
+   Memcheck:Addr2
+   ...
+   obj:*/dri/swrast_dri.so
+}
+
+{
+   Mesa_DRI_Invalid_Read_4
+   Memcheck:Addr4
+   ...
+   obj:*/dri/swrast_dri.so
+}
+
+{
+   Mesa_DRI_Invalid_Read_16
+   Memcheck:Addr16
+   ...
+   obj:*/dri/swrast_dri.so
+}
+
+{
+   Mesa_DRI_Invalid_Read_32
+   Memcheck:Addr32
+   ...
+   obj:*/dri/swrast_dri.so
+}
+
+{
+   DXCore_IOCTL_Uninit
+   Memcheck:Param
+   ioctl(generic)
+   fun:ioctl
+   fun:D3DKMTWaitForSynchronizationObjectFromCpu
+   ...
+}
+
+{
+   GLX_Mesa_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libGLX_mesa.so*
+}
+
+{
+   GLX_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libGLX.so*
+}
+
+{
+   GL_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libGL.so*
+}
+
+{
+   GLdispatch_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libGLdispatch.so*
+}
+
+{
+   GLapi_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libglapi.so*
+}
+
+{
+   GLFW_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libglfw.so*
+}
+
+{
+   GLFW_Conditional
+   Memcheck:Cond
+   ...
+   obj:*/libglfw.so*
+}
+
+{
+   GLFW_Init_Still_Reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:glfwInit
+}
+
+{
+   GLFW_CreateWindow_Still_Reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:glfwCreateWindow
+}
+
+{
+   X11_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libX11.so*
+}
+
+{
+   X11_Still_Reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libX11.so*
+}
+
+{
+   XCB_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libxcb*.so*
+}
+
+{
+   Xext_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libXext.so*
+}
+
+{
+   Xi_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libXi.so*
+}
+
+{
+   Xrandr_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libXrandr.so*
+}
+
+{
+   Xrender_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libXrender.so*
+}
+
+{
+   Xcursor_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libXcursor.so*
+}
+
+{
+   Xfixes_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libXfixes.so*
+}
+
+{
+   Xinerama_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libXinerama.so*
+}
+
+{
+   Xxf86vm_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libXxf86vm.so*
+}
+
+{
+   Xau_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libXau.so*
+}
+
+{
+   Xdmcp_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libXdmcp.so*
+}
+
+{
+   DRM_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libdrm*.so*
+}
+
+{
+   Xshmfence_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libxshmfence.so*
+}
+
+{
+   LD_Invalid_Read_strncmp
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   obj:*/ld-*.so*
+}
+
+{
+   LD_Invalid_Read
+   Memcheck:Addr8
+   ...
+   obj:*/ld-*.so*
+}
+
+{
+   LD_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/ld-*.so*
+}
+
+{
+   LD_Dlopen
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:*alloc
+   ...
+   fun:dlopen*
+}
+
+{
+   LibC_Dlopen_Still_Reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:dlopen*
+   obj:*/libc.so*
+}
+
+{
+   LibStdCpp_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libstdc++.so*
+}
+
+{
+   LLVM_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libLLVM*.so*
+}
+
+{
+   LibZ_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libz.so*
+}
+
+{
+   LibZstd_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libzstd.so*
+}
+
+{
+   LibExpat_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libexpat.so*
+}
+
+{
+   LibFFI_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libffi.so*
+}
+
+{
+   LibEdit_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libedit.so*
+}
+
+{
+   LibXML2_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libxml2.so*
+}
+
+{
+   LibICU_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libicu*.so*
+}
+
+{
+   LibBSD_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libbsd.so*
+}
+
+{
+   LibMD_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libmd.so*
+}
+
+{
+   LibSensors_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libsensors.so*
+}
+
+{
+   LibElf_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libelf*.so*
+}
+
+{
+   LibPCIAccess_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libpciaccess.so*
+}
+
+{
+   Pthread_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libpthread*.so*
+}
+
+{
+   TLS_Still_Reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:allocate_dtv
+}
+
+{
+   Inherited_FD_VSCode
+   Memcheck:Param
+   write(buf)
+   ...
+   obj:*/libpthread*.so*
+}
+
+# ============================================================================
+# Mesa / DRI / OpenGL Drivers
+# ============================================================================
+{
+   Mesa_DRI_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/dri/swrast_dri.so
+}
+
+{
+   Mesa_DRI_Conditional
+   Memcheck:Cond
+   obj:*/dri/swrast_dri.so
+}
+
+{
+   Mesa_DRI_Invalid_Read
+   Memcheck:Addr8
+   obj:*/dri/swrast_dri.so
+}
+
+# ============================================================================
+# GLX / OpenGL
+# ============================================================================
+{
+   GLX_Mesa_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libGLX_mesa.so*
+}
+
+{
+   GLX_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libGLX.so*
+}
+
+{
+   GL_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libGL.so*
+}
+
+{
+   GLdispatch_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libGLdispatch.so*
+}
+
+{
+   GLapi_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libglapi.so*
+}
+
+# ============================================================================
+# GLFW
+# ============================================================================
+{
+   GLFW_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libglfw.so*
+}
+
+{
+   GLFW_Conditional
+   Memcheck:Cond
+   obj:*/libglfw.so*
+}
+
+{
+   GLFW_Init_Still_Reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:glfwInit
+}
+
+{
+   GLFW_CreateWindow_Still_Reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:glfwCreateWindow
+}
+
+# ============================================================================
+# X11 / XCB
+# ============================================================================
+{
+   X11_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libX11.so*
+}
+
+{
+   X11_Still_Reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   obj:*/libX11.so*
+}
+
+{
+   XCB_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libxcb*.so*
+}
+
+{
+   Xext_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libXext.so*
+}
+
+{
+   Xi_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libXi.so*
+}
+
+{
+   Xrandr_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libXrandr.so*
+}
+
+{
+   Xrender_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libXrender.so*
+}
+
+{
+   Xcursor_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libXcursor.so*
+}
+
+{
+   Xfixes_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libXfixes.so*
+}
+
+{
+   Xinerama_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libXinerama.so*
+}
+
+{
+   Xxf86vm_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libXxf86vm.so*
+}
+
+{
+   Xau_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libXau.so*
+}
+
+{
+   Xdmcp_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libXdmcp.so*
+}
+
+# ============================================================================
+# DRM (Direct Rendering Manager)
+# ============================================================================
+{
+   DRM_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libdrm*.so*
+}
+
+{
+   Xshmfence_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libxshmfence.so*
+}
+
+# ============================================================================
+# Dynamic Linker (ld-linux)
+# ============================================================================
+{
+   LD_Invalid_Read_strncmp
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   obj:*/ld-*.so*
+}
+
+{
+   LD_Invalid_Read
+   Memcheck:Addr8
+   obj:*/ld-*.so*
+}
+
+{
+   LD_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/ld-*.so*
+}
+
+{
+   LD_Dlopen
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:*alloc
+   ...
+   fun:dlopen*
+}
+
+# ============================================================================
+# Sistema (libc, libstdc++, etc)
+# ============================================================================
+{
+   LibC_Dlopen_Still_Reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:dlopen*
+   obj:*/libc.so*
+}
+
+{
+   LibStdCpp_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libstdc++.so*
+}
+
+{
+   LLVM_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libLLVM*.so*
+}
+
+{
+   LibZ_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libz.so*
+}
+
+{
+   LibZstd_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libzstd.so*
+}
+
+{
+   LibExpat_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libexpat.so*
+}
+
+{
+   LibFFI_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libffi.so*
+}
+
+{
+   LibEdit_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libedit.so*
+}
+
+{
+   LibXML2_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libxml2.so*
+}
+
+{
+   LibICU_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libicu*.so*
+}
+
+{
+   LibBSD_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libbsd.so*
+}
+
+{
+   LibMD_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libmd.so*
+}
+
+{
+   LibSensors_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libsensors.so*
+}
+
+{
+   LibElf_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libelf*.so*
+}
+
+{
+   LibPCIAccess_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libpciaccess.so*
+}
+
+# ============================================================================
+# Pthread / Thread Local Storage
+# ============================================================================
+{
+   Pthread_All_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libpthread*.so*
+}
+
+{
+   TLS_Still_Reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:allocate_dtv
+}
+
+# ============================================================================
+# File Descriptors Herdados (VS Code Server, etc)
+# ============================================================================
+{
+   Inherited_FD_VSCode
+   Memcheck:Param
+   write(buf)
+   obj:*/libpthread*.so*
+}
+
+# ============================================================================
+# Supressões Genéricas para Bibliotecas de Sistema (Últimos Recursos)
+# ============================================================================
+{
+   External_Libs_Calloc_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:calloc
+   ...
+   fun:mlx_init*
+}
+
+{
+   External_Libs_Calloc_All
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:calloc
+   ...
+}
+
+{
+   External_Libs_Calloc_Still_Reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   ...
+}
+
+{
+   External_Libs_Malloc_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:malloc
+   ...
+   fun:mlx_init*
+}
+
+{
+   External_Libs_Malloc_All
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:malloc
+   ...
+}
+
+{
+   External_Libs_Malloc_Indirect
+   Memcheck:Leak
+   match-leak-kinds: indirect
+   fun:malloc
+   ...
+}
+
+{
+   External_Libs_Memalign_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:memalign
+   ...
+}

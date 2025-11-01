@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:37 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/11/01 16:11:12 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/01 19:08:52 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,6 @@
 #include "parser.h"
 #include <fcntl.h>
 #include <unistd.h>
-
-/**
- * @brief Initializes configuration structure with default values.
- *
- * Sets all texture paths to NULL, colors to -1, and map dimensions to
- * zero, preparing the structure for parsing.
- *
- * @param cfg Configuration structure to initialize.
- */
-static void	init_config(t_config *cfg)
-{
-	cfg->textures.no_path = NULL;
-	cfg->textures.so_path = NULL;
-	cfg->textures.we_path = NULL;
-	cfg->textures.ea_path = NULL;
-	cfg->textures.floor_path = NULL;
-	cfg->textures.ceiling_path = NULL;
-	cfg->textures.door_path = NULL;
-	cfg->textures.menu_path = NULL;
-	cfg->textures.start_path = NULL;
-	cfg->textures.win_path = NULL;
-	cfg->textures.lose_path = NULL;
-	cfg->textures.sprites = NULL;
-	cfg->textures.sprite_count = 0;
-	cfg->floor_color.rgba = -1;
-	cfg->ceiling_color.rgba = -1;
-	cfg->map.grid = NULL;
-	cfg->map.width = 0;
-	cfg->map.height = 0;
-	cfg->map.player_x = -1;
-	cfg->map.player_y = -1;
-	cfg->map.player_dir = 0;
-}
 
 /**
  * @brief Opens .cub file and parses metadata headers.
@@ -127,7 +94,6 @@ int	parse_cub(const char *path, t_config *cfg)
 	int		fd;
 	char	*first_line;
 
-	init_config(cfg);
 	if (config_metadata(path, cfg, &fd, &first_line) < 0)
 	{
 		parser_release_resources(fd, cfg);

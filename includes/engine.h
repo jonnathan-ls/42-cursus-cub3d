@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:21:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/23 21:11:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:01:00 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_engine
 }						t_engine;
 
 void					apply_window_scale(t_engine *eng);
-void					reset_engine_values(t_engine *eng);
+void					init_engine_values(t_engine *eng);
 
 int						configure_engine(t_engine *eng, t_config *cfg);
 void					destroy_engine(t_engine *eng);

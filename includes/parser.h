@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 01:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/01 16:11:01 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:13:20 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void			free_config(t_config *cfg);
 int				check_map_closed(t_map *map);
 int				parser_error(const char *msg);
 int				validate_map_chars(t_map *map);
+void			init_config_values(t_config *cfg);
 int				parse_color(char *rest, t_color *dst);
 int				validate_file_extension(const char *path);
 int				parse_cub(const char *path, t_config *cfg);
