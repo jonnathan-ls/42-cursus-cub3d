@@ -3,116 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 17:37:40 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/30 08:46:23 by peda-cos         ###   ########.fr       */
+/*   Updated: 2024/12/21 20:44:09 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "get_next_line.h"
 
-char	*ft_get_line(char *save)
+static char	*ft_get_content(int fd, char *content, char *buffer)
 {
-	int		i;
-	char	*str;
+	char	*temp;
+	int		bytes_read;
 
-	i = 0;
-	if (!save[i])
-		return (NULL);
-	while (save[i] && save[i] != '\n')
-		i++;
-	str = (char *)malloc(sizeof(char) * (i + 2));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (save[i] && save[i] != '\n')
+	bytes_read = 0;
+	if (!content)
+		content = ft_strdup(EMPTY_STRING);
+	while (!ft_strchr(content, NEW_LINE))
 	{
-		str[i] = save[i];
-		i++;
-	}
-	if (save[i] == '\n')
-	{
-		str[i] = save[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
-char	*ft_save(char *save)
-{
-	int		i;
-	int		j;
-	char	*str;
-
-	i = 0;
-	while (save[i] && save[i] != '\n')
-		i++;
-	if (!save[i])
-	{
-		free(save);
-		return (NULL);
-	}
-	str = (char *)malloc(sizeof(char) * (ft_strlen(save) - i + 1));
-	if (!str)
-		return (NULL);
-	i++;
-	j = 0;
-	while (save[i])
-		str[j++] = save[i++];
-	str[j] = '\0';
-	free(save);
-	return (str);
-}
-
-char	*ft_read_and_save(int fd, char *save)
-{
-	char	*buff;
-	int		rd_bytes;
-
-	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buff)
-		return (NULL);
-	rd_bytes = 1;
-	while (!ft_strchr(save, '\n') && rd_bytes != 0)
-	{
-		rd_bytes = read(fd, buff, BUFFER_SIZE);
-		if (rd_bytes == -1)
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read < 0)
 		{
-			free(buff);
+			free(buffer);
+			free(content);
+			content = NULL;
 			return (NULL);
 		}
-		buff[rd_bytes] = '\0';
-		save = ft_strjoin(save, buff);
+		else if (bytes_read == 0)
+			break ;
+		buffer[bytes_read] = NULL_CHAR;
+		temp = content;
+		content = ft_strjoin(content, buffer);
+		free(temp);
 	}
-	free(buff);
-	return (save);
+	return (content);
+}
+
+static int	ft_is_end_of_file(char **content, char	**buffer)
+{
+	if (*content[0] == NULL_CHAR)
+	{
+		free(*buffer);
+		free(*content);
+		*content = NULL;
+		return (1);
+	}
+	return (0);
+}
+
+static char	*ft_get_line(char *content, int *index)
+{
+	char	*line;
+
+	while (content[*index] && content[*index] != NEW_LINE)
+		(*index)++;
+	if (content[*index] && content[*index] == NEW_LINE)
+		(*index)++;
+	line = ft_substr(content, 0, *index);
+	if (!line)
+	{
+		free(content);
+		return (NULL);
+	}
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
+	static char	*content[MAX_FD];
+	char		*buffer;
+	char		*temp;
 	char		*line;
-	static char	*save;
+	int			index;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-	{
-		if (fd == -1 && save)
-		{
-			free(save);
-			save = NULL;
-		}
+	index = 0;
+	if (fd < 0 || fd > MAX_FD || BUFFER_SIZE <= 0)
 		return (NULL);
-	}
-	save = ft_read_and_save(fd, save);
-	if (!save)
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
 		return (NULL);
-	line = ft_get_line(save);
-	save = ft_save(save);
+	content[fd] = ft_get_content(fd, content[fd], buffer);
+	if (!content[fd])
+		return (NULL);
+	if (ft_is_end_of_file(&content[fd], &buffer))
+		return (NULL);
+	line = ft_get_line(content[fd], &index);
+	if (!line)
+		return (NULL);
+	temp = content[fd];
+	content[fd] = ft_strdup(content[fd] + index);
+	free(temp);
+	free(buffer);
 	return (line);
-}
-
-void	gnl_cleanup(void)
-{
-	get_next_line(-1);
 }
