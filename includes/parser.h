@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 01:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/23 21:13:28 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:11:01 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,5 @@ int				extract_number(char *space);
 void			set_sprite_data(t_sprite_config *sprite, int params[2]);
 void			init_params(int params[2]);
 int				parse_single_texture(char *rest, char **dst, char *name);
+void			parser_release_resources(int fd, t_config *cfg);
 #endif

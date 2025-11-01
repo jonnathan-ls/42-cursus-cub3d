@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:28 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 00:09:57 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/10/31 22:47:19 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parser.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include "get_next_line.h"
 
 /**
  * @brief Checks if a line contains only whitespace characters.
@@ -122,7 +123,7 @@ static int	read_header_block(int fd, t_config *cfg, char **first_map_line)
 		result = process_header_line(line, cfg, &count);
 		if (result == -2)
 		{
-			*first_map_line = line;
+			free(line);
 			return (0);
 		}
 		if (result < 0)

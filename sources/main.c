@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/23 22:19:00 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/01 15:50:09 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	main(int argc, char **argv)
 		return (fail("invalid extension"));
 	if (parse_cub(argv[1], &cfg) < 0)
 	{
-		free_config(&cfg);
 		mm_garbage_collector();
 		return (fail("parse failure"));
 	}

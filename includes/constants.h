@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 01:42:51 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/01 15:19:00 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define CONSTANTS_H
 
 /** @brief Default window width in pixels. */
-# define WIN_WIDTH 1920
+# define WIN_WIDTH 1280
 /** @brief Default window height in pixels. */
-# define WIN_HEIGHT 1080
+# define WIN_HEIGHT 720
 
 /** @brief Mathematical constant PI for trigonometric calculations. */
 # define PI 3.14159265358979323846

@@ -40,7 +40,8 @@ PARSER_SRCS = \
 	sources/parser/locate_player.c \
 	sources/parser/check_closed.c \
 	sources/parser/free_config.c \
-	sources/parser/parser_errors.c
+	sources/parser/parser_errors.c \
+	sources/parser/parser_utils.c
 
 ENGINE_SRCS = \
 	sources/engine/engine_utils.c \

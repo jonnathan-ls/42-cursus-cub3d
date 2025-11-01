@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:37 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 01:19:45 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:11:12 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,23 +127,22 @@ int	parse_cub(const char *path, t_config *cfg)
 	int		fd;
 	char	*first_line;
 
-	if (!cfg)
-		return (parser_error("malloc failure"));
 	init_config(cfg);
 	if (config_metadata(path, cfg, &fd, &first_line) < 0)
+	{
+		parser_release_resources(fd, cfg);
 		return (-1);
+	}
 	if (config_map(fd, first_line, cfg) < 0)
 	{
-		close(fd);
-		free_config(cfg);
+		parser_release_resources(fd, cfg);
 		return (-1);
 	}
 	if (validate_configutarions(cfg) < 0)
 	{
-		close(fd);
-		free_config(cfg);
+		parser_release_resources(fd, cfg);
 		return (-1);
 	}
-	close(fd);
+	parser_release_resources(fd, NULL);
 	return (0);
 }
