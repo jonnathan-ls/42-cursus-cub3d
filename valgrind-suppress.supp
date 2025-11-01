@@ -1109,62 +1109,113 @@
 }
 
 # ============================================================================
-# Supressões Genéricas para Bibliotecas de Sistema (Últimos Recursos)
+# Supressões Específicas para Inicialização MLX/GLFW
+# IMPORTANTE: Exige que o leak seja DIRETO da biblioteca, não do código cub3d
 # ============================================================================
 {
-   External_Libs_Calloc_Leaks
+   MLX_Init_Direct_Calloc
    Memcheck:Leak
    match-leak-kinds: all
    fun:calloc
+   obj:*/lib*.so*
    ...
    fun:mlx_init*
 }
 
 {
-   External_Libs_Calloc_All
+   MLX_Init_Direct_Malloc
    Memcheck:Leak
    match-leak-kinds: all
-   fun:calloc
+   fun:malloc
+   obj:*/lib*.so*
    ...
+   fun:mlx_init*
 }
 
 {
-   External_Libs_Calloc_Still_Reachable
+   GLX_Library_Direct_Malloc
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:malloc
+   obj:*/libGLX*.so*
+}
+
+{
+   GLX_Library_Direct_Calloc
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:calloc
+   obj:*/libGLX*.so*
+}
+
+{
+   Mesa_DRI_Direct_Malloc
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:malloc
+   obj:*/dri/*.so
+}
+
+{
+   Mesa_DRI_Direct_Calloc
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:calloc
+   obj:*/dri/*.so
+}
+
+# ============================================================================
+# Bibliotecas sem símbolos de debug (stack trace apenas com ???)
+# Essas supressões capturam leaks de bibliotecas que não foram compiladas
+# com debug symbols (-g), resultando em ??? no stack trace do Valgrind.
+# IMPORTANTE: Se o stack trace tem uma função do cub3d, NÃO será suprimido.
+# ============================================================================
+{
+   External_Lib_No_Symbols_Calloc_Still_Reachable
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:calloc
-   ...
+   fun:???
+   fun:???
+   fun:???
+   fun:???
 }
 
 {
-   External_Libs_Malloc_Leaks
+   External_Lib_No_Symbols_Calloc_Definitely_Lost
    Memcheck:Leak
-   match-leak-kinds: all
-   fun:malloc
-   ...
-   fun:mlx_init*
+   match-leak-kinds: definite
+   fun:calloc
+   fun:???
+   fun:???
+   fun:???
+   fun:???
 }
 
 {
-   External_Libs_Malloc_All
-   Memcheck:Leak
-   match-leak-kinds: all
-   fun:malloc
-   ...
-}
-
-{
-   External_Libs_Malloc_Indirect
+   External_Lib_No_Symbols_Malloc_Indirect
    Memcheck:Leak
    match-leak-kinds: indirect
    fun:malloc
-   ...
+   fun:???
+   fun:???
+   fun:???
+   fun:???
 }
 
 {
-   External_Libs_Memalign_Leaks
+   External_Lib_No_Symbols_Memalign_Possibly_Lost
    Memcheck:Leak
-   match-leak-kinds: all
+   match-leak-kinds: possible
    fun:memalign
-   ...
+   fun:???
+   fun:???
+   fun:???
+   fun:???
 }
+
+# ===========================================================================
+# NOTA: As supressões acima SÓ funcionam se o stack trace tiver pelo menos
+# 4 níveis de "???" consecutivos após malloc/calloc/memalign.
+# Se houver QUALQUER função nomeada do cub3d no stack, NÃO será suprimido.
+# ===========================================================================

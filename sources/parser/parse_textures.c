@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:23 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 23:59:04 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/01 19:48:25 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,11 @@ int	parse_texture(char *rest, char **dst_path)
 		return (parser_error("malloc failure"));
 	fd = open(*dst_path, O_RDONLY);
 	if (fd < 0)
+	{
+		free(*dst_path);
+		*dst_path = NULL;
 		return (parser_error("cannot open file"));
+	}
 	close(fd);
 	return (0);
 }
