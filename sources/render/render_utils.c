@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/11 19:53:35 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/08 16:47:18 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ uint32_t	calculate_ceiling_texture(t_engine *eng, int y, t_ray *ray,
 {
 	double	horizontal_pos;
 	double	vertical_pos;
-	double	pitch_offset;
 	int		tex_x;
 	int		tex_y;
 
@@ -140,10 +139,7 @@ uint32_t	calculate_ceiling_texture(t_engine *eng, int y, t_ray *ray,
 		return (eng->ceiling_color);
 	*distance = FOG_DISTANCE_MAX;
 	horizontal_pos = (ray->angle_cache + PI) / (CENTER_DIVISOR * PI);
-	pitch_offset = eng->player.pitch
-		* ((double)eng->window_height / PITCH_FACTOR);
-	vertical_pos = ((double)y + pitch_offset)
-		/ ((double)eng->window_height);
+	vertical_pos = (double)y / ((double)eng->window_height);
 	tex_x = (int)(horizontal_pos * eng->tex.ceiling->width)
 		% eng->tex.ceiling->width;
 	tex_y = (int)(vertical_pos * eng->tex.ceiling->height * 1.5);

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/01 19:25:22 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/08 16:59:12 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,10 @@
 # define CAMERA_X_OFFSET 1.0
 /** @brief Center calculation divisor. */
 # define CENTER_DIVISOR 2.0
-/** @brief Pitch calculation factor. */
-# define PITCH_FACTOR 4.0
+/** @brief Maximum upward pitch angle (looking up limit). */
+# define PITCH_MAX 0.5f
+/** @brief Maximum downward pitch angle (looking down limit). */
+# define PITCH_MIN -0.5f
 /** @brief Minimum texture clamp value. */
 # define TEXTURE_CLAMP_MIN 0
 /** @brief Texture clamp one value. */

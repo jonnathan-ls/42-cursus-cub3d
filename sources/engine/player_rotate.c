@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/08 00:12:47 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/08 16:50:25 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ static void	player_mouse_pitch(t_engine *eng, double delta_y)
 	{
 		pitch_amount = delta_y * MOUSE_SENSITIVITY;
 		eng->player.pitch += pitch_amount * eng->player.pitch_factor;
+		if (eng->player.pitch > PITCH_MAX)
+			eng->player.pitch = PITCH_MAX;
+		else if (eng->player.pitch < PITCH_MIN)
+			eng->player.pitch = PITCH_MIN;
 	}
 }
 
