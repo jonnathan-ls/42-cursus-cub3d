@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/01 19:10:13 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/08 16:31:40 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,17 @@ static void	free_game_resources(t_engine *eng, t_config *cfg)
 	mm_garbage_collector();
 }
 
+static int	is_invalid_args(int argc, char **argv)
+{
+	if (argc < 2 || argc > 3)
+		return (fail("usage: ./cub3d <map.cub> [-w]"));
+	if (validate_file_extension(argv[1]) < 0)
+		return (fail("invalid extension"));
+	if (argc == 3 && ft_strncmp(argv[2], "-w", 3) != 0)
+		return (fail("invalid option, use -w for windowed mode"));
+	return (0);
+}
+
 /**
  * Entry point of the program.
  * @param argc Argument count.
@@ -52,10 +63,8 @@ int	main(int argc, char **argv)
 
 	init_config_values(&cfg);
 	init_engine_values(&eng);
-	if (argc < 2 || argc > 3)
-		return (fail("usage: ./cub3d <map.cub> [-w]"));
-	if (validate_file_extension(argv[1]) < 0)
-		return (fail("invalid extension"));
+	if (is_invalid_args(argc, argv))
+		return (1);
 	if (parse_cub(argv[1], &cfg) < 0)
 	{
 		mm_garbage_collector();

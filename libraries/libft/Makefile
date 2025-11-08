@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 20:44:31 by jlacerda          #+#    #+#              #
-#    Updated: 2025/10/31 23:15:05 by jlacerda         ###   ########.fr        #
+#    Updated: 2025/11/08 16:33:49 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,8 +74,8 @@ $(NAME): $(OBJECTS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-	ar rcs $(NAME) $@
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@ar rcs $(NAME) $@
 
 clean:
 	rm -rf $(OBJS_DIR)
