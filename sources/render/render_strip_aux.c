@@ -75,6 +75,8 @@ uint32_t	shaded_pixel_from_pos(
 	uint32_t	col;
 	uint32_t	shaded;
 
+	if (!tex)
+		return (0x000000FF);
 	ty = (int)pos;
 	if (ty < TEXTURE_CLAMP_MIN)
 		ty = TEXTURE_CLAMP_MIN;

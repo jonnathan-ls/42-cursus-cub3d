@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:23 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/11/01 19:48:25 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/13 22:55:20 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parser.h"
+#include <MLX42/MLX42.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -33,6 +34,26 @@ static char	*trim_end(char *s)
 		len = len - 1;
 	}
 	return (s);
+}
+
+/**
+ * Validates PNG file extension.
+ * @param path Path to PNG file.
+ * @param dst_path Pointer to free on error.
+ * @return 0 on success, -1 on failure.
+ */
+static int	validate_png_format(char *path, char **dst_path)
+{
+	int	len;
+
+	len = ft_strlen(path);
+	if (len < 4 || ft_strncmp(&path[len - 4], ".png", 4) != 0)
+	{
+		free(*dst_path);
+		*dst_path = NULL;
+		return (parser_error("texture file must have .png extension"));
+	}
+	return (0);
 }
 
 /**
@@ -65,5 +86,5 @@ int	parse_texture(char *rest, char **dst_path)
 		return (parser_error("cannot open file"));
 	}
 	close(fd);
-	return (0);
+	return (validate_png_format(*dst_path, dst_path));
 }

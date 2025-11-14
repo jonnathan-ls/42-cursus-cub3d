@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/08 16:47:18 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/13 22:55:24 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ uint32_t	get_texture_pixel(mlx_texture_t *tex, int tex_x, int tex_y)
 	uint8_t		green;
 	uint8_t		blue;
 
+	if (!tex || !tex->pixels)
+		return (0x000000FF);
 	pixel_ptr = &tex->pixels[(tex_y * tex->width + tex_x) * RGBA_BYTES];
 	red = pixel_ptr[0];
 	green = pixel_ptr[1];
