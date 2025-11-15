@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 04:14:59 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/11/15 20:35:35 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,27 @@ static int	count_doors_in_map(t_engine *eng)
 }
 
 /**
+ * Initializes a single map cell entry inside the doors grid.
+ * @param eng Pointer to engine structure.
+ * @param x X coordinate inside the map.
+ * @param y Y coordinate inside the map.
+ * @param index Pointer to the running door index.
+ */
+static void	init_door_cell(t_engine *eng, int x, int y, int *index)
+{
+	eng->doors.grid[y][x] = -1;
+	if (eng->map[y][x] != 'D')
+		return ;
+	eng->doors.list[*index].x = x;
+	eng->doors.list[*index].y = y;
+	eng->doors.list[*index].is_open = 0;
+	eng->doors.list[*index].is_active = 1;
+	eng->doors.list[*index].offset = 0.0;
+	eng->doors.grid[y][x] = *index;
+	*index = *index + 1;
+}
+
+/**
  * Populates doors array with positions from map.
  * @param eng Pointer to engine structure.
  */
@@ -59,16 +80,7 @@ static void	fill_doors_array(t_engine *eng)
 		x = 0;
 		while (x < eng->map_width)
 		{
-			eng->doors.grid[y][x] = -1;
-			if (eng->map[y][x] == 'D')
-			{
-				eng->doors.list[index].x = x;
-				eng->doors.list[index].y = y;
-				eng->doors.list[index].is_open = 0;
-				eng->doors.list[index].offset = 0.0;
-				eng->doors.grid[y][x] = index;
-				index = index + 1;
-			}
+			init_door_cell(eng, x, y, &index);
 			x = x + 1;
 		}
 		y = y + 1;

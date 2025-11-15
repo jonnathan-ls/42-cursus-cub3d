@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 20:53:22 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/06 03:09:07 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/11/15 20:30:31 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static int	is_door_closed_at(t_engine *eng, int x, int y)
 	door_idx = eng->doors.grid[y][x];
 	if (door_idx < 0 || door_idx >= eng->doors.count)
 		return (1);
+	if (!eng->doors.list[door_idx].is_active)
+		return (0);
 	return (eng->doors.list[door_idx].offset < 1.0);
 }
 

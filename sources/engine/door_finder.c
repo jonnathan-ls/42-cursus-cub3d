@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 00:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 04:14:59 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/11/15 20:30:31 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,14 @@ int	find_nearest_door_index(t_engine *eng)
 	i = 0;
 	while (i < eng->doors.count)
 	{
-		door_x = (double)eng->doors.list[i].x + DOOR_CENTER_OFFSET;
-		door_y = (double)eng->doors.list[i].y + DOOR_CENTER_OFFSET;
-		if (is_in_radius(eng->player.pos_x, eng->player.pos_y,
-				door_x, door_y))
-			return (i);
+		if (eng->doors.list[i].is_active)
+		{
+			door_x = (double)eng->doors.list[i].x + DOOR_CENTER_OFFSET;
+			door_y = (double)eng->doors.list[i].y + DOOR_CENTER_OFFSET;
+			if (is_in_radius(eng->player.pos_x, eng->player.pos_y,
+					door_x, door_y))
+				return (i);
+		}
 		i = i + 1;
 	}
 	return (-1);
@@ -62,6 +65,8 @@ int	get_door_texture_offset(t_engine *eng, int map_x, int map_y)
 	door_idx = eng->doors.grid[map_y][map_x];
 	if (door_idx < 0 || door_idx >= eng->doors.count)
 		return (0);
+	if (!eng->doors.list[door_idx].is_active)
+		return (0);
 	cell_w = eng->window_width / eng->map_width;
 	return ((int)(eng->doors.list[door_idx].offset * (double)cell_w));
 }
@@ -83,6 +88,8 @@ int	door_is_open(t_engine *eng, int x, int y)
 		return (0);
 	door_idx = eng->doors.grid[y][x];
 	if (door_idx < 0 || door_idx >= eng->doors.count)
+		return (0);
+	if (!eng->doors.list[door_idx].is_active)
 		return (0);
 	return (eng->doors.list[door_idx].is_open);
 }
