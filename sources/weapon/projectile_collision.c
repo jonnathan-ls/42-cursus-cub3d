@@ -6,13 +6,14 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 15:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/06 00:24:47 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/14 21:29:55 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "weapon.h"
 #include "shared.h"
+#include "constants.h"
 
 /**
  * @brief Applies damage to sprite and triggers death animation.

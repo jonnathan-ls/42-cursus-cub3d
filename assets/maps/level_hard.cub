@@ -11,7 +11,7 @@ SP W ./assets/sprites/weapon_b.png 12 5
 SP w ./assets/sprites/attack.png 7 6
 
 FT ./assets/textures/floor.png
-CT ./assets/textures/sky.png
+CT ./assets/textures/ceiling.png
 DR ./assets/textures/door.png
 MN ./assets/textures/menu.png
 ST ./assets/textures/info_game.png
