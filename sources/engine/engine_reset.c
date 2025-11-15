@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_reset.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 00:21:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/01 17:01:00 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/13 22:55:25 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ static void	reset_engine_pointers(t_engine *eng)
 	eng->cursor = NULL;
 	eng->doors.list = NULL;
 	eng->z_buffer = NULL;
+	eng->sprites.textures = NULL;
+	eng->sprites.texture_count = 0;
+	eng->sprites.count = 0;
 }
 
 /**

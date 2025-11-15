@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/14 20:58:29 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/15 15:33:18 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ uint32_t	get_texture_pixel(mlx_texture_t *tex, int tex_x, int tex_y)
 	uint8_t		green;
 	uint8_t		blue;
 
+	if (!tex || !tex->pixels)
+		return (0x000000FF);
 	pixel_ptr = &tex->pixels[(tex_y * tex->width + tex_x) * RGBA_BYTES];
 	red = pixel_ptr[0];
 	green = pixel_ptr[1];
