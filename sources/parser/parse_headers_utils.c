@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_headers_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:01:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/23 22:09:42 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/15 20:03:43 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,19 @@ static int	handle_color_line(char *id, t_config *cfg)
 		rest++;
 	if (id[0] == 'F')
 	{
-		if (cfg->floor_color.rgba != -1)
+		if (cfg->floor_color_set)
 			return (parser_error("duplicate color identifier"));
 		if (parse_color(rest, &cfg->floor_color) < 0)
 			return (-1);
+		cfg->floor_color_set = 1;
 	}
 	else if (id[0] == 'C')
 	{
-		if (cfg->ceiling_color.rgba != -1)
+		if (cfg->ceiling_color_set)
 			return (parser_error("duplicate color identifier"));
 		if (parse_color(rest, &cfg->ceiling_color) < 0)
 			return (-1);
+		cfg->ceiling_color_set = 1;
 	}
 	return (0);
 }
