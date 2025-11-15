@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:53:39 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/13 22:55:24 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/11/15 15:33:18 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ uint32_t	calculate_floor_texture(t_engine *eng, int y, t_ray *ray,
 }
 
 /**
- * Calculates ceiling texture color at screen position.
+ * Calculates ceiling texture color using tiling.
  * @param eng Pointer to engine structure.
  * @param y Screen Y coordinate.
  * @param ray Pointer to ray structure.
@@ -132,24 +132,25 @@ uint32_t	calculate_floor_texture(t_engine *eng, int y, t_ray *ray,
 uint32_t	calculate_ceiling_texture(t_engine *eng, int y, t_ray *ray,
 	double *distance)
 {
-	double	horizontal_pos;
-	double	vertical_pos;
+	double	row_distance;
+	double	ceiling_x;
+	double	ceiling_y;
 	int		tex_x;
 	int		tex_y;
 
 	if (!eng->tex.ceiling)
 		return (eng->ceiling_color);
-	*distance = FOG_DISTANCE_MAX;
-	horizontal_pos = (ray->angle_cache + PI) / (CENTER_DIVISOR * PI);
-	vertical_pos = (double)y / ((double)eng->window_height);
-	tex_x = (int)(horizontal_pos * eng->tex.ceiling->width)
+	row_distance = calculate_row_distance(eng, y, 0);
+	*distance = row_distance;
+	ceiling_x = eng->player.pos_x + row_distance * ray->ray_dir_x;
+	ceiling_y = eng->player.pos_y + row_distance * ray->ray_dir_y;
+	tex_x = (int)(ceiling_x * eng->tex.ceiling->width)
 		% eng->tex.ceiling->width;
-	tex_y = (int)(vertical_pos * eng->tex.ceiling->height * 1.5);
+	tex_y = (int)(ceiling_y * eng->tex.ceiling->height)
+		% eng->tex.ceiling->height;
 	if (tex_x < TEXTURE_CLAMP_MIN)
 		tex_x = tex_x + eng->tex.ceiling->width;
 	if (tex_y < TEXTURE_CLAMP_MIN)
-		tex_y = TEXTURE_CLAMP_MIN;
-	if (tex_y >= (int)eng->tex.ceiling->height)
-		tex_y = eng->tex.ceiling->height - 1;
+		tex_y = tex_y + eng->tex.ceiling->height;
 	return (get_texture_pixel(eng->tex.ceiling, tex_x, tex_y));
 }

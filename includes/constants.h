@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/08 16:59:12 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/14 21:48:29 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@
 /** @brief Maximum shading intensity (brightest). */
 # define SHADE_MAX_INTENSITY 1.0f
 /** @brief Minimum shading intensity (darkest). */
-# define SHADE_MIN_INTENSITY 0.30f
+# define SHADE_MIN_INTENSITY 0.25f
 
 /** @brief Sprite type: enemy character. */
 # define SPRITE_TYPE_ENEMY 1
@@ -118,7 +118,9 @@
 /** @brief Damage dealt by projectile. */
 # define PROJECTILE_DAMAGE 25
 /** @brief Projectile movement speed. */
-# define PROJECTILE_SPEED 12.5
+# define PROJECTILE_SPEED 8
+/** @brief Maximum number of active projectiles in pool. */
+# define MAX_PROJECTILES 3
 
 /** @brief Cooldown between damage events in seconds. */
 # define DAMAGE_COOLDOWN 1.0
@@ -127,14 +129,14 @@
 /** @brief Sprite center offset for positioning. */
 # define SPRITE_CENTER_OFFSET 0.5
 /** @brief Enemy sprite movement speed. */
-# define SPRITE_MOVE_SPEED 0.5
+# define SPRITE_MOVE_SPEED 0.75
 
 /** @brief Collision detection margin buffer. */
 # define COLLISION_BUFFER 0.15
 /** @brief Door center offset for interaction. */
 # define DOOR_CENTER_OFFSET 0.5
 /** @brief Door opening animation speed. */
-# define DOOR_ANIM_SPEED 3.0
+# define DOOR_ANIM_SPEED 2.5
 /** @brief Delta time to 60 FPS conversion factor. */
 # define DELTA_TIME_FACTOR 60.0
 /** @brief Door interaction detection radius. */
@@ -182,7 +184,7 @@
 /** @brief Bytes per RGBA pixel. */
 # define RGBA_BYTES 4
 /** @brief Full map player indicator size. */
-# define FULLMAP_PLAYER_SIZE 5
+# define FULLMAP_PLAYER_SIZE 10
 /** @brief Default minimap zoom scale. */
 # define DEFAULT_MINIMAP_SCALE 1
 

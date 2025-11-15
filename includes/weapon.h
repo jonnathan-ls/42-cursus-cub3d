@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 15:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/10/23 21:14:55 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/14 21:31:22 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 # define WEAPON_H
 
 # include <MLX42/MLX42.h>
-
-/** @brief Maximum number of active projectiles in pool. */
-# define MAX_PROJECTILES 32
+# include "constants.h"
 
 /**
  * @struct s_projectile
