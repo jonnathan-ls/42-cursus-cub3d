@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_headers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:28 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/31 22:47:19 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/15 20:03:43 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,9 +159,9 @@ int	parse_headers(int fd, t_config *cfg, char **line_after_headers)
 		return (parser_error("missing WE texture"));
 	if (!cfg->textures.ea_path)
 		return (parser_error("missing EA texture"));
-	if (cfg->floor_color.rgba == -1)
+	if (!cfg->floor_color_set)
 		return (parser_error("missing F color"));
-	if (cfg->ceiling_color.rgba == -1)
+	if (!cfg->ceiling_color_set)
 		return (parser_error("missing C color"));
 	return (0);
 }

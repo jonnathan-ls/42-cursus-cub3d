@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 01:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/01 17:13:20 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/15 20:03:43 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ typedef struct s_config
 	t_textures	textures;
 	t_color		floor_color;
 	t_color		ceiling_color;
+	int			floor_color_set;
+	int			ceiling_color_set;
 }				t_config;
 
 int				normalize_map(t_map *map);

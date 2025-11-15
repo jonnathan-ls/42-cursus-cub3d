@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:23:48 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/11/01 17:31:29 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/15 20:03:43 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	init_config_values(t_config *cfg)
 	cfg->textures.sprite_count = 0;
 	cfg->floor_color.rgba = -1;
 	cfg->ceiling_color.rgba = -1;
+	cfg->floor_color_set = 0;
+	cfg->ceiling_color_set = 0;
 	cfg->map.grid = NULL;
 	cfg->map.width = 0;
 	cfg->map.height = 0;
