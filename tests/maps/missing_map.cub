@@ -1,0 +1,7 @@
+NO ./assets/textures/north.png
+SO ./assets/textures/south.png
+WE ./assets/textures/west.png
+EA ./assets/textures/east.png
+
+F 10,10,10
+C 240,240,240

@@ -393,11 +393,16 @@ make norminette
 ```bash
 # Run with memory leak detection
 make valgrind
+# External driver noise listed in valgrind-suppress.supp is ignored automatically
 
 # Test with different maps
 ./cub3d assets/maps/level_easy.cub
 ./cub3d assets/maps/level_medium.cub
 ./cub3d assets/maps/level_hard.cub
+
+# Full evaluation helper (build + norm + edge cases)
+./tests/run_tester.sh
+# or make tester
 ```
 
 ### Debugging

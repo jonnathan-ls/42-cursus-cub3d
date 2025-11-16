@@ -1,5 +1,6 @@
 cub3d
 tests/cub3d*
+tests/logs/
 objects/
 temp/
 *.o

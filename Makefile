@@ -180,6 +180,9 @@ valgrind: all
 	@echo "$(GREEN)$(BOLD)✅  Log saved to valgrind_system.log$(RESET)"
 	@echo "$(YELLOW)$(BOLD)📄  View with: less valgrind_system.log$(RESET)"
 
+tester: header
+	@./tests/run_tester.sh
+
 debug: CFLAGS := -Wall -Wextra -Werror -g3 -O0 $(INCLUDES)
 debug: fclean mlx42 libft
 	@$(MAKE) $(NAME) CFLAGS="-Wall -Wextra -Werror -g3 -O0 $(INCLUDES)"
@@ -194,4 +197,4 @@ header:
 		echo ;\
 	fi
 
-.PHONY: all clean fclean re header norminette valgrind debug libft mlx42 print_build
+.PHONY: all clean fclean re header norminette valgrind tester debug libft mlx42 print_build
