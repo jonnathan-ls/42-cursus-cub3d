@@ -60,6 +60,11 @@ void test_validate_map_chars() {
     if (validate_map_chars(&map) == -1) printf("  [PASS] invalid grid (X)\n"); else printf("  [FAIL] invalid grid (X)\n");    char *grid_really_invalid[] = {"111", "1?1", "111", NULL};
     map.grid = grid_really_invalid;
     if (validate_map_chars(&map) == -1) printf("  [PASS] really invalid grid (?)\n"); else printf("  [FAIL] really invalid grid (?)\n");
+
+    char *grid_bonus[] = {"111", "1D1", "1M1", "1C1", "111", NULL};
+    map.grid = grid_bonus;
+    map.height = 5;
+    if (validate_map_chars(&map) == 0) printf("  [PASS] bonus chars (D, M, C)\n"); else printf("  [FAIL] bonus chars (D, M, C)\n");
 }
 
 int main() {

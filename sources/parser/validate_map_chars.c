@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:04 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/11/20 08:05:15 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/11/20 14:42:51 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * Checks if character is valid for map.
  * @param c Character to validate.
  * @return 1 if valid, 0 otherwise.
- * @note Valid: 0,1,space,N,S,E,W,D.
+ * @note Valid: 0,1,space,N,S,E,W,D,M,H,C.
  */
 static int	is_valid_char(char c)
 {
@@ -24,7 +24,7 @@ static int	is_valid_char(char c)
 		return (1);
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);
-	if (c == 'D')
+	if (c == 'D' || c == 'M' || c == 'H' || c == 'C')
 		return (1);
 	return (0);
 }
