@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:23 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/11/13 22:55:20 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/11/20 07:38:44 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,10 @@ int	parse_texture(char *rest, char **dst_path)
 	fd = open(*dst_path, O_RDONLY);
 	if (fd < 0)
 	{
+		system_error(*dst_path);
 		free(*dst_path);
 		*dst_path = NULL;
-		return (parser_error("cannot open file"));
+		return (-1);
 	}
 	close(fd);
 	return (validate_png_format(*dst_path, dst_path));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_entry.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:37 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/11/01 19:08:52 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/20 07:38:44 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	config_metadata(const char *path, t_config *cfg, int *fd,
 	*first_map_line = NULL;
 	*fd = open(path, O_RDONLY);
 	if (*fd < 0)
-		return (parser_error("cannot open file"));
+		return (system_error(path));
 	if (parse_headers(*fd, cfg, first_map_line) < 0)
 		return (-1);
 	return (0);

@@ -144,7 +144,7 @@ function run_binary_test() {
 	local expectation="$2"
 	local timeout="$3"
 	local cmd_string="$4"
-	if ! should_skip_scenario "$label"; then
+	if should_skip_scenario "$label"; then
 		return
 	fi
 	local logfile="$LOG_DIR/${label}.log"
@@ -245,12 +245,25 @@ else
 fi
 
 if [ $RUN_BIN -eq 1 ]; then
+    echo "Running binary scenarios..."
+    echo "Count POSITIVE: ${#POSITIVE_TESTS[@]}"
+    echo "Count NEGATIVE: ${#NEGATIVE_TESTS[@]}"
 	for entry in "${POSITIVE_TESTS[@]}"; do
-		IFS=":::" read -r label expect timeout cmd <<< "$entry"
+		label="${entry%%:::*}"
+		rest="${entry#*:::}"
+		expect="${rest%%:::*}"
+		rest="${rest#*:::}"
+		timeout="${rest%%:::*}"
+		cmd="${rest#*:::}"
 		run_binary_test "$label" "$expect" "$timeout" "$cmd"
 	done
 	for entry in "${NEGATIVE_TESTS[@]}"; do
-		IFS=":::" read -r label expect timeout cmd <<< "$entry"
+		label="${entry%%:::*}"
+		rest="${entry#*:::}"
+		expect="${rest%%:::*}"
+		rest="${rest#*:::}"
+		timeout="${rest%%:::*}"
+		cmd="${rest#*:::}"
 		run_binary_test "$label" "$expect" "$timeout" "$cmd"
 	done
 else

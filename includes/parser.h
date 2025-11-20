@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 01:00:00 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/15 20:03:43 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/11/20 07:38:44 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int				locate_player(t_map *map);
 void			free_config(t_config *cfg);
 int				check_map_closed(t_map *map);
 int				parser_error(const char *msg);
+int				system_error(const char *prefix);
 int				validate_map_chars(t_map *map);
 void			init_config_values(t_config *cfg);
 int				parse_color(char *rest, t_color *dst);
