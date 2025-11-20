@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:02:46 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/11/08 16:31:40 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/20 08:10:11 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	is_invalid_args(int argc, char **argv)
 	if (argc < 2 || argc > 3)
 		return (fail("usage: ./cub3d <map.cub> [-w]"));
 	if (validate_file_extension(argv[1]) < 0)
-		return (fail("invalid extension"));
+		return (1);
 	if (argc == 3 && ft_strncmp(argv[2], "-w", 3) != 0)
 		return (fail("invalid option, use -w for windowed mode"));
 	return (0);
@@ -68,7 +68,7 @@ int	main(int argc, char **argv)
 	if (parse_cub(argv[1], &cfg) < 0)
 	{
 		mm_garbage_collector();
-		return (fail("parse failure"));
+		return (1);
 	}
 	eng.fullscreen = ft_strncmp(argv[2], "-w", 3);
 	if (configure_engine(&eng, &cfg) < 0)

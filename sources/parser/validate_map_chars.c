@@ -3,32 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map_chars.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 05:24:04 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/10/05 23:48:36 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/11/20 08:05:15 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
 /**
- * Checks if character is a sprite identifier.
- * @param c Character to check.
- * @return 1 if sprite char, 0 otherwise.
- */
-static int	is_sprite_char(char c)
-{
-	if (c >= 'A' && c <= 'Z')
-		return (1);
-	return (0);
-}
-
-/**
  * Checks if character is valid for map.
  * @param c Character to validate.
  * @return 1 if valid, 0 otherwise.
- * @note Valid: 0,1,space,N,S,E,W,D, and sprite chars A-Z.
+ * @note Valid: 0,1,space,N,S,E,W,D.
  */
 static int	is_valid_char(char c)
 {
@@ -37,8 +25,6 @@ static int	is_valid_char(char c)
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);
 	if (c == 'D')
-		return (1);
-	if (is_sprite_char(c))
 		return (1);
 	return (0);
 }

@@ -56,15 +56,8 @@ void test_validate_map_chars() {
 
     char *grid_invalid[] = {"111", "1X1", "111", NULL};
     map.grid = grid_invalid;
-    // X is valid if sprites are allowed (A-Z).
-    // If validate_map_chars allows A-Z, then this should return 0.
-    // But run_tester.sh expects failure for unknown symbol.
-    // RESULT: It returns 0 (Allowed). This explains why run_tester.sh fails (it expects error).
-    int ret = validate_map_chars(&map);
-    if (ret == 0) printf("  [PASS] invalid grid (X) - ALLOWED by code\n");
-    else printf("  [FAIL] invalid grid (X) - REJECTED by code (ret=%d)\n", ret);
-
-    char *grid_really_invalid[] = {"111", "1?1", "111", NULL};
+    // X is now invalid.
+    if (validate_map_chars(&map) == -1) printf("  [PASS] invalid grid (X)\n"); else printf("  [FAIL] invalid grid (X)\n");    char *grid_really_invalid[] = {"111", "1?1", "111", NULL};
     map.grid = grid_really_invalid;
     if (validate_map_chars(&map) == -1) printf("  [PASS] really invalid grid (?)\n"); else printf("  [FAIL] really invalid grid (?)\n");
 }
